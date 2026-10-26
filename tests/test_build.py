@@ -32,6 +32,35 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(catalog['objects']['S001#observations/multi-read']['kind'],'observation')
         self.assertTrue(any(r['from']=='D001#criteria/recurrence' and r['to']=='S001' for r in refs))
         self.assertTrue(any(r.get('address')=='D001#relations/I001' for r in refs))
+    def test_title_attributes_render_as_plain_text(self):
+        title='A & "B" <C> *D*'
+        for path in (S,D,I,'guides/index.xml'):
+            tree=ET.parse(str(self.root/path))
+            for node in tree.getroot().iter():
+                if 'title' in node.attrib:node.set('title',title)
+            tree.write(str(self.root/path),encoding='UTF-8')
+        docs,_,_=build(self.root)
+        for doc in docs:
+            if doc['source'] not in (S,D,I,'guides/index.xml'):continue
+            self.assertEqual(doc['meta']['title'],title)
+            self.assertEqual(doc['node'].findall('.//a:title',N),[])
+            count=len(doc['node'].xpath('descendant-or-self::*[@title]'))
+            h=(self.root/'dist'/doc['path']).read_text()
+            m=(self.root/'dist/markdown'/Path(doc['path']).with_suffix('.md')).read_text()
+            self.assertEqual(h.count('A &amp; &quot;B&quot; &lt;C&gt; *D*'),count+1)
+            self.assertEqual(m.count(r'A & "B" \<C\> \*D\*'),count)
+    def test_title_attributes_required(self):
+        for path in (S,D,I,'guides/index.xml'):
+            original=(self.root/path).read_bytes()
+            tree=ET.fromstring(original)
+            for node in tree.iter():
+                if 'title' not in node.attrib:continue
+                with self.subTest(path=path,tag=node.tag):
+                    title=node.attrib.pop('title')
+                    (self.root/path).write_bytes(ET.tostring(tree))
+                    with self.assertRaises(ValueError):load(self.root)
+                    node.set('title',title)
+            (self.root/path).write_bytes(original)
     def test_intervention_reference_has_only_target_and_condition(self):
         _,_,_,refs=load(self.root)
         relation=next(r for r in refs if r['relation']=='intervention-ref')

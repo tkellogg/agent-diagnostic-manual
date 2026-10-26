@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:asm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive">
-  <title>Unproductive repeated retrieval</title>
+<diagnosis xmlns="urn:asm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive" title="Unproductive repeated retrieval">
   <summary>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</summary>
   <relations>
     <symptom-ref ref="S001"/>
@@ -13,21 +12,17 @@
     <p>The assessed system includes model, harness, tools, memory, instructions, and environment. The diagnosis does not by itself attribute failure to any one component. It also does not claim a human-like compulsion, anxiety, or subjective experience.</p>
   </definition>
   <criteria operator="all">
-    <criterion id="recurrence">
-      <title>Recurrence</title>
+    <criterion id="recurrence" title="Recurrence">
       <p>the episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone.</p>
       <symptom-ref ref="S001"/>
     </criterion>
-    <criterion id="low-value">
-      <title>Low additional value</title>
+    <criterion id="low-value" title="Low additional value">
       <p>the repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose.</p>
     </criterion>
-    <criterion id="functional-consequence">
-      <title>Functional consequence</title>
+    <criterion id="functional-consequence" title="Functional consequence">
       <p>the trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned.</p>
     </criterion>
-    <criterion id="alternative-assessment">
-      <title>Alternative assessment</title>
+    <criterion id="alternative-assessment" title="Alternative assessment">
       <p>the exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure.</p>
     </criterion>
     <p>No fixed number of calls, duration, or cost threshold is established. These criteria need testing for reviewer agreement and useful discrimination.</p>
@@ -45,32 +40,27 @@
   </exclusions>
   <differential>
     <p>These are competing explanations to investigate, not additional ASM diagnoses.</p>
-    <alternative id="useful-refresh">
-      <title>Useful refresh or different information need</title>
+    <alternative id="useful-refresh" title="Useful refresh or different information need">
       <discriminator>
         <p>Compare source versions, requested ranges, decision purpose, and information gained.</p>
       </discriminator>
     </alternative>
-    <alternative id="failed-delivery">
-      <title>Failed or truncated delivery</title>
+    <alternative id="failed-delivery" title="Failed or truncated delivery">
       <discriminator>
         <p>Inspect the exact result supplied to the model; a backend success response alone is insufficient.</p>
       </discriminator>
     </alternative>
-    <alternative id="context-loss">
-      <title>Loss from active context</title>
+    <alternative id="context-loss" title="Loss from active context">
       <discriminator>
         <p>Inspect pre-call inputs and compaction boundaries; assess whether needed evidence is missing.</p>
       </discriminator>
     </alternative>
-    <alternative id="required-checks">
-      <title>Instructions demand another check</title>
+    <alternative id="required-checks" title="Instructions demand another check">
       <discriminator>
         <p>Identify the operative rule and its scope; compare a controlled run with that rule clarified where legitimate.</p>
       </discriminator>
     </alternative>
-    <alternative id="available-evidence">
-      <title>Repetition despite adequate visible evidence</title>
+    <alternative id="available-evidence" title="Repetition despite adequate visible evidence">
       <discriminator>
         <p>Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth.</p>
       </discriminator>

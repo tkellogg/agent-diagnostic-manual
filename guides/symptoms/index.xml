@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<guide xmlns="urn:asm:1" id="symptoms" version="1" status="draft" updated="2026-10-26">
-  <title>Symptoms</title>
+<guide xmlns="urn:asm:1" id="symptoms" version="1" status="draft" updated="2026-10-26" title="Symptoms">
   <summary>Begin with an observable feature, without assuming dysfunction or cause.</summary>
   <sections>
-    <section id="overview">
-      <title>Overview</title>
+    <section id="overview" title="Overview">
       <p>A symptom entry describes something observable. Its presence alone does not establish a failure.</p>
       <ul>
         <li><ref target="S001">S001 — Repeated retrieval</ref>: repeated attempts to obtain substantially the same information.</li>

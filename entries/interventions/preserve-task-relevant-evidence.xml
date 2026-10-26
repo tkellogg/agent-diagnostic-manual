@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:asm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26">
-  <title>Preserve task-relevant evidence</title>
+<intervention xmlns="urn:asm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Preserve task-relevant evidence">
   <summary>Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</summary>
   <targets>
     <target>context-policy</target>
