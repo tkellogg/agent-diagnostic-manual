@@ -30,7 +30,7 @@ Follow [Repeated retrieval](symptoms/repeated-retrieval.md) to [Unproductive rep
 
 ## How this is organized
 
-Read [Structure and design decisions](structure.md) for the source format and relationship model, and [Diagnostic foundations](foundations.md) for the distinctions behind it.
+Read the [XML format contract](format.md) and [Structure and design decisions](structure.md) for the source format and relationship model, and [Diagnostic foundations](foundations.md) for the distinctions behind it.
 
 This manual describes operational behavior. It does not attribute human psychiatric conditions or subjective experiences to agents. The initial unit of assessment is an **episode of a configured system**: model, instructions, memory, tools, harness, and environment.
 

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:a="urn:asm:1" targetNamespace="urn:asm:1" elementFormDefault="qualified">
+  <xs:simpleType name="text"><xs:restriction base="xs:token"><xs:minLength value="1"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="status"><xs:restriction base="xs:string"><xs:enumeration value="draft"/><xs:enumeration value="reviewed"/><xs:enumeration value="retired"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="evidence"><xs:restriction base="xs:string"><xs:enumeration value="unvalidated"/><xs:enumeration value="case-supported"/><xs:enumeration value="replicated"/></xs:restriction></xs:simpleType>
+  <xs:simpleType name="role"><xs:restriction base="xs:string"><xs:enumeration value="investigation"/><xs:enumeration value="remediation"/><xs:enumeration value="both"/></xs:restriction></xs:simpleType>
+  <xs:attributeGroup name="identified"><xs:attribute name="id" type="xs:ID" use="required"/></xs:attributeGroup>
+  <xs:attributeGroup name="entry"><xs:attributeGroup ref="a:identified"/><xs:attribute name="version" type="xs:positiveInteger" use="required" fixed="1"/><xs:attribute name="status" type="a:status" use="required"/><xs:attribute name="evidence" type="a:evidence" use="required"/><xs:attribute name="updated" type="xs:date" use="required"/></xs:attributeGroup>
+  <xs:group name="inline"><xs:choice><xs:element ref="a:strong"/><xs:element ref="a:em"/><xs:element ref="a:code"/><xs:element ref="a:a"/><xs:element ref="a:ref"/></xs:choice></xs:group>
+  <xs:complexType name="inlineText" mixed="true"><xs:group ref="a:inline" minOccurs="0" maxOccurs="unbounded"/></xs:complexType>
+  <xs:element name="strong" type="a:inlineText"/><xs:element name="em" type="a:inlineText"/><xs:element name="code" type="xs:string"/>
+  <xs:element name="ref"><xs:complexType mixed="true"><xs:group ref="a:inline" minOccurs="0" maxOccurs="unbounded"/><xs:attribute name="target" type="xs:NCName" use="required"/></xs:complexType></xs:element>
+  <xs:element name="a"><xs:complexType mixed="true"><xs:group ref="a:inline" minOccurs="0" maxOccurs="unbounded"/><xs:attribute name="href" type="xs:anyURI" use="required"/></xs:complexType></xs:element>
+  <xs:element name="p" type="a:inlineText"/>
+  <xs:element name="ul" type="a:list"/><xs:element name="ol" type="a:list"/>
+  <xs:complexType name="list"><xs:sequence><xs:element name="li" type="a:inlineText" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+  <xs:group name="blocks"><xs:choice><xs:element ref="a:p"/><xs:element ref="a:ul"/><xs:element ref="a:ol"/></xs:choice></xs:group>
+  <xs:complexType name="blocks"><xs:group ref="a:blocks" minOccurs="1" maxOccurs="unbounded"/></xs:complexType>
+  <xs:complexType name="section"><xs:group ref="a:blocks" minOccurs="1" maxOccurs="unbounded"/><xs:attributeGroup ref="a:identified"/></xs:complexType>
+  <xs:group name="metadata"><xs:sequence><xs:element name="title" type="a:text"/><xs:element name="summary" type="a:text"/><xs:element name="tags"><xs:complexType><xs:sequence><xs:element name="tag" type="a:text" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:group>
+  <xs:element name="symptom-ref"><xs:complexType><xs:attribute name="ref" type="xs:NCName" use="required"/></xs:complexType></xs:element>
+  <xs:element name="intervention-ref"><xs:complexType><xs:sequence><xs:element name="when" type="a:text"/></xs:sequence><xs:attributeGroup ref="a:identified"/><xs:attribute name="ref" type="xs:NCName" use="required"/><xs:attribute name="role" type="a:role" use="required"/><xs:attribute name="evidence" type="a:evidence" use="required"/></xs:complexType></xs:element>
+  <xs:complexType name="relations"><xs:sequence><xs:element ref="a:symptom-ref" maxOccurs="unbounded"/><xs:element ref="a:intervention-ref" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType>
+  <xs:complexType name="criterion"><xs:sequence><xs:element name="title" type="a:text"/><xs:group ref="a:blocks" maxOccurs="unbounded"/><xs:element ref="a:symptom-ref" minOccurs="0" maxOccurs="unbounded"/></xs:sequence><xs:attributeGroup ref="a:identified"/></xs:complexType>
+  <xs:complexType name="criteria"><xs:sequence><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/><xs:element name="criterion" type="a:criterion" maxOccurs="unbounded"/><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/></xs:sequence><xs:attributeGroup ref="a:identified"/><xs:attribute name="operator" use="required" fixed="all"/></xs:complexType>
+  <xs:complexType name="item"><xs:group ref="a:blocks" maxOccurs="unbounded"/><xs:attributeGroup ref="a:identified"/></xs:complexType>
+  <xs:complexType name="exclusions"><xs:sequence><xs:element name="exclusion" type="a:item" maxOccurs="unbounded"/></xs:sequence><xs:attributeGroup ref="a:identified"/></xs:complexType>
+  <xs:complexType name="alternative"><xs:sequence><xs:element name="title" type="a:text"/><xs:element name="discriminator" type="a:blocks"/></xs:sequence><xs:attributeGroup ref="a:identified"/></xs:complexType>
+  <xs:complexType name="differential"><xs:sequence><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/><xs:element name="alternative" type="a:alternative" maxOccurs="unbounded"/><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/></xs:sequence><xs:attributeGroup ref="a:identified"/></xs:complexType>
+
+<xs:complexType name="preconditions"><xs:sequence><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/><xs:element name="precondition" type="a:item" maxOccurs="unbounded"/><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/></xs:sequence><xs:attributeGroup ref="a:identified"/></xs:complexType>
+<xs:complexType name="procedure"><xs:sequence><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/><xs:element name="step" type="a:item" maxOccurs="unbounded"/><xs:element ref="a:p" minOccurs="0" maxOccurs="unbounded"/></xs:sequence><xs:attributeGroup ref="a:identified"/></xs:complexType>
+<xs:element name="symptom"><xs:complexType><xs:sequence><xs:group ref="a:metadata"/>
+<xs:element name="observation" type="a:section"/>
+<xs:element name="how-to-recognize-it" type="a:section"/>
+<xs:element name="benign-lookalikes" type="a:section"/>
+<xs:element name="what-to-record" type="a:section"/>
+<xs:element name="examples" type="a:section"/>
+</xs:sequence><xs:attributeGroup ref="a:entry"/>
+</xs:complexType></xs:element>
+<xs:element name="diagnosis"><xs:complexType><xs:sequence><xs:group ref="a:metadata"/>
+<xs:element name="relations" type="a:relations"/>
+<xs:element name="definition" type="a:section"/>
+<xs:element name="criteria" type="a:criteria"/>
+<xs:element name="exclusions" type="a:exclusions"/>
+<xs:element name="differential" type="a:differential"/>
+<xs:element name="investigation" type="a:section"/>
+<xs:element name="interventions" type="a:section"/>
+<xs:element name="evidence-and-uncertainty" type="a:section"/>
+</xs:sequence><xs:attributeGroup ref="a:entry"/>
+<xs:attribute name="unit" use="required" fixed="configured-agent-episode"/><xs:attribute name="level" use="required"><xs:simpleType><xs:restriction base="xs:string"><xs:enumeration value="descriptive"/><xs:enumeration value="mechanistic"/></xs:restriction></xs:simpleType></xs:attribute>
+</xs:complexType></xs:element>
+<xs:element name="intervention"><xs:complexType><xs:sequence><xs:group ref="a:metadata"/>
+<xs:element name="targets"><xs:complexType><xs:sequence><xs:element name="target" type="a:text" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element>
+<xs:element name="purpose" type="a:section"/>
+<xs:element name="preconditions" type="a:preconditions"/>
+<xs:element name="procedure" type="a:procedure"/>
+<xs:element name="evaluation" type="a:section"/>
+<xs:element name="risks-and-confounders" type="a:section"/>
+<xs:element name="stop-and-rollback" type="a:section"/>
+<xs:element name="evidence-and-uncertainty" type="a:section"/>
+</xs:sequence><xs:attributeGroup ref="a:entry"/>
+</xs:complexType></xs:element>
+</xs:schema>
+

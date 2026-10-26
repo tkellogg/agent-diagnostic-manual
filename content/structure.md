@@ -9,95 +9,73 @@ updated: "2026-10-26"
 ---
 # Structure and design decisions
 
-## Decision: Markdown with YAML frontmatter
+## Purpose: a format other tools can use
 
-Use one Markdown file per symptom, diagnosis, or intervention. YAML frontmatter is parsed with a safe loader and checked against a JSON Schema. Prose remains easy to review in GitHub, a text editor, or the rendered site.
+ASM is intended to support an ecosystem of independently built tools. The corpus and its documented format should be useful without an LLM, a hosted service, or this repository's Python code. The included builder is a reference implementation.
 
-XML could express more deeply structured criteria, but it would add markup to every paragraph before we know which concepts deserve formal structure. We do not currently need that tradeoff. Ordinary scripts can parse the frontmatter and consume the generated JSON catalog. If a future evaluator must execute criteria, introduce a versioned structured criteria format; do not silently extract authoritative logic from prose.
+This is a design commitment, not a claim that an ecosystem or a validated diagnostic science already exists. The repository remains private while the format and first entries develop. Publication and licensing are future decisions.
 
-The canonical source is the Markdown file. HTML and JSON are derived outputs, never independently edited.
+## Decision: canonical XML, generated Markdown
+
+One XML document per symptom, diagnosis, or intervention lives under `entries/`. Its metadata, criteria, relationships, and prose share one canonical document. The namespace is `urn:asm:1`; the schema is XSD 1.0.
+
+The builder produces readable Markdown in `content/` and a static site plus JSON catalog in `dist/`. Generated Markdown is committed so GitHub is a usable reader. Each generated page links to its XML source. CI rejects stale generated pages.
+
+General guides and index pages remain authored Markdown: they explain the project rather than define diagnostic objects. Their frontmatter describes navigation and presentation only.
 
 ## Directory layout
 
-| Path | Purpose |
+| Path | Authority and purpose |
 | --- | --- |
-| `content/index.md` | Site entry point. |
-| `content/symptoms/*.md` | One observable feature per entry, plus an index. |
-| `content/diagnoses/*.md` | One candidate diagnostic pattern per entry, plus an index. |
-| `content/interventions/*.md` | One reusable investigation or remediation protocol per entry, plus an index. |
-| `content/cases/index.md` | Evidence policy; case schema deferred until the first real trace. |
-| `content/structure.md`, `content/foundations.md` | Design contract and conceptual background. |
-| `schema/entry.schema.json` | Machine-checked metadata contract. |
-| `tools/build.py` | Validate, render, and emit catalog/backlinks. |
-| `dist/` | Ignored build output; no deployment is configured. |
-
-Index pages have `kind: guide`; they are not extra symptom or diagnosis entries.
+| `entries/symptoms/*.xml` | Canonical symptom documents. |
+| `entries/diagnoses/*.xml` | Canonical diagnostic documents. |
+| `entries/interventions/*.xml` | Canonical intervention documents. |
+| `schema/asm-v1.xsd` | Normative XML grammar and vocabulary. |
+| `content/format.md` | Normative cross-document rules and semantics the XSD cannot enforce. |
+| `content/symptoms/*.md`, `content/diagnoses/*.md`, `content/interventions/*.md` | Generated reader pages, except authored `index.md` files. |
+| `content/*.md`, `content/cases/index.md` | Authored guides and navigation. |
+| `schema/guide.schema.json` | Guide frontmatter validation only. |
+| `tools/` | Reference reader, validator, and builders. |
+| `examples/query_manual.py` | Independent consumer using only Python's standard library. |
+| `tests/` | Executable conformance and rendering examples. |
+| `dist/` | Disposable static HTML and JSON output; never canonical. |
 
 ## Relationship model
 
-A diagnosis names its relevant symptoms by stable ID. It can link to several interventions. One intervention can be linked from several diagnoses. The builder derives reverse links; authors maintain each relationship in one direction only.
+A diagnosis refers to symptoms by ID. An individual criterion can also reference a symptom. Intervention applicability is its own identified relationship: `D001-I001` records the target, role, evidence, and condition for applying I001 to D001.
 
-An intervention link records **role**, **when**, and **evidence**. Role is `investigation`, `remediation`, or `both`. A procedure can improve performance while providing only weak evidence for a particular mechanism. Applicability is a statement to review, not an automatically executable predicate.
+A protocol can serve several diagnoses, and a diagnosis can link to several protocols. Reverse links are derived. Prose references use `<ref target="D001-A">` and can address an individual criterion without knowing its filename.
 
-Today the graph is [D001](diagnoses/unproductive-repeated-retrieval.md) → [S001](symptoms/repeated-retrieval.md), and D001 → [I001](interventions/preserve-task-relevant-evidence.md). The second relationship is conditional on suspected loss of evidence from the active context.
+Today there is one [symptom](symptoms/repeated-retrieval.md), one [diagnosis](diagnoses/unproductive-repeated-retrieval.md), and one [intervention](interventions/preserve-task-relevant-evidence.md). Criteria, exclusions, differential alternatives, preconditions, and procedure steps have their own IDs. This does not add new diagnoses.
 
 ## Content contract
 
-Every page has these frontmatter fields:
+The [XML format contract](format.md) specifies identity, typed references, document order, version handling, and mixed prose. The XSD validates individual documents. A conforming corpus validator also checks uniqueness and reference integrity across documents.
 
-| Field | Meaning |
-| --- | --- |
-| `schema_version` | Integer metadata contract version; currently `1`. |
-| `id` | Unique, stable identifier. Entry prefixes: `S`, `D`, `I`; guide IDs are descriptive. |
-| `kind` | `guide`, `symptom`, `diagnosis`, or `intervention`. |
-| `title`, `summary` | Display title and concise abstract. |
-| `status` | Editorial state: `draft`, `reviewed`, or `retired`. Review does not imply empirical validation. |
-| `updated` | Quoted ISO date, `YYYY-MM-DD`. |
+A consumer can choose its implementation: standard XML parsing, XPath, a different language, another renderer, or the generated JSON. No consumer must import `tools/`.
 
-Entry pages additionally require `evidence` and `tags`. Initial evidence values are `unvalidated`, `case-supported`, and `replicated`. These are reporting labels, not severity or numerical confidence scores. Evidence promotion needs linked, inspectable records; the current corpus is entirely unvalidated. Case-supported means a documented empirical case supports the entry's claim, not that a causal mechanism is proven. Replicated requires documented repetition and stated conditions; it never means universal.
-
-Diagnoses additionally require `unit`, `diagnostic_level` (`descriptive` or `mechanistic`), `symptoms`, and `interventions`. Symptoms are referenced by ID. Intervention relationships look like this:
-
-```yaml
-interventions:
-  - id: I001
-    role: both
-    when: Necessary evidence appears to be lost from the active context.
-    evidence: unvalidated
-```
-
-Interventions require `targets`, a list naming the system components they change. No default intervention is implied by listing one.
-
-The schema rejects unknown fields. Additions require an explicit contract update so misspelled metadata does not quietly disappear. Stable IDs survive title and filename changes. Use native relative Markdown links in prose; fix incoming links when moving a file. Relationship IDs are resolved to current paths at build time.
-
-## Prose contract
-
-Each entry uses fixed second-level headings, validated by the builder. Within those sections, use free text, tables, and lists.
-
-| Kind | Required sections |
-| --- | --- |
-| Symptom | Observation; How to recognize it; Benign lookalikes; What to record; Examples |
-| Diagnosis | Definition; Candidate criteria; Exclusions; Differential diagnosis; Investigation; Interventions; Evidence and uncertainty |
-| Intervention | Purpose; Preconditions; Procedure; Evaluation; Risks and confounders; Stop and rollback; Evidence and uncertainty |
-
-Criteria receive local labels such as A–D in prose for review and discussion. They are not executable rules. Relationship metadata is authoritative for catalog links; prose explains the relationship rather than maintaining a second reverse-link list.
+Structured criteria remain statements that require assessment. For example, `operator="all"` means all the listed criteria must be supported; it does not provide an algorithm for judging them. Applicability conditions are likewise explicit prose, not executable predicates.
 
 ## Interventions: proposed structure
 
-Keep interventions first-class and independent of diagnoses. A protocol describes what changes, which prerequisites must hold, how to evaluate it, and when to stop or undo it. The diagnosis owns the conditional applicability link.
+Keep interventions independent and reusable. An intervention defines its purpose, preconditions, identified steps, evaluation, risks, rollback, and uncertainty. The diagnosis owns the applicability relationship.
 
-For the first example, preserving evidence can be both a diagnostic probe and a possible remedy. These uses share a protocol but make different claims. A successful outcome supports usefulness under the tested conditions; it does not establish the cause by itself.
+A relationship's role is `investigation`, `remediation`, or `both`. Role does not imply effectiveness. Its evidence label describes support for that particular use; the intervention's own evidence label describes the protocol more broadly.
 
-Do not encode an intervention as “treatment for D001” without conditions. Do not let a symptom directly trigger automatic production changes. This manual records protocols for deliberate evaluation; it is not an autonomous remediation engine.
+For I001, preserving evidence can be a diagnostic probe and a potential remedy. A successful task outcome does not establish the mechanism. Applications may build tools around these records, but the format does not authorize automatic production changes.
+
+## Compatibility and independent implementations
+
+Stable IDs are the public handles. Do not recycle them or change them when moving files. Distinguish format version, source revision, editorial status, and empirical support. Consumers should retain a Git revision when recording an assessment so a reference identifies the wording assessed.
+
+This first XML contract is a draft. Changes to it must update the schema, format document, fixtures, and tests together. Before outside consumers depend on a release, define the release's compatibility policy. A future incompatible format needs a new namespace/version and an explicit migration; do not teach consumers to guess silently.
+
+No mandatory extension framework is introduced yet. Version 1 rejects unknown elements and attributes. Keep experimental consumer data outside canonical documents until an extension contract is designed. This avoids silently losing fields an independent tool thought were meaningful.
 
 ## Evidence and growth
 
-Keep category validity separate from confidence in a specific case. New entries start as drafts with unvalidated evidence. Use [case records](cases/index.md) when empirical material arrives. Synthetic examples teach distinctions but cannot promote evidence status.
-
-A useful next increment is one real trace plus a healthy comparison for the existing entry. Revise or split a category only when cases justify it. Do not create a second diagnosis simply to fill the directory.
+Category validity and confidence in a case remain separate. Current entries are drafts with unvalidated evidence. Synthetic examples do not count as observations or successful interventions. The next empirical increment is still a real trace and a healthy comparison; see [cases](cases/index.md).
 
 ## Deliberately deferred
 
-Severity levels, severity scores, and severity thresholds are absent from the schema. We can describe observed cost and outcome without defining a grading system.
-
-Also deferred: formal case schema, executable criteria, automated diagnosis, intervention ranking, prevalence estimates, comprehensive taxonomy, and public hosting.
+Severity levels and thresholds remain absent. Other deferred topics include a formal case schema, executable assessment rules, intervention ranking, prevalence, a comprehensive taxonomy, public hosting, and a release license. XML creates addressable content; it does not resolve these research or governance questions.

@@ -9,6 +9,11 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
+try:
+    from .xml_entries import load_entries, markdown_entry, document, ast
+except ImportError:
+    from xml_entries import load_entries, markdown_entry, document, ast
 from urllib.parse import unquote, urlsplit, urlunsplit
 import markdown
 import yaml
@@ -82,7 +87,18 @@ def resolve_local(source, href, content_root):
 
 def load(content_root: Path, schema_path: Path):
     validator = Draft202012Validator(json.loads(schema_path.read_text()), format_checker=FormatChecker())
-    pages = [parse(p, content_root, validator) for p in sorted(content_root.rglob('*.md'))]
+    entries, objects, xml_refs = load_entries(content_root.parent)
+    generated = {e['path'] for e in entries}
+    pages = [parse(p, content_root, validator) for p in sorted(content_root.rglob('*.md'))
+             if p.relative_to(content_root).as_posix() not in generated]
+    for entry in entries:
+        body = markdown_entry(entry, objects)
+        rendered = markdown.markdown(body, extensions=['tables', 'fenced_code', 'toc'])
+        links = Links()
+        links.feed(rendered)
+        pages.append({'meta':entry['meta'], 'body':body, 'html':rendered,
+                      'path':entry['path'], 'links':links, 'xml_source':entry['source'],
+                      'xml':ast(entry['node'])})
     by_id = {}
     by_path = {p['path']: p for p in pages}
     edges = []
@@ -160,25 +176,46 @@ header{background:#182d3e;border-bottom:4px solid #65bdb0}nav{max-width:1120px;m
 main{max-width:1000px;margin:55px auto;padding:0 28px}h1{font-size:clamp(30px,5vw,45px);line-height:1.18;letter-spacing:-.035em;margin:22px 0 30px}h2{font-size:24px;margin:42px 0 14px;line-height:1.3}h3{font-size:20px}p,li{max-width:82ch}a{color:var(--accent);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible{outline:3px solid #c77b2c;outline-offset:4px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700}.abstract{color:var(--muted);font-size:19px;max-width:72ch}table{border-collapse:collapse;width:100%;font-size:15px;margin:24px 0}th,td{border-bottom:1px solid var(--line);padding:14px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#eaf0ef;font-size:13px}code{background:#eaf0ef;padding:2px 5px;border-radius:3px;font-size:.87em}pre{background:#182d3e;color:#f4f8f7;border-radius:8px;padding:22px;overflow:auto}pre code{background:none;padding:0}li{margin:9px 0}aside{margin-top:48px;border:1px solid var(--line);border-left:4px solid #65bdb0;padding:8px 24px 20px;background:#fff}aside h2{margin-top:18px}aside ul{padding-left:20px}aside small{color:var(--muted);display:block;font-size:12px}aside p{margin:4px 0 18px;font-size:15px}footer{max-width:1000px;margin:60px auto 30px;padding:24px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:white;padding:10px} @media(max-width:600px){nav{gap:14px;padding:18px}main{padding:0 18px;margin:32px auto}th,td{padding:10px 7px;font-size:13px}h2{margin-top:32px}footer{padding:20px 18px}}
 '''
 
-def build(root=ROOT, check=False):
-    pages, by_id, edges = load(root/'content', root/'schema/entry.schema.json')
-    if not check:
+def build(root=ROOT, check=False, check_generated=False):
+    pages, by_id, edges = load(root/'content', root/'schema/guide.schema.json')
+    entries, objects, xml_refs = load_entries(root)
+    for entry in entries:
+        generated = document(entry, objects)
+        dest = root/'content'/entry['path']
+        if check_generated:
+            if not dest.exists() or dest.read_text() != generated:
+                raise ValueError(f'stale generated Markdown: {dest}')
+        elif not check:
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_text(generated, encoding='utf-8')
+    if not check and not check_generated:
         out = root/'dist'
+        if out.exists():
+            shutil.rmtree(out)
         out.mkdir(exist_ok=True)
         for page in pages:
             dest = out / Path(page['path']).with_suffix('.html')
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(render(page, by_id, edges), encoding='utf-8')
-        catalog = {'schema_version': 1, 'entries': [{**copy.deepcopy(p['meta']), 'source': 'content/'+p['path'], 'url': str(Path(p['path']).with_suffix('.html'))} for p in pages], 'relationships': edges}
+        catalog = {'schema_version': 2, 'xml_namespace': 'urn:asm:1',
+                   'entries': [{**copy.deepcopy(p['meta']),
+                       'source': p.get('xml_source', 'content/'+p['path']),
+                       'url': str(Path(p['path']).with_suffix('.html')),
+                       **({'document':p['xml']} if 'xml' in p else {})} for p in pages],
+                   'objects': {oid: {'entry':obj['entry']['meta']['id'], 'kind':obj['node'].tag.split('}')[-1],
+                       'source':obj['entry']['source'], 'url':str(Path(obj['entry']['path']).with_suffix('.html')) +
+                       (('#'+oid) if oid != obj['entry']['meta']['id'] else '')} for oid,obj in objects.items()},
+                   'relationships': xml_refs}
         (out/'catalog.json').write_text(json.dumps(catalog, indent=2)+'\n', encoding='utf-8')
-    print(f'Validated {len(pages)} pages, {len(edges)} typed relationships' + ('' if check else '; built dist/'))
+    print(f'Validated {len(pages)} pages, {len(edges)} typed relationships' + ('' if check or check_generated else '; built Markdown and dist/'))
     return pages, edges
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--check-generated', action='store_true', help='Check committed Markdown matches canonical XML')
     args = parser.parse_args()
     try:
-        build(check=args.check)
+        build(check=args.check, check_generated=args.check_generated)
     except (ValueError, yaml.YAMLError) as error:
         parser.exit(1, str(error)+'\n')

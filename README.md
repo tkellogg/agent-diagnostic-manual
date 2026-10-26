@@ -33,10 +33,19 @@ python tools/build.py --check
 python -m unittest discover -s tests
 ```
 
-The builder validates frontmatter, unique IDs, typed references, required entry sections, and local links; then renders pages, backlinks, and `dist/catalog.json`. CI performs the same checks and builds without deploying.
+The builder validates XML against XSD, corpus IDs and references, guide metadata, and local links; then renders Markdown, HTML, backlinks, and `dist/catalog.json`. CI performs the same checks and builds without deploying.
 
-## Authoring
+## Authoring and independent tools
 
-Edit `content/**/*.md`. YAML frontmatter stores stable identity and relationships; Markdown carries explanations, criteria, and protocols. Read the [content contract](content/structure.md#content-contract) before adding an entry. Generated HTML and JSON are disposable; source Markdown is canonical.
+Edit `entries/**/*.xml` for symptoms, diagnoses, and interventions. Run `python tools/build.py` and commit both the XML source and generated Markdown reader pages. General guides and index pages in `content/` remain authored Markdown.
 
-There is exactly one symptom and one diagnosis in this first iteration. Expand from reviewed cases rather than brainstorming a large taxonomy.
+The [XML format contract](content/format.md) and [XSD](schema/asm-v1.xsd) define the draft format. The builder is a reference implementation. Criteria, exclusions, alternatives, preconditions, procedure steps, and applicability relationships have stable IDs. Consumers need neither an LLM nor this implementation.
+
+```sh
+python examples/query_manual.py
+python tools/build.py --check-generated
+```
+
+The example consumer uses only Python's standard library. The generated JSON catalog retains the structured document tree and object-level references. CI checks XML validity, cross-document links, and generated-file freshness before building.
+
+There is still exactly one symptom and one diagnosis. Severity remains deferred. The repository stays private; publication and licensing are separate future decisions.
