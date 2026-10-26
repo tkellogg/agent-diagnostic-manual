@@ -1,6 +1,6 @@
 site_name: Agent Diagnostic Manual
 site_description: Symptoms, candidate diagnoses, and interventions for configured agents.
-site_url: https://tkellogg.github.io/agent-diagnostic-manual/
+site_url: https://diag.timkellogg.me/
 repo_url: https://github.com/tkellogg/agent-diagnostic-manual
 edit_uri: ""
 docs_dir: .build/docs

@@ -73,10 +73,12 @@ python tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
 
 ## GitHub Pages
 
-Every push to main validates and builds the site, stores a complete generated copy on `gh-pages`, and uploads a Pages artifact. Generated branch commits do not trigger the main-branch workflows.
+Every push to main validates and builds the site, stores a complete generated copy on `gh-pages`, and deploys it through GitHub Actions. No repository variables are required. Generated branch commits do not trigger the main-branch workflows.
 
-For hosting, select **Settings → Pages → Source → GitHub Actions**, then create the repository Actions variable **ADM_PAGES_ENABLED** with value **true**. Run **Build and publish documentation** once, or push to main. This uses GitHub's Pages deployment action; the generated branch remains available for inspection. The hosting step is disabled until the variable is set, so an unconfigured Pages account does not fail ordinary builds. Pages availability for a private repository depends on the account plan; enabling it can make the site public.
+In **Settings → Pages**, select **GitHub Actions** as the source and save **diag.timkellogg.me** as the custom domain. At the DNS provider, set `diag` to a CNAME targeting `tkellogg.github.io.` (without a repository path). Enable **Enforce HTTPS** once GitHub has issued the certificate. DNS and certificate provisioning may take time; saving the custom domain in the repository is required in addition to DNS.
 
-`mkdocs.yml` sets the project URL and disables directory-style URLs. All normal page assets and format links are relative, so the site works under a project path. The README is the homepage source. To skip search during quick local iterations, use `python tools/build.py --no-search`.
+The Pages workflow builds with MkDocs and Pagefind; no separate Jekyll workflow is needed. With Actions-based publishing, GitHub uses the custom domain saved in repository settings, not a CNAME file in the artifact.
+
+`mkdocs.yml` sets `https://diag.timkellogg.me/` as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use `python tools/build.py --no-search`.
 
 The CI, release, and Pages workflows all validate against `schema/adm-v1.xsd` and check document IDs, local IDs, and typed references before building.

@@ -45,7 +45,7 @@ class FormatTests(unittest.TestCase):
                 url=urlsplit(href)
                 if url.scheme or href=='#':continue
                 urlpath=unquote(url.path)
-                target=((out/urlpath.removeprefix('/agent-diagnostic-manual/')).resolve() if urlpath.startswith('/agent-diagnostic-manual/') else (page.parent/urlpath).resolve()) if urlpath else page
+                target=((out/urlpath.lstrip('/')).resolve() if urlpath.startswith('/') else (page.parent/urlpath).resolve()) if urlpath else page
                 self.assertTrue((target.is_file() or target.is_dir()),href)
                 if url.fragment and target.suffix=='.html':
                     dest=ET.HTML(target.read_text())
