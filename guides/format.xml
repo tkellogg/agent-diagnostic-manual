@@ -78,7 +78,7 @@
       <p>Applicability belongs to an intervention-ref in a diagnosis's relations list. It contains only a target document in ref and a required when condition. The target is unique within that diagnosis's relations list, so no separate ID is needed. These conditions remain prose, not executable predicates. Duplicate entry-level typed relationships to the same target are invalid; a criterion's additional symptom reference is a distinct relationship.</p>
     </section>
     <section id="prose" title="Prose">
-      <p>Prose uses p, ul, ol, strong, em, code, and ref. Guides additionally use section titles, tables, and preformatted code blocks. Rich text preserves inline ordering and spaces. Generic bulleted prose does not create referenceable entities; use the semantic item elements when each member needs an address.</p>
+      <p>Prose uses p, ul, ol, strong, em, code, and ref. Guides additionally use section titles, tables, and preformatted code blocks. Rich text preserves inline ordering and spaces. Structured lists contain only their named items, with no introductory or trailing prose. Generic bulleted prose does not create referenceable entities; use the semantic item elements when each member needs an address.</p>
       <p>The a element is for external HTTP(S) or mailto links. All corpus navigation uses ref, so it is independent of source filenames and rendered paths. Renderers escape content and preserve references. A generated reading copy is never an editing source.</p>
     </section>
     <section id="validation" title="Validation">

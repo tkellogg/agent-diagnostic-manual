@@ -25,8 +25,7 @@
     <criterion id="alternative-assessment" title="Alternative assessment">
       <p>the exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure.</p>
     </criterion>
-    <p>No fixed number of calls, duration, or cost threshold is established. These criteria need testing for reviewer agreement and useful discrimination.</p>
-  </criteria>
+    </criteria>
   <exclusions>
     <exclusion id="useful-retrieval">
       <p>Do not assign this candidate diagnosis solely because the same file or endpoint was accessed repeatedly. Exclude useful retrieval of changed content, different needed content, justified freshness checks, and ordinary recovery when the tool never delivered a usable result.</p>
@@ -64,8 +63,7 @@
         <p>Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth.</p>
       </discriminator>
     </alternative>
-    <p>Causes can interact: repeated retrieval increases context pressure; compaction removes evidence; the agent retrieves again. Record the sequence instead of insisting on one exclusive explanation.</p>
-  </differential>
+    </differential>
   <investigation>
     <ol>
       <li>Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible.</li>

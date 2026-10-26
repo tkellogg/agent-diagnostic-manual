@@ -40,6 +40,5 @@
     <example id="verified-edit" kind="synthetic">
       <p><strong>Synthetic comparison — useful.</strong> An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis.</p>
     </example>
-    <p>These are explanatory examples, not observed cases or validation data.</p>
-  </examples>
+    </examples>
 </symptom>

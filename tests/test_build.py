@@ -32,6 +32,22 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(catalog['objects']['S001#observations/multi-read']['kind'],'observation')
         self.assertTrue(any(r['from']=='D001#criteria/recurrence' and r['to']=='S001' for r in refs))
         self.assertTrue(any(r.get('address')=='D001#relations/I001' for r in refs))
+    def test_structured_lists_reject_stray_prose(self):
+        containers={S:['observations','benign-lookalikes','examples'],
+                    D:['criteria','exclusions','differential'],
+                    I:['preconditions','procedure']}
+        for path,tags in containers.items():
+            original=(self.root/path).read_bytes()
+            for tag in tags:
+                for position in ('before','after'):
+                    with self.subTest(path=path,tag=tag,position=position):
+                        tree=ET.fromstring(original)
+                        node=tree.find('a:'+tag,N)
+                        p=ET.Element('{urn:asm:1}p');p.text='Stray prose.'
+                        node.insert(0 if position=='before' else len(node),p)
+                        (self.root/path).write_bytes(ET.tostring(tree))
+                        with self.assertRaises(ValueError):load(self.root)
+            (self.root/path).write_bytes(original)
     def test_title_attributes_render_as_plain_text(self):
         title='A & "B" <C> *D*'
         for path in (S,D,I,'guides/index.xml'):
