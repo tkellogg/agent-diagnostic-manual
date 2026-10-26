@@ -22,7 +22,7 @@
     <precondition id="freshness-enforced">
       <p>Freshness requirements can still be enforced. Sensitive evidence remains within the system's existing access boundaries.</p>
     </precondition>
-    </preconditions>
+  </preconditions>
   <procedure>
     <step id="save-baseline">
       <p>Save a baseline checkpoint, configuration, and source versions. Define completion and correctness checks before inspecting the experimental outcome.</p>

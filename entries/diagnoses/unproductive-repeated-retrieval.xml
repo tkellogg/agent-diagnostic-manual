@@ -13,19 +13,19 @@
   </definition>
   <criteria operator="all">
     <criterion id="recurrence" title="Recurrence">
-      <p>the episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone.</p>
+      <p>The episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone.</p>
       <symptom-ref ref="S001"/>
     </criterion>
     <criterion id="low-value" title="Low additional value">
-      <p>the repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose.</p>
+      <p>The repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose.</p>
     </criterion>
     <criterion id="functional-consequence" title="Functional consequence">
-      <p>the trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned.</p>
+      <p>The trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned.</p>
     </criterion>
     <criterion id="alternative-assessment" title="Alternative assessment">
-      <p>the exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure.</p>
+      <p>The exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure.</p>
     </criterion>
-    </criteria>
+  </criteria>
   <exclusions>
     <exclusion id="useful-retrieval">
       <p>Do not assign this candidate diagnosis solely because the same file or endpoint was accessed repeatedly. Exclude useful retrieval of changed content, different needed content, justified freshness checks, and ordinary recovery when the tool never delivered a usable result.</p>
@@ -63,7 +63,7 @@
         <p>Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth.</p>
       </discriminator>
     </alternative>
-    </differential>
+  </differential>
   <investigation>
     <ol>
       <li>Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible.</li>
