@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S004" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Excessive verification">
+  <summary>An agent continues or expands verification beyond the task’s justified checking needs, delaying the requested outcome.</summary>
+  <observations>
+    <observation id="checking-overrun">
+      <p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Establish the user’s requested outcome, applicable project requirements, verification scope, and stopping condition. Identify the decision each extra check could change. A check can be justified by a concrete unresolved risk even if the user did not name it individually; a genuine instruction conflict should be surfaced, not silently resolved by exceeding the budget.</p>
+    <p>Compare inputs, code and environment state, selected tests, outputs, and what the agent does with the result. A repeated check that obtains previously missing output or measures flakiness is different from one that merely reproduces an already-understood result. Include time spent creating and repairing self-assigned test infrastructure.</p>
+    <p>High test counts, slow suites, and user impatience alone do not establish excess. If the trace supports cost but not the absence of a reason, record verification cost with the judgment unresolved. Repeated checking may also fit <ref target="S002">Doom looping</ref>; unnecessary new infrastructure may fit <ref target="S009">Unrequested changes</ref>.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="required-gate">
+      <p>A release, security, or project rule requires the full check before the requested action can proceed.</p>
+    </lookalike>
+    <lookalike id="new-risk">
+      <p>A check reveals a relevant new failure or the edit affects additional behavior, justifying broader verification.</p>
+    </lookalike>
+    <lookalike id="repeatability-study">
+      <p>Repeated unchanged runs are part of an agreed flakiness, load, or reproducibility investigation.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the requested outcome and urgency, explicit scope or budget, applicable mandatory checks, stopping condition, check sequence and duration, state changes, results, and the decision each check informed. Separate required work, newly justified work, and unexplained additions; record delivery delay and any actual defects caught.</p>
+  </what-to-record>
+  <examples>
+    <example id="past-completion" kind="synthetic">
+      <p>Synthetic example: a user requests a reversible text edit and one targeted check. That check passes. With no new failure or broader requirement, the agent adds a test framework, repairs its setup, and reruns the entire suite twice before delivering the edit.</p>
+    </example>
+    <example id="suite-overrun" kind="observed">
+      <p>Reported example: <a href="https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/">a Claude Code user describes repeated full-suite runs after small edits despite requests to stop</a>. The account reports substantial delays but provides no full trace establishing which checks were required or unnecessary.</p>
+    </example>
+    <example id="release-check" kind="synthetic">
+      <p>Synthetic comparison: a one-line authentication change triggers a required regression suite before release. Its duration exceeds the edit time, but it satisfies an applicable gate and does not establish excessive verification.</p>
+    </example>
+  </examples>
+</symptom>

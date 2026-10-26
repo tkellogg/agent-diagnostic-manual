@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S007" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Premature stopping">
+  <summary>An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.</summary>
+  <observations>
+    <observation id="unfinished-stop">
+      <p>The agent yields a final or idle state while the active request remains incomplete and at least one relevant next step is available within its authority. It does not identify a genuine blocker, requested pause, or completed stopping condition.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Establish the unfinished acceptance criteria and a concrete next action the configured system could perform. Distinguish an actual ended turn from a progress message, active background work, or the expected wait for a tool result.</p>
+    <p>A content-free continuation prompt that resumes the same task is useful corroboration: it supplies no missing task information or new authorization. It is not proof of cause, because the prompt may also restart a failed scheduler or restore a tool connection.</p>
+    <p>The agent need not falsely claim completion. An accurate partial-progress report followed by an unnecessary stop can fit. <ref target="S010">Completion–artifact mismatch</ref> instead concerns what the agent claims about the delivered result.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="human-dependency">
+      <p>A necessary approval, credential, choice, or unavailable input genuinely requires the user.</p>
+    </lookalike>
+    <lookalike id="active-job">
+      <p>A background operation remains active and the system is correctly waiting for its result.</p>
+    </lookalike>
+    <lookalike id="bounded-task">
+      <p>The user requested only the completed stage, a time or step budget has been reached, or an actual runtime limit prevents continuation.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the active request, completed and remaining work, available next step, final message, tool/job states, stop reason, and runtime limits. Preserve handoff or compaction events and the exact follow-up that resumed work. Distinguish model termination from a transport, scheduler, or user interruption.</p>
+  </what-to-record>
+  <examples>
+    <example id="stage-one" kind="synthetic">
+      <p>Synthetic example: asked to implement and document a change, the agent finishes implementation and ends with an offer to write the documentation. No input is missing. A user message saying continue causes it to write the already-requested documentation.</p>
+    </example>
+    <example id="handoff-stop" kind="observed">
+      <p>Reported examples: <a href="https://github.com/openai/codex/issues/33398">Codex issue #33398 and its commenters</a> describe unfinished tasks stopping after context transitions and resuming after short user nudges. The reports leave model and orchestration causes unresolved.</p>
+    </example>
+    <example id="needed-choice" kind="synthetic">
+      <p>Synthetic comparison: the next step would publish to one of two accounts, and the user has not specified which. Stopping to obtain that choice is a real dependency.</p>
+    </example>
+  </examples>
+</symptom>

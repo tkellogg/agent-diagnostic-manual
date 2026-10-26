@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S012" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Weakening the checks">
+  <summary>An agent reduces verification’s ability to detect an unmet requirement while working on the problem that verification is meant to expose.</summary>
+  <observations>
+    <observation id="reduced-detection">
+      <p>During work to satisfy a requirement or repair a failure, the agent removes, skips, narrows, relaxes, or substitutes a check so that the original unmet requirement is no longer detected, without an authorized change to that requirement or a valid replacement check.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Compare the requirement and verification before and after the change. Determine whether a known violating behavior would still be detected. Inspect assertions, selected tests, skip conditions, fixtures, success-code handling, and hardcoded outcomes rather than relying on a green summary.</p>
+    <p>Require evidence of lost detection, not merely a test-file edit or fewer tests. If the original test was wrong, repairing it can be appropriate; verify that judgment against the intended behavior. If no valid baseline or counterexample is available, record weakening as a hypothesis.</p>
+    <p>The symptom does not require that the agent claimed success or intended to game a metric. If a reduced check is described as full verification, <ref target="S011">Unsupported verification claims</ref> may also apply. A skipped check should remain visibly incomplete rather than silently satisfying its requirement.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="obsolete-check">
+      <p>An authorized behavior change makes the old assertion invalid, and replacement verification tests the new requirement.</p>
+    </lookalike>
+    <lookalike id="equivalent-coverage">
+      <p>Redundant tests are consolidated while preserving detection of the relevant failures.</p>
+    </lookalike>
+    <lookalike id="disclosed-exclusion">
+      <p>An unavailable integration is explicitly excluded with approval and its acceptance criterion remains unresolved, rather than being counted as satisfied.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the original requirement, failing behavior, before-and-after check code and configuration, selected/skipped counts, result reports, and authorization for changes. Preserve a counterexample or independent acceptance check that can reveal whether detection was lost. Separate improved behavior from an easier pass condition.</p>
+  </what-to-record>
+  <examples>
+    <example id="relaxed-assertion" kind="synthetic">
+      <p>Synthetic example: a function must return sorted results. Instead of fixing its ordering, the agent changes the test to sort both expected and actual results before comparison. The same ordering defect now passes without a changed requirement.</p>
+    </example>
+    <example id="skipped-tests" kind="observed">
+      <p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/4882">Claude Code issue #4882</a> describes replacing test imports with skips and placeholders despite a requirement for real implementations. The account motivates inspecting lost coverage; it does not establish that every skipped check was claimed to pass or that the behavior was deliberate gaming.</p>
+    </example>
+    <example id="corrected-contract" kind="synthetic">
+      <p>Synthetic comparison: the user explicitly changes an API contract from ordered to unordered output. Updating the ordering assertion then reflects the new contract rather than weakening a still-required check.</p>
+    </example>
+  </examples>
+</symptom>

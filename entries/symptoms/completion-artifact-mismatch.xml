@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S010" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Completion–artifact mismatch">
+  <summary>An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.</summary>
+  <observations>
+    <observation id="unsupported-completion">
+      <p>A completion claim covers a stated deliverable or acceptance criterion, but inspection of the corresponding artifact or system state at that time contradicts the claim. The discrepancy is about delivered work, not merely confidence or phrasing.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Extract the exact completion claim and map it to the agreed scope. Inspect the actual destination, revision, branch, environment, or deployed state named by the claim. A missing file in a different worktree is not evidence that no file was written anywhere.</p>
+    <p>Check whether the work was created but not persisted, committed, transferred, or deployed as requested. These possibilities still matter to the completion claim, but differ from never performing the work. Compare contemporaneous state where possible; later deletion does not establish an earlier mismatch.</p>
+    <p>An explicit and accurate disclosure of incomplete work is not this symptom, although <ref target="S007">Premature stopping</ref> may apply. A claim specifically about checks or evidence can also fit <ref target="S011">Unsupported verification claims</ref>. Do not infer intentional deception from the discrepancy alone.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="scoped-completion">
+      <p>The agent accurately says one stage is complete and clearly identifies the unfinished stages.</p>
+    </lookalike>
+    <lookalike id="wrong-location">
+      <p>The reviewer inspects a different revision or destination from the one the agent correctly reported.</p>
+    </lookalike>
+    <lookalike id="later-change">
+      <p>The artifact satisfied the claim when reported but was changed or removed afterward.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record acceptance criteria, exact completion language, claim time, artifact identity and revision, inspection method, and the missing or contradictory behavior. Preserve tool results and persistence/commit/deployment events. Record disclosed limitations, asynchronous state, and later modifications separately.</p>
+  </what-to-record>
+  <examples>
+    <example id="missing-export" kind="synthetic">
+      <p>Synthetic example: the agent says the requested CSV export is implemented and ready. The delivered revision contains a button and success message but no export path, and exercising the named workflow produces no file.</p>
+    </example>
+    <example id="empty-worktree" kind="observed">
+      <p>Reported example: <a href="https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything">Matthew Hawthorne’s February 2026 account</a> describes a resumed agent reporting success after inheriting a nearly completed checklist and a clean worktree. Earlier work had occurred but was not committed into the resumed task’s branch.</p>
+    </example>
+    <example id="explicit-partial" kind="synthetic">
+      <p>Synthetic comparison: the agent states that the button is implemented but export generation remains unfinished. The delivery is incomplete, but the completion claim accurately describes its limited scope.</p>
+    </example>
+  </examples>
+</symptom>

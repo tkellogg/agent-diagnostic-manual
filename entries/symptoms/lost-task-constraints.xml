@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S006" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Lost task constraints">
+  <summary>A previously established task requirement or decision ceases to govern the agent’s later continuation.</summary>
+  <observations>
+    <observation id="constraint-loss">
+      <p>An explicit, still-applicable task constraint is represented or followed earlier, but a later continuation omits, contradicts, or replaces it and proceeds incompatibly with the original requirement.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Identify the original constraint and evidence that it was initially represented or followed. Compare it with a later task summary, plan, stated understanding, or action. A missing mention in an abbreviated summary alone is insufficient if the agent still acts consistently with the constraint.</p>
+    <p>A visible summary that changes the requirement provides stronger evidence of representational loss than action alone. If the instruction remains visible but the agent violates it, describe lost adherence without claiming literal memory erasure. Record compaction or handoff timing without assuming it caused the change.</p>
+    <p>Distinguish a lost requirement from a newly introduced one and from a forgotten fact that does not constrain the task. <ref target="S005">Correction without behavioral change</ref> additionally requires an acknowledged correction; it can overlap with this symptom.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="revised-request">
+      <p>The user explicitly changes or withdraws the earlier constraint.</p>
+    </lookalike>
+    <lookalike id="concise-summary">
+      <p>A summary omits a detail for brevity, but the complete instruction remains available and subsequent actions honor it.</p>
+    </lookalike>
+    <lookalike id="resolved-conflict">
+      <p>The agent identifies an instruction conflict or infeasible constraint and obtains an appropriate resolution before proceeding.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the original requirement and its authority, earlier compliant behavior or representation, later summaries and actions, and the exact discrepancy. Preserve compaction/handoff boundaries, replacement context, active instructions, and any superseding user messages. Note whether the evidence shows missing representation, incompatible action, or both.</p>
+  </what-to-record>
+  <examples>
+    <example id="review-gate" kind="synthetic">
+      <p>Synthetic example: the agent’s plan says to present a migration for review before running it. After a handoff, the replacement plan says to run the migration, and the agent does so without the requested review.</p>
+    </example>
+    <example id="compacted-intent" kind="observed">
+      <p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/23776">Claude Code issue #23776</a> describes a request to revise and present a plan for review being transformed during compaction into an instruction to implement changes. Technical details reportedly survived while the review requirement did not.</p>
+    </example>
+    <example id="waived-review" kind="synthetic">
+      <p>Synthetic comparison: the user reviews the plan and explicitly approves execution. A subsequent summary omits the completed review gate and the agent proceeds; the constraint has been satisfied rather than lost.</p>
+    </example>
+  </examples>
+</symptom>

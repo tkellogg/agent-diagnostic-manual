@@ -25,8 +25,8 @@ class FormatTests(unittest.TestCase):
         p=self.root/path;s=p.read_text();self.assertIn(old,s);p.write_text(s.replace(old,new))
     def test_build_and_scoped_catalog(self):
         docs,objects,refs=build(self.root)
-        self.assertEqual(sum(d['meta']['kind']=='symptom' for d in docs),1)
-        self.assertEqual(sum(d['meta']['kind']=='diagnosis' for d in docs),1)
+        expected_ids={ET.parse(str(path)).getroot().get('id') for path in (self.root/'entries').rglob('*.xml')}
+        self.assertEqual({d['meta']['id'] for d in docs},expected_ids)
         for key in ['S001#observations/multi-read','S001#benign-lookalikes/changed-source','S001#examples/stalled-edit','S001#what-to-record','D001#criteria/recurrence']:
             self.assertIn(key,objects)
         catalog=json.loads((self.root/'dist/catalog.json').read_text())
@@ -198,7 +198,7 @@ class FormatTests(unittest.TestCase):
             self.assertIn('id="'+fragment+'"',(self.root/'dist'/page).read_text(),address)
     def test_independent_consumer(self):
         result=subprocess.run([sys.executable,'-I',str(ROOT/'examples/query_manual.py'),'--entries',str(self.root/'entries')],check=True,capture_output=True,text=True)
-        rows=json.loads(result.stdout);s=next(x for x in rows if 'symptom' in x)
+        rows=json.loads(result.stdout);s=next(x for x in rows if x.get('symptom')=='S001')
         self.assertEqual(s['observations'],['S001#observations/multi-read'])
         self.assertEqual(len(s['lookalikes']),5)
 

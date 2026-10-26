@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S008" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Repeated reauthorization">
+  <summary>An agent requests permission again for an action that remains covered by a clear, applicable authorization.</summary>
+  <observations>
+    <observation id="redundant-permission">
+      <p>After explicit authorization of an action, the agent asks the user to authorize materially the same action again without a changed target, scope, consequence, or applicable requirement that makes renewed approval necessary.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Match the requested action to the prior authorization: account, resource, operation, scope, and any conditions. A broad statement of intent may not authorize a particular consequential operation; a precise earlier approval is stronger evidence.</p>
+    <p>Determine whether the prompt came from the agent’s conversation or a tool/platform permission gate. Both can delay the task, but an agent may be required to relay a gate even when conversational permission already exists. Record such enforcement separately instead of attributing it to caution.</p>
+    <p>One redundant repeat after a clear approval is sufficient for this observation. Record later repeats and resulting delay. If the earlier permission disappeared from a continuation, <ref target="S006">Lost task constraints</ref> may provide additional description.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="changed-action">
+      <p>The operation now affects a different account, recipient, resource, or materially broader scope.</p>
+    </lookalike>
+    <lookalike id="required-prompt">
+      <p>The tool or governing instructions require a fresh approval at this stage or after authorization expires.</p>
+    </lookalike>
+    <lookalike id="conditional-consent">
+      <p>The earlier consent depended on a condition that has not been met or cannot yet be verified.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the original approval, its scope and conditions, each later permission request, the action available at that point, and any changed circumstances. Include the origin of the prompt, relevant platform policies, expiry/session boundaries, and whether each answer led to execution or another request.</p>
+  </what-to-record>
+  <examples>
+    <example id="same-click" kind="synthetic">
+      <p>Synthetic example: the user explicitly approves clicking Continue on a named screen. With the same screen and no additional gate, the agent asks twice more whether it should click Continue.</p>
+    </example>
+    <example id="desktop-approval" kind="observed">
+      <p>Reported example: <a href="https://github.com/openai/codex/issues/48998">Codex issue #48998</a> describes repeated demands for authorization of the same approved desktop action. The public report is not a complete audit of the governing tool policies.</p>
+    </example>
+    <example id="new-recipient" kind="synthetic">
+      <p>Synthetic comparison: the user authorizes sending a draft to one colleague. The next proposed action sends it to an entire mailing list, requiring a new scope decision.</p>
+    </example>
+  </examples>
+</symptom>

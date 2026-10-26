@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S002" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Doom looping">
+  <summary>An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.</summary>
+  <observations>
+    <observation id="stalled-cycles">
+      <p>Within one task episode, at least five consecutive attempts at the same immediate outcome fail to advance it. Across those attempts, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Define a cycle by the attempted outcome and feedback received: for example, an edit followed by a failing test, or a search followed by an unhelpful result. Count complete cycles, not the number of tool calls inside one attempt. Semantically equivalent commands can belong to the same cycle even when their spelling differs.</p>
+    <p>Compare what changed between attempts and whether that change addresses the observed blocker. A different command flag does not establish progress by itself; a new error, a corrected credential, or a narrower failed hypothesis may. If the trace does not expose the relevant inputs or state, record the sequence as a suspected loop rather than asserting that nothing changed.</p>
+    <p>Five cycles is a provisional screening threshold for this draft, not an empirically established boundary. Record the actual count and duration, including shorter concerning sequences. The symptom does not require an infinite run, identical outputs, or proof of a particular cause. <ref target="S001">Repeated retrieval</ref> describes one action that can participate in a loop.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="bounded-retries">
+      <p>A bounded retry policy addresses a documented transient failure, with a plausible reason for expecting recovery and an appropriate delay.</p>
+    </lookalike>
+    <lookalike id="active-polling">
+      <p>An external operation is still progressing and status checks occur at a justified cadence; elapsed time can be a relevant change even when returned text is unchanged.</p>
+    </lookalike>
+    <lookalike id="hypothesis-testing">
+      <p>Attempts eliminate distinct possibilities or incorporate new evidence, including repeated samples deliberately collected to assess stochastic behavior.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the task, immediate outcome, cycle boundaries, tool requests and actual executions, feedback, relevant state changes, and information available before each retry. Include the stopping condition, elapsed time, cost where available, progress measure, and how the sequence ended. Distinguish model requests from harness replays.</p>
+  </what-to-record>
+  <examples>
+    <example id="unchanged-permission" kind="synthetic">
+      <p>Synthetic example: five attempts to read the same protected file return permission denied. The agent only changes quoting and output formatting; access rights and credentials remain unchanged. No attempt advances access or identifies a new cause.</p>
+    </example>
+    <example id="repeated-grep" kind="observed">
+      <p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes 30–50+ identical grep calls with identical output before manual interruption. The public account motivates the symptom; it does not independently establish whether the model or runtime produced each repetition.</p>
+    </example>
+    <example id="changing-failures" kind="synthetic">
+      <p>Synthetic comparison: five successive edits resolve five different test failures. The suite is still red, but the relevant state and remaining failures change after each attempt; the cycle count alone does not fit this symptom.</p>
+    </example>
+  </examples>
+</symptom>
