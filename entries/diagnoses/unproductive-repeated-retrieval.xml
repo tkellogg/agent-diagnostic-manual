@@ -13,7 +13,6 @@
     <p>The assessed system includes model, harness, tools, memory, instructions, and environment. The diagnosis does not by itself attribute failure to any one component. It also does not claim a human-like compulsion, anxiety, or subjective experience.</p>
   </definition>
   <criteria operator="all">
-    <p>For this working definition, <strong>all listed criteria must be supported</strong>. If the trace cannot establish one, record “insufficient evidence” for the case rather than forcing a label.</p>
     <criterion id="recurrence">
       <title>Recurrence</title>
       <p>the episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone.</p>
