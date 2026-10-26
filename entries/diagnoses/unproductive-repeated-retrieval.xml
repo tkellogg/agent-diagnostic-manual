@@ -39,7 +39,6 @@
     </exclusion>
   </exclusions>
   <differential>
-    <p>These are competing explanations to investigate, not additional ASM diagnoses.</p>
     <alternative id="useful-refresh" title="Useful refresh or different information need">
       <discriminator>
         <p>Compare source versions, requested ranges, decision purpose, and information gained.</p>
