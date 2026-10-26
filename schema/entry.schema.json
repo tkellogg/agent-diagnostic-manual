@@ -1,0 +1,342 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ASM frontmatter v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "kind",
+    "title",
+    "summary",
+    "status",
+    "updated"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "guide",
+        "symptom",
+        "diagnosis",
+        "intervention"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "reviewed",
+        "retired"
+      ]
+    },
+    "updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "evidence": {
+      "enum": [
+        "unvalidated",
+        "case-supported",
+        "replicated"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "unit": {
+      "const": "configured-agent-episode"
+    },
+    "diagnostic_level": {
+      "enum": [
+        "descriptive",
+        "mechanistic"
+      ]
+    },
+    "symptoms": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^S[0-9]{3,}$"
+      }
+    },
+    "interventions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "role",
+          "when",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^I[0-9]{3,}$"
+          },
+          "role": {
+            "enum": [
+              "investigation",
+              "remediation",
+              "both"
+            ]
+          },
+          "when": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "enum": [
+              "unvalidated",
+              "case-supported",
+              "replicated"
+            ]
+          }
+        }
+      }
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "symptom"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "evidence",
+          "tags"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^S[0-9]{3,}$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "diagnosis"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "evidence",
+          "tags",
+          "unit",
+          "diagnostic_level",
+          "symptoms",
+          "interventions"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^D[0-9]{3,}$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "intervention"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "evidence",
+          "tags",
+          "targets"
+        ],
+        "properties": {
+          "id": {
+            "pattern": "^I[0-9]{3,}$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "guide"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "diagnostic_level"
+              ]
+            },
+            {
+              "required": [
+                "evidence"
+              ]
+            },
+            {
+              "required": [
+                "interventions"
+              ]
+            },
+            {
+              "required": [
+                "symptoms"
+              ]
+            },
+            {
+              "required": [
+                "tags"
+              ]
+            },
+            {
+              "required": [
+                "targets"
+              ]
+            },
+            {
+              "required": [
+                "unit"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "symptom"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "diagnostic_level"
+              ]
+            },
+            {
+              "required": [
+                "interventions"
+              ]
+            },
+            {
+              "required": [
+                "symptoms"
+              ]
+            },
+            {
+              "required": [
+                "targets"
+              ]
+            },
+            {
+              "required": [
+                "unit"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "diagnosis"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "targets"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "intervention"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "diagnostic_level"
+              ]
+            },
+            {
+              "required": [
+                "interventions"
+              ]
+            },
+            {
+              "required": [
+                "symptoms"
+              ]
+            },
+            {
+              "required": [
+                "unit"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
