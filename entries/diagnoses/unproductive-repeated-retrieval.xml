@@ -4,7 +4,7 @@
   <summary>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</summary>
   <relations>
     <symptom-ref ref="S001"/>
-    <intervention-ref ref="I001" role="both" evidence="unvalidated" id="preserve-evidence">
+    <intervention-ref ref="I001">
       <when>Necessary evidence appears to be lost from the active context; preserving it is feasible without changing source freshness requirements.</when>
     </intervention-ref>
   </relations>

@@ -20,12 +20,12 @@
     </section>
     <section id="relationships">
       <title>Relationships</title>
-      <p>A diagnosis references symptom documents. A criterion may reference a symptom too. Intervention applicability belongs to an identified relationship, with a target, role, evidence label, and condition. The same protocol can apply to different diagnoses under different conditions.</p>
+      <p>A diagnosis references symptom documents. A criterion may reference a symptom too. An intervention reference records its target and the condition under which it applies. Its target already identifies the relationship within the diagnosis. The same protocol can apply to different diagnoses under different conditions.</p>
       <p>Singleton sections and repeated objects are both addressable. References to individual observations, lookalikes, examples, criteria, alternatives, preconditions, and steps do not require a filename or a generated heading.</p>
     </section>
     <section id="interventions">
       <title>Interventions</title>
-      <p>Interventions remain independent protocols with purpose, preconditions, ordered steps, evaluation, risks, rollback, and uncertainty. Their relationship role can be investigation, remediation, or both. Structure makes the protocol inspectable; it does not make its applicability automatically decidable or establish that it works.</p>
+      <p>Interventions remain independent protocols with purpose, preconditions, ordered steps, evaluation, risks, rollback, and uncertainty. An intervention's prose explains its use for investigation and for remediation; a successful outcome does not by itself establish the cause. Structure makes the protocol inspectable; it does not make its applicability automatically decidable or establish that it works.</p>
     </section>
     <section id="consumers">
       <title>Consumers</title>

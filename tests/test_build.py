@@ -31,7 +31,28 @@ class FormatTests(unittest.TestCase):
         catalog=json.loads((self.root/'dist/catalog.json').read_text())
         self.assertEqual(catalog['objects']['S001#observations/multi-read']['kind'],'observation')
         self.assertTrue(any(r['from']=='D001#criteria/recurrence' and r['to']=='S001' for r in refs))
-        self.assertTrue(any(r.get('address')=='D001#relations/preserve-evidence' for r in refs))
+        self.assertTrue(any(r.get('address')=='D001#relations/I001' for r in refs))
+    def test_intervention_reference_has_only_target_and_condition(self):
+        _,_,_,refs=load(self.root)
+        relation=next(r for r in refs if r['relation']=='intervention-ref')
+        self.assertEqual(set(relation),{'from','to','relation','address','when'})
+        node=ET.parse(str(self.root/D)).find('a:relations/a:intervention-ref',N)
+        self.assertEqual(dict(node.attrib),{'ref':'I001'})
+        self.assertTrue(node.findtext('a:when',namespaces=N))
+    def test_intervention_reference_rejects_extra_attributes(self):
+        original=(self.root/D).read_text()
+        for attribute in ['role="both"','evidence="unvalidated"','id="preserve-evidence"']:
+            with self.subTest(attribute=attribute):
+                (self.root/D).write_text(original.replace('<intervention-ref ref="I001">','<intervention-ref ref="I001" '+attribute+'>'))
+                with self.assertRaises(ValueError):load(self.root)
+        (self.root/D).write_text(original)
+    def test_multiple_intervention_targets_have_distinct_addresses(self):
+        original=(self.root/I).read_text()
+        (self.root/'entries/interventions/comparison.xml').write_text(original.replace('id="I001"','id="I002"',1))
+        self.change(D,'</relations>','<intervention-ref ref="I002"><when>A different condition.</when></intervention-ref></relations>')
+        _,objects,_,_=load(self.root)
+        self.assertIn('D001#relations/I001',objects)
+        self.assertIn('D001#relations/I002',objects)
     def test_same_id_in_different_lists_allowed(self):
         self.change(S,'id="stalled-edit"','id="multi-read"')
         _,objects,_,_=load(self.root)

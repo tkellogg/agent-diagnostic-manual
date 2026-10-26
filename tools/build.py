@@ -74,7 +74,7 @@ class Renderer:
             value=self.link(n.get('ref'),self.esc(n.get('ref')))
             return '<p>Related symptom: '+value+'</p>\n' if self.mode=='html' else 'Related symptom: '+value+'\n\n'
         if tag=='intervention-ref':
-            value=self.link(n.get('ref'),self.esc(n.get('ref')))+' · '+self.esc(n.get('role'))+' · '+self.esc(n.get('evidence'))
+            value=self.link(n.get('ref'),self.esc(n.get('ref')))
             condition=self.esc(n.findtext('a:when',namespaces=N))
             return self.anchor(n)+self.anchor(n.find('a:when',N))+(f'<p>{value}</p><p><strong>When:</strong> {condition}</p>\n' if self.mode=='html' else value+'\n\n**When:** '+condition+'\n\n')
         if tag=='sections':return self.anchor(n)+''.join(self.block(c,depth) for c in n)

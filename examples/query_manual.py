@@ -26,7 +26,7 @@ def query(entries):
         elif node.tag=='{urn:asm:1}diagnosis':
             result.append({'diagnosis':did,'operator':node.find('a:criteria',NS).get('operator'),
                 'criteria':[{'address':did+'#criteria/'+c.get('id'),'title':c.findtext('a:title',namespaces=NS)} for c in node.findall('a:criteria/a:criterion',NS)],
-                'interventions':[{'address':did+'#relations/'+i.get('id'),'target':i.get('ref'),'role':i.get('role'),'evidence':i.get('evidence'),'when':i.findtext('a:when',namespaces=NS)} for i in node.findall('a:relations/a:intervention-ref',NS)]})
+                'interventions':[{'address':did+'#relations/'+i.get('ref'),'target':i.get('ref'),'when':i.findtext('a:when',namespaces=NS)} for i in node.findall('a:relations/a:intervention-ref',NS)]})
     return result
 
 if __name__=='__main__':

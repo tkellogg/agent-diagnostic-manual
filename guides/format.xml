@@ -14,13 +14,13 @@
     </section>
     <section id="local-identity">
       <title>Local identity</title>
-      <p>Only members of referenceable lists need local IDs. Use one to three lowercase words in kebab case, matching <code>[a-z][a-z0-9]*(-[a-z][a-z0-9]*){0,2}</code>. IDs must be unique within the containing list, regardless of item tag. They are not XML xs:ID values, which would impose document-wide uniqueness.</p>
+      <p>Referenceable list members use local IDs when no existing key identifies them. Use one to three lowercase words in kebab case, matching <code>[a-z][a-z0-9]*(-[a-z][a-z0-9]*){0,2}</code>. IDs must be unique within the containing list, regardless of item tag. They are not XML xs:ID values, which would impose document-wide uniqueness.</p>
       <p>The same ID may appear in a different list in the same document or in another document. Keep IDs stable when rearranging a list; order and identity are separate. Do not recycle an ID for a different meaning. Retain the source revision alongside an address when recording an assessment.</p>
       <p>Singleton sections and containers have no IDs. Their tag names identify them.</p>
     </section>
     <section id="addresses">
       <title>Addresses</title>
-      <p>An address is a document ID, optionally followed by # and a slash-separated structural path. Each singleton contributes its tag name; a referenceable list member contributes its local ID in place of the repeated item tag.</p>
+      <p>An address is a document ID, optionally followed by # and a slash-separated structural path. Each singleton contributes its tag name; a referenceable list member contributes its local ID in place of the repeated item tag. An intervention reference uses its unique target ref instead of a separate ID: D001#relations/I001, with its condition at D001#relations/I001/when.</p>
       <table>
         <thead>
           <tr>
@@ -83,7 +83,7 @@
     <section id="intervention-structure">
       <title>Intervention structure</title>
       <p>Required sections are purpose, preconditions, procedure, evaluation, risks-and-confounders, stop-and-rollback, and evidence-and-uncertainty. Preconditions and procedure steps are locally identified list members. Procedure order follows document order. Evaluation and rollback are singleton prose sections.</p>
-      <p>Applicability belongs to an intervention-ref in a diagnosis's relations list. It has a short local ID, a target document, a role (investigation, remediation, or both), an evidence label, and a required when condition. These conditions remain prose, not executable predicates. Duplicate entry-level typed relationships to the same target are invalid; a criterion's additional symptom reference is a distinct relationship.</p>
+      <p>Applicability belongs to an intervention-ref in a diagnosis's relations list. It contains only a target document in ref and a required when condition. The target is unique within that diagnosis's relations list, so no separate ID is needed. These conditions remain prose, not executable predicates. Duplicate entry-level typed relationships to the same target are invalid; a criterion's additional symptom reference is a distinct relationship.</p>
     </section>
     <section id="prose">
       <title>Prose</title>
@@ -98,7 +98,7 @@
     <section id="outputs">
       <title>Outputs</title>
       <p>The reference build writes disposable HTML, Markdown, and <code>catalog.json</code> into dist. The catalog contains document metadata, an ordered XML-derived tree, a qualified address index, and explicit relationships. Inline text and child nodes stay in order; indentation-only structural whitespace is omitted.</p>
-      <p>The index covers document roots, singleton sections, list containers, list items, and nested singleton discriminators. Each indexed address carries its owner, kind, source, and rendered URL. Relationships identify their nearest addressable owner, target, and type; intervention applicability additionally includes its own scoped address, condition, role, and evidence.</p>
+      <p>The index covers document roots, singleton sections, list containers, list items, and nested singleton discriminators. Each indexed address carries its owner, kind, source, and rendered URL. Relationships identify their nearest addressable owner, target, and type; intervention applicability additionally includes its ref-derived scoped address and condition.</p>
       <p>XML remains canonical. Independent tools need not run the reference builder. <code>python examples/query_manual.py</code> demonstrates direct reading with Python's standard library.</p>
     </section>
     <section id="evolution">

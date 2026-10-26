@@ -63,7 +63,7 @@ def load(root):
                         seen.add(local)
                     tag=name(child)
                     if tag in PROSE or tag in METADATA or tag=='symptom-ref':continue
-                    segment=local or tag
+                    segment=(child.get('ref') if tag=='intervention-ref' else local) or tag
                     scoped=(parent_path+'/'+segment) if parent_path else segment
                     register(child,did+'#'+scoped);walk(child,scoped)
             walk(node,'')
@@ -83,7 +83,7 @@ def load(root):
             parent=node.getparent()
             while parent not in node_addresses:parent=parent.getparent()
             ref={'from':node_addresses[parent],'to':target,'relation':tag}
-            if tag=='intervention-ref':ref.update(address=node_addresses[node],role=node.get('role'),evidence=node.get('evidence'),when=node.findtext('a:when',namespaces=N))
+            if tag=='intervention-ref':ref.update(address=node_addresses[node],when=node.findtext('a:when',namespaces=N))
             refs.append(ref)
         relations=doc['node'].find('a:relations',N)
         if relations is not None:

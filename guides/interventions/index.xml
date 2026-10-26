@@ -5,7 +5,7 @@
   <sections>
     <section id="overview">
       <title>Overview</title>
-      <p>Interventions are independent entries. A diagnosis links to a protocol with an applicability condition, a role, and an evidence label. One protocol may eventually be relevant to several diagnoses.</p>
+      <p>Interventions are independent entries. A diagnosis links to a protocol with an applicability condition. One protocol may eventually be relevant to several diagnoses.</p>
       <ul>
         <li><ref target="I001">I001 — Preserve task-relevant evidence</ref>: an unvalidated protocol for testing a suspected loss of evidence from active context.</li>
       </ul>
