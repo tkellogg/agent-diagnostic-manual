@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://tkellogg.github.io/agent-diagnostic-manual/skills/agent-diagnostics/references/format.html">
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>File format - Agent Diagnostic Manual</title>
+
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link href="../../../assets/adm.css" rel="stylesheet">
+<link href="../../../pagefind/pagefind-ui.css" rel="stylesheet">
+ 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../../index.html">Agent Diagnostic Manual</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Symptoms</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../symptoms/repeated-retrieval.html" class="dropdown-item">S001 — Repeated retrieval</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Diagnoses</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Interventions</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task-relevant evidence</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../SKILL.html" class="dropdown-item">Diagnostic skill</a>
+</li>
+                                    
+<li>
+    <a href="format.html" class="dropdown-item active" aria-current="page">File format</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="../SKILL.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#adm-file-format" class="nav-link">ADM file format</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#source-and-identity" class="nav-link">Source and identity</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#addresses-and-relationships" class="nav-link">Addresses and relationships</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#entry-structure" class="nav-link">Entry structure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#prose-and-validation" class="nav-link">Prose and validation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#generated-views" class="nav-link">Generated views</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+<div class="col-md-9" role="main">
+  
+  <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
+    <a href="format.md" download>Markdown</a>
+    
+  </nav>
+  
+  <details class="adm-search" data-pagefind-ignore>
+    <summary>Search the manual</summary>
+    <div id="search"></div>
+    <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+  </details>
+  
+  <article data-pagefind-body>
+
+<h1 id="adm-file-format">ADM file format<a class="headerlink" href="#adm-file-format" title="Permanent link">&para;</a></h1>
+<p>Use this reference when reading, parsing, linking, or editing ADM files. The corpus is XML; this skill and its instructions are Markdown.</p>
+<h2 id="source-and-identity">Source and identity<a class="headerlink" href="#source-and-identity" title="Permanent link">&para;</a></h2>
+<p>Read UTF-8 XML in namespace <code>urn:adm:1</code> with <code>version="1"</code>. The namespace is an identifier, not a network resource. The three root kinds and locations are:</p>
+<table>
+<thead>
+<tr>
+<th>Root</th>
+<th>Directory</th>
+<th>Document ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symptom</td>
+<td>entries/symptoms/</td>
+<td>S followed by at least three digits</td>
+</tr>
+<tr>
+<td>diagnosis</td>
+<td>entries/diagnoses/</td>
+<td>D followed by at least three digits</td>
+</tr>
+<tr>
+<td>intervention</td>
+<td>entries/interventions/</td>
+<td>I followed by at least three digits</td>
+</tr>
+</tbody>
+</table>
+<p>Require corpus-wide, case-sensitive document IDs. Documents carry title, summary, editorial status, update date, and evidence status. Titles are plain-text attributes on documents, criteria, and differential alternatives. Summary is a child element. Diagnosis unit and level describe the assessed system and whether the category is descriptive or mechanistic.</p>
+<p>Use one to three lowercase kebab-case words for list-member IDs, matching <code>[a-z][a-z0-9]*(-[a-z][a-z0-9]*){0,2}</code>. Require uniqueness only within the containing list. The same local ID can occur in another list or document. Preserve identity when rearranging items; do not reuse an ID for a different meaning.</p>
+<p>Give singleton sections and containers no ID: their tag names identify them. Keep structured lists free of introductory or trailing prose.</p>
+<h2 id="addresses-and-relationships">Addresses and relationships<a class="headerlink" href="#addresses-and-relationships" title="Permanent link">&para;</a></h2>
+<p>Form an address from a document ID, optionally followed by <code>#</code> and a slash-separated structural path. Use singleton tag names and list-member IDs:</p>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S001</td>
+<td>Whole symptom</td>
+</tr>
+<tr>
+<td>S001#observations/multi-read</td>
+<td>One observation</td>
+</tr>
+<tr>
+<td>S001#what-to-record</td>
+<td>Singleton prose section</td>
+</tr>
+<tr>
+<td>D001#criteria/recurrence</td>
+<td>One criterion</td>
+</tr>
+<tr>
+<td>D001#differential/context-loss/discriminator</td>
+<td>One alternative's discriminator</td>
+</tr>
+<tr>
+<td>D001#relations/I001/when</td>
+<td>Applicability condition</td>
+</tr>
+<tr>
+<td>I001#procedure/save-baseline</td>
+<td>One ordered step</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>&lt;ref target="S001#observations/multi-read"&gt;label&lt;/ref&gt;</code> for corpus links. Require fully qualified addresses, even inside the same document. Resolve IDs from the corpus rather than guessing filenames.</p>
+<p>Use <code>&lt;symptom-ref ref="S001"/&gt;</code> and <code>&lt;intervention-ref ref="I001"&gt;&lt;when&gt;Condition&lt;/when&gt;&lt;/intervention-ref&gt;</code> for typed relationships. Require a whole-document target of the matching kind. An intervention reference needs only its target and condition; its target identifies it within the diagnosis's relations list. Reject duplicate entry-level relationships to the same target. A criterion can also reference symptoms; those references identify relevant symptoms, while the criterion's prose specifies the requirement.</p>
+<h2 id="entry-structure">Entry structure<a class="headerlink" href="#entry-structure" title="Permanent link">&para;</a></h2>
+<p>For symptoms, read observations, how-to-recognize-it, benign-lookalikes, what-to-record, and examples. Observations, lookalikes, and examples are individually addressable items. Examples declare <code>kind="synthetic"</code> or <code>kind="observed"</code>.</p>
+<p>For diagnoses, read relations, definition, criteria, exclusions, differential, investigation, interventions, and evidence-and-uncertainty. Criteria, exclusions, and alternatives have local IDs. Each alternative contains a singleton discriminator. Interpret <code>criteria operator="all"</code> as requiring support for every criterion; missing information remains unknown. This combines judgments about prose, not executable predicates.</p>
+<p>For interventions, read purpose, preconditions, procedure, evaluation, risks-and-confounders, stop-and-rollback, and evidence-and-uncertainty. Preconditions and steps have local IDs; procedure order follows document order. The same intervention can support an experiment or a remedy.</p>
+<h2 id="prose-and-validation">Prose and validation<a class="headerlink" href="#prose-and-validation" title="Permanent link">&para;</a></h2>
+<p>Preserve inline text order and spaces. Prose supports p, ul/ol with li, strong, em, code, ref, and external links using a. Use a only for HTTP(S) or mailto links; use ref for corpus navigation. Escape text when rendering. Generic prose lists do not create independently addressable items.</p>
+<p>Validate against <code>schema/adm-v1.xsd</code> in the checkout, then check directory/ID agreement, document uniqueness, local list uniqueness, and reference resolution and kinds. Reject unsupported versions and unknown elements or attributes. Disable DTDs, entities, XInclude, network schema fetching, and executable content. Format conformance does not establish empirical validity.</p>
+<p>From the checkout root:</p>
+<pre><code class="language-sh">python tools/build.py --check
+python -m unittest discover -s tests
+python examples/query_manual.py
+</code></pre>
+<p>The example uses Python's standard library and imports no ADM code. Independent consumers need neither the reference builder nor an LLM.</p>
+<h2 id="generated-views">Generated views<a class="headerlink" href="#generated-views" title="Permanent link">&para;</a></h2>
+<p>Run <code>python tools/build.py</code> to produce a linked HTML site, Markdown and XML alongside each HTML entry in <code>dist/</code>, and <code>dist/catalog.json</code>. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.</p>
+<p>The catalog exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address and condition.</p>
+<p>Keep a corpus revision with assessment citations. Update schema, this reference, examples, and tests together when changing the draft format. There is no defined compatibility promise, executable diagnosis language, case-record schema, or severity scale yet.</p></article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+<script src="../../../pagefind/pagefind-ui.js"></script>
+<script>
+  if (window.PagefindUI) {
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false,
+      baseUrl: "../../.." + "/" });
+  }
+</script>
+
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

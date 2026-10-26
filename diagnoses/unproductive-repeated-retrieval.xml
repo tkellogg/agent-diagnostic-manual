@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive" title="Unproductive repeated retrieval">
+  <summary>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</summary>
+  <relations>
+    <symptom-ref ref="S001"/>
+    <intervention-ref ref="I001">
+      <when>Necessary evidence appears to be lost from the active context; preserving it is feasible without changing source freshness requirements.</when>
+    </intervention-ref>
+  </relations>
+  <definition>
+    <p>A candidate descriptive diagnosis for an episode in which <ref target="S001">repeated retrieval</ref> contributes little additional task-relevant information and interferes with progress or spends resources without a justified verification purpose.</p>
+    <p>The assessed system includes model, harness, tools, memory, instructions, and environment. The diagnosis does not by itself attribute failure to any one component. It also does not claim a human-like compulsion, anxiety, or subjective experience.</p>
+  </definition>
+  <criteria operator="all">
+    <criterion id="recurrence" title="Recurrence">
+      <p>The episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone.</p>
+      <symptom-ref ref="S001"/>
+    </criterion>
+    <criterion id="low-value" title="Low additional value">
+      <p>The repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose.</p>
+    </criterion>
+    <criterion id="functional-consequence" title="Functional consequence">
+      <p>The trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned.</p>
+    </criterion>
+    <criterion id="alternative-assessment" title="Alternative assessment">
+      <p>The exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure.</p>
+    </criterion>
+  </criteria>
+  <exclusions>
+    <exclusion id="useful-retrieval">
+      <p>Do not assign this candidate diagnosis solely because the same file or endpoint was accessed repeatedly. Exclude useful retrieval of changed content, different needed content, justified freshness checks, and ordinary recovery when the tool never delivered a usable result.</p>
+    </exclusion>
+    <exclusion id="failed-delivery">
+      <p>A repeatedly failing tool may itself deserve investigation, but it is not evidence that adequate evidence was retrieved and then reused poorly.</p>
+    </exclusion>
+    <exclusion id="required-checks">
+      <p>A mandatory verification instruction can explain repetition. If the checks are appropriate to the task, exclude the diagnosis. If a rule forces demonstrably wasteful repetition, the system-level pattern may still fit; record the rule as a suspected cause and avoid blaming model behavior in isolation.</p>
+    </exclusion>
+  </exclusions>
+  <differential>
+    <alternative id="useful-refresh" title="Useful refresh or different information need">
+      <discriminator>
+        <p>Compare source versions, requested ranges, decision purpose, and information gained.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="failed-delivery" title="Failed or truncated delivery">
+      <discriminator>
+        <p>Inspect the exact result supplied to the model; a backend success response alone is insufficient.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="context-loss" title="Loss from active context">
+      <discriminator>
+        <p>Inspect pre-call inputs and compaction boundaries; assess whether needed evidence is missing.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="required-checks" title="Instructions demand another check">
+      <discriminator>
+        <p>Identify the operative rule and its scope; compare a controlled run with that rule clarified where legitimate.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="available-evidence" title="Repetition despite adequate visible evidence">
+      <discriminator>
+        <p>Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth.</p>
+      </discriminator>
+    </alternative>
+  </differential>
+  <investigation>
+    <ol>
+      <li>Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible.</li>
+      <li>Annotate each retrieval with information gained and the next task action it enabled or displaced. Record uncertainty in these judgments.</li>
+      <li>Have a second reviewer assess the criteria without seeing the first review. Disagreements identify weak boundaries; agreement alone does not validate the category.</li>
+      <li>Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider <ref target="I001">preserving task-relevant evidence</ref>.</li>
+      <li>Evaluate completion and correctness as well as retrieval count and cost. Repeat trials as feasible and state model, task, and harness limits.</li>
+    </ol>
+  </investigation>
+  <interventions>
+    <p><ref target="I001">I001 — Preserve task-relevant evidence</ref> is an experimental option when required evidence appears to be disappearing from the active context. It is not a general prescription for every case of D001.</p>
+    <p>If evidence was never delivered, repair delivery first. If a rule forces redundant checks, investigate the rule. These are differential-directed next steps, not additional intervention entries or proven remedies.</p>
+    <p>Do not implement “never read twice” as a treatment. It can hide the symptom while increasing factual errors or skipping legitimate checks.</p>
+  </interventions>
+  <evidence-and-uncertainty>
+    <p><strong>Category status: unvalidated.</strong> No real trace has been adjudicated and no intervention outcome is claimed in this repository. The criteria and label are proposals.</p>
+    <p>Open questions include whether low information gain can be rated consistently, how to distinguish valuable verification from waste, and whether this category predicts useful interventions across different harnesses.</p>
+    <p>The next evidence should include one inspectable failing episode and a closely matched healthy comparison. A positive result under one configuration would not establish a universal cause or remedy.</p>
+  </evidence-and-uncertainty>
+</diagnosis>

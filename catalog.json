@@ -1,0 +1,1440 @@
+{
+  "schema_version": 3,
+  "xml_namespace": "urn:adm:1",
+  "documents": [
+    {
+      "id": "D001",
+      "kind": "diagnosis",
+      "summary": "Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "unit": "configured-agent-episode",
+      "level": "descriptive",
+      "title": "Unproductive repeated retrieval",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html",
+      "document": {
+        "name": "diagnosis",
+        "attributes": {
+          "id": "D001",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "unit": "configured-agent-episode",
+          "level": "descriptive",
+          "title": "Unproductive repeated retrieval"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose."
+            ]
+          },
+          {
+            "name": "relations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S001"
+                },
+                "content": []
+              },
+              {
+                "name": "intervention-ref",
+                "attributes": {
+                  "ref": "I001"
+                },
+                "content": [
+                  {
+                    "name": "when",
+                    "attributes": {},
+                    "content": [
+                      "Necessary evidence appears to be lost from the active context; preserving it is feasible without changing source freshness requirements."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "definition",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A candidate descriptive diagnosis for an episode in which ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S001"
+                    },
+                    "content": [
+                      "repeated retrieval"
+                    ]
+                  },
+                  " contributes little additional task-relevant information and interferes with progress or spends resources without a justified verification purpose."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The assessed system includes model, harness, tools, memory, instructions, and environment. The diagnosis does not by itself attribute failure to any one component. It also does not claim a human-like compulsion, anxiety, or subjective experience."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "criteria",
+            "attributes": {
+              "operator": "all"
+            },
+            "content": [
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "recurrence",
+                  "title": "Recurrence"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone."
+                    ]
+                  },
+                  {
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S001"
+                    },
+                    "content": []
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "low-value",
+                  "title": "Low additional value"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "functional-consequence",
+                  "title": "Functional consequence"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "alternative-assessment",
+                  "title": "Alternative assessment"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "exclusions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "useful-retrieval"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Do not assign this candidate diagnosis solely because the same file or endpoint was accessed repeatedly. Exclude useful retrieval of changed content, different needed content, justified freshness checks, and ordinary recovery when the tool never delivered a usable result."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "failed-delivery"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A repeatedly failing tool may itself deserve investigation, but it is not evidence that adequate evidence was retrieved and then reused poorly."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "required-checks"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A mandatory verification instruction can explain repetition. If the checks are appropriate to the task, exclude the diagnosis. If a rule forces demonstrably wasteful repetition, the system-level pattern may still fit; record the rule as a suspected cause and avoid blaming model behavior in isolation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "differential",
+            "attributes": {},
+            "content": [
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "useful-refresh",
+                  "title": "Useful refresh or different information need"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Compare source versions, requested ranges, decision purpose, and information gained."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "failed-delivery",
+                  "title": "Failed or truncated delivery"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Inspect the exact result supplied to the model; a backend success response alone is insufficient."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "context-loss",
+                  "title": "Loss from active context"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Inspect pre-call inputs and compaction boundaries; assess whether needed evidence is missing."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "required-checks",
+                  "title": "Instructions demand another check"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Identify the operative rule and its scope; compare a controlled run with that rule clarified where legitimate."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "available-evidence",
+                  "title": "Repetition despite adequate visible evidence"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "investigation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "ol",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Annotate each retrieval with information gained and the next task action it enabled or displaced. Record uncertainty in these judgments."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Have a second reviewer assess the criteria without seeing the first review. Disagreements identify weak boundaries; agreement alone does not validate the category."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "I001"
+                        },
+                        "content": [
+                          "preserving task-relevant evidence"
+                        ]
+                      },
+                      "."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Evaluate completion and correctness as well as retrieval count and cost. Repeat trials as feasible and state model, task, and harness limits."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "interventions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "I001"
+                    },
+                    "content": [
+                      "I001 \u2014 Preserve task-relevant evidence"
+                    ]
+                  },
+                  " is an experimental option when required evidence appears to be disappearing from the active context. It is not a general prescription for every case of D001."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "If evidence was never delivered, repair delivery first. If a rule forces redundant checks, investigate the rule. These are differential-directed next steps, not additional intervention entries or proven remedies."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Do not implement \u201cnever read twice\u201d as a treatment. It can hide the symptom while increasing factual errors or skipping legitimate checks."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "strong",
+                    "attributes": {},
+                    "content": [
+                      "Category status: unvalidated."
+                    ]
+                  },
+                  " No real trace has been adjudicated and no intervention outcome is claimed in this repository. The criteria and label are proposals."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Open questions include whether low information gain can be rated consistently, how to distinguish valuable verification from waste, and whether this category predicts useful interventions across different harnesses."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The next evidence should include one inspectable failing episode and a closely matched healthy comparison. A positive result under one configuration would not establish a universal cause or remedy."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "I001",
+      "kind": "intervention",
+      "summary": "Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Preserve task-relevant evidence",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html",
+      "document": {
+        "name": "intervention",
+        "attributes": {
+          "id": "I001",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Preserve task-relevant evidence"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Keep a bounded, versioned evidence record available across context transitions and compare task outcomes."
+            ]
+          },
+          {
+            "name": "purpose",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Test whether loss of task-relevant evidence from the active context contributes to repeated retrieval, and evaluate whether preserving that evidence improves the task outcome."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This is a ",
+                  {
+                    "name": "strong",
+                    "attributes": {},
+                    "content": [
+                      "proposed protocol"
+                    ]
+                  },
+                  ", not a demonstrated remedy. A diagnosis's applicability link determines when it is worth considering; mere repetition does not justify it."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "preconditions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "missing-evidence"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A prior retrieval delivered usable evidence, but the evidence appears absent from a later model input where it is needed."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "replayable-task"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The task and relevant source versions can be captured or replayed well enough for a meaningful comparison."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "persistent-record"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The harness allows a bounded record to remain available across context transitions."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "freshness-enforced"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Freshness requirements can still be enforced. Sensitive evidence remains within the system's existing access boundaries."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "procedure",
+            "attributes": {},
+            "content": [
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "save-baseline"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Save a baseline checkpoint, configuration, and source versions. Define completion and correctness checks before inspecting the experimental outcome."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "create-record"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Create a small evidence record containing the needed fact or excerpt, source identity/version, and its relationship to the pending task. Prefer source-grounded content over a new interpretive summary."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "preserve-record"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Keep that record available across the context transition. Record exactly what is inserted, where, and how much context it consumes. This protocol preserves evidence; it does not prohibit further reads."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "compare-runs"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Run a baseline and a modified condition from comparable checkpoints, with other conditions as similar as practical. Record unavoidable differences."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "repeat-trials"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Repeat trials to characterize variation. Where feasible, add a comparison retaining a similarly sized irrelevant record to help distinguish evidence availability from generic prompt or context changes."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "review-outcome"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Review outcome and tradeoffs before retaining the change. Invalidate or refresh the record when its source version or task relevance changes."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare task completion and correctness first. Also record repeated retrievals, information gained, elapsed time, token/tool cost, and legitimate checks skipped."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A favorable result improves progress or resource use without unacceptable loss of correctness or necessary verification. Define acceptable tradeoffs for the task before running the experiment; this manual does not supply universal thresholds."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A null result is inconclusive when the manipulation failed to keep evidence visible. If evidence remained visible and repetition persisted, that weakens the simple evidence-loss hypothesis for this case. A positive result supports this intervention under these conditions; it does not uniquely establish the cause."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "risks-and-confounders",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Preserved evidence can become stale, displace other useful context, change attention, or introduce additional instructions through its wording. Model sampling variation and changed source content can also explain differences."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record these limitations. Avoid turning a new summary into an unquestioned authority. Preserve provenance and version checks."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stop-and-rollback",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Stop if the record becomes stale, correctness declines, necessary verification is skipped, or the comparison cannot maintain meaningful conditions. Remove the preservation policy and restore the prior context configuration. Retain the experimental record and failure outcome for review."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "strong",
+                    "attributes": {},
+                    "content": [
+                      "Unvalidated."
+                    ]
+                  },
+                  " No baseline/modified comparison has been performed for this repository. The procedure is intended to make a hypothesis testable and a possible remedy reviewable."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Do not promote this entry's evidence label because a synthetic example sounds plausible."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S001",
+      "kind": "symptom",
+      "summary": "An agent repeatedly retrieves substantially the same information during an episode.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Repeated retrieval",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S001",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Repeated retrieval"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent repeatedly retrieves substantially the same information during an episode."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "multi-read"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "This observation is neutral about usefulness and cause."
+                        ]
+                      },
+                      " Repetition can be appropriate. The corresponding candidate diagnosis is ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "D001"
+                        },
+                        "content": [
+                          "Unproductive repeated retrieval"
+                        ]
+                      },
+                      "."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the question each call is trying to answer, the requested content or range, the source version, and the returned information. Identical tool arguments are a clue, not sufficient evidence. Different arguments can still retrieve the same information."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Track both exact repetition and semantically equivalent retrieval. Automated exact-match detectors can nominate cases for inspection; they cannot decide usefulness."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "There is no diagnostic count threshold. \u201cMore than once\u201d identifies repetition, not pathology."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-source"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A file changed after the previous read."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "different-content"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The new call obtains a different passage or field needed for the task."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "failed-delivery"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Earlier output was truncated, empty, wrong, or not delivered."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "freshness-check"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A fresh result is required at a decision boundary."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "required-verification"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A legitimate task explicitly requires checking a result again."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record task intent, call sequence, arguments, source identity/version, result content or permitted content hashes, and which result was actually delivered to the model. Preserve the relevant model input at the later decision point, including compaction boundaries and active instructions when available."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Also record what the agent did between reads and what changed after each read. Collect enough detail to assess progress and new information. Keep sensitive raw traces outside this repository unless their inclusion is deliberate and appropriate; link to an access-controlled evidence location where needed."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "stalled-edit",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Synthetic example \u2014 potentially unproductive."
+                        ]
+                      },
+                      " An agent reads an unchanged configuration file, extracts the requested setting, then retrieves that same setting again before making the requested edit. Repetition continues without any edit or new question. This merits investigation; it does not reveal whether the previous result remained available to the model."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "verified-edit",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Synthetic comparison \u2014 useful."
+                        ]
+                      },
+                      " An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "objects": {
+    "D001": {
+      "document": "D001",
+      "kind": "diagnosis",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html"
+    },
+    "D001#relations": {
+      "document": "D001",
+      "kind": "relations",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#relations"
+    },
+    "D001#relations/I001": {
+      "document": "D001",
+      "kind": "intervention-ref",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#relations/I001"
+    },
+    "D001#relations/I001/when": {
+      "document": "D001",
+      "kind": "when",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#relations/I001/when"
+    },
+    "D001#definition": {
+      "document": "D001",
+      "kind": "definition",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#definition"
+    },
+    "D001#criteria": {
+      "document": "D001",
+      "kind": "criteria",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria"
+    },
+    "D001#criteria/recurrence": {
+      "document": "D001",
+      "kind": "criterion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/recurrence"
+    },
+    "D001#criteria/low-value": {
+      "document": "D001",
+      "kind": "criterion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/low-value"
+    },
+    "D001#criteria/functional-consequence": {
+      "document": "D001",
+      "kind": "criterion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/functional-consequence"
+    },
+    "D001#criteria/alternative-assessment": {
+      "document": "D001",
+      "kind": "criterion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/alternative-assessment"
+    },
+    "D001#exclusions": {
+      "document": "D001",
+      "kind": "exclusions",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions"
+    },
+    "D001#exclusions/useful-retrieval": {
+      "document": "D001",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions/useful-retrieval"
+    },
+    "D001#exclusions/failed-delivery": {
+      "document": "D001",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions/failed-delivery"
+    },
+    "D001#exclusions/required-checks": {
+      "document": "D001",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions/required-checks"
+    },
+    "D001#differential": {
+      "document": "D001",
+      "kind": "differential",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential"
+    },
+    "D001#differential/useful-refresh": {
+      "document": "D001",
+      "kind": "alternative",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/useful-refresh"
+    },
+    "D001#differential/useful-refresh/discriminator": {
+      "document": "D001",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/useful-refresh/discriminator"
+    },
+    "D001#differential/failed-delivery": {
+      "document": "D001",
+      "kind": "alternative",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/failed-delivery"
+    },
+    "D001#differential/failed-delivery/discriminator": {
+      "document": "D001",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/failed-delivery/discriminator"
+    },
+    "D001#differential/context-loss": {
+      "document": "D001",
+      "kind": "alternative",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/context-loss"
+    },
+    "D001#differential/context-loss/discriminator": {
+      "document": "D001",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/context-loss/discriminator"
+    },
+    "D001#differential/required-checks": {
+      "document": "D001",
+      "kind": "alternative",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/required-checks"
+    },
+    "D001#differential/required-checks/discriminator": {
+      "document": "D001",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/required-checks/discriminator"
+    },
+    "D001#differential/available-evidence": {
+      "document": "D001",
+      "kind": "alternative",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/available-evidence"
+    },
+    "D001#differential/available-evidence/discriminator": {
+      "document": "D001",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/available-evidence/discriminator"
+    },
+    "D001#investigation": {
+      "document": "D001",
+      "kind": "investigation",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#investigation"
+    },
+    "D001#interventions": {
+      "document": "D001",
+      "kind": "interventions",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#interventions"
+    },
+    "D001#evidence-and-uncertainty": {
+      "document": "D001",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
+      "url": "diagnoses/unproductive-repeated-retrieval.html#evidence-and-uncertainty"
+    },
+    "I001": {
+      "document": "I001",
+      "kind": "intervention",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html"
+    },
+    "I001#purpose": {
+      "document": "I001",
+      "kind": "purpose",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#purpose"
+    },
+    "I001#preconditions": {
+      "document": "I001",
+      "kind": "preconditions",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions"
+    },
+    "I001#preconditions/missing-evidence": {
+      "document": "I001",
+      "kind": "precondition",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/missing-evidence"
+    },
+    "I001#preconditions/replayable-task": {
+      "document": "I001",
+      "kind": "precondition",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/replayable-task"
+    },
+    "I001#preconditions/persistent-record": {
+      "document": "I001",
+      "kind": "precondition",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/persistent-record"
+    },
+    "I001#preconditions/freshness-enforced": {
+      "document": "I001",
+      "kind": "precondition",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/freshness-enforced"
+    },
+    "I001#procedure": {
+      "document": "I001",
+      "kind": "procedure",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure"
+    },
+    "I001#procedure/save-baseline": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/save-baseline"
+    },
+    "I001#procedure/create-record": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/create-record"
+    },
+    "I001#procedure/preserve-record": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/preserve-record"
+    },
+    "I001#procedure/compare-runs": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/compare-runs"
+    },
+    "I001#procedure/repeat-trials": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/repeat-trials"
+    },
+    "I001#procedure/review-outcome": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/review-outcome"
+    },
+    "I001#evaluation": {
+      "document": "I001",
+      "kind": "evaluation",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#evaluation"
+    },
+    "I001#risks-and-confounders": {
+      "document": "I001",
+      "kind": "risks-and-confounders",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#risks-and-confounders"
+    },
+    "I001#stop-and-rollback": {
+      "document": "I001",
+      "kind": "stop-and-rollback",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#stop-and-rollback"
+    },
+    "I001#evidence-and-uncertainty": {
+      "document": "I001",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#evidence-and-uncertainty"
+    },
+    "S001": {
+      "document": "S001",
+      "kind": "symptom",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html"
+    },
+    "S001#observations": {
+      "document": "S001",
+      "kind": "observations",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#observations"
+    },
+    "S001#observations/multi-read": {
+      "document": "S001",
+      "kind": "observation",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#observations/multi-read"
+    },
+    "S001#how-to-recognize-it": {
+      "document": "S001",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#how-to-recognize-it"
+    },
+    "S001#benign-lookalikes": {
+      "document": "S001",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#benign-lookalikes"
+    },
+    "S001#benign-lookalikes/changed-source": {
+      "document": "S001",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#benign-lookalikes/changed-source"
+    },
+    "S001#benign-lookalikes/different-content": {
+      "document": "S001",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#benign-lookalikes/different-content"
+    },
+    "S001#benign-lookalikes/failed-delivery": {
+      "document": "S001",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#benign-lookalikes/failed-delivery"
+    },
+    "S001#benign-lookalikes/freshness-check": {
+      "document": "S001",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#benign-lookalikes/freshness-check"
+    },
+    "S001#benign-lookalikes/required-verification": {
+      "document": "S001",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#benign-lookalikes/required-verification"
+    },
+    "S001#what-to-record": {
+      "document": "S001",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#what-to-record"
+    },
+    "S001#examples": {
+      "document": "S001",
+      "kind": "examples",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#examples"
+    },
+    "S001#examples/stalled-edit": {
+      "document": "S001",
+      "kind": "example",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#examples/stalled-edit"
+    },
+    "S001#examples/verified-edit": {
+      "document": "S001",
+      "kind": "example",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html#examples/verified-edit"
+    }
+  },
+  "relationships": [
+    {
+      "from": "D001#relations",
+      "to": "S001",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D001#relations",
+      "to": "I001",
+      "relation": "intervention-ref",
+      "address": "D001#relations/I001",
+      "when": "Necessary evidence appears to be lost from the active context; preserving it is feasible without changing source freshness requirements."
+    },
+    {
+      "from": "D001#definition",
+      "to": "S001",
+      "relation": "ref"
+    },
+    {
+      "from": "D001#criteria/recurrence",
+      "to": "S001",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D001#investigation",
+      "to": "I001",
+      "relation": "ref"
+    },
+    {
+      "from": "D001#interventions",
+      "to": "I001",
+      "relation": "ref"
+    },
+    {
+      "from": "S001#observations/multi-read",
+      "to": "D001",
+      "relation": "ref"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<intervention xmlns="urn:adm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Preserve task-relevant evidence">
+  <summary>Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</summary>
+  <purpose>
+    <p>Test whether loss of task-relevant evidence from the active context contributes to repeated retrieval, and evaluate whether preserving that evidence improves the task outcome.</p>
+    <p>This is a <strong>proposed protocol</strong>, not a demonstrated remedy. A diagnosis's applicability link determines when it is worth considering; mere repetition does not justify it.</p>
+  </purpose>
+  <preconditions>
+    <precondition id="missing-evidence">
+      <p>A prior retrieval delivered usable evidence, but the evidence appears absent from a later model input where it is needed.</p>
+    </precondition>
+    <precondition id="replayable-task">
+      <p>The task and relevant source versions can be captured or replayed well enough for a meaningful comparison.</p>
+    </precondition>
+    <precondition id="persistent-record">
+      <p>The harness allows a bounded record to remain available across context transitions.</p>
+    </precondition>
+    <precondition id="freshness-enforced">
+      <p>Freshness requirements can still be enforced. Sensitive evidence remains within the system's existing access boundaries.</p>
+    </precondition>
+  </preconditions>
+  <procedure>
+    <step id="save-baseline">
+      <p>Save a baseline checkpoint, configuration, and source versions. Define completion and correctness checks before inspecting the experimental outcome.</p>
+    </step>
+    <step id="create-record">
+      <p>Create a small evidence record containing the needed fact or excerpt, source identity/version, and its relationship to the pending task. Prefer source-grounded content over a new interpretive summary.</p>
+    </step>
+    <step id="preserve-record">
+      <p>Keep that record available across the context transition. Record exactly what is inserted, where, and how much context it consumes. This protocol preserves evidence; it does not prohibit further reads.</p>
+    </step>
+    <step id="compare-runs">
+      <p>Run a baseline and a modified condition from comparable checkpoints, with other conditions as similar as practical. Record unavoidable differences.</p>
+    </step>
+    <step id="repeat-trials">
+      <p>Repeat trials to characterize variation. Where feasible, add a comparison retaining a similarly sized irrelevant record to help distinguish evidence availability from generic prompt or context changes.</p>
+    </step>
+    <step id="review-outcome">
+      <p>Review outcome and tradeoffs before retaining the change. Invalidate or refresh the record when its source version or task relevance changes.</p>
+    </step>
+  </procedure>
+  <evaluation>
+    <p>Compare task completion and correctness first. Also record repeated retrievals, information gained, elapsed time, token/tool cost, and legitimate checks skipped.</p>
+    <p>A favorable result improves progress or resource use without unacceptable loss of correctness or necessary verification. Define acceptable tradeoffs for the task before running the experiment; this manual does not supply universal thresholds.</p>
+    <p>A null result is inconclusive when the manipulation failed to keep evidence visible. If evidence remained visible and repetition persisted, that weakens the simple evidence-loss hypothesis for this case. A positive result supports this intervention under these conditions; it does not uniquely establish the cause.</p>
+  </evaluation>
+  <risks-and-confounders>
+    <p>Preserved evidence can become stale, displace other useful context, change attention, or introduce additional instructions through its wording. Model sampling variation and changed source content can also explain differences.</p>
+    <p>Record these limitations. Avoid turning a new summary into an unquestioned authority. Preserve provenance and version checks.</p>
+  </risks-and-confounders>
+  <stop-and-rollback>
+    <p>Stop if the record becomes stale, correctness declines, necessary verification is skipped, or the comparison cannot maintain meaningful conditions. Remove the preservation policy and restore the prior context configuration. Retain the experimental record and failure outcome for review.</p>
+  </stop-and-rollback>
+  <evidence-and-uncertainty>
+    <p><strong>Unvalidated.</strong> No baseline/modified comparison has been performed for this repository. The procedure is intended to make a hypothesis testable and a possible remedy reviewable.</p>
+    <p>Do not promote this entry's evidence label because a synthetic example sounds plausible.</p>
+  </evidence-and-uncertainty>
+</intervention>
