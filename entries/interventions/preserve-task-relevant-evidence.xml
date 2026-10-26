@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <intervention xmlns="urn:asm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Preserve task-relevant evidence">
   <summary>Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</summary>
-  <targets>
-    <target>context-policy</target>
-    <target>working-memory</target>
-  </targets>
   <purpose>
     <p>Test whether loss of task-relevant evidence from the active context contributes to repeated retrieval, and evaluate whether preserving that evidence improves the task outcome.</p>
     <p>This is a <strong>proposed protocol</strong>, not a demonstrated remedy. A diagnosis's applicability link determines when it is worth considering; mere repetition does not justify it.</p>

@@ -8,7 +8,7 @@ NS='urn:asm:1'
 N={'a':NS}
 LOCAL_ID=re.compile(r'[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){0,2}\Z')
 PROSE={'p','ul','ol','li','strong','em','a','ref','code','pre','table','thead','tbody','tr','th','td'}
-METADATA={'summary','targets'}
+METADATA={'summary'}
 ITEMS={'observation','lookalike','example','criterion','exclusion','alternative','precondition','step','section','intervention-ref'}
 
 def name(node):return ET.QName(node).localname
@@ -16,7 +16,7 @@ def name(node):return ET.QName(node).localname
 def text(node):return ''.join(node.itertext()).strip()
 
 def ast(node):
-    mixed=name(node) in {'p','li','strong','em','a','ref','code','when','summary','target','th','td'}
+    mixed=name(node) in {'p','li','strong','em','a','ref','code','when','summary','th','td'}
     content=[]
     if node.text and (mixed or node.text.strip()):content.append(node.text)
     for child in node:

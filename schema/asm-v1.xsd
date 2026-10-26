@@ -189,13 +189,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:group ref="a:metadata"/>
-        <xs:element name="targets">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="target" type="a:text" maxOccurs="unbounded"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="purpose" type="a:section"/>
         <xs:element name="preconditions" type="a:preconditions"/>
         <xs:element name="procedure" type="a:procedure"/>
