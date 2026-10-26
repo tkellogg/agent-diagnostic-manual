@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-3">{% include "toc.html" %}</div>
+<div class="col-md-9" role="main">
+  {% if page %}
+  <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
+    <a href="{{ page.file.src_uri | url }}" download>Markdown</a>
+    {% if page.meta.xml_source %}
+    <a href="{{ page.meta.xml_source | url }}">XML</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+  <details class="adm-search" data-pagefind-ignore>
+    <summary>Search the manual</summary>
+    <div id="search"></div>
+    <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+  </details>
+  {% if page and page.meta.id %}
+  <p class="entry-status">{{ page.meta.id }} · {{ page.meta.status }} · {{ page.meta.evidence }}</p>
+  {% endif %}
+  <article data-pagefind-body>{% include "content.html" %}</article>
+</div>
+{% endblock %}
+{% block styles %}
+{{ super() }}
+<link href="{{ 'pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src="{{ 'pagefind/pagefind-ui.js' | url }}"></script>
+<script>
+  if (window.PagefindUI) {
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false,
+      baseUrl: {{ ('.' | url) | tojson }} + "/" });
+  }
+</script>
+{% endblock %}

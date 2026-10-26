@@ -62,7 +62,7 @@ The example uses Python's standard library and imports no ADM code. Independent 
 
 ## Generated views
 
-Run `python tools/build.py` to produce a linked HTML site, Markdown under `dist/markdown/`, and `dist/catalog.json`. The builder derives navigation from entries. Edit XML and rebuild; do not edit generated copies.
+Run `python tools/build.py` to produce a linked HTML site, Markdown and XML alongside each HTML entry in `dist/`, and `dist/catalog.json`. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.
 
 The catalog exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address and condition.
 

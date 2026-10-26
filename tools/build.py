@@ -7,6 +7,11 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
+import sys
+import yaml
+from mkdocs.config import load_config
+from mkdocs.commands.build import build as mkdocs_build
 try:
     from .xml_entries import load, name, text, ast, N, METADATA, ITEMS
 except ImportError:
@@ -19,7 +24,7 @@ class Renderer:
         self.doc=doc;self.objects=objects;self.addresses=addresses;self.mode=mode
     def esc(self,s):
         if self.mode=='html':return html.escape(s or '')
-        return re.sub(r'([\\`*_{}\[\]<>|])',r'\\\1',s or '')
+        return re.sub(r'([\\`*_{}\[\]|])',r'\\\1',html.escape(s or '',quote=False))
     def link(self,target,label):
         dest=self.objects[target]['document']['path']
         if self.mode=='md':dest=str(Path(dest).with_suffix('.md'))
@@ -68,42 +73,62 @@ class Renderer:
         title=n.get('title') or TITLES.get(tag) or (n.get('id') or tag).replace('-',' ').capitalize()
         return self.anchor(n)+self.heading(title,depth)+''.join(self.block(c,depth+1) for c in n)
     def body(self):
-        return self.heading(self.doc['meta']['title'],1)+''.join(self.block(c) for c in self.doc['node'])
+        return self.heading(self.doc['meta']['title'],1)+self.esc(self.doc['meta']['summary'])+'\n\n'+''.join(self.block(c) for c in self.doc['node'])
 
-def build(root=ROOT,check=False):
+def build(root=ROOT,check=False,search=False):
+    root=Path(root).resolve()
     docs,objects,addresses,refs=load(root)
-    if not check:
-        out=root/'dist'
-        if out.exists():shutil.rmtree(out)
-        out.mkdir()
-        for doc in docs:
-            dest=out/doc['path'];dest.parent.mkdir(parents=True,exist_ok=True)
-            renderer=Renderer(doc,objects,addresses,'html');m=doc['meta']
-            home=os.path.relpath('index.html',str(Path(doc['path']).parent)).replace(os.sep,'/')
-            nav='<a href="'+html.escape(home,quote=True)+'">ADM</a> '+ ' '.join(renderer.link(d['meta']['id'],renderer.esc(d['meta']['id'])) for d in docs)
-            badges=' · '.join(html.escape(m[k]) for k in ('id','kind','status','evidence') if k in m)
-            dest.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(m['title'])+' · ADM</title><style>'+CSS+'</style></head><body><header><nav>'+nav+'</nav></header><main><div class="eyebrow">'+badges+'</div>'+renderer.body()+'</main></body></html>',encoding='utf-8')
-            md=out/'markdown'/Path(doc['path']).with_suffix('.md');md.parent.mkdir(parents=True,exist_ok=True)
-            md.write_text('<!-- Generated from '+doc['source']+'; edit XML and rebuild. -->\n\n'+Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
-        groups=[]
-        md_groups=[]
-        for kind in ('symptom','diagnosis','intervention'):
-            entries=[d for d in docs if d['meta']['kind']==kind]
-            heading={'symptom':'Symptoms','diagnosis':'Diagnoses','intervention':'Interventions'}[kind]
-            items=''.join('<li><a href="'+html.escape(d['path'],quote=True)+'">'+html.escape(d['meta']['id']+' — '+d['meta']['title'])+'</a></li>' for d in entries)
-            groups.append('<h2>'+heading+'</h2><ul>'+items+'</ul>')
-            md_groups.append('## '+heading+'\n\n'+'\n'.join('- ['+d['meta']['id']+' — '+Renderer(d,objects,addresses,'md').esc(d['meta']['title'])+']('+str(Path(d['path']).with_suffix('.md'))+')' for d in entries))
-        (out/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Diagnostic Manual</title><style>'+CSS+'</style></head><body><main><h1>Agent Diagnostic Manual</h1>'+''.join(groups)+'</main></body></html>',encoding='utf-8')
-        (out/'markdown/index.md').write_text('# Agent Diagnostic Manual\n\n'+'\n\n'.join(md_groups)+'\n',encoding='utf-8')
-        catalog={'schema_version':3,'xml_namespace':'urn:adm:1',
-            'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
-            'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
-        (out/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
-    print(f'Validated {len(docs)} XML documents and {len(objects)} scoped addresses'+('' if check else '; built dist/'))
+    if check:
+        print(f'Validated {len(docs)} XML documents and {len(objects)} scoped addresses')
+        return docs,objects,refs
+    staging=root/'.build/docs'
+    if staging.exists():shutil.rmtree(staging)
+    staging.mkdir(parents=True)
+    out=root/'dist'
+    nav=[{'Home':'index.md'}]
+    for kind,label in [('symptom','Symptoms'),('diagnosis','Diagnoses'),('intervention','Interventions')]:
+        nav.append({label:[{d['meta']['id']+' — '+d['meta']['title']:str(Path(d['path']).with_suffix('.md'))}
+                           for d in docs if d['meta']['kind']==kind]})
+    nav.append({'Using ADM':[
+        {'Diagnostic skill':'skills/agent-diagnostics/SKILL.md'},
+        {'File format':'skills/agent-diagnostics/references/format.md'}]})
+    for doc in docs:
+        path=Path(doc['path'])
+        md=staging/path.with_suffix('.md')
+        md.parent.mkdir(parents=True,exist_ok=True)
+        metadata={**doc['meta'],'xml_source':path.with_suffix('.xml').as_posix()}
+        md.write_text('---\n'+yaml.safe_dump(metadata,sort_keys=False)+'---\n\n'+
+                      Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
+        shutil.copyfile(root/doc['source'],staging/path.with_suffix('.xml'))
+    # README is the homepage source. Map repository entry links to reading pages.
+    readme=(root/'README.md').read_text()
+    for doc in docs:
+        readme=readme.replace(']('+doc['source']+')',']('+str(Path(doc['path']).with_suffix('.md'))+')')
+    (staging/'index.md').write_text(readme,encoding='utf-8')
+    shutil.copytree(root/'skills',staging/'skills')
+    shutil.copytree(root/'schema',staging/'schema')
+    shutil.copytree(root/'website/assets',staging/'assets')
+    catalog={'schema_version':3,'xml_namespace':'urn:adm:1',
+        'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
+        'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
+    (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
+    config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True)
+    mkdocs_build(config)
+    # MkDocs consumes Markdown; expose exact source variants alongside HTML.
+    for md in staging.rglob('*.md'):
+        target=out/md.relative_to(staging)
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(md,target)
+    (out/'.nojekyll').touch()
+    if search:
+        subprocess.run(['npm','run','search'],cwd=root,check=True)
+    print(f'Validated {len(docs)} XML documents and {len(objects)} scoped addresses; built dist/')
     return docs,objects,refs
 
-CSS='\n:root{color-scheme:light;--ink:#192c3c;--muted:#526474;--line:#d9e0e4;--accent:#0c666c}\n*{box-sizing:border-box}body{margin:0;background:#f9faf7;color:var(--ink);font:17px/1.7 system-ui,-apple-system,sans-serif}\nheader{background:#182d3e;border-bottom:4px solid #65bdb0}nav{max-width:1120px;margin:auto;display:flex;gap:26px;padding:22px 28px;flex-wrap:wrap}nav a{color:#f4f8f7;text-decoration:none;font-size:15px}nav a:first-child{font-weight:800;letter-spacing:.15em;margin-right:auto}\nmain{max-width:1000px;margin:55px auto;padding:0 28px}h1{font-size:clamp(30px,5vw,45px);line-height:1.18;letter-spacing:-.035em;margin:22px 0 30px}h2{font-size:24px;margin:42px 0 14px;line-height:1.3}h3{font-size:20px}p,li{max-width:82ch}a{color:var(--accent);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible{outline:3px solid #c77b2c;outline-offset:4px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700}.abstract{color:var(--muted);font-size:19px;max-width:72ch}table{border-collapse:collapse;width:100%;font-size:15px;margin:24px 0}th,td{border-bottom:1px solid var(--line);padding:14px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#eaf0ef;font-size:13px}code{background:#eaf0ef;padding:2px 5px;border-radius:3px;font-size:.87em}pre{background:#182d3e;color:#f4f8f7;border-radius:8px;padding:22px;overflow:auto}pre code{background:none;padding:0}li{margin:9px 0}aside{margin-top:48px;border:1px solid var(--line);border-left:4px solid #65bdb0;padding:8px 24px 20px;background:#fff}aside h2{margin-top:18px}aside ul{padding-left:20px}aside small{color:var(--muted);display:block;font-size:12px}aside p{margin:4px 0 18px;font-size:15px}footer{max-width:1000px;margin:60px auto 30px;padding:24px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:white;padding:10px} @media(max-width:600px){nav{gap:14px;padding:18px}main{padding:0 18px;margin:32px auto}th,td{padding:10px 7px;font-size:13px}h2{margin-top:32px}footer{padding:20px 18px}}\n'
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');args=p.parse_args()
-    try:build(check=args.check)
-    except (ValueError,UnicodeError) as e:p.exit(1,str(e)+'\n')
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--check',action='store_true')
+    p.add_argument('--no-search',action='store_true',help='Skip Pagefind for fast local iterations')
+    args=p.parse_args()
+    try:build(check=args.check,search=not args.no_search)
+    except (ValueError,UnicodeError,subprocess.CalledProcessError) as e:p.exit(1,str(e)+'\n')

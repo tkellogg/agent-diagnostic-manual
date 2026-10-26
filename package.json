@@ -1,0 +1,11 @@
+{
+  "name": "agent-diagnostic-manual",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "search": "pagefind --site dist --exclude-selectors '.formats, .pagefind-ui'"
+  },
+  "devDependencies": {
+    "pagefind": "1.5.2"
+  }
+}

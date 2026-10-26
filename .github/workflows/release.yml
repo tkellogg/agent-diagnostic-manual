@@ -1,0 +1,68 @@
+name: Release ADM
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version (MAJOR.MINOR.PATCH, without v)
+        required: true
+        default: 0.1.0
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: adm-release
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Capture main HEAD and reject an existing tag
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          python -c 'import os,re; assert re.fullmatch(r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)",os.environ["VERSION"]), "Invalid version"'
+          if git show-ref --verify --quiet "refs/tags/v$VERSION"; then
+            echo "Tag v$VERSION already exists; choose a new version." >&2
+            exit 1
+          fi
+          echo "SOURCE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: python -m pip install -r requirements.txt
+      - run: npm ci
+      - run: python tools/build.py --check
+      - run: python -m unittest discover -s tests
+      - run: python tools/build.py
+      - name: Package all formats
+        env:
+          VERSION: ${{ inputs.version }}
+        run: python tools/package_release.py --version "$VERSION" --commit "$SOURCE_SHA"
+      - name: Publish tagged release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          cat > release/notes.md <<EOF_NOTES
+          ADM $VERSION, built from main at $SOURCE_SHA.
+
+          The ZIP includes a searchable HTML site with adjacent Markdown/XML variants,
+          a Markdown edition, canonical XML and schema, and the distributable diagnostic skill.
+          manifest.json records the source commit and SHA-256 checksums.
+          EOF_NOTES
+          git tag "v$VERSION" "$SOURCE_SHA"
+          git push origin "refs/tags/v$VERSION"
+          gh release create "v$VERSION" "release/adm-$VERSION.zip" "release/adm-$VERSION.zip.sha256" --verify-tag --title "ADM $VERSION" --notes-file release/notes.md

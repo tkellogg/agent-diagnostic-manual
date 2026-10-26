@@ -1,0 +1,13 @@
+:root { --pagefind-ui-primary: #11676d; --pagefind-ui-font: inherit; }
+body { font-size: 1rem; line-height: 1.65; }
+article { max-width: 78ch; }
+h1 { letter-spacing: -.035em; }
+.formats { display: flex; gap: 1rem; justify-content: flex-end; font-size: .85rem; }
+.adm-search { margin: 1rem 0 2rem; padding: 1rem; border: 1px solid #dce2e6; border-radius: .4rem; }
+.adm-search summary { cursor: pointer; font-weight: 600; }
+.adm-search[open] summary { margin-bottom: 1rem; }
+.pagefind-ui__result-link { overflow-wrap: anywhere; }
+article [id] { scroll-margin-top: 5rem; }
+pre { padding: 1rem; }
+@media (max-width: 767px) { .formats { justify-content: flex-start; } }
+.entry-status { color: #526474; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }

@@ -10,7 +10,7 @@ The first worked example:
 - [D001 — Unproductive repeated retrieval](entries/diagnoses/unproductive-repeated-retrieval.xml)
 - [I001 — Preserve task-relevant evidence](entries/interventions/preserve-task-relevant-evidence.xml)
 
-These are draft, unvalidated entries. Examples are synthetic. Severity remains deferred. The repository is private; publication and licensing are separate decisions.
+These are draft, unvalidated entries. Examples are synthetic. Severity remains deferred. Licensing remains to be decided.
 
 ## Use the skill
 
@@ -20,17 +20,18 @@ XML structure gives tools stable identities, relationships, and independently re
 
 ## Build and read
 
-Python 3.11+:
+Python 3.11+ and Node.js 22+:
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements.txt
+npm ci
 python tools/build.py
 python -m http.server 8000 --directory dist --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000`. The build also writes Markdown reading copies under `dist/markdown/` and a structured `dist/catalog.json`. All output is disposable and ignored by Git. Edit XML and rebuild.
+Open `http://127.0.0.1:8000`. MkDocs builds the site and Pagefind adds local, static search. Each entry has adjacent `.html`, `.md`, and `.xml` files, with format links on the HTML page. For example, replace `symptoms/repeated-retrieval.html` with `symptoms/repeated-retrieval.md` or `symptoms/repeated-retrieval.xml`. The build also writes `dist/catalog.json`. All output is disposable and ignored by Git. Edit XML and rebuild.
 
 ## Authoring
 
@@ -57,3 +58,25 @@ python examples/query_manual.py
 ```
 
 The independent example uses only Python's standard library and imports no ADM code. Consumers do not need an LLM, the reference builder, or a hosted service.
+
+## Releases
+
+Run **Actions → Release ADM → Run workflow**, select `main`, and enter a version without the `v` prefix. Start with `0.1.0`. The workflow captures HEAD of main at checkout, validates XML and references, runs tests, builds all formats and search, and publishes tag `v0.1.0` and release assets. An existing tag is rejected rather than moved.
+
+The ZIP contains `html/` (the complete searchable site with adjacent source variants), `markdown/`, `xml/entries/`, `xml/schema/`, the distributable `skills/` folder, and `manifest.json` with the source commit and per-file SHA-256 hashes. A separate checksum covers the ZIP. Serve `html/` over HTTP to use search.
+
+To build the same package locally after building the site:
+
+```sh
+python tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
+```
+
+## GitHub Pages
+
+Every push to main validates and builds the site, stores a complete generated copy on `gh-pages`, and uploads a Pages artifact. Generated branch commits do not trigger the main-branch workflows.
+
+For hosting, select **Settings → Pages → Source → GitHub Actions**, then create the repository Actions variable **ADM_PAGES_ENABLED** with value **true**. Run **Build and publish documentation** once, or push to main. This uses GitHub's Pages deployment action; the generated branch remains available for inspection. The hosting step is disabled until the variable is set, so an unconfigured Pages account does not fail ordinary builds. Pages availability for a private repository depends on the account plan; enabling it can make the site public.
+
+`mkdocs.yml` sets the project URL and disables directory-style URLs. All normal page assets and format links are relative, so the site works under a project path. The README is the homepage source. To skip search during quick local iterations, use `python tools/build.py --no-search`.
+
+The CI, release, and Pages workflows all validate against `schema/adm-v1.xsd` and check document IDs, local IDs, and typed references before building.

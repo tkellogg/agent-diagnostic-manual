@@ -1,5 +1,8 @@
 name: Validate and build
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
 permissions:
   contents: read
 jobs:
@@ -10,7 +13,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
       - run: python -m pip install -r requirements.txt
+      - run: npm ci
+      - name: Validate XML grammar and corpus references
+        run: python tools/build.py --check
       - run: python -m unittest discover -s tests
-      - run: python tools/build.py --check
-      - run: python tools/build.py
+      - name: Build Markdown, HTML, XML variants and search
+        run: python tools/build.py
+      - name: Smoke-test release packaging
+        run: python tools/package_release.py --version 0.1.0 --commit "$GITHUB_SHA"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adm-preview
+          path: dist/
+          include-hidden-files: true

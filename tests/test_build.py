@@ -18,7 +18,8 @@ I='entries/interventions/preserve-task-relevant-evidence.xml'
 class FormatTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
-        for folder in ('entries','schema'):shutil.copytree(ROOT/folder,self.root/folder)
+        for folder in ('entries','schema','skills','website'):shutil.copytree(ROOT/folder,self.root/folder)
+        for file in ('README.md','mkdocs.yml'):shutil.copyfile(ROOT/file,self.root/file)
     def tearDown(self):self.temp.cleanup()
     def change(self,path,old,new):
         p=self.root/path;s=p.read_text();self.assertIn(old,s);p.write_text(s.replace(old,new))
@@ -37,18 +38,19 @@ class FormatTests(unittest.TestCase):
         build(self.root)
         out=self.root/'dist'
         home=ET.HTML((out/'index.html').read_text())
-        self.assertEqual(len(home.xpath('//a')),3)
+        self.assertIn('Agent Diagnostic Manual',(out/'index.html').read_text())
         for page in out.rglob('*.html'):
             node=ET.HTML(page.read_text())
             for href in node.xpath('//a/@href'):
                 url=urlsplit(href)
-                if url.scheme:continue
-                target=(page.parent/unquote(url.path)).resolve() if url.path else page
-                self.assertTrue(target.is_file(),href)
-                if url.fragment:
+                if url.scheme or href=='#':continue
+                urlpath=unquote(url.path)
+                target=((out/urlpath.removeprefix('/agent-diagnostic-manual/')).resolve() if urlpath.startswith('/agent-diagnostic-manual/') else (page.parent/urlpath).resolve()) if urlpath else page
+                self.assertTrue((target.is_file() or target.is_dir()),href)
+                if url.fragment and target.suffix=='.html':
                     dest=ET.HTML(target.read_text())
                     self.assertIn(unquote(url.fragment),dest.xpath('//*[@id]/@id'))
-        md=(out/'markdown/index.md').read_text()
+        md=(out/'index.md').read_text()
         self.assertIn('symptoms/repeated-retrieval.md',md)
         self.assertIn('diagnoses/unproductive-repeated-retrieval.md',md)
         self.assertIn('interventions/preserve-task-relevant-evidence.md',md)
@@ -82,9 +84,10 @@ class FormatTests(unittest.TestCase):
             self.assertEqual(doc['node'].findall('.//a:title',N),[])
             count=len(doc['node'].xpath('descendant-or-self::*[@title]'))
             h=(self.root/'dist'/doc['path']).read_text()
-            m=(self.root/'dist/markdown'/Path(doc['path']).with_suffix('.md')).read_text()
-            self.assertEqual(h.count('A &amp; &quot;B&quot; &lt;C&gt; *D*'),count+1)
-            self.assertEqual(m.count(r'A & "B" \<C\> \*D\*'),count)
+            m=(self.root/'dist'/Path(doc['path']).with_suffix('.md')).read_text()
+            headings=ET.HTML(h).xpath('//article//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]')
+            self.assertEqual(sum(''.join(e.itertext()).removesuffix('¶')==title for e in headings),count)
+            self.assertEqual(m.count(r'A &amp; "B" &lt;C&gt; \*D\*'),count)
     def test_title_attributes_required(self):
         for path in (S,D,I):
             original=(self.root/path).read_bytes()
@@ -150,7 +153,7 @@ class FormatTests(unittest.TestCase):
         self.change(D,'target="S001"','target="S001#observations/multi-read"')
         build(self.root)
         h=(self.root/'dist/diagnoses/unproductive-repeated-retrieval.html').read_text()
-        m=(self.root/'dist/markdown/diagnoses/unproductive-repeated-retrieval.md').read_text()
+        m=(self.root/'dist/diagnoses/unproductive-repeated-retrieval.md').read_text()
         self.assertIn('../symptoms/repeated-retrieval.html#observations/multi-read',h)
         self.assertIn('../symptoms/repeated-retrieval.md#observations/multi-read',m)
         self.assertIn('id="observations/multi-read"',(self.root/'dist/symptoms/repeated-retrieval.html').read_text())
@@ -183,7 +186,7 @@ class FormatTests(unittest.TestCase):
         before={str(p.relative_to(self.root)):p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
         build(self.root);(self.root/'dist/stale.html').write_text('stale');build(self.root)
         self.assertFalse((self.root/'dist/stale.html').exists())
-        after={str(p.relative_to(self.root)):p.read_bytes() for p in self.root.rglob('*') if p.is_file() and 'dist' not in p.relative_to(self.root).parts}
+        after={str(p.relative_to(self.root)):p.read_bytes() for p in self.root.rglob('*') if p.is_file() and 'dist' not in p.relative_to(self.root).parts and '.build' not in p.relative_to(self.root).parts}
         self.assertEqual(before,after)
         self.assertFalse((self.root/'content').exists())
     def test_every_catalog_address_has_a_rendered_anchor(self):
