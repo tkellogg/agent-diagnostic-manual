@@ -8,7 +8,7 @@ NS='urn:asm:1'
 N={'a':NS}
 LOCAL_ID=re.compile(r'[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){0,2}\Z')
 PROSE={'p','ul','ol','li','strong','em','a','ref','code','pre','table','thead','tbody','tr','th','td'}
-METADATA={'title','summary','tags','targets'}
+METADATA={'title','summary','targets'}
 ITEMS={'observation','lookalike','example','criterion','exclusion','alternative','precondition','step','section','intervention-ref'}
 
 def name(node):return ET.QName(node).localname
@@ -16,7 +16,7 @@ def name(node):return ET.QName(node).localname
 def text(node):return ''.join(node.itertext()).strip()
 
 def ast(node):
-    mixed=name(node) in {'p','li','strong','em','a','ref','code','when','title','summary','tag','target','th','td'}
+    mixed=name(node) in {'p','li','strong','em','a','ref','code','when','title','summary','target','th','td'}
     content=[]
     if node.text and (mixed or node.text.strip()):content.append(node.text)
     for child in node:
@@ -48,7 +48,6 @@ def load(root):
             if output in paths:raise ValueError(f'output path collision: {output}')
             paths.add(output)
             meta={'id':did,'kind':kind,'title':node.findtext('a:title',namespaces=N),'summary':node.findtext('a:summary',namespaces=N),**{k:v for k,v in node.attrib.items() if k!='id'}}
-            meta['tags']=[text(t) for t in node.findall('a:tags/a:tag',N)]
             doc={'node':node,'meta':meta,'path':output,'source':path.relative_to(root).as_posix()};documents.append(doc)
             def register(obj,address):
                 if address in objects:raise ValueError(f'duplicate address: {address}')

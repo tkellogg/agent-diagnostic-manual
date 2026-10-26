@@ -2,11 +2,6 @@
 <diagnosis xmlns="urn:asm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive">
   <title>Unproductive repeated retrieval</title>
   <summary>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</summary>
-  <tags>
-    <tag>retrieval</tag>
-    <tag>progress</tag>
-    <tag>context</tag>
-  </tags>
   <relations>
     <symptom-ref ref="S001"/>
     <intervention-ref ref="I001" role="both" evidence="unvalidated" id="preserve-evidence">

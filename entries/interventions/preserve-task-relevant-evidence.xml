@@ -2,11 +2,6 @@
 <intervention xmlns="urn:asm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26">
   <title>Preserve task-relevant evidence</title>
   <summary>Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</summary>
-  <tags>
-    <tag>context</tag>
-    <tag>retrieval</tag>
-    <tag>experiment</tag>
-  </tags>
   <targets>
     <target>context-policy</target>
     <target>working-memory</target>

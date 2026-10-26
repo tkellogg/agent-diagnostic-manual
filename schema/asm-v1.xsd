@@ -17,7 +17,7 @@
   <xs:group name="blocks"><xs:choice><xs:element ref="a:p"/><xs:element ref="a:ul"/><xs:element ref="a:ol"/></xs:choice></xs:group>
   <xs:complexType name="blocks"><xs:group ref="a:blocks" minOccurs="1" maxOccurs="unbounded"/></xs:complexType>
   <xs:complexType name="section"><xs:group ref="a:blocks" minOccurs="1" maxOccurs="unbounded"/></xs:complexType>
-  <xs:group name="metadata"><xs:sequence><xs:element name="title" type="a:text"/><xs:element name="summary" type="a:text"/><xs:element name="tags"><xs:complexType><xs:sequence><xs:element name="tag" type="a:text" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:group>
+  <xs:group name="metadata"><xs:sequence><xs:element name="title" type="a:text"/><xs:element name="summary" type="a:text"/></xs:sequence></xs:group>
   <xs:element name="symptom-ref"><xs:complexType><xs:attribute name="ref" type="xs:NCName" use="required"/></xs:complexType></xs:element>
   <xs:element name="intervention-ref"><xs:complexType><xs:sequence><xs:element name="when" type="a:text"/></xs:sequence><xs:attributeGroup ref="a:identified"/><xs:attribute name="ref" type="xs:NCName" use="required"/><xs:attribute name="role" type="a:role" use="required"/><xs:attribute name="evidence" type="a:evidence" use="required"/></xs:complexType></xs:element>
   <xs:complexType name="relations"><xs:sequence><xs:element ref="a:symptom-ref" maxOccurs="unbounded"/><xs:element ref="a:intervention-ref" minOccurs="0" maxOccurs="unbounded"/></xs:sequence></xs:complexType>

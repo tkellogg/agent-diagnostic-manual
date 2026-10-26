@@ -2,11 +2,6 @@
 <symptom xmlns="urn:asm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26">
   <title>Repeated retrieval</title>
   <summary>An agent repeatedly retrieves substantially the same information during an episode.</summary>
-  <tags>
-    <tag>retrieval</tag>
-    <tag>context</tag>
-    <tag>repetition</tag>
-  </tags>
   <observations>
     <observation id="multi-read">
       <p>The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools.</p>
