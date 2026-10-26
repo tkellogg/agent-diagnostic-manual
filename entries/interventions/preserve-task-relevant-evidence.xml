@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:asm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Preserve task-relevant evidence">
+<intervention xmlns="urn:adm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Preserve task-relevant evidence">
   <summary>Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</summary>
   <purpose>
     <p>Test whether loss of task-relevant evidence from the active context contributes to repeated retrieval, and evaluate whether preserving that evidence improves the task outcome.</p>

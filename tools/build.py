@@ -80,9 +80,9 @@ def build(root=ROOT,check=False):
             dest=out/doc['path'];dest.parent.mkdir(parents=True,exist_ok=True)
             renderer=Renderer(doc,objects,addresses,'html');m=doc['meta']
             home=os.path.relpath('index.html',str(Path(doc['path']).parent)).replace(os.sep,'/')
-            nav='<a href="'+html.escape(home,quote=True)+'">ASM</a> '+ ' '.join(renderer.link(d['meta']['id'],renderer.esc(d['meta']['id'])) for d in docs)
+            nav='<a href="'+html.escape(home,quote=True)+'">ADM</a> '+ ' '.join(renderer.link(d['meta']['id'],renderer.esc(d['meta']['id'])) for d in docs)
             badges=' · '.join(html.escape(m[k]) for k in ('id','kind','status','evidence') if k in m)
-            dest.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(m['title'])+' · ASM</title><style>'+CSS+'</style></head><body><header><nav>'+nav+'</nav></header><main><div class="eyebrow">'+badges+'</div>'+renderer.body()+'</main></body></html>',encoding='utf-8')
+            dest.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(m['title'])+' · ADM</title><style>'+CSS+'</style></head><body><header><nav>'+nav+'</nav></header><main><div class="eyebrow">'+badges+'</div>'+renderer.body()+'</main></body></html>',encoding='utf-8')
             md=out/'markdown'/Path(doc['path']).with_suffix('.md');md.parent.mkdir(parents=True,exist_ok=True)
             md.write_text('<!-- Generated from '+doc['source']+'; edit XML and rebuild. -->\n\n'+Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
         groups=[]
@@ -95,7 +95,7 @@ def build(root=ROOT,check=False):
             md_groups.append('## '+heading+'\n\n'+'\n'.join('- ['+d['meta']['id']+' — '+Renderer(d,objects,addresses,'md').esc(d['meta']['title'])+']('+str(Path(d['path']).with_suffix('.md'))+')' for d in entries))
         (out/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Diagnostic Manual</title><style>'+CSS+'</style></head><body><main><h1>Agent Diagnostic Manual</h1>'+''.join(groups)+'</main></body></html>',encoding='utf-8')
         (out/'markdown/index.md').write_text('# Agent Diagnostic Manual\n\n'+'\n\n'.join(md_groups)+'\n',encoding='utf-8')
-        catalog={'schema_version':3,'xml_namespace':'urn:asm:1',
+        catalog={'schema_version':3,'xml_namespace':'urn:adm:1',
             'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
             'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
         (out/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')

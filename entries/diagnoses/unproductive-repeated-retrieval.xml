@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:asm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive" title="Unproductive repeated retrieval">
+<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive" title="Unproductive repeated retrieval">
   <summary>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</summary>
   <relations>
     <symptom-ref ref="S001"/>

@@ -1,4 +1,4 @@
 interface:
   display_name: "Agent Diagnostics"
-  short_description: "Investigate agent failures using the ASM corpus"
+  short_description: "Investigate agent failures using the ADM corpus"
   default_prompt: "Use $agent-diagnostics to assess this agent trace and identify the next useful investigation."

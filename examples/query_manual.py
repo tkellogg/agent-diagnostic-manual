@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read trusted ASM XML using only the standard library.
+"""Read trusted ADM XML using only the standard library.
 
 This reader example is not a full validator. Validate untrusted corpora with
 safe parsing and the documented validation layers before consuming them.
@@ -8,7 +8,7 @@ import argparse
 import json
 from pathlib import Path
 import xml.etree.ElementTree as ET
-NS={'a':'urn:asm:1'}
+NS={'a':'urn:adm:1'}
 
 def query(entries):
     result=[]
@@ -16,14 +16,14 @@ def query(entries):
         raw=path.read_bytes();raw.decode('utf-8')
         if b'<!DOCTYPE' in raw or b'<!ENTITY' in raw:raise ValueError('DTD and entity declarations are unsupported')
         node=ET.fromstring(raw)
-        if not node.tag.startswith('{urn:asm:1}') or node.get('version')!='1':raise ValueError('Unsupported namespace or version')
+        if not node.tag.startswith('{urn:adm:1}') or node.get('version')!='1':raise ValueError('Unsupported namespace or version')
         did=node.get('id')
-        if node.tag=='{urn:asm:1}symptom':
+        if node.tag=='{urn:adm:1}symptom':
             result.append({'symptom':did,
                 'observations':[did+'#observations/'+o.get('id') for o in node.findall('a:observations/a:observation',NS)],
                 'lookalikes':[did+'#benign-lookalikes/'+o.get('id') for o in node.findall('a:benign-lookalikes/a:lookalike',NS)],
                 'examples':[did+'#examples/'+o.get('id') for o in node.findall('a:examples/a:example',NS)]})
-        elif node.tag=='{urn:asm:1}diagnosis':
+        elif node.tag=='{urn:adm:1}diagnosis':
             result.append({'diagnosis':did,'operator':node.find('a:criteria',NS).get('operator'),
                 'criteria':[{'address':did+'#criteria/'+c.get('id'),'title':c.get('title')} for c in node.findall('a:criteria/a:criterion',NS)],
                 'interventions':[{'address':did+'#relations/'+i.get('ref'),'target':i.get('ref'),'when':i.findtext('a:when',namespaces=NS)} for i in node.findall('a:relations/a:intervention-ref',NS)]})

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:asm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Repeated retrieval">
+<symptom xmlns="urn:adm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Repeated retrieval">
   <summary>An agent repeatedly retrieves substantially the same information during an episode.</summary>
   <observations>
     <observation id="multi-read">

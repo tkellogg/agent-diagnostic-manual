@@ -63,7 +63,7 @@ class FormatTests(unittest.TestCase):
                     with self.subTest(path=path,tag=tag,position=position):
                         tree=ET.fromstring(original)
                         node=tree.find('a:'+tag,N)
-                        p=ET.Element('{urn:asm:1}p');p.text='Stray prose.'
+                        p=ET.Element('{urn:adm:1}p');p.text='Stray prose.'
                         node.insert(0 if position=='before' else len(node),p)
                         (self.root/path).write_bytes(ET.tostring(tree))
                         with self.assertRaises(ValueError):load(self.root)
@@ -176,7 +176,7 @@ class FormatTests(unittest.TestCase):
         self.change(S,'version="1"','version="2"')
         with self.assertRaises(ValueError):load(self.root)
     def test_mixed_content_preserved(self):
-        node=ET.fromstring(b'<p xmlns="urn:asm:1"><strong>one</strong> <em>two</em> tail</p>')
+        node=ET.fromstring(b'<p xmlns="urn:adm:1"><strong>one</strong> <em>two</em> tail</p>')
         self.assertEqual(ast(node)['content'][1],' ')
         self.assertEqual(ast(node)['content'][3],' tail')
     def test_build_does_not_write_sources_and_cleans_output(self):

@@ -1,10 +1,10 @@
-"""Reference reader for ASM XML with list-local identities."""
+"""Reference reader for ADM XML with list-local identities."""
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
 from lxml import etree as ET
 
-NS='urn:asm:1'
+NS='urn:adm:1'
 N={'a':NS}
 LOCAL_ID=re.compile(r'[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){0,2}\Z')
 PROSE={'p','ul','ol','li','strong','em','a','ref','code'}
@@ -25,7 +25,7 @@ def ast(node):
     return {'name':name(node),'attributes':dict(node.attrib),'content':content}
 
 def load(root):
-    schema=ET.XMLSchema(ET.parse(str(root/'schema/asm-v1.xsd')))
+    schema=ET.XMLSchema(ET.parse(str(root/'schema/adm-v1.xsd')))
     documents=[];objects={};node_addresses={};paths=set()
     for path in sorted((root/'entries').rglob('*.xml')):
         raw=path.read_bytes();raw.decode('utf-8')

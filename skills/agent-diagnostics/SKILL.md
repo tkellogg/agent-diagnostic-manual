@@ -1,15 +1,15 @@
 ---
 name: agent-diagnostics
-description: Investigate failures in configured AI agents using the Agent Diagnostic Manual (ASM). Use when reviewing agent traces, assessing symptoms and candidate diagnoses, comparing competing explanations, planning interventions, or reading and contributing ASM XML entries.
+description: Investigate failures in configured AI agents using the Agent Diagnostic Manual (ADM). Use when reviewing agent traces, assessing symptoms and candidate diagnoses, comparing competing explanations, planning interventions, or reading and contributing ADM XML entries.
 ---
 
 # Agent diagnostics
 
-Use ASM to organize evidence and decide what to investigate next. Treat a symptom as an observation, a diagnosis as a defined pattern, a mechanism as a causal hypothesis, and an intervention as a change to the system. Do not infer one merely from another.
+Use ADM to organize evidence and decide what to investigate next. Treat a symptom as an observation, a diagnosis as a defined pattern, a mechanism as a causal hypothesis, and an intervention as a change to the system. Do not infer one merely from another.
 
 ## Locate the corpus
 
-Use the user's ASM checkout or supplied entry files. When this skill lives in the ASM repository, find the corpus at `../../entries/` relative to this file. When installed separately, locate the checkout in the workspace or use a location supplied by the user. If none is available, ask for the corpus location; do not invent entries or assume access to the private repository.
+Use the user's ADM checkout or supplied entry files. When this skill lives in the ADM repository, find the corpus at `../../entries/` relative to this file. When installed separately, locate the checkout in the workspace or use a location supplied by the user. If none is available, ask for the corpus location; do not invent entries or assume access to the private repository.
 
 Read XML directly; no build or LLM-specific service is required. Read [the format reference](references/format.md) for parsing, addressing, or authoring rules. In a checkout, use `examples/query_manual.py` to enumerate entries with standard-library Python, and `tools/build.py` to generate HTML, Markdown reading copies, and a JSON catalog. Run these commands from the checkout root. Treat generated copies as views, not editing sources.
 

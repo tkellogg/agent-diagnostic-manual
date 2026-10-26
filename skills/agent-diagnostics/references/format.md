@@ -1,10 +1,10 @@
-# ASM file format
+# ADM file format
 
-Use this reference when reading, parsing, linking, or editing ASM files. The corpus is XML; this skill and its instructions are Markdown.
+Use this reference when reading, parsing, linking, or editing ADM files. The corpus is XML; this skill and its instructions are Markdown.
 
 ## Source and identity
 
-Read UTF-8 XML in namespace `urn:asm:1` with `version="1"`. The namespace is an identifier, not a network resource. The three root kinds and locations are:
+Read UTF-8 XML in namespace `urn:adm:1` with `version="1"`. The namespace is an identifier, not a network resource. The three root kinds and locations are:
 
 | Root | Directory | Document ID |
 | --- | --- | --- |
@@ -48,7 +48,7 @@ For interventions, read purpose, preconditions, procedure, evaluation, risks-and
 
 Preserve inline text order and spaces. Prose supports p, ul/ol with li, strong, em, code, ref, and external links using a. Use a only for HTTP(S) or mailto links; use ref for corpus navigation. Escape text when rendering. Generic prose lists do not create independently addressable items.
 
-Validate against `schema/asm-v1.xsd` in the checkout, then check directory/ID agreement, document uniqueness, local list uniqueness, and reference resolution and kinds. Reject unsupported versions and unknown elements or attributes. Disable DTDs, entities, XInclude, network schema fetching, and executable content. Format conformance does not establish empirical validity.
+Validate against `schema/adm-v1.xsd` in the checkout, then check directory/ID agreement, document uniqueness, local list uniqueness, and reference resolution and kinds. Reject unsupported versions and unknown elements or attributes. Disable DTDs, entities, XInclude, network schema fetching, and executable content. Format conformance does not establish empirical validity.
 
 From the checkout root:
 
@@ -58,7 +58,7 @@ python -m unittest discover -s tests
 python examples/query_manual.py
 ```
 
-The example uses Python's standard library and imports no ASM code. Independent consumers need neither the reference builder nor an LLM.
+The example uses Python's standard library and imports no ADM code. Independent consumers need neither the reference builder nor an LLM.
 
 ## Generated views
 
