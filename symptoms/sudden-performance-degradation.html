@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://diag.timkellogg.me/symptoms/sudden-performance-degradation.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>S003 — Sudden performance degradation - Agent Diagnostic Manual</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../assets/adm.css" rel="stylesheet">
+<link href="../pagefind/pagefind-ui.css" rel="stylesheet">
+ 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">Agent Diagnostic Manual</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Symptoms</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
+</li>
+                                    
+<li>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+</li>
+                                    
+<li>
+    <a href="correction-without-behavioral-change.html" class="dropdown-item">S005 — Correction without behavioral change</a>
+</li>
+                                    
+<li>
+    <a href="doom-looping.html" class="dropdown-item">S002 — Doom looping</a>
+</li>
+                                    
+<li>
+    <a href="excessive-verification.html" class="dropdown-item">S004 — Excessive verification</a>
+</li>
+                                    
+<li>
+    <a href="lost-task-constraints.html" class="dropdown-item">S006 — Lost task constraints</a>
+</li>
+                                    
+<li>
+    <a href="premature-stopping.html" class="dropdown-item">S007 — Premature stopping</a>
+</li>
+                                    
+<li>
+    <a href="repeated-reauthorization.html" class="dropdown-item">S008 — Repeated reauthorization</a>
+</li>
+                                    
+<li>
+    <a href="repeated-retrieval.html" class="dropdown-item">S001 — Repeated retrieval</a>
+</li>
+                                    
+<li>
+    <a href="sudden-performance-degradation.html" class="dropdown-item active" aria-current="page">S003 — Sudden performance degradation</a>
+</li>
+                                    
+<li>
+    <a href="unrequested-changes.html" class="dropdown-item">S009 — Unrequested changes</a>
+</li>
+                                    
+<li>
+    <a href="unsupported-verification-claims.html" class="dropdown-item">S011 — Unsupported verification claims</a>
+</li>
+                                    
+<li>
+    <a href="weakening-the-checks.html" class="dropdown-item">S012 — Weakening the checks</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Diagnoses</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Interventions</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task-relevant evidence</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/SKILL.html" class="dropdown-item">Diagnostic skill</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/references/format.html" class="dropdown-item">File format</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="repeated-retrieval.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="unrequested-changes.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#sudden-performance-degradation" class="nav-link">Sudden performance degradation</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#observations" class="nav-link">Observations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#how-to-recognize-it" class="nav-link">How to recognize it</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#benign-lookalikes" class="nav-link">Benign lookalikes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-record" class="nav-link">What to record</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#examples" class="nav-link">Examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+<div class="col-md-9" role="main">
+  
+  <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
+    <a href="sudden-performance-degradation.md" download>Markdown</a>
+    
+    <a href="sudden-performance-degradation.xml">XML</a>
+    
+  </nav>
+  
+  <details class="adm-search" data-pagefind-ignore>
+    <summary>Search the manual</summary>
+    <div id="search"></div>
+    <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+  </details>
+  
+  <p class="entry-status">S003 · draft · unvalidated</p>
+  
+  <article data-pagefind-body>
+
+<h1 id="sudden-performance-degradation">Sudden performance degradation<a class="headerlink" href="#sudden-performance-degradation" title="Permanent link">&para;</a></h1>
+<p>An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.</p>
+<p><a id="observations"></a></p>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<p><a id="observations/performance-drop"></a></p>
+<h3 id="performance-drop">Performance drop<a class="headerlink" href="#performance-drop" title="Permanent link">&para;</a></h3>
+<p>Across a bounded transition, performance worsens on a named measure relative to a recorded earlier baseline: for example, more errors on comparable tasks, missed constraints, reduced completion, or greater time or cost for the same accepted result.</p>
+<p><a id="how-to-recognize-it"></a></p>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<p>Specify the measure and comparison before attributing the decline. Identify the last adequate and first degraded work, and compare task difficulty, available information, acceptance criteria, tools, and environment. A change in style or a general impression of reduced intelligence is a lead to investigate, not enough to establish a performance drop.</p>
+<p>Use repeated comparable tasks when available. For a single session, identify concrete before-and-after behavior under the same relevant constraints and retain uncertainty about ordinary variation. Describe how abrupt the change was in turns, time, or releases; there is no universal effect-size or time threshold in this draft.</p>
+<p>The observable decline can be real even when its cause is unknown. Changes to model, effort, instructions, harness, context, or service conditions are possible explanations, not part of the symptom definition. <a href="lost-task-constraints.html">Lost task constraints</a> and <a href="doom-looping.html">Doom looping</a> may describe particular ways the decline manifests.</p>
+<p><a id="benign-lookalikes"></a></p>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<p><a id="benign-lookalikes/harder-work"></a></p>
+<h3 id="harder-work">Harder work<a class="headerlink" href="#harder-work" title="Permanent link">&para;</a></h3>
+<p>Later tasks require different skills or greater complexity, so the earlier success rate is not a comparable baseline.</p>
+<p><a id="benign-lookalikes/changed-standard"></a></p>
+<h3 id="changed-standard">Changed standard<a class="headerlink" href="#changed-standard" title="Permanent link">&para;</a></h3>
+<p>The user changes acceptance criteria or requests faster, shorter, or cheaper work and observes the resulting tradeoff.</p>
+<p><a id="benign-lookalikes/isolated-miss"></a></p>
+<h3 id="isolated-miss">Isolated miss<a class="headerlink" href="#isolated-miss" title="Permanent link">&para;</a></h3>
+<p>One stochastic failure follows a small number of successes without enough evidence of a sustained or repeatable shift.</p>
+<p><a id="what-to-record"></a></p>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<p>Record the baseline and later tasks or trace segments, explicit performance measures, errors and outcomes, transition interval, and sample sizes. Preserve model/client versions, effort settings, prompts, tool availability, context transitions, service incidents, and environmental differences. Keep perceived change, measured change, and proposed cause distinct.</p>
+<p><a id="examples"></a></p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p><a id="examples/abrupt-omissions"></a></p>
+<h3 id="abrupt-omissions">Abrupt omissions<a class="headerlink" href="#abrupt-omissions" title="Permanent link">&para;</a></h3>
+<p>Synthetic example: an agent correctly processes six records using the same explicit four-field rule, then omits two required fields on each of the next six comparable records after a session transition. The omissions establish a local decline; the transition alone does not establish its cause.</p>
+<p><a id="examples/quality-postmortem"></a></p>
+<h3 id="quality-postmortem">Quality postmortem<a class="headerlink" href="#quality-postmortem" title="Permanent link">&para;</a></h3>
+<p>Reported investigation: <a href="https://www.anthropic.com/research/april-23-postmortem">Anthropic’s April 23, 2026 postmortem</a> attributes quality complaints to separate effort, context-management, and system-prompt changes. One bug repeatedly dropped prior thinking after an idle session resumed. These confirmed product incidents do not explain an unrelated episode automatically.</p>
+<p><a id="examples/different-task"></a></p>
+<h3 id="different-task">Different task<a class="headerlink" href="#different-task" title="Permanent link">&para;</a></h3>
+<p>Synthetic comparison: an agent succeeds at five typo fixes and then fails a distributed-systems redesign. The change in task difficulty prevents using that sequence alone as evidence of sudden degradation.</p></article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+<script src="../pagefind/pagefind-ui.js"></script>
+<script>
+  if (window.PagefindUI) {
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false,
+      baseUrl: ".." + "/" });
+  }
+</script>
+
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

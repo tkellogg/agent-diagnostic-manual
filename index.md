@@ -10,7 +10,26 @@ The first worked example:
 - [D001 — Unproductive repeated retrieval](diagnoses/unproductive-repeated-retrieval.md)
 - [I001 — Preserve task-relevant evidence](interventions/preserve-task-relevant-evidence.md)
 
-These are draft, unvalidated entries. Examples are synthetic. Severity remains deferred. Licensing remains to be decided.
+## Symptoms
+
+The symptom directory includes the original repeated-retrieval entry and twelve additional working definitions:
+
+- [S002 — Doom looping](symptoms/doom-looping.md)
+- [S003 — Sudden performance degradation](symptoms/sudden-performance-degradation.md)
+- [S004 — Excessive verification](symptoms/excessive-verification.md)
+- [S005 — Correction without behavioral change](symptoms/correction-without-behavioral-change.md)
+- [S006 — Lost task constraints](symptoms/lost-task-constraints.md)
+- [S007 — Premature stopping](symptoms/premature-stopping.md)
+- [S008 — Repeated reauthorization](symptoms/repeated-reauthorization.md)
+- [S009 — Unrequested changes](symptoms/unrequested-changes.md)
+- [S010 — Completion–artifact mismatch](symptoms/completion-artifact-mismatch.md)
+- [S011 — Unsupported verification claims](symptoms/unsupported-verification-claims.md)
+- [S012 — Weakening the checks](symptoms/weakening-the-checks.md)
+- [S013 — Agreement-driven reversal](symptoms/agreement-driven-reversal.md)
+
+Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.
+
+These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.
 
 ## Use the skill
 

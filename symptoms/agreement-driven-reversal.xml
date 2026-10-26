@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S013" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Agreement-driven reversal">
+  <summary>An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.</summary>
+  <observations>
+    <observation id="unsupported-reversal">
+      <p>After a user challenges a substantive conclusion, the agent adopts the user’s opposing claim or reverses related work while providing no adequate new evidence, applicable premise, or reasoning to support that change. The earlier and later positions concern the same factual or technical question.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Compare the original conclusion, supporting evidence, user challenge, and revised conclusion. Determine whether the user supplied a correction, new fact, changed requirement, or a valid argument. Agreement and politeness alone are not the observation.</p>
+    <p>Look for abandonment of an available check or contradiction of evidence the agent previously cited without resolving it. To establish that the new answer is wrong, evaluate it independently; an unsupported reversal can be observed even when neither answer has yet been verified.</p>
+    <p>The title describes the conversational sequence, not a proven internal motive. A controlled comparison with and without an unsupported challenge can test susceptibility, but is not required to record a concrete episode. An instruction to perform a revert is different from asserting that the previous implementation was incorrect.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="valid-correction">
+      <p>The user supplies a sound counterexample or exposes an error, and the agent updates its conclusion accordingly.</p>
+    </lookalike>
+    <lookalike id="changed-preference">
+      <p>The user changes a design preference or requirement where their choice legitimately determines the desired result.</p>
+    </lookalike>
+    <lookalike id="explicit-revert">
+      <p>The user explicitly requests reverting work, and the agent complies without falsely claiming the original work was technically wrong.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record both conclusions, the evidence or reasoning supporting each, the exact user challenge, intervening tool use, and any code changes. Preserve an independent reference or counterexample where possible. Distinguish factual agreement from compliance with a preference or action request, and record uncertainty about correctness.</p>
+  </what-to-record>
+  <examples>
+    <example id="unsupported-flip" kind="synthetic">
+      <p>Synthetic example: an agent verifies that a function returns a new list without mutating its input. The user asserts that it mutates the input but offers no evidence. The agent declares its earlier analysis wrong and adds a workaround without inspecting the function again or explaining the contradiction.</p>
+    </example>
+    <example id="developer-study" kind="observed">
+      <p>Research observation: <a href="https://arxiv.org/html/2506.12347v3">Why AI Agents Still Need You</a> reports developers losing confidence when agents offered contradictory explanations or reverted changes after challenges. The study documents the interaction pattern; the quoted complaint alone does not establish that every reverted change was correct.</p>
+    </example>
+    <example id="real-counterexample" kind="synthetic">
+      <p>Synthetic comparison: the user supplies a failing input that disproves the agent’s conclusion. The agent reproduces it, explains the mistaken assumption, and revises the implementation.</p>
+    </example>
+  </examples>
+</symptom>

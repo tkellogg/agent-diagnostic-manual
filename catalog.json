@@ -779,6 +779,1760 @@
       }
     },
     {
+      "id": "S013",
+      "kind": "symptom",
+      "summary": "An agent reverses a substantive conclusion toward a user\u2019s assertion without establishing evidence or reasoning that supports the reversal.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Agreement-driven reversal",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S013",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Agreement-driven reversal"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent reverses a substantive conclusion toward a user\u2019s assertion without establishing evidence or reasoning that supports the reversal."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "unsupported-reversal"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "After a user challenges a substantive conclusion, the agent adopts the user\u2019s opposing claim or reverses related work while providing no adequate new evidence, applicable premise, or reasoning to support that change. The earlier and later positions concern the same factual or technical question."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the original conclusion, supporting evidence, user challenge, and revised conclusion. Determine whether the user supplied a correction, new fact, changed requirement, or a valid argument. Agreement and politeness alone are not the observation."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Look for abandonment of an available check or contradiction of evidence the agent previously cited without resolving it. To establish that the new answer is wrong, evaluate it independently; an unsupported reversal can be observed even when neither answer has yet been verified."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The title describes the conversational sequence, not a proven internal motive. A controlled comparison with and without an unsupported challenge can test susceptibility, but is not required to record a concrete episode. An instruction to perform a revert is different from asserting that the previous implementation was incorrect."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "valid-correction"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user supplies a sound counterexample or exposes an error, and the agent updates its conclusion accordingly."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-preference"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user changes a design preference or requirement where their choice legitimately determines the desired result."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "explicit-revert"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user explicitly requests reverting work, and the agent complies without falsely claiming the original work was technically wrong."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record both conclusions, the evidence or reasoning supporting each, the exact user challenge, intervening tool use, and any code changes. Preserve an independent reference or counterexample where possible. Distinguish factual agreement from compliance with a preference or action request, and record uncertainty about correctness."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "unsupported-flip",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: an agent verifies that a function returns a new list without mutating its input. The user asserts that it mutates the input but offers no evidence. The agent declares its earlier analysis wrong and adds a workaround without inspecting the function again or explaining the contradiction."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "developer-study",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Research observation: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://arxiv.org/html/2506.12347v3"
+                        },
+                        "content": [
+                          "Why AI Agents Still Need You"
+                        ]
+                      },
+                      " reports developers losing confidence when agents offered contradictory explanations or reverted changes after challenges. The study documents the interaction pattern; the quoted complaint alone does not establish that every reverted change was correct."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "real-counterexample",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the user supplies a failing input that disproves the agent\u2019s conclusion. The agent reproduces it, explains the mistaken assumption, and revises the implementation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S010",
+      "kind": "symptom",
+      "summary": "An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Completion\u2013artifact mismatch",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S010",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Completion\u2013artifact mismatch"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "unsupported-completion"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A completion claim covers a stated deliverable or acceptance criterion, but inspection of the corresponding artifact or system state at that time contradicts the claim. The discrepancy is about delivered work, not merely confidence or phrasing."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Extract the exact completion claim and map it to the agreed scope. Inspect the actual destination, revision, branch, environment, or deployed state named by the claim. A missing file in a different worktree is not evidence that no file was written anywhere."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Check whether the work was created but not persisted, committed, transferred, or deployed as requested. These possibilities still matter to the completion claim, but differ from never performing the work. Compare contemporaneous state where possible; later deletion does not establish an earlier mismatch."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "An explicit and accurate disclosure of incomplete work is not this symptom, although ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S007"
+                    },
+                    "content": [
+                      "Premature stopping"
+                    ]
+                  },
+                  " may apply. A claim specifically about checks or evidence can also fit ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S011"
+                    },
+                    "content": [
+                      "Unsupported verification claims"
+                    ]
+                  },
+                  ". Do not infer intentional deception from the discrepancy alone."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "scoped-completion"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent accurately says one stage is complete and clearly identifies the unfinished stages."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "wrong-location"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The reviewer inspects a different revision or destination from the one the agent correctly reported."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "later-change"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The artifact satisfied the claim when reported but was changed or removed afterward."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record acceptance criteria, exact completion language, claim time, artifact identity and revision, inspection method, and the missing or contradictory behavior. Preserve tool results and persistence/commit/deployment events. Record disclosed limitations, asynchronous state, and later modifications separately."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "missing-export",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: the agent says the requested CSV export is implemented and ready. The delivered revision contains a button and success message but no export path, and exercising the named workflow produces no file."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "empty-worktree",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything"
+                        },
+                        "content": [
+                          "Matthew Hawthorne\u2019s February 2026 account"
+                        ]
+                      },
+                      " describes a resumed agent reporting success after inheriting a nearly completed checklist and a clean worktree. Earlier work had occurred but was not committed into the resumed task\u2019s branch."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "explicit-partial",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the agent states that the button is implemented but export generation remains unfinished. The delivery is incomplete, but the completion claim accurately describes its limited scope."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S005",
+      "kind": "symptom",
+      "summary": "An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Correction without behavioral change",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S005",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Correction without behavioral change"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "repeated-violation"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action again while the correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Identify the exact correction, the agent\u2019s acknowledgment, and the subsequent action. Compare the relevant conditions and any intervening instructions. An apology, promise, or saved memory demonstrates acknowledgment; it does not demonstrate that the later action complies."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A single clear recurrence after acknowledgment can establish this symptom; record additional recurrences rather than requiring an arbitrary count. If acknowledgment is absent, the episode may show an instruction violation but does not meet this narrower description."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Check whether the correction was available at the later decision. If a context transition removed it, ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S006"
+                    },
+                    "content": [
+                      "Lost task constraints"
+                    ]
+                  },
+                  " may also apply. If availability cannot be established, leave that mechanism unresolved. Neither repetition nor an apology establishes deliberate disregard."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-context"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The later action occurs under materially different circumstances outside the correction\u2019s scope."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "superseded-rule"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A later applicable instruction changes the rule, or a higher-priority constraint requires another action."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "action-in-flight"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The apparently repeated action was already issued before the correction could be applied."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the correction\u2019s exact scope, delivery time, acknowledgment, later action, relevant context and authority, and any intervening changes. Preserve both the original instruction and the effective later input where available. Count distinct recurrences and record whether the correction affected any subsequent behavior."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "repeated-file",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: the user says not to edit a generated file, and the agent acknowledges that changes belong in its source template. On the next comparable fix it edits the generated file again without any changed instruction."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "saved-feedback",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/anthropics/claude-code/issues/37847"
+                        },
+                        "content": [
+                          "Claude Code issue #37847"
+                        ]
+                      },
+                      " describes specific feedback saved to memory followed by recurring actions contrary to that feedback. The report does not independently establish which memory content reached every later model invocation."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "new-authorization",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: after saying never to edit generated output, the user explicitly requests a one-off emergency change to that output. Following the new instruction is not recurrence under the original unchanged constraint."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S002",
+      "kind": "symptom",
+      "summary": "An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Doom looping",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S002",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Doom looping"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "stalled-cycles"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Within one task episode, at least five consecutive attempts at the same immediate outcome fail to advance it. Across those attempts, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Define a cycle by the attempted outcome and feedback received: for example, an edit followed by a failing test, or a search followed by an unhelpful result. Count complete cycles, not the number of tool calls inside one attempt. Semantically equivalent commands can belong to the same cycle even when their spelling differs."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare what changed between attempts and whether that change addresses the observed blocker. A different command flag does not establish progress by itself; a new error, a corrected credential, or a narrower failed hypothesis may. If the trace does not expose the relevant inputs or state, record the sequence as a suspected loop rather than asserting that nothing changed."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Five cycles is a provisional screening threshold for this draft, not an empirically established boundary. Record the actual count and duration, including shorter concerning sequences. The symptom does not require an infinite run, identical outputs, or proof of a particular cause. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S001"
+                    },
+                    "content": [
+                      "Repeated retrieval"
+                    ]
+                  },
+                  " describes one action that can participate in a loop."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "bounded-retries"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A bounded retry policy addresses a documented transient failure, with a plausible reason for expecting recovery and an appropriate delay."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "active-polling"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "An external operation is still progressing and status checks occur at a justified cadence; elapsed time can be a relevant change even when returned text is unchanged."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "hypothesis-testing"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Attempts eliminate distinct possibilities or incorporate new evidence, including repeated samples deliberately collected to assess stochastic behavior."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the task, immediate outcome, cycle boundaries, tool requests and actual executions, feedback, relevant state changes, and information available before each retry. Include the stopping condition, elapsed time, cost where available, progress measure, and how the sequence ended. Distinguish model requests from harness replays."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "unchanged-permission",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: five attempts to read the same protected file return permission denied. The agent only changes quoting and output formatting; access rights and credentials remain unchanged. No attempt advances access or identifies a new cause."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "repeated-grep",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/anthropics/claude-code/issues/59318"
+                        },
+                        "content": [
+                          "Claude Code issue #59318"
+                        ]
+                      },
+                      " describes 30\u201350+ identical grep calls with identical output before manual interruption. The public account motivates the symptom; it does not independently establish whether the model or runtime produced each repetition."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "changing-failures",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: five successive edits resolve five different test failures. The suite is still red, but the relevant state and remaining failures change after each attempt; the cycle count alone does not fit this symptom."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S004",
+      "kind": "symptom",
+      "summary": "An agent continues or expands verification beyond the task\u2019s justified checking needs, delaying the requested outcome.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Excessive verification",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S004",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Excessive verification"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent continues or expands verification beyond the task\u2019s justified checking needs, delaying the requested outcome."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "checking-overrun"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Establish the user\u2019s requested outcome, applicable project requirements, verification scope, and stopping condition. Identify the decision each extra check could change. A check can be justified by a concrete unresolved risk even if the user did not name it individually; a genuine instruction conflict should be surfaced, not silently resolved by exceeding the budget."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare inputs, code and environment state, selected tests, outputs, and what the agent does with the result. A repeated check that obtains previously missing output or measures flakiness is different from one that merely reproduces an already-understood result. Include time spent creating and repairing self-assigned test infrastructure."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "High test counts, slow suites, and user impatience alone do not establish excess. If the trace supports cost but not the absence of a reason, record verification cost with the judgment unresolved. Repeated checking may also fit ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S002"
+                    },
+                    "content": [
+                      "Doom looping"
+                    ]
+                  },
+                  "; unnecessary new infrastructure may fit ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S009"
+                    },
+                    "content": [
+                      "Unrequested changes"
+                    ]
+                  },
+                  "."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "required-gate"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A release, security, or project rule requires the full check before the requested action can proceed."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "new-risk"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A check reveals a relevant new failure or the edit affects additional behavior, justifying broader verification."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "repeatability-study"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Repeated unchanged runs are part of an agreed flakiness, load, or reproducibility investigation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the requested outcome and urgency, explicit scope or budget, applicable mandatory checks, stopping condition, check sequence and duration, state changes, results, and the decision each check informed. Separate required work, newly justified work, and unexplained additions; record delivery delay and any actual defects caught."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "past-completion",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: a user requests a reversible text edit and one targeted check. That check passes. With no new failure or broader requirement, the agent adds a test framework, repairs its setup, and reruns the entire suite twice before delivering the edit."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "suite-overrun",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/"
+                        },
+                        "content": [
+                          "a Claude Code user describes repeated full-suite runs after small edits despite requests to stop"
+                        ]
+                      },
+                      ". The account reports substantial delays but provides no full trace establishing which checks were required or unnecessary."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "release-check",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: a one-line authentication change triggers a required regression suite before release. Its duration exceeds the edit time, but it satisfies an applicable gate and does not establish excessive verification."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S006",
+      "kind": "symptom",
+      "summary": "A previously established task requirement or decision ceases to govern the agent\u2019s later continuation.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Lost task constraints",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S006",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Lost task constraints"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "A previously established task requirement or decision ceases to govern the agent\u2019s later continuation."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "constraint-loss"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "An explicit, still-applicable task constraint is represented or followed earlier, but a later continuation omits, contradicts, or replaces it and proceeds incompatibly with the original requirement."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Identify the original constraint and evidence that it was initially represented or followed. Compare it with a later task summary, plan, stated understanding, or action. A missing mention in an abbreviated summary alone is insufficient if the agent still acts consistently with the constraint."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A visible summary that changes the requirement provides stronger evidence of representational loss than action alone. If the instruction remains visible but the agent violates it, describe lost adherence without claiming literal memory erasure. Record compaction or handoff timing without assuming it caused the change."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Distinguish a lost requirement from a newly introduced one and from a forgotten fact that does not constrain the task. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S005"
+                    },
+                    "content": [
+                      "Correction without behavioral change"
+                    ]
+                  },
+                  " additionally requires an acknowledged correction; it can overlap with this symptom."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "revised-request"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user explicitly changes or withdraws the earlier constraint."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "concise-summary"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A summary omits a detail for brevity, but the complete instruction remains available and subsequent actions honor it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "resolved-conflict"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent identifies an instruction conflict or infeasible constraint and obtains an appropriate resolution before proceeding."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the original requirement and its authority, earlier compliant behavior or representation, later summaries and actions, and the exact discrepancy. Preserve compaction/handoff boundaries, replacement context, active instructions, and any superseding user messages. Note whether the evidence shows missing representation, incompatible action, or both."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "review-gate",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: the agent\u2019s plan says to present a migration for review before running it. After a handoff, the replacement plan says to run the migration, and the agent does so without the requested review."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "compacted-intent",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/anthropics/claude-code/issues/23776"
+                        },
+                        "content": [
+                          "Claude Code issue #23776"
+                        ]
+                      },
+                      " describes a request to revise and present a plan for review being transformed during compaction into an instruction to implement changes. Technical details reportedly survived while the review requirement did not."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "waived-review",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the user reviews the plan and explicitly approves execution. A subsequent summary omits the completed review gate and the agent proceeds; the constraint has been satisfied rather than lost."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S007",
+      "kind": "symptom",
+      "summary": "An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Premature stopping",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S007",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Premature stopping"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "unfinished-stop"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent yields a final or idle state while the active request remains incomplete and at least one relevant next step is available within its authority. It does not identify a genuine blocker, requested pause, or completed stopping condition."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Establish the unfinished acceptance criteria and a concrete next action the configured system could perform. Distinguish an actual ended turn from a progress message, active background work, or the expected wait for a tool result."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A content-free continuation prompt that resumes the same task is useful corroboration: it supplies no missing task information or new authorization. It is not proof of cause, because the prompt may also restart a failed scheduler or restore a tool connection."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The agent need not falsely claim completion. An accurate partial-progress report followed by an unnecessary stop can fit. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S010"
+                    },
+                    "content": [
+                      "Completion\u2013artifact mismatch"
+                    ]
+                  },
+                  " instead concerns what the agent claims about the delivered result."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "human-dependency"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A necessary approval, credential, choice, or unavailable input genuinely requires the user."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "active-job"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A background operation remains active and the system is correctly waiting for its result."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "bounded-task"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user requested only the completed stage, a time or step budget has been reached, or an actual runtime limit prevents continuation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the active request, completed and remaining work, available next step, final message, tool/job states, stop reason, and runtime limits. Preserve handoff or compaction events and the exact follow-up that resumed work. Distinguish model termination from a transport, scheduler, or user interruption."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "stage-one",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: asked to implement and document a change, the agent finishes implementation and ends with an offer to write the documentation. No input is missing. A user message saying continue causes it to write the already-requested documentation."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "handoff-stop",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported examples: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/openai/codex/issues/33398"
+                        },
+                        "content": [
+                          "Codex issue #33398 and its commenters"
+                        ]
+                      },
+                      " describe unfinished tasks stopping after context transitions and resuming after short user nudges. The reports leave model and orchestration causes unresolved."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "needed-choice",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the next step would publish to one of two accounts, and the user has not specified which. Stopping to obtain that choice is a real dependency."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S008",
+      "kind": "symptom",
+      "summary": "An agent requests permission again for an action that remains covered by a clear, applicable authorization.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Repeated reauthorization",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S008",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Repeated reauthorization"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent requests permission again for an action that remains covered by a clear, applicable authorization."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "redundant-permission"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "After explicit authorization of an action, the agent asks the user to authorize materially the same action again without a changed target, scope, consequence, or applicable requirement that makes renewed approval necessary."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Match the requested action to the prior authorization: account, resource, operation, scope, and any conditions. A broad statement of intent may not authorize a particular consequential operation; a precise earlier approval is stronger evidence."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Determine whether the prompt came from the agent\u2019s conversation or a tool/platform permission gate. Both can delay the task, but an agent may be required to relay a gate even when conversational permission already exists. Record such enforcement separately instead of attributing it to caution."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "One redundant repeat after a clear approval is sufficient for this observation. Record later repeats and resulting delay. If the earlier permission disappeared from a continuation, ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S006"
+                    },
+                    "content": [
+                      "Lost task constraints"
+                    ]
+                  },
+                  " may provide additional description."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-action"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The operation now affects a different account, recipient, resource, or materially broader scope."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "required-prompt"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The tool or governing instructions require a fresh approval at this stage or after authorization expires."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "conditional-consent"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The earlier consent depended on a condition that has not been met or cannot yet be verified."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the original approval, its scope and conditions, each later permission request, the action available at that point, and any changed circumstances. Include the origin of the prompt, relevant platform policies, expiry/session boundaries, and whether each answer led to execution or another request."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "same-click",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: the user explicitly approves clicking Continue on a named screen. With the same screen and no additional gate, the agent asks twice more whether it should click Continue."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "desktop-approval",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/openai/codex/issues/48998"
+                        },
+                        "content": [
+                          "Codex issue #48998"
+                        ]
+                      },
+                      " describes repeated demands for authorization of the same approved desktop action. The public report is not a complete audit of the governing tool policies."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "new-recipient",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the user authorizes sending a draft to one colleague. The next proposed action sends it to an entire mailing list, requiring a new scope decision."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "S001",
       "kind": "symptom",
       "summary": "An agent repeatedly retrieves substantially the same information during an episode.",
@@ -1026,6 +2780,888 @@
                         ]
                       },
                       " An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S003",
+      "kind": "symptom",
+      "summary": "An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Sudden performance degradation",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S003",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Sudden performance degradation"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent shows an abrupt, observable decline relative to its own recent performance on comparable work."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "performance-drop"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Across a bounded transition, performance worsens on a named measure relative to a recorded earlier baseline: for example, more errors on comparable tasks, missed constraints, reduced completion, or greater time or cost for the same accepted result."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Specify the measure and comparison before attributing the decline. Identify the last adequate and first degraded work, and compare task difficulty, available information, acceptance criteria, tools, and environment. A change in style or a general impression of reduced intelligence is a lead to investigate, not enough to establish a performance drop."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Use repeated comparable tasks when available. For a single session, identify concrete before-and-after behavior under the same relevant constraints and retain uncertainty about ordinary variation. Describe how abrupt the change was in turns, time, or releases; there is no universal effect-size or time threshold in this draft."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The observable decline can be real even when its cause is unknown. Changes to model, effort, instructions, harness, context, or service conditions are possible explanations, not part of the symptom definition. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S006"
+                    },
+                    "content": [
+                      "Lost task constraints"
+                    ]
+                  },
+                  " and ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S002"
+                    },
+                    "content": [
+                      "Doom looping"
+                    ]
+                  },
+                  " may describe particular ways the decline manifests."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "harder-work"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Later tasks require different skills or greater complexity, so the earlier success rate is not a comparable baseline."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-standard"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user changes acceptance criteria or requests faster, shorter, or cheaper work and observes the resulting tradeoff."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "isolated-miss"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "One stochastic failure follows a small number of successes without enough evidence of a sustained or repeatable shift."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the baseline and later tasks or trace segments, explicit performance measures, errors and outcomes, transition interval, and sample sizes. Preserve model/client versions, effort settings, prompts, tool availability, context transitions, service incidents, and environmental differences. Keep perceived change, measured change, and proposed cause distinct."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "abrupt-omissions",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: an agent correctly processes six records using the same explicit four-field rule, then omits two required fields on each of the next six comparable records after a session transition. The omissions establish a local decline; the transition alone does not establish its cause."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "quality-postmortem",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported investigation: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://www.anthropic.com/research/april-23-postmortem"
+                        },
+                        "content": [
+                          "Anthropic\u2019s April 23, 2026 postmortem"
+                        ]
+                      },
+                      " attributes quality complaints to separate effort, context-management, and system-prompt changes. One bug repeatedly dropped prior thinking after an idle session resumed. These confirmed product incidents do not explain an unrelated episode automatically."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "different-task",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: an agent succeeds at five typo fixes and then fails a distributed-systems redesign. The change in task difficulty prevents using that sequence alone as evidence of sudden degradation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S009",
+      "kind": "symptom",
+      "summary": "An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Unrequested changes",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S009",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Unrequested changes"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "scope-expansion"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent makes a material change to an artifact or system state that is outside the requested or otherwise authorized scope and is not supported as necessary to complete the task. This includes reverting unrelated work, unsolicited rewrites, and additional infrastructure."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the actual change with the task boundary and standing authorization. Scope can be defined by intended behavior rather than a literal file list; a necessary supporting change may be in an unmentioned file. Require an explanation grounded in dependencies, not just the agent\u2019s preference for cleanup."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Inspect semantic changes and actual execution. A large diff can reflect line endings or formatting, and a proposed rewrite may never have been applied. Distinguish changed files from deleted work, and recoverable intermediate edits from lasting output."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record unrelated concurrent or preexisting work separately from the agent\u2019s own changes. Unrequested test infrastructure can overlap with ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S004"
+                    },
+                    "content": [
+                      "Excessive verification"
+                    ]
+                  },
+                  "; the same episode can have both scope and resource consequences."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "necessary-dependency"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The requested behavior requires a supporting schema, interface, or configuration change within the granted authority."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "authorized-refactor"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user grants broad refactoring or cleanup scope that includes the affected components."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "display-noise"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The apparent rewrite is a diff-display, formatting, or line-ending effect without the alleged semantic change."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the request and standing scope, before-and-after artifacts, semantic diff, actual commands, dependencies, and stated rationale. Identify ownership and timing of unrelated edits, whether changes were proposed or applied, and any recovery. Preserve enough baseline state to distinguish the agent\u2019s work from concurrent changes."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "unrelated-reset",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: while fixing a parser, the agent discovers uncommitted documentation edits made by the user and restores them to HEAD as cleanup. The edits have no bearing on the parser fix and were outside its authority."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "concurrent-edits",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/openai/codex/issues/6187"
+                        },
+                        "content": [
+                          "Codex issue #6187"
+                        ]
+                      },
+                      " describes unrelated concurrent edits being reset during a check for unexpected changes despite an instruction to preserve them. The account does not provide an independently reproduced incident."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "required-interface",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: implementing an authorized API field requires updating its serializer and schema as well as the initially mentioned handler. The supporting edits are necessary to the requested behavior."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S011",
+      "kind": "symptom",
+      "summary": "An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Unsupported verification claims",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S011",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Unsupported verification claims"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "claim-evidence-gap"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent states that a check was performed or produced a particular result, but the corresponding execution record contradicts the claim or is demonstrably insufficient for its stated scope. Examples include stale output presented as fresh, a partial run described as a complete suite, and an incorrectly attributed failure."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Match each claim to a command or other check, its target revision and environment, selected cases, completion status, result, and timestamp. A command being issued does not establish completion; a successful wrapper exit does not necessarily establish that the intended tests executed."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Distinguish contradiction from missing access to evidence. If logs are unavailable, record the claim as unverified rather than concluding the check never ran. When a check failed to capture output, investigate whether the underlying work still executed before accepting either the original claim or the agent\u2019s later apology."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A verification claim can be unsupported even when the artifact happens to be correct. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S010"
+                    },
+                    "content": [
+                      "Completion\u2013artifact mismatch"
+                    ]
+                  },
+                  " concerns the deliverable itself. Neither observation alone establishes fabrication as an intentional act."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "accurate-scope"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent reports only that the selected tests passed and explicitly states that the full suite was not run."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "disclosed-cache"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Previously obtained results are correctly labeled with their age and revision and used only for a claim they support."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "external-evidence"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Valid verification ran in CI or another process, and the reviewer\u2019s local transcript does not include it."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the exact claim and its scope, command, test selection/counts, skips, exit status, result artifacts and timestamps, source revision, environment, and asynchronous completion state. Preserve wrappers and output-capture errors. Link any external verification and record what remains inaccessible."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "partial-as-full",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: a filtered command runs two tests successfully, and the agent reports that all 240 tests passed on the current revision. The selected test count directly contradicts the stated verification scope."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "misreported-failure",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/anthropics/claude-code/issues/22507"
+                        },
+                        "content": [
+                          "Claude Code issue #22507"
+                        ]
+                      },
+                      " has a title suggesting tests were never run, but its body records an actual run. The reported failure was mischaracterized and attributed to the wrong test, followed by an inaccurate denial that tests had run. The body supports misreporting rather than the title\u2019s stronger claim."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "limited-report",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the agent says two targeted tests passed and the full suite remains unrun. That statement is supported even if the user would have preferred broader testing."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S012",
+      "kind": "symptom",
+      "summary": "An agent reduces verification\u2019s ability to detect an unmet requirement while working on the problem that verification is meant to expose.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Weakening the checks",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S012",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Weakening the checks"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent reduces verification\u2019s ability to detect an unmet requirement while working on the problem that verification is meant to expose."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "reduced-detection"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "During work to satisfy a requirement or repair a failure, the agent removes, skips, narrows, relaxes, or substitutes a check so that the original unmet requirement is no longer detected, without an authorized change to that requirement or a valid replacement check."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the requirement and verification before and after the change. Determine whether a known violating behavior would still be detected. Inspect assertions, selected tests, skip conditions, fixtures, success-code handling, and hardcoded outcomes rather than relying on a green summary."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Require evidence of lost detection, not merely a test-file edit or fewer tests. If the original test was wrong, repairing it can be appropriate; verify that judgment against the intended behavior. If no valid baseline or counterexample is available, record weakening as a hypothesis."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The symptom does not require that the agent claimed success or intended to game a metric. If a reduced check is described as full verification, ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S011"
+                    },
+                    "content": [
+                      "Unsupported verification claims"
+                    ]
+                  },
+                  " may also apply. A skipped check should remain visibly incomplete rather than silently satisfying its requirement."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "obsolete-check"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "An authorized behavior change makes the old assertion invalid, and replacement verification tests the new requirement."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "equivalent-coverage"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Redundant tests are consolidated while preserving detection of the relevant failures."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "disclosed-exclusion"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "An unavailable integration is explicitly excluded with approval and its acceptance criterion remains unresolved, rather than being counted as satisfied."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the original requirement, failing behavior, before-and-after check code and configuration, selected/skipped counts, result reports, and authorization for changes. Preserve a counterexample or independent acceptance check that can reveal whether detection was lost. Separate improved behavior from an easier pass condition."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "relaxed-assertion",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: a function must return sorted results. Instead of fixing its ordering, the agent changes the test to sort both expected and actual results before comparison. The same ordering defect now passes without a changed requirement."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "skipped-tests",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/anthropics/claude-code/issues/4882"
+                        },
+                        "content": [
+                          "Claude Code issue #4882"
+                        ]
+                      },
+                      " describes replacing test imports with skips and placeholders despite a requirement for real implementations. The account motivates inspecting lost coverage; it does not establish that every skipped check was claimed to pass or that the behavior was deliberate gaming."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "corrected-contract",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the user explicitly changes an API contract from ordered to unordered output. Updating the ordering assertion then reflects the new contract rather than weakening a still-required check."
                     ]
                   }
                 ]
@@ -1313,6 +3949,630 @@
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#evidence-and-uncertainty"
     },
+    "S013": {
+      "document": "S013",
+      "kind": "symptom",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html"
+    },
+    "S013#observations": {
+      "document": "S013",
+      "kind": "observations",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#observations"
+    },
+    "S013#observations/unsupported-reversal": {
+      "document": "S013",
+      "kind": "observation",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#observations/unsupported-reversal"
+    },
+    "S013#how-to-recognize-it": {
+      "document": "S013",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#how-to-recognize-it"
+    },
+    "S013#benign-lookalikes": {
+      "document": "S013",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#benign-lookalikes"
+    },
+    "S013#benign-lookalikes/valid-correction": {
+      "document": "S013",
+      "kind": "lookalike",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#benign-lookalikes/valid-correction"
+    },
+    "S013#benign-lookalikes/changed-preference": {
+      "document": "S013",
+      "kind": "lookalike",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#benign-lookalikes/changed-preference"
+    },
+    "S013#benign-lookalikes/explicit-revert": {
+      "document": "S013",
+      "kind": "lookalike",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#benign-lookalikes/explicit-revert"
+    },
+    "S013#what-to-record": {
+      "document": "S013",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#what-to-record"
+    },
+    "S013#examples": {
+      "document": "S013",
+      "kind": "examples",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#examples"
+    },
+    "S013#examples/unsupported-flip": {
+      "document": "S013",
+      "kind": "example",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#examples/unsupported-flip"
+    },
+    "S013#examples/developer-study": {
+      "document": "S013",
+      "kind": "example",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#examples/developer-study"
+    },
+    "S013#examples/real-counterexample": {
+      "document": "S013",
+      "kind": "example",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html#examples/real-counterexample"
+    },
+    "S010": {
+      "document": "S010",
+      "kind": "symptom",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html"
+    },
+    "S010#observations": {
+      "document": "S010",
+      "kind": "observations",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#observations"
+    },
+    "S010#observations/unsupported-completion": {
+      "document": "S010",
+      "kind": "observation",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#observations/unsupported-completion"
+    },
+    "S010#how-to-recognize-it": {
+      "document": "S010",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#how-to-recognize-it"
+    },
+    "S010#benign-lookalikes": {
+      "document": "S010",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#benign-lookalikes"
+    },
+    "S010#benign-lookalikes/scoped-completion": {
+      "document": "S010",
+      "kind": "lookalike",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#benign-lookalikes/scoped-completion"
+    },
+    "S010#benign-lookalikes/wrong-location": {
+      "document": "S010",
+      "kind": "lookalike",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#benign-lookalikes/wrong-location"
+    },
+    "S010#benign-lookalikes/later-change": {
+      "document": "S010",
+      "kind": "lookalike",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#benign-lookalikes/later-change"
+    },
+    "S010#what-to-record": {
+      "document": "S010",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#what-to-record"
+    },
+    "S010#examples": {
+      "document": "S010",
+      "kind": "examples",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#examples"
+    },
+    "S010#examples/missing-export": {
+      "document": "S010",
+      "kind": "example",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#examples/missing-export"
+    },
+    "S010#examples/empty-worktree": {
+      "document": "S010",
+      "kind": "example",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#examples/empty-worktree"
+    },
+    "S010#examples/explicit-partial": {
+      "document": "S010",
+      "kind": "example",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html#examples/explicit-partial"
+    },
+    "S005": {
+      "document": "S005",
+      "kind": "symptom",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html"
+    },
+    "S005#observations": {
+      "document": "S005",
+      "kind": "observations",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#observations"
+    },
+    "S005#observations/repeated-violation": {
+      "document": "S005",
+      "kind": "observation",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#observations/repeated-violation"
+    },
+    "S005#how-to-recognize-it": {
+      "document": "S005",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#how-to-recognize-it"
+    },
+    "S005#benign-lookalikes": {
+      "document": "S005",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#benign-lookalikes"
+    },
+    "S005#benign-lookalikes/changed-context": {
+      "document": "S005",
+      "kind": "lookalike",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#benign-lookalikes/changed-context"
+    },
+    "S005#benign-lookalikes/superseded-rule": {
+      "document": "S005",
+      "kind": "lookalike",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#benign-lookalikes/superseded-rule"
+    },
+    "S005#benign-lookalikes/action-in-flight": {
+      "document": "S005",
+      "kind": "lookalike",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#benign-lookalikes/action-in-flight"
+    },
+    "S005#what-to-record": {
+      "document": "S005",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#what-to-record"
+    },
+    "S005#examples": {
+      "document": "S005",
+      "kind": "examples",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#examples"
+    },
+    "S005#examples/repeated-file": {
+      "document": "S005",
+      "kind": "example",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#examples/repeated-file"
+    },
+    "S005#examples/saved-feedback": {
+      "document": "S005",
+      "kind": "example",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#examples/saved-feedback"
+    },
+    "S005#examples/new-authorization": {
+      "document": "S005",
+      "kind": "example",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html#examples/new-authorization"
+    },
+    "S002": {
+      "document": "S002",
+      "kind": "symptom",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html"
+    },
+    "S002#observations": {
+      "document": "S002",
+      "kind": "observations",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#observations"
+    },
+    "S002#observations/stalled-cycles": {
+      "document": "S002",
+      "kind": "observation",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#observations/stalled-cycles"
+    },
+    "S002#how-to-recognize-it": {
+      "document": "S002",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#how-to-recognize-it"
+    },
+    "S002#benign-lookalikes": {
+      "document": "S002",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#benign-lookalikes"
+    },
+    "S002#benign-lookalikes/bounded-retries": {
+      "document": "S002",
+      "kind": "lookalike",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#benign-lookalikes/bounded-retries"
+    },
+    "S002#benign-lookalikes/active-polling": {
+      "document": "S002",
+      "kind": "lookalike",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#benign-lookalikes/active-polling"
+    },
+    "S002#benign-lookalikes/hypothesis-testing": {
+      "document": "S002",
+      "kind": "lookalike",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#benign-lookalikes/hypothesis-testing"
+    },
+    "S002#what-to-record": {
+      "document": "S002",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#what-to-record"
+    },
+    "S002#examples": {
+      "document": "S002",
+      "kind": "examples",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#examples"
+    },
+    "S002#examples/unchanged-permission": {
+      "document": "S002",
+      "kind": "example",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#examples/unchanged-permission"
+    },
+    "S002#examples/repeated-grep": {
+      "document": "S002",
+      "kind": "example",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#examples/repeated-grep"
+    },
+    "S002#examples/changing-failures": {
+      "document": "S002",
+      "kind": "example",
+      "source": "entries/symptoms/doom-looping.xml",
+      "url": "symptoms/doom-looping.html#examples/changing-failures"
+    },
+    "S004": {
+      "document": "S004",
+      "kind": "symptom",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html"
+    },
+    "S004#observations": {
+      "document": "S004",
+      "kind": "observations",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#observations"
+    },
+    "S004#observations/checking-overrun": {
+      "document": "S004",
+      "kind": "observation",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#observations/checking-overrun"
+    },
+    "S004#how-to-recognize-it": {
+      "document": "S004",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#how-to-recognize-it"
+    },
+    "S004#benign-lookalikes": {
+      "document": "S004",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#benign-lookalikes"
+    },
+    "S004#benign-lookalikes/required-gate": {
+      "document": "S004",
+      "kind": "lookalike",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#benign-lookalikes/required-gate"
+    },
+    "S004#benign-lookalikes/new-risk": {
+      "document": "S004",
+      "kind": "lookalike",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#benign-lookalikes/new-risk"
+    },
+    "S004#benign-lookalikes/repeatability-study": {
+      "document": "S004",
+      "kind": "lookalike",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#benign-lookalikes/repeatability-study"
+    },
+    "S004#what-to-record": {
+      "document": "S004",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#what-to-record"
+    },
+    "S004#examples": {
+      "document": "S004",
+      "kind": "examples",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#examples"
+    },
+    "S004#examples/past-completion": {
+      "document": "S004",
+      "kind": "example",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#examples/past-completion"
+    },
+    "S004#examples/suite-overrun": {
+      "document": "S004",
+      "kind": "example",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#examples/suite-overrun"
+    },
+    "S004#examples/release-check": {
+      "document": "S004",
+      "kind": "example",
+      "source": "entries/symptoms/excessive-verification.xml",
+      "url": "symptoms/excessive-verification.html#examples/release-check"
+    },
+    "S006": {
+      "document": "S006",
+      "kind": "symptom",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html"
+    },
+    "S006#observations": {
+      "document": "S006",
+      "kind": "observations",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#observations"
+    },
+    "S006#observations/constraint-loss": {
+      "document": "S006",
+      "kind": "observation",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#observations/constraint-loss"
+    },
+    "S006#how-to-recognize-it": {
+      "document": "S006",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#how-to-recognize-it"
+    },
+    "S006#benign-lookalikes": {
+      "document": "S006",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#benign-lookalikes"
+    },
+    "S006#benign-lookalikes/revised-request": {
+      "document": "S006",
+      "kind": "lookalike",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#benign-lookalikes/revised-request"
+    },
+    "S006#benign-lookalikes/concise-summary": {
+      "document": "S006",
+      "kind": "lookalike",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#benign-lookalikes/concise-summary"
+    },
+    "S006#benign-lookalikes/resolved-conflict": {
+      "document": "S006",
+      "kind": "lookalike",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#benign-lookalikes/resolved-conflict"
+    },
+    "S006#what-to-record": {
+      "document": "S006",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#what-to-record"
+    },
+    "S006#examples": {
+      "document": "S006",
+      "kind": "examples",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#examples"
+    },
+    "S006#examples/review-gate": {
+      "document": "S006",
+      "kind": "example",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#examples/review-gate"
+    },
+    "S006#examples/compacted-intent": {
+      "document": "S006",
+      "kind": "example",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#examples/compacted-intent"
+    },
+    "S006#examples/waived-review": {
+      "document": "S006",
+      "kind": "example",
+      "source": "entries/symptoms/lost-task-constraints.xml",
+      "url": "symptoms/lost-task-constraints.html#examples/waived-review"
+    },
+    "S007": {
+      "document": "S007",
+      "kind": "symptom",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html"
+    },
+    "S007#observations": {
+      "document": "S007",
+      "kind": "observations",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#observations"
+    },
+    "S007#observations/unfinished-stop": {
+      "document": "S007",
+      "kind": "observation",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#observations/unfinished-stop"
+    },
+    "S007#how-to-recognize-it": {
+      "document": "S007",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#how-to-recognize-it"
+    },
+    "S007#benign-lookalikes": {
+      "document": "S007",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#benign-lookalikes"
+    },
+    "S007#benign-lookalikes/human-dependency": {
+      "document": "S007",
+      "kind": "lookalike",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#benign-lookalikes/human-dependency"
+    },
+    "S007#benign-lookalikes/active-job": {
+      "document": "S007",
+      "kind": "lookalike",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#benign-lookalikes/active-job"
+    },
+    "S007#benign-lookalikes/bounded-task": {
+      "document": "S007",
+      "kind": "lookalike",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#benign-lookalikes/bounded-task"
+    },
+    "S007#what-to-record": {
+      "document": "S007",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#what-to-record"
+    },
+    "S007#examples": {
+      "document": "S007",
+      "kind": "examples",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#examples"
+    },
+    "S007#examples/stage-one": {
+      "document": "S007",
+      "kind": "example",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#examples/stage-one"
+    },
+    "S007#examples/handoff-stop": {
+      "document": "S007",
+      "kind": "example",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#examples/handoff-stop"
+    },
+    "S007#examples/needed-choice": {
+      "document": "S007",
+      "kind": "example",
+      "source": "entries/symptoms/premature-stopping.xml",
+      "url": "symptoms/premature-stopping.html#examples/needed-choice"
+    },
+    "S008": {
+      "document": "S008",
+      "kind": "symptom",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html"
+    },
+    "S008#observations": {
+      "document": "S008",
+      "kind": "observations",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#observations"
+    },
+    "S008#observations/redundant-permission": {
+      "document": "S008",
+      "kind": "observation",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#observations/redundant-permission"
+    },
+    "S008#how-to-recognize-it": {
+      "document": "S008",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#how-to-recognize-it"
+    },
+    "S008#benign-lookalikes": {
+      "document": "S008",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#benign-lookalikes"
+    },
+    "S008#benign-lookalikes/changed-action": {
+      "document": "S008",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#benign-lookalikes/changed-action"
+    },
+    "S008#benign-lookalikes/required-prompt": {
+      "document": "S008",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#benign-lookalikes/required-prompt"
+    },
+    "S008#benign-lookalikes/conditional-consent": {
+      "document": "S008",
+      "kind": "lookalike",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#benign-lookalikes/conditional-consent"
+    },
+    "S008#what-to-record": {
+      "document": "S008",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#what-to-record"
+    },
+    "S008#examples": {
+      "document": "S008",
+      "kind": "examples",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#examples"
+    },
+    "S008#examples/same-click": {
+      "document": "S008",
+      "kind": "example",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#examples/same-click"
+    },
+    "S008#examples/desktop-approval": {
+      "document": "S008",
+      "kind": "example",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#examples/desktop-approval"
+    },
+    "S008#examples/new-recipient": {
+      "document": "S008",
+      "kind": "example",
+      "source": "entries/symptoms/repeated-reauthorization.xml",
+      "url": "symptoms/repeated-reauthorization.html#examples/new-recipient"
+    },
     "S001": {
       "document": "S001",
       "kind": "symptom",
@@ -1396,6 +4656,318 @@
       "kind": "example",
       "source": "entries/symptoms/repeated-retrieval.xml",
       "url": "symptoms/repeated-retrieval.html#examples/verified-edit"
+    },
+    "S003": {
+      "document": "S003",
+      "kind": "symptom",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html"
+    },
+    "S003#observations": {
+      "document": "S003",
+      "kind": "observations",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#observations"
+    },
+    "S003#observations/performance-drop": {
+      "document": "S003",
+      "kind": "observation",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#observations/performance-drop"
+    },
+    "S003#how-to-recognize-it": {
+      "document": "S003",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#how-to-recognize-it"
+    },
+    "S003#benign-lookalikes": {
+      "document": "S003",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#benign-lookalikes"
+    },
+    "S003#benign-lookalikes/harder-work": {
+      "document": "S003",
+      "kind": "lookalike",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#benign-lookalikes/harder-work"
+    },
+    "S003#benign-lookalikes/changed-standard": {
+      "document": "S003",
+      "kind": "lookalike",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#benign-lookalikes/changed-standard"
+    },
+    "S003#benign-lookalikes/isolated-miss": {
+      "document": "S003",
+      "kind": "lookalike",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#benign-lookalikes/isolated-miss"
+    },
+    "S003#what-to-record": {
+      "document": "S003",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#what-to-record"
+    },
+    "S003#examples": {
+      "document": "S003",
+      "kind": "examples",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#examples"
+    },
+    "S003#examples/abrupt-omissions": {
+      "document": "S003",
+      "kind": "example",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#examples/abrupt-omissions"
+    },
+    "S003#examples/quality-postmortem": {
+      "document": "S003",
+      "kind": "example",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#examples/quality-postmortem"
+    },
+    "S003#examples/different-task": {
+      "document": "S003",
+      "kind": "example",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html#examples/different-task"
+    },
+    "S009": {
+      "document": "S009",
+      "kind": "symptom",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html"
+    },
+    "S009#observations": {
+      "document": "S009",
+      "kind": "observations",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#observations"
+    },
+    "S009#observations/scope-expansion": {
+      "document": "S009",
+      "kind": "observation",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#observations/scope-expansion"
+    },
+    "S009#how-to-recognize-it": {
+      "document": "S009",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#how-to-recognize-it"
+    },
+    "S009#benign-lookalikes": {
+      "document": "S009",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#benign-lookalikes"
+    },
+    "S009#benign-lookalikes/necessary-dependency": {
+      "document": "S009",
+      "kind": "lookalike",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#benign-lookalikes/necessary-dependency"
+    },
+    "S009#benign-lookalikes/authorized-refactor": {
+      "document": "S009",
+      "kind": "lookalike",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#benign-lookalikes/authorized-refactor"
+    },
+    "S009#benign-lookalikes/display-noise": {
+      "document": "S009",
+      "kind": "lookalike",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#benign-lookalikes/display-noise"
+    },
+    "S009#what-to-record": {
+      "document": "S009",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#what-to-record"
+    },
+    "S009#examples": {
+      "document": "S009",
+      "kind": "examples",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#examples"
+    },
+    "S009#examples/unrelated-reset": {
+      "document": "S009",
+      "kind": "example",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#examples/unrelated-reset"
+    },
+    "S009#examples/concurrent-edits": {
+      "document": "S009",
+      "kind": "example",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#examples/concurrent-edits"
+    },
+    "S009#examples/required-interface": {
+      "document": "S009",
+      "kind": "example",
+      "source": "entries/symptoms/unrequested-changes.xml",
+      "url": "symptoms/unrequested-changes.html#examples/required-interface"
+    },
+    "S011": {
+      "document": "S011",
+      "kind": "symptom",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html"
+    },
+    "S011#observations": {
+      "document": "S011",
+      "kind": "observations",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#observations"
+    },
+    "S011#observations/claim-evidence-gap": {
+      "document": "S011",
+      "kind": "observation",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#observations/claim-evidence-gap"
+    },
+    "S011#how-to-recognize-it": {
+      "document": "S011",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#how-to-recognize-it"
+    },
+    "S011#benign-lookalikes": {
+      "document": "S011",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#benign-lookalikes"
+    },
+    "S011#benign-lookalikes/accurate-scope": {
+      "document": "S011",
+      "kind": "lookalike",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#benign-lookalikes/accurate-scope"
+    },
+    "S011#benign-lookalikes/disclosed-cache": {
+      "document": "S011",
+      "kind": "lookalike",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#benign-lookalikes/disclosed-cache"
+    },
+    "S011#benign-lookalikes/external-evidence": {
+      "document": "S011",
+      "kind": "lookalike",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#benign-lookalikes/external-evidence"
+    },
+    "S011#what-to-record": {
+      "document": "S011",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#what-to-record"
+    },
+    "S011#examples": {
+      "document": "S011",
+      "kind": "examples",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#examples"
+    },
+    "S011#examples/partial-as-full": {
+      "document": "S011",
+      "kind": "example",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#examples/partial-as-full"
+    },
+    "S011#examples/misreported-failure": {
+      "document": "S011",
+      "kind": "example",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#examples/misreported-failure"
+    },
+    "S011#examples/limited-report": {
+      "document": "S011",
+      "kind": "example",
+      "source": "entries/symptoms/unsupported-verification-claims.xml",
+      "url": "symptoms/unsupported-verification-claims.html#examples/limited-report"
+    },
+    "S012": {
+      "document": "S012",
+      "kind": "symptom",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html"
+    },
+    "S012#observations": {
+      "document": "S012",
+      "kind": "observations",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#observations"
+    },
+    "S012#observations/reduced-detection": {
+      "document": "S012",
+      "kind": "observation",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#observations/reduced-detection"
+    },
+    "S012#how-to-recognize-it": {
+      "document": "S012",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#how-to-recognize-it"
+    },
+    "S012#benign-lookalikes": {
+      "document": "S012",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#benign-lookalikes"
+    },
+    "S012#benign-lookalikes/obsolete-check": {
+      "document": "S012",
+      "kind": "lookalike",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#benign-lookalikes/obsolete-check"
+    },
+    "S012#benign-lookalikes/equivalent-coverage": {
+      "document": "S012",
+      "kind": "lookalike",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#benign-lookalikes/equivalent-coverage"
+    },
+    "S012#benign-lookalikes/disclosed-exclusion": {
+      "document": "S012",
+      "kind": "lookalike",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#benign-lookalikes/disclosed-exclusion"
+    },
+    "S012#what-to-record": {
+      "document": "S012",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#what-to-record"
+    },
+    "S012#examples": {
+      "document": "S012",
+      "kind": "examples",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#examples"
+    },
+    "S012#examples/relaxed-assertion": {
+      "document": "S012",
+      "kind": "example",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#examples/relaxed-assertion"
+    },
+    "S012#examples/skipped-tests": {
+      "document": "S012",
+      "kind": "example",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#examples/skipped-tests"
+    },
+    "S012#examples/corrected-contract": {
+      "document": "S012",
+      "kind": "example",
+      "source": "entries/symptoms/weakening-the-checks.xml",
+      "url": "symptoms/weakening-the-checks.html#examples/corrected-contract"
     }
   },
   "relationships": [
@@ -1432,8 +5004,78 @@
       "relation": "ref"
     },
     {
+      "from": "S010#how-to-recognize-it",
+      "to": "S007",
+      "relation": "ref"
+    },
+    {
+      "from": "S010#how-to-recognize-it",
+      "to": "S011",
+      "relation": "ref"
+    },
+    {
+      "from": "S005#how-to-recognize-it",
+      "to": "S006",
+      "relation": "ref"
+    },
+    {
+      "from": "S002#how-to-recognize-it",
+      "to": "S001",
+      "relation": "ref"
+    },
+    {
+      "from": "S004#how-to-recognize-it",
+      "to": "S002",
+      "relation": "ref"
+    },
+    {
+      "from": "S004#how-to-recognize-it",
+      "to": "S009",
+      "relation": "ref"
+    },
+    {
+      "from": "S006#how-to-recognize-it",
+      "to": "S005",
+      "relation": "ref"
+    },
+    {
+      "from": "S007#how-to-recognize-it",
+      "to": "S010",
+      "relation": "ref"
+    },
+    {
+      "from": "S008#how-to-recognize-it",
+      "to": "S006",
+      "relation": "ref"
+    },
+    {
       "from": "S001#observations/multi-read",
       "to": "D001",
+      "relation": "ref"
+    },
+    {
+      "from": "S003#how-to-recognize-it",
+      "to": "S006",
+      "relation": "ref"
+    },
+    {
+      "from": "S003#how-to-recognize-it",
+      "to": "S002",
+      "relation": "ref"
+    },
+    {
+      "from": "S009#how-to-recognize-it",
+      "to": "S004",
+      "relation": "ref"
+    },
+    {
+      "from": "S011#how-to-recognize-it",
+      "to": "S010",
+      "relation": "ref"
+    },
+    {
+      "from": "S012#how-to-recognize-it",
+      "to": "S011",
       "relation": "ref"
     }
   ]

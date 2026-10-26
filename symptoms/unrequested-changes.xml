@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S009" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Unrequested changes">
+  <summary>An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.</summary>
+  <observations>
+    <observation id="scope-expansion">
+      <p>The agent makes a material change to an artifact or system state that is outside the requested or otherwise authorized scope and is not supported as necessary to complete the task. This includes reverting unrelated work, unsolicited rewrites, and additional infrastructure.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Compare the actual change with the task boundary and standing authorization. Scope can be defined by intended behavior rather than a literal file list; a necessary supporting change may be in an unmentioned file. Require an explanation grounded in dependencies, not just the agent’s preference for cleanup.</p>
+    <p>Inspect semantic changes and actual execution. A large diff can reflect line endings or formatting, and a proposed rewrite may never have been applied. Distinguish changed files from deleted work, and recoverable intermediate edits from lasting output.</p>
+    <p>Record unrelated concurrent or preexisting work separately from the agent’s own changes. Unrequested test infrastructure can overlap with <ref target="S004">Excessive verification</ref>; the same episode can have both scope and resource consequences.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="necessary-dependency">
+      <p>The requested behavior requires a supporting schema, interface, or configuration change within the granted authority.</p>
+    </lookalike>
+    <lookalike id="authorized-refactor">
+      <p>The user grants broad refactoring or cleanup scope that includes the affected components.</p>
+    </lookalike>
+    <lookalike id="display-noise">
+      <p>The apparent rewrite is a diff-display, formatting, or line-ending effect without the alleged semantic change.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the request and standing scope, before-and-after artifacts, semantic diff, actual commands, dependencies, and stated rationale. Identify ownership and timing of unrelated edits, whether changes were proposed or applied, and any recovery. Preserve enough baseline state to distinguish the agent’s work from concurrent changes.</p>
+  </what-to-record>
+  <examples>
+    <example id="unrelated-reset" kind="synthetic">
+      <p>Synthetic example: while fixing a parser, the agent discovers uncommitted documentation edits made by the user and restores them to HEAD as cleanup. The edits have no bearing on the parser fix and were outside its authority.</p>
+    </example>
+    <example id="concurrent-edits" kind="observed">
+      <p>Reported example: <a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits being reset during a check for unexpected changes despite an instruction to preserve them. The account does not provide an independently reproduced incident.</p>
+    </example>
+    <example id="required-interface" kind="synthetic">
+      <p>Synthetic comparison: implementing an authorized API field requires updating its serializer and schema as well as the initially mentioned handler. The supporting edits are necessary to the requested behavior.</p>
+    </example>
+  </examples>
+</symptom>

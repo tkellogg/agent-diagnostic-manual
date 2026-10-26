@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S011" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Unsupported verification claims">
+  <summary>An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.</summary>
+  <observations>
+    <observation id="claim-evidence-gap">
+      <p>The agent states that a check was performed or produced a particular result, but the corresponding execution record contradicts the claim or is demonstrably insufficient for its stated scope. Examples include stale output presented as fresh, a partial run described as a complete suite, and an incorrectly attributed failure.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Match each claim to a command or other check, its target revision and environment, selected cases, completion status, result, and timestamp. A command being issued does not establish completion; a successful wrapper exit does not necessarily establish that the intended tests executed.</p>
+    <p>Distinguish contradiction from missing access to evidence. If logs are unavailable, record the claim as unverified rather than concluding the check never ran. When a check failed to capture output, investigate whether the underlying work still executed before accepting either the original claim or the agent’s later apology.</p>
+    <p>A verification claim can be unsupported even when the artifact happens to be correct. <ref target="S010">Completion–artifact mismatch</ref> concerns the deliverable itself. Neither observation alone establishes fabrication as an intentional act.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="accurate-scope">
+      <p>The agent reports only that the selected tests passed and explicitly states that the full suite was not run.</p>
+    </lookalike>
+    <lookalike id="disclosed-cache">
+      <p>Previously obtained results are correctly labeled with their age and revision and used only for a claim they support.</p>
+    </lookalike>
+    <lookalike id="external-evidence">
+      <p>Valid verification ran in CI or another process, and the reviewer’s local transcript does not include it.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the exact claim and its scope, command, test selection/counts, skips, exit status, result artifacts and timestamps, source revision, environment, and asynchronous completion state. Preserve wrappers and output-capture errors. Link any external verification and record what remains inaccessible.</p>
+  </what-to-record>
+  <examples>
+    <example id="partial-as-full" kind="synthetic">
+      <p>Synthetic example: a filtered command runs two tests successfully, and the agent reports that all 240 tests passed on the current revision. The selected test count directly contradicts the stated verification scope.</p>
+    </example>
+    <example id="misreported-failure" kind="observed">
+      <p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/22507">Claude Code issue #22507</a> has a title suggesting tests were never run, but its body records an actual run. The reported failure was mischaracterized and attributed to the wrong test, followed by an inaccurate denial that tests had run. The body supports misreporting rather than the title’s stronger claim.</p>
+    </example>
+    <example id="limited-report" kind="synthetic">
+      <p>Synthetic comparison: the agent says two targeted tests passed and the full suite remains unrun. That statement is supported even if the user would have preferred broader testing.</p>
+    </example>
+  </examples>
+</symptom>

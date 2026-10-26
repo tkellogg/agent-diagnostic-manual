@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S005" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Correction without behavioral change">
+  <summary>An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.</summary>
+  <observations>
+    <observation id="repeated-violation">
+      <p>After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action again while the correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Identify the exact correction, the agent’s acknowledgment, and the subsequent action. Compare the relevant conditions and any intervening instructions. An apology, promise, or saved memory demonstrates acknowledgment; it does not demonstrate that the later action complies.</p>
+    <p>A single clear recurrence after acknowledgment can establish this symptom; record additional recurrences rather than requiring an arbitrary count. If acknowledgment is absent, the episode may show an instruction violation but does not meet this narrower description.</p>
+    <p>Check whether the correction was available at the later decision. If a context transition removed it, <ref target="S006">Lost task constraints</ref> may also apply. If availability cannot be established, leave that mechanism unresolved. Neither repetition nor an apology establishes deliberate disregard.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="changed-context">
+      <p>The later action occurs under materially different circumstances outside the correction’s scope.</p>
+    </lookalike>
+    <lookalike id="superseded-rule">
+      <p>A later applicable instruction changes the rule, or a higher-priority constraint requires another action.</p>
+    </lookalike>
+    <lookalike id="action-in-flight">
+      <p>The apparently repeated action was already issued before the correction could be applied.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the correction’s exact scope, delivery time, acknowledgment, later action, relevant context and authority, and any intervening changes. Preserve both the original instruction and the effective later input where available. Count distinct recurrences and record whether the correction affected any subsequent behavior.</p>
+  </what-to-record>
+  <examples>
+    <example id="repeated-file" kind="synthetic">
+      <p>Synthetic example: the user says not to edit a generated file, and the agent acknowledges that changes belong in its source template. On the next comparable fix it edits the generated file again without any changed instruction.</p>
+    </example>
+    <example id="saved-feedback" kind="observed">
+      <p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/37847">Claude Code issue #37847</a> describes specific feedback saved to memory followed by recurring actions contrary to that feedback. The report does not independently establish which memory content reached every later model invocation.</p>
+    </example>
+    <example id="new-authorization" kind="synthetic">
+      <p>Synthetic comparison: after saying never to edit generated output, the user explicitly requests a one-off emergency change to that output. Following the new instruction is not recurrence under the original unchanged constraint.</p>
+    </example>
+  </examples>
+</symptom>
