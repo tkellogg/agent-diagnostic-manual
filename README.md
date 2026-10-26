@@ -1,18 +1,18 @@
 # Agent Diagnostic Manual (ASM)
 
-A slowly growing, linked manual of agent symptoms, candidate diagnoses, and interventions. **ASM** is the project's chosen short name.
+A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.
 
-**Start reading:** [Manual home](content/index.md) · [Structure and design decisions](content/structure.md)
+Start with the [structure](guides/structure.xml) and [format contract](guides/format.xml).
 
 The first worked example:
 
-1. [S001 — Repeated retrieval](content/symptoms/repeated-retrieval.md): the observation, including benign lookalikes.
-2. [D001 — Unproductive repeated retrieval](content/diagnoses/unproductive-repeated-retrieval.md): a candidate descriptive diagnosis, with criteria and a differential.
-3. [I001 — Preserve task-relevant evidence](content/interventions/preserve-task-relevant-evidence.md): an experimental protocol, linked conditionally rather than presented as a cure.
+- [S001 — Repeated retrieval](entries/symptoms/repeated-retrieval.xml)
+- [D001 — Unproductive repeated retrieval](entries/diagnoses/unproductive-repeated-retrieval.xml)
+- [I001 — Preserve task-relevant evidence](entries/interventions/preserve-task-relevant-evidence.xml)
 
-These entries are **drafts and unvalidated**. Examples are synthetic; no empirical case or treatment result is claimed. Severity is deliberately deferred.
+These are draft, unvalidated entries. Examples are synthetic. Severity remains deferred. The repository is private; publication and licensing are separate decisions.
 
-## Read as a site
+## Build and read
 
 Python 3.11+:
 
@@ -24,28 +24,30 @@ python tools/build.py
 python -m http.server 8000 --directory dist --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000`. The output is also ordinary static HTML with relative links. No hosting or deployment is configured. Keep publication a separate decision from repository visibility.
+Open `http://127.0.0.1:8000`. The build also writes Markdown reading copies under `dist/markdown/` and a structured `dist/catalog.json`. All output is disposable and ignored by Git. Edit XML and rebuild.
 
-## Validate without building
+## Authoring
+
+`entries/` contains canonical symptoms, diagnoses, and interventions. `guides/` contains canonical explanatory documents and navigation. [XSD](schema/asm-v1.xsd) validates document structure; the [format contract](guides/format.xml) defines cross-document rules. The builder is a reference implementation.
+
+Singleton sections use tag names; list members use short, locally unique IDs:
+
+```xml
+<observations>
+  <observation id="multi-read">
+    <p>The agent retrieves substantially the same information repeatedly.</p>
+  </observation>
+</observations>
+```
+
+Reference that item as `S001#observations/multi-read`. Reference a singleton as `S001#what-to-record`. Local IDs may repeat in different lists or documents.
+
+## Validate and consume
 
 ```sh
 python tools/build.py --check
 python -m unittest discover -s tests
-```
-
-The builder validates XML against XSD, corpus IDs and references, guide metadata, and local links; then renders Markdown, HTML, backlinks, and `dist/catalog.json`. CI performs the same checks and builds without deploying.
-
-## Authoring and independent tools
-
-Edit `entries/**/*.xml` for symptoms, diagnoses, and interventions. Run `python tools/build.py` and commit both the XML source and generated Markdown reader pages. General guides and index pages in `content/` remain authored Markdown.
-
-The [XML format contract](content/format.md) and [XSD](schema/asm-v1.xsd) define the draft format. The builder is a reference implementation. Criteria, exclusions, alternatives, preconditions, procedure steps, and applicability relationships have stable IDs. Consumers need neither an LLM nor this implementation.
-
-```sh
 python examples/query_manual.py
-python tools/build.py --check-generated
 ```
 
-The example consumer uses only Python's standard library. The generated JSON catalog retains the structured document tree and object-level references. CI checks XML validity, cross-document links, and generated-file freshness before building.
-
-There is still exactly one symptom and one diagnosis. Severity remains deferred. The repository stays private; publication and licensing are separate future decisions.
+The independent example uses only Python's standard library and imports no ASM code. Consumers do not need an LLM, the reference builder, or a hosted service.

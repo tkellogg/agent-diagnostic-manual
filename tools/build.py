@@ -1,221 +1,111 @@
 #!/usr/bin/env python3
-"""Validate ASM source and render portable HTML plus a metadata catalog."""
-from __future__ import annotations
+"""Validate canonical XML and build disposable HTML, Markdown, and JSON."""
 import argparse
-import copy
 import html
-from html.parser import HTMLParser
 import json
 import os
 from pathlib import Path
 import re
 import shutil
 try:
-    from .xml_entries import load_entries, markdown_entry, document, ast
+    from .xml_entries import load, name, text, ast, N, METADATA, ITEMS
 except ImportError:
-    from xml_entries import load_entries, markdown_entry, document, ast
-from urllib.parse import unquote, urlsplit, urlunsplit
-import markdown
-import yaml
-from jsonschema import Draft202012Validator, FormatChecker
+    from xml_entries import load, name, text, ast, N, METADATA, ITEMS
+ROOT=Path(__file__).resolve().parents[1]
+TITLES={'criteria':'Candidate criteria','differential':'Differential diagnosis','relations':'Relationships'}
 
-ROOT = Path(__file__).resolve().parents[1]
-SECTIONS = {
-    'symptom': ['Observation', 'How to recognize it', 'Benign lookalikes', 'What to record', 'Examples'],
-    'diagnosis': ['Definition', 'Candidate criteria', 'Exclusions', 'Differential diagnosis', 'Investigation', 'Interventions', 'Evidence and uncertainty'],
-    'intervention': ['Purpose', 'Preconditions', 'Procedure', 'Evaluation', 'Risks and confounders', 'Stop and rollback', 'Evidence and uncertainty'],
-}
+class Renderer:
+    def __init__(self,doc,objects,addresses,mode):
+        self.doc=doc;self.objects=objects;self.addresses=addresses;self.mode=mode
+    def esc(self,s):
+        if self.mode=='html':return html.escape(s or '')
+        return re.sub(r'([\\`*_{}\[\]<>|])',r'\\\1',s or '')
+    def link(self,target,label):
+        dest=self.objects[target]['document']['path']
+        if self.mode=='md':dest=str(Path(dest).with_suffix('.md'))
+        href=os.path.relpath(dest,str(Path(self.doc['path']).parent)).replace(os.sep,'/')
+        if '#' in target:href+='#'+target.split('#',1)[1]
+        if self.mode=='html':return f'<a href="{html.escape(href,quote=True)}">{label}</a>'
+        return f'[{label}]({href})'
+    def mixed(self,n):
+        return self.esc(n.text)+''.join(self.inline(c)+self.esc(c.tail) for c in n)
+    def inline(self,n):
+        tag=name(n)
+        if tag=='ref':return self.link(n.get('target'),self.mixed(n) or self.esc(n.get('target')))
+        if tag=='a':
+            label=self.mixed(n);href=n.get('href')
+            return f'<a href="{html.escape(href,quote=True)}">{label}</a>' if self.mode=='html' else f'[{label}]({href})'
+        if tag=='code':
+            value=text(n)
+            if self.mode=='html':return '<code>'+html.escape(value)+'</code>'
+            fence='`'*(max([len(m) for m in re.findall(r'`+',value)]+[0])+1)
+            return fence+' '+value+' '+fence
+        value=self.mixed(n)
+        if self.mode=='html':return f'<{tag}>{value}</{tag}>' if tag in ('strong','em') else value
+        marker={'strong':'**','em':'*'}.get(tag,'')
+        return marker+value+marker
+    def anchor(self,n):
+        address=self.addresses.get(n,'')
+        if '#' not in address:return ''
+        return '<a id="'+html.escape(address.split('#',1)[1],quote=True)+'"></a>\n'
+    def heading(self,label,depth):
+        depth=min(depth,6)
+        return f'<h{depth}>{self.esc(label)}</h{depth}>\n' if self.mode=='html' else '\n'+'#'*depth+' '+self.esc(label)+'\n\n'
+    def block(self,n,depth=2):
+        tag=name(n)
+        if tag in METADATA:return ''
+        if tag=='p':return '<p>'+self.mixed(n)+'</p>\n' if self.mode=='html' else self.mixed(n)+'\n\n'
+        if tag in ('ul','ol'):
+            if self.mode=='html':return f'<{tag}>'+''.join('<li>'+self.mixed(c)+'</li>' for c in n)+f'</{tag}>\n'
+            return '\n'.join((f'{i}. ' if tag=='ol' else '- ')+self.mixed(c) for i,c in enumerate(n,1))+'\n\n'
+        if tag=='pre':
+            value=''.join(n.itertext())
+            if self.mode=='html':return '<pre><code>'+html.escape(value)+'</code></pre>\n'
+            fence='`'*max(3,1+max([len(m) for m in re.findall(r'`+',value)]+[0]))
+            return fence+'\n'+value.rstrip()+'\n'+fence+'\n\n'
+        if tag=='table':
+            if self.mode=='html':
+                return '<table>'+''.join('<'+name(group)+'>'+''.join('<tr>'+''.join('<'+name(cell)+'>'+self.mixed(cell)+'</'+name(cell)+'>' for cell in row)+'</tr>' for row in group)+'</'+name(group)+'>' for group in n)+'</table>\n'
+            rows=list(n.findall('a:thead/a:tr',N))+list(n.findall('a:tbody/a:tr',N))
+            lines=['| '+' | '.join(self.mixed(c) for c in row)+' |' for row in rows]
+            lines.insert(1,'| '+' | '.join('---' for _ in rows[0])+' |')
+            return '\n'.join(lines)+'\n\n'
+        if tag=='symptom-ref':
+            value=self.link(n.get('ref'),self.esc(n.get('ref')))
+            return '<p>Related symptom: '+value+'</p>\n' if self.mode=='html' else 'Related symptom: '+value+'\n\n'
+        if tag=='intervention-ref':
+            value=self.link(n.get('ref'),self.esc(n.get('ref')))+' · '+self.esc(n.get('role'))+' · '+self.esc(n.get('evidence'))
+            condition=self.esc(n.findtext('a:when',namespaces=N))
+            return self.anchor(n)+self.anchor(n.find('a:when',N))+(f'<p>{value}</p><p><strong>When:</strong> {condition}</p>\n' if self.mode=='html' else value+'\n\n**When:** '+condition+'\n\n')
+        if tag=='sections':return self.anchor(n)+''.join(self.block(c,depth) for c in n)
+        title=n.findtext('a:title',namespaces=N) or TITLES.get(tag) or (n.get('id') or tag).replace('-',' ').capitalize()
+        return self.anchor(n)+self.heading(title,depth)+''.join(self.block(c,depth+1) for c in n if name(c)!='title')
+    def body(self):
+        return self.heading(self.doc['meta']['title'],1)+''.join(self.block(c) for c in self.doc['node'])
 
-class UniqueLoader(yaml.SafeLoader):
-    pass
+def build(root=ROOT,check=False):
+    docs,objects,addresses,refs=load(root)
+    if not check:
+        out=root/'dist'
+        if out.exists():shutil.rmtree(out)
+        out.mkdir()
+        for doc in docs:
+            dest=out/doc['path'];dest.parent.mkdir(parents=True,exist_ok=True)
+            renderer=Renderer(doc,objects,addresses,'html');m=doc['meta']
+            nav=' '.join(renderer.link(i,label) for i,label in [('manual','ASM'),('symptoms','Symptoms'),('diagnoses','Diagnoses'),('interventions','Interventions'),('structure','Structure'),('format','Format')])
+            badges=' · '.join(html.escape(m[k]) for k in ('id','kind','status','evidence') if k in m)
+            dest.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(m['title'])+' · ASM</title><style>'+CSS+'</style></head><body><header><nav>'+nav+'</nav></header><main><div class="eyebrow">'+badges+'</div>'+renderer.body()+'</main></body></html>',encoding='utf-8')
+            md=out/'markdown'/Path(doc['path']).with_suffix('.md');md.parent.mkdir(parents=True,exist_ok=True)
+            md.write_text('<!-- Generated from '+doc['source']+'; edit XML and rebuild. -->\n\n'+Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
+        catalog={'schema_version':3,'xml_namespace':'urn:asm:1',
+            'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
+            'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
+        (out/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
+    print(f'Validated {len(docs)} XML documents and {len(objects)} scoped addresses'+('' if check else '; built dist/'))
+    return docs,objects,refs
 
-def unique_mapping(loader, node, deep=False):
-    result = {}
-    for key_node, value_node in node.value:
-        key = loader.construct_object(key_node, deep=deep)
-        if key in result:
-            raise ValueError(f'duplicate YAML key: {key}')
-        result[key] = loader.construct_object(value_node, deep=deep)
-    return result
-
-UniqueLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, unique_mapping)
-
-class Links(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.links = []
-        self.ids = set()
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if 'id' in attrs:
-            self.ids.add(attrs['id'])
-        if tag == 'a' and 'href' in attrs:
-            self.links.append(attrs['href'])
-
-def parse(path: Path, content_root: Path, validator):
-    text = path.read_text(encoding='utf-8')
-    parts = text.split('---\n', 2)
-    if len(parts) != 3 or parts[0]:
-        raise ValueError(f'{path}: expected YAML frontmatter')
-    meta = yaml.load(parts[1], Loader=UniqueLoader)
-    errors = list(validator.iter_errors(meta))
-    if errors:
-        raise ValueError(f'{path}: ' + '; '.join(e.message for e in errors))
-    body = parts[2]
-    headings = re.findall(r'^## (.+)$', body, flags=re.M)
-    for heading in SECTIONS.get(meta['kind'], []):
-        if heading not in headings:
-            raise ValueError(f'{path}: missing section {heading}')
-    rendered = markdown.markdown(body, extensions=['tables', 'fenced_code', 'toc'])
-    links = Links()
-    links.feed(rendered)
-    return {'meta': meta, 'body': body, 'html': rendered,
-            'path': path.relative_to(content_root).as_posix(), 'links': links}
-
-def resolve_local(source, href, content_root):
-    url = urlsplit(href)
-    if url.scheme or url.netloc:
-        if url.scheme not in ('http', 'https', 'mailto'):
-            raise ValueError(f'{source}: unsupported link scheme: {href}')
-        return None
-    if url.path.startswith('/'):
-        raise ValueError(f'{source}: use relative links: {href}')
-    target = ((content_root / source).parent / unquote(url.path)).resolve() if url.path else (content_root / source).resolve()
-    if not target.is_relative_to(content_root.resolve()):
-        raise ValueError(f'{source}: link escapes content: {href}')
-    return target.relative_to(content_root.resolve()).as_posix(), unquote(url.fragment)
-
-def load(content_root: Path, schema_path: Path):
-    validator = Draft202012Validator(json.loads(schema_path.read_text()), format_checker=FormatChecker())
-    entries, objects, xml_refs = load_entries(content_root.parent)
-    generated = {e['path'] for e in entries}
-    pages = [parse(p, content_root, validator) for p in sorted(content_root.rglob('*.md'))
-             if p.relative_to(content_root).as_posix() not in generated]
-    for entry in entries:
-        body = markdown_entry(entry, objects)
-        rendered = markdown.markdown(body, extensions=['tables', 'fenced_code', 'toc'])
-        links = Links()
-        links.feed(rendered)
-        pages.append({'meta':entry['meta'], 'body':body, 'html':rendered,
-                      'path':entry['path'], 'links':links, 'xml_source':entry['source'],
-                      'xml':ast(entry['node'])})
-    by_id = {}
-    by_path = {p['path']: p for p in pages}
-    edges = []
-    for page in pages:
-        meta = page['meta']
-        if meta['id'] in by_id:
-            raise ValueError(f'duplicate ID: {meta["id"]}')
-        by_id[meta['id']] = page
-    for page in pages:
-        meta = page['meta']
-        relations = [(s, 'symptom', {}) for s in meta.get('symptoms', [])]
-        relations += [(i['id'], 'intervention', {k: v for k, v in i.items() if k != 'id'}) for i in meta.get('interventions', [])]
-        seen = set()
-        for target, kind, details in relations:
-            if target in seen:
-                raise ValueError(f'{meta["id"]}: duplicate relationship {target}')
-            seen.add(target)
-            if target not in by_id or by_id[target]['meta']['kind'] != kind:
-                raise ValueError(f'{meta["id"]}: invalid {kind} reference {target}')
-            edges.append({'from': meta['id'], 'to': target, 'relation': kind, **details})
-        for href in page['links'].links:
-            local = resolve_local(page['path'], href, content_root)
-            if local is None:
-                continue
-            path, fragment = local
-            if path not in by_path:
-                raise ValueError(f'{page["path"]}: missing linked page {href}')
-            if fragment and fragment not in by_path[path]['links'].ids:
-                raise ValueError(f'{page["path"]}: missing anchor {href}')
-    return pages, by_id, edges
-
-def relative_html(source, target):
-    target = str(Path(target).with_suffix('.html'))
-    return os.path.relpath(target, str(Path(source).parent)).replace(os.sep, '/')
-
-def render(page, by_id, edges):
-    escape = html.escape
-    def rewrite(match):
-        href = html.unescape(match.group(1))
-        url = urlsplit(href)
-        if not url.scheme and not url.netloc and url.path.endswith('.md'):
-            href = urlunsplit(('', '', url.path[:-3] + '.html', url.query, url.fragment))
-        return 'href="' + escape(href, quote=True) + '"'
-    body = re.sub(r'href="([^"]*)"', rewrite, page['html'])
-    meta = page['meta']
-    def link(target, label=None):
-        dest = by_id[target]
-        return f'<a href="{escape(relative_html(page["path"], dest["path"]))}">{escape(label or dest["meta"]["title"])}</a>'
-    nav = ''.join(link(i, label) for i, label in [('manual','ASM'),('symptoms','Symptoms'),('diagnoses','Diagnoses'),('interventions','Interventions'),('structure','Structure')])
-    connections = []
-    for edge in edges:
-        if edge['from'] == meta['id']:
-            label = 'Symptom' if edge['relation'] == 'symptom' else 'Intervention · ' + edge['role']
-            condition = f'<p>{escape(edge["when"])} <small>Evidence: {escape(edge["evidence"])}</small></p>' if 'when' in edge else ''
-            connections.append(f'<li><small>{escape(label)}</small> {link(edge["to"])}{condition}</li>')
-        elif edge['to'] == meta['id']:
-            condition = f'<p>{escape(edge["when"])} <small>Role: {escape(edge["role"])} · Evidence: {escape(edge["evidence"])}</small></p>' if 'when' in edge else ''
-            connections.append(f'<li><small>Referenced by</small> {link(edge["from"])}{condition}</li>')
-    related = '<aside><h2>Connections</h2><ul>' + ''.join(connections) + '</ul></aside>' if connections else ''
-    badges = ' · '.join(escape(str(meta[k])) for k in ['id','kind','status','evidence'] if k in meta)
-    home = relative_html(page['path'], 'index.md')
-    catalog = os.path.relpath('catalog.json', str(Path(page['path']).parent)).replace(os.sep, '/')
-    return f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{escape(meta['title'])} · ASM</title><meta name="description" content="{escape(meta['summary'], quote=True)}">
-<style>{CSS}</style></head><body><a class="skip" href="#main">Skip to content</a>
-<header><nav aria-label="Main">{nav}</nav></header><main id="main"><div class="eyebrow">{badges}</div>
-<p class="abstract">{escape(meta['summary'])}</p>{body}{related}</main>
-<footer><a href="{home}">Agent Diagnostic Manual</a> · Working draft · Updated {escape(meta['updated'])} · <a href="{catalog}">JSON catalog</a></footer></body></html>'''
-
-CSS = '''
-:root{color-scheme:light;--ink:#192c3c;--muted:#526474;--line:#d9e0e4;--accent:#0c666c}
-*{box-sizing:border-box}body{margin:0;background:#f9faf7;color:var(--ink);font:17px/1.7 system-ui,-apple-system,sans-serif}
-header{background:#182d3e;border-bottom:4px solid #65bdb0}nav{max-width:1120px;margin:auto;display:flex;gap:26px;padding:22px 28px;flex-wrap:wrap}nav a{color:#f4f8f7;text-decoration:none;font-size:15px}nav a:first-child{font-weight:800;letter-spacing:.15em;margin-right:auto}
-main{max-width:1000px;margin:55px auto;padding:0 28px}h1{font-size:clamp(30px,5vw,45px);line-height:1.18;letter-spacing:-.035em;margin:22px 0 30px}h2{font-size:24px;margin:42px 0 14px;line-height:1.3}h3{font-size:20px}p,li{max-width:82ch}a{color:var(--accent);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible{outline:3px solid #c77b2c;outline-offset:4px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700}.abstract{color:var(--muted);font-size:19px;max-width:72ch}table{border-collapse:collapse;width:100%;font-size:15px;margin:24px 0}th,td{border-bottom:1px solid var(--line);padding:14px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#eaf0ef;font-size:13px}code{background:#eaf0ef;padding:2px 5px;border-radius:3px;font-size:.87em}pre{background:#182d3e;color:#f4f8f7;border-radius:8px;padding:22px;overflow:auto}pre code{background:none;padding:0}li{margin:9px 0}aside{margin-top:48px;border:1px solid var(--line);border-left:4px solid #65bdb0;padding:8px 24px 20px;background:#fff}aside h2{margin-top:18px}aside ul{padding-left:20px}aside small{color:var(--muted);display:block;font-size:12px}aside p{margin:4px 0 18px;font-size:15px}footer{max-width:1000px;margin:60px auto 30px;padding:24px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:white;padding:10px} @media(max-width:600px){nav{gap:14px;padding:18px}main{padding:0 18px;margin:32px auto}th,td{padding:10px 7px;font-size:13px}h2{margin-top:32px}footer{padding:20px 18px}}
-'''
-
-def build(root=ROOT, check=False, check_generated=False):
-    pages, by_id, edges = load(root/'content', root/'schema/guide.schema.json')
-    entries, objects, xml_refs = load_entries(root)
-    for entry in entries:
-        generated = document(entry, objects)
-        dest = root/'content'/entry['path']
-        if check_generated:
-            if not dest.exists() or dest.read_text() != generated:
-                raise ValueError(f'stale generated Markdown: {dest}')
-        elif not check:
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_text(generated, encoding='utf-8')
-    if not check and not check_generated:
-        out = root/'dist'
-        if out.exists():
-            shutil.rmtree(out)
-        out.mkdir(exist_ok=True)
-        for page in pages:
-            dest = out / Path(page['path']).with_suffix('.html')
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_text(render(page, by_id, edges), encoding='utf-8')
-        catalog = {'schema_version': 2, 'xml_namespace': 'urn:asm:1',
-                   'entries': [{**copy.deepcopy(p['meta']),
-                       'source': p.get('xml_source', 'content/'+p['path']),
-                       'url': str(Path(p['path']).with_suffix('.html')),
-                       **({'document':p['xml']} if 'xml' in p else {})} for p in pages],
-                   'objects': {oid: {'entry':obj['entry']['meta']['id'], 'kind':obj['node'].tag.split('}')[-1],
-                       'source':obj['entry']['source'], 'url':str(Path(obj['entry']['path']).with_suffix('.html')) +
-                       (('#'+oid) if oid != obj['entry']['meta']['id'] else '')} for oid,obj in objects.items()},
-                   'relationships': xml_refs}
-        (out/'catalog.json').write_text(json.dumps(catalog, indent=2)+'\n', encoding='utf-8')
-    print(f'Validated {len(pages)} pages, {len(edges)} typed relationships' + ('' if check or check_generated else '; built Markdown and dist/'))
-    return pages, edges
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check', action='store_true')
-    parser.add_argument('--check-generated', action='store_true', help='Check committed Markdown matches canonical XML')
-    args = parser.parse_args()
-    try:
-        build(check=args.check, check_generated=args.check_generated)
-    except (ValueError, yaml.YAMLError) as error:
-        parser.exit(1, str(error)+'\n')
+CSS='\n:root{color-scheme:light;--ink:#192c3c;--muted:#526474;--line:#d9e0e4;--accent:#0c666c}\n*{box-sizing:border-box}body{margin:0;background:#f9faf7;color:var(--ink);font:17px/1.7 system-ui,-apple-system,sans-serif}\nheader{background:#182d3e;border-bottom:4px solid #65bdb0}nav{max-width:1120px;margin:auto;display:flex;gap:26px;padding:22px 28px;flex-wrap:wrap}nav a{color:#f4f8f7;text-decoration:none;font-size:15px}nav a:first-child{font-weight:800;letter-spacing:.15em;margin-right:auto}\nmain{max-width:1000px;margin:55px auto;padding:0 28px}h1{font-size:clamp(30px,5vw,45px);line-height:1.18;letter-spacing:-.035em;margin:22px 0 30px}h2{font-size:24px;margin:42px 0 14px;line-height:1.3}h3{font-size:20px}p,li{max-width:82ch}a{color:var(--accent);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible{outline:3px solid #c77b2c;outline-offset:4px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700}.abstract{color:var(--muted);font-size:19px;max-width:72ch}table{border-collapse:collapse;width:100%;font-size:15px;margin:24px 0}th,td{border-bottom:1px solid var(--line);padding:14px;text-align:left;vertical-align:top;overflow-wrap:anywhere}th{background:#eaf0ef;font-size:13px}code{background:#eaf0ef;padding:2px 5px;border-radius:3px;font-size:.87em}pre{background:#182d3e;color:#f4f8f7;border-radius:8px;padding:22px;overflow:auto}pre code{background:none;padding:0}li{margin:9px 0}aside{margin-top:48px;border:1px solid var(--line);border-left:4px solid #65bdb0;padding:8px 24px 20px;background:#fff}aside h2{margin-top:18px}aside ul{padding-left:20px}aside small{color:var(--muted);display:block;font-size:12px}aside p{margin:4px 0 18px;font-size:15px}footer{max-width:1000px;margin:60px auto 30px;padding:24px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.skip{position:absolute;left:-999px}.skip:focus{left:10px;top:10px;background:white;padding:10px} @media(max-width:600px){nav{gap:14px;padding:18px}main{padding:0 18px;margin:32px auto}th,td{padding:10px 7px;font-size:13px}h2{margin-top:32px}footer{padding:20px 18px}}\n'
+if __name__=='__main__':
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--check',action='store_true');args=p.parse_args()
+    try:build(check=args.check)
+    except (ValueError,UnicodeError) as e:p.exit(1,str(e)+'\n')

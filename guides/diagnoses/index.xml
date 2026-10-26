@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<guide xmlns="urn:asm:1" id="diagnoses" version="1" status="draft" updated="2026-10-26">
+  <title>Diagnoses</title>
+  <summary>Candidate patterns with explicit boundaries and unresolved causal questions.</summary>
+  <sections>
+    <section id="overview">
+      <title>Overview</title>
+      <p>A diagnostic entry defines a proposed pattern. Its editorial status and evidence label describe the entry, not confidence in a particular case.</p>
+      <ul>
+        <li><ref target="D001">D001 — Unproductive repeated retrieval</ref>: a descriptive pattern, not an established mechanism.</li>
+      </ul>
+      <p><ref target="foundations">Diagnostic foundations</ref> · <ref target="manual">Manual home</ref></p>
+    </section>
+  </sections>
+</guide>

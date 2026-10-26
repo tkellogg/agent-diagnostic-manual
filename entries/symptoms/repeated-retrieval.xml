@@ -7,31 +7,45 @@
     <tag>context</tag>
     <tag>repetition</tag>
   </tags>
-  <observation id="S001-observation">
-    <p>The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools.</p>
-    <p><strong>This observation is neutral about usefulness and cause.</strong> Repetition can be appropriate. The corresponding candidate diagnosis is <ref target="D001">Unproductive repeated retrieval</ref>.</p>
-  </observation>
-  <how-to-recognize-it id="S001-how-to-recognize-it">
+  <observations>
+    <observation id="multi-read">
+      <p>The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools.</p>
+      <p><strong>This observation is neutral about usefulness and cause.</strong> Repetition can be appropriate. The corresponding candidate diagnosis is <ref target="D001">Unproductive repeated retrieval</ref>.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
     <p>Compare the question each call is trying to answer, the requested content or range, the source version, and the returned information. Identical tool arguments are a clue, not sufficient evidence. Different arguments can still retrieve the same information.</p>
     <p>Track both exact repetition and semantically equivalent retrieval. Automated exact-match detectors can nominate cases for inspection; they cannot decide usefulness.</p>
     <p>There is no diagnostic count threshold. “More than once” identifies repetition, not pathology.</p>
   </how-to-recognize-it>
-  <benign-lookalikes id="S001-benign-lookalikes">
-    <ul>
-      <li>A file changed after the previous read.</li>
-      <li>The new call obtains a different passage or field needed for the task.</li>
-      <li>Earlier output was truncated, empty, wrong, or not delivered.</li>
-      <li>A fresh result is required at a decision boundary.</li>
-      <li>A legitimate task explicitly requires checking a result again.</li>
-    </ul>
+  <benign-lookalikes>
+    <lookalike id="changed-source">
+      <p>A file changed after the previous read.</p>
+    </lookalike>
+    <lookalike id="different-content">
+      <p>The new call obtains a different passage or field needed for the task.</p>
+    </lookalike>
+    <lookalike id="failed-delivery">
+      <p>Earlier output was truncated, empty, wrong, or not delivered.</p>
+    </lookalike>
+    <lookalike id="freshness-check">
+      <p>A fresh result is required at a decision boundary.</p>
+    </lookalike>
+    <lookalike id="required-verification">
+      <p>A legitimate task explicitly requires checking a result again.</p>
+    </lookalike>
   </benign-lookalikes>
-  <what-to-record id="S001-what-to-record">
+  <what-to-record>
     <p>Record task intent, call sequence, arguments, source identity/version, result content or permitted content hashes, and which result was actually delivered to the model. Preserve the relevant model input at the later decision point, including compaction boundaries and active instructions when available.</p>
     <p>Also record what the agent did between reads and what changed after each read. Collect enough detail to assess progress and new information. Keep sensitive raw traces outside this repository unless their inclusion is deliberate and appropriate; link to an access-controlled evidence location where needed.</p>
   </what-to-record>
-  <examples id="S001-examples">
-    <p><strong>Synthetic example — potentially unproductive.</strong> An agent reads an unchanged configuration file, extracts the requested setting, then retrieves that same setting again before making the requested edit. Repetition continues without any edit or new question. This merits investigation; it does not reveal whether the previous result remained available to the model.</p>
-    <p><strong>Synthetic comparison — useful.</strong> An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis.</p>
+  <examples>
+    <example id="stalled-edit" kind="synthetic">
+      <p><strong>Synthetic example — potentially unproductive.</strong> An agent reads an unchanged configuration file, extracts the requested setting, then retrieves that same setting again before making the requested edit. Repetition continues without any edit or new question. This merits investigation; it does not reveal whether the previous result remained available to the model.</p>
+    </example>
+    <example id="verified-edit" kind="synthetic">
+      <p><strong>Synthetic comparison — useful.</strong> An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis.</p>
+    </example>
     <p>These are explanatory examples, not observed cases or validation data.</p>
   </examples>
 </symptom>

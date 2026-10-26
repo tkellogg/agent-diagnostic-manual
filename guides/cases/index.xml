@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<guide xmlns="urn:asm:1" id="cases" version="1" status="draft" updated="2026-10-26">
+  <title>Evidence and cases</title>
+  <summary>No empirical cases yet; keep observations, hypotheses, and outcomes distinguishable.</summary>
+  <sections>
+    <section id="overview">
+      <title>Overview</title>
+      <p><strong>No empirical cases are included yet.</strong> Examples elsewhere in the manual are explicitly synthetic. They do not count as validation or measured intervention outcomes.</p>
+    </section>
+    <section id="first-case-record">
+      <title>First case record</title>
+      <p>When an actual trace is available, preserve:</p>
+      <ul>
+        <li>Task and success criteria; model and harness versions; relevant tools, instructions, memory policy, and environment.</li>
+        <li>Trace reference and access constraints; calls, results, source versions, and relevant model-visible inputs.</li>
+        <li>Observed symptoms, candidate criteria assessment, missing evidence, and alternative explanations.</li>
+        <li>Confidence in this case assessment, recorded separately from confidence in the category itself.</li>
+        <li>Any intervention, prerequisites, baseline/comparison conditions, outcomes, confounders, and rollback.</li>
+        <li>A healthy comparison where possible; reviewer disagreements and negative results.</li>
+      </ul>
+      <p>Keep sensitive raw traces in an appropriate access-controlled location. A record can link to them and describe their access limitations. Review before including any source material in the repository.</p>
+    </section>
+    <section id="evidence-labels">
+      <title>Evidence labels</title>
+      <p><code>unvalidated</code> means there is no inspected empirical support recorded here. <code>case-supported</code> requires linked, inspectable empirical evidence for the specific claim. <code>replicated</code> requires linked repetitions with stated conditions and limits. Neither label implies a unique mechanism or universal effectiveness.</p>
+      <p>The current metadata schema cannot verify empirical truth. Evidence labels require human review and traceable records. The case file schema will be designed around the first actual case rather than guessed now.</p>
+    </section>
+    <section id="next-contribution">
+      <title>Next contribution</title>
+      <p>Use one failing episode and one similar healthy episode to assess the existing <ref target="D001">diagnosis</ref>. Improve that entry before expanding the taxonomy. Severity remains deferred.</p>
+    </section>
+  </sections>
+</guide>
