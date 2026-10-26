@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Symptoms, candidate diagnoses, and interventions for configured agents.">
         
-        <link rel="canonical" href="https://tkellogg.github.io/agent-diagnostic-manual/index.html">
+        <link rel="canonical" href="https://diag.timkellogg.me/index.html">
         <link rel="shortcut icon" href="img/favicon.ico">
         <title>Agent Diagnostic Manual</title>
 
@@ -203,9 +203,10 @@ python examples/query_manual.py
 <pre><code class="language-sh">python tools/package_release.py --version 0.1.0 --commit &quot;$(git rev-parse HEAD)&quot;
 </code></pre>
 <h2 id="github-pages">GitHub Pages<a class="headerlink" href="#github-pages" title="Permanent link">&para;</a></h2>
-<p>Every push to main validates and builds the site, stores a complete generated copy on <code>gh-pages</code>, and uploads a Pages artifact. Generated branch commits do not trigger the main-branch workflows.</p>
-<p>For hosting, select <strong>Settings → Pages → Source → GitHub Actions</strong>, then create the repository Actions variable <strong>ADM_PAGES_ENABLED</strong> with value <strong>true</strong>. Run <strong>Build and publish documentation</strong> once, or push to main. This uses GitHub's Pages deployment action; the generated branch remains available for inspection. The hosting step is disabled until the variable is set, so an unconfigured Pages account does not fail ordinary builds. Pages availability for a private repository depends on the account plan; enabling it can make the site public.</p>
-<p><code>mkdocs.yml</code> sets the project URL and disables directory-style URLs. All normal page assets and format links are relative, so the site works under a project path. The README is the homepage source. To skip search during quick local iterations, use <code>python tools/build.py --no-search</code>.</p>
+<p>Every push to main validates and builds the site, stores a complete generated copy on <code>gh-pages</code>, and deploys it through GitHub Actions. No repository variables are required. Generated branch commits do not trigger the main-branch workflows.</p>
+<p>In <strong>Settings → Pages</strong>, select <strong>GitHub Actions</strong> as the source and save <strong>diag.timkellogg.me</strong> as the custom domain. At the DNS provider, set <code>diag</code> to a CNAME targeting <code>tkellogg.github.io.</code> (without a repository path). Enable <strong>Enforce HTTPS</strong> once GitHub has issued the certificate. DNS and certificate provisioning may take time; saving the custom domain in the repository is required in addition to DNS.</p>
+<p>The Pages workflow builds with MkDocs and Pagefind; no separate Jekyll workflow is needed. With Actions-based publishing, GitHub uses the custom domain saved in repository settings, not a CNAME file in the artifact.</p>
+<p><code>mkdocs.yml</code> sets <code>https://diag.timkellogg.me/</code> as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use <code>python tools/build.py --no-search</code>.</p>
 <p>The CI, release, and Pages workflows all validate against <code>schema/adm-v1.xsd</code> and check document IDs, local IDs, and typed references before building.</p></article>
 </div>
 
@@ -278,5 +279,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-26 18:07:21.555160+00:00
+Build Date UTC : 2026-10-26 18:18:36.787867+00:00
 -->
