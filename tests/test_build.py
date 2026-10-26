@@ -18,7 +18,7 @@ I='entries/interventions/preserve-task-relevant-evidence.xml'
 class FormatTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
-        for folder in ('entries','guides','schema'):shutil.copytree(ROOT/folder,self.root/folder)
+        for folder in ('entries','schema'):shutil.copytree(ROOT/folder,self.root/folder)
     def tearDown(self):self.temp.cleanup()
     def change(self,path,old,new):
         p=self.root/path;s=p.read_text();self.assertIn(old,s);p.write_text(s.replace(old,new))
@@ -32,6 +32,26 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(catalog['objects']['S001#observations/multi-read']['kind'],'observation')
         self.assertTrue(any(r['from']=='D001#criteria/recurrence' and r['to']=='S001' for r in refs))
         self.assertTrue(any(r.get('address')=='D001#relations/I001' for r in refs))
+    def test_site_navigation_resolves_without_handwritten_indexes(self):
+        from urllib.parse import urlsplit, unquote
+        build(self.root)
+        out=self.root/'dist'
+        home=ET.HTML((out/'index.html').read_text())
+        self.assertEqual(len(home.xpath('//a')),3)
+        for page in out.rglob('*.html'):
+            node=ET.HTML(page.read_text())
+            for href in node.xpath('//a/@href'):
+                url=urlsplit(href)
+                if url.scheme:continue
+                target=(page.parent/unquote(url.path)).resolve() if url.path else page
+                self.assertTrue(target.is_file(),href)
+                if url.fragment:
+                    dest=ET.HTML(target.read_text())
+                    self.assertIn(unquote(url.fragment),dest.xpath('//*[@id]/@id'))
+        md=(out/'markdown/index.md').read_text()
+        self.assertIn('symptoms/repeated-retrieval.md',md)
+        self.assertIn('diagnoses/unproductive-repeated-retrieval.md',md)
+        self.assertIn('interventions/preserve-task-relevant-evidence.md',md)
     def test_structured_lists_reject_stray_prose(self):
         containers={S:['observations','benign-lookalikes','examples'],
                     D:['criteria','exclusions','differential'],
@@ -50,14 +70,14 @@ class FormatTests(unittest.TestCase):
             (self.root/path).write_bytes(original)
     def test_title_attributes_render_as_plain_text(self):
         title='A & "B" <C> *D*'
-        for path in (S,D,I,'guides/index.xml'):
+        for path in (S,D,I):
             tree=ET.parse(str(self.root/path))
             for node in tree.getroot().iter():
                 if 'title' in node.attrib:node.set('title',title)
             tree.write(str(self.root/path),encoding='UTF-8')
         docs,_,_=build(self.root)
         for doc in docs:
-            if doc['source'] not in (S,D,I,'guides/index.xml'):continue
+            if doc['source'] not in (S,D,I):continue
             self.assertEqual(doc['meta']['title'],title)
             self.assertEqual(doc['node'].findall('.//a:title',N),[])
             count=len(doc['node'].xpath('descendant-or-self::*[@title]'))
@@ -66,7 +86,7 @@ class FormatTests(unittest.TestCase):
             self.assertEqual(h.count('A &amp; &quot;B&quot; &lt;C&gt; *D*'),count+1)
             self.assertEqual(m.count(r'A & "B" \<C\> \*D\*'),count)
     def test_title_attributes_required(self):
-        for path in (S,D,I,'guides/index.xml'):
+        for path in (S,D,I):
             original=(self.root/path).read_bytes()
             tree=ET.fromstring(original)
             for node in tree.iter():

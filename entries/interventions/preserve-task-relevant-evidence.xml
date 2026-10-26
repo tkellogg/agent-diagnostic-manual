@@ -53,6 +53,6 @@
   </stop-and-rollback>
   <evidence-and-uncertainty>
     <p><strong>Unvalidated.</strong> No baseline/modified comparison has been performed for this repository. The procedure is intended to make a hypothesis testable and a possible remedy reviewable.</p>
-    <p>See <ref target="cases">evidence and cases</ref> for what an actual result should record. Do not promote this entry's evidence label because a synthetic example sounds plausible.</p>
+    <p>Do not promote this entry's evidence label because a synthetic example sounds plausible.</p>
   </evidence-and-uncertainty>
 </intervention>

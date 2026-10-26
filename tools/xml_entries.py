@@ -7,16 +7,16 @@ from lxml import etree as ET
 NS='urn:asm:1'
 N={'a':NS}
 LOCAL_ID=re.compile(r'[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){0,2}\Z')
-PROSE={'p','ul','ol','li','strong','em','a','ref','code','pre','table','thead','tbody','tr','th','td'}
+PROSE={'p','ul','ol','li','strong','em','a','ref','code'}
 METADATA={'summary'}
-ITEMS={'observation','lookalike','example','criterion','exclusion','alternative','precondition','step','section','intervention-ref'}
+ITEMS={'observation','lookalike','example','criterion','exclusion','alternative','precondition','step','intervention-ref'}
 
 def name(node):return ET.QName(node).localname
 
 def text(node):return ''.join(node.itertext()).strip()
 
 def ast(node):
-    mixed=name(node) in {'p','li','strong','em','a','ref','code','when','summary','th','td'}
+    mixed=name(node) in {'p','li','strong','em','a','ref','code','when','summary'}
     content=[]
     if node.text and (mixed or node.text.strip()):content.append(node.text)
     for child in node:
@@ -27,46 +27,42 @@ def ast(node):
 def load(root):
     schema=ET.XMLSchema(ET.parse(str(root/'schema/asm-v1.xsd')))
     documents=[];objects={};node_addresses={};paths=set()
-    for folder in ('entries','guides'):
-        for path in sorted((root/folder).rglob('*.xml')):
-            raw=path.read_bytes();raw.decode('utf-8')
-            if b'<!DOCTYPE' in raw or b'<!ENTITY' in raw:raise ValueError(f'{path}: DTDs and entities are unsupported')
-            try:
-                node=ET.fromstring(raw,ET.XMLParser(resolve_entities=False,no_network=True,load_dtd=False,remove_comments=True))
-                schema.assertValid(node)
-            except (ET.XMLSyntaxError,ET.DocumentInvalid) as e:raise ValueError(f'{path}: {e}') from e
-            kind=name(node);did=node.get('id');rel=path.relative_to(root/folder)
-            if kind=='guide':
-                if folder!='guides' or not LOCAL_ID.fullmatch(did):raise ValueError(f'{path}: invalid guide location or ID')
-            else:
-                dirs={'symptom':'symptoms','diagnosis':'diagnoses','intervention':'interventions'}
-                prefixes={'symptom':'S','diagnosis':'D','intervention':'I'}
-                if kind not in dirs or folder!='entries' or rel.parts[0]!=dirs[kind]:raise ValueError(f'{path}: wrong directory for {kind}')
-                if not re.fullmatch(prefixes[kind]+r'\d{3,}',did):raise ValueError(f'{path}: invalid document ID')
-            if did in objects:raise ValueError(f'duplicate document ID: {did}')
-            output=rel.with_suffix('.html').as_posix()
-            if output in paths:raise ValueError(f'output path collision: {output}')
-            paths.add(output)
-            meta={'id':did,'kind':kind,'summary':node.findtext('a:summary',namespaces=N),**{k:v for k,v in node.attrib.items() if k!='id'}}
-            doc={'node':node,'meta':meta,'path':output,'source':path.relative_to(root).as_posix()};documents.append(doc)
-            def register(obj,address):
-                if address in objects:raise ValueError(f'duplicate address: {address}')
-                objects[address]={'node':obj,'document':doc};node_addresses[obj]=address
-            register(node,did)
-            def walk(parent,parent_path):
-                seen=set()
-                for child in parent:
-                    local=child.get('id')
-                    if local:
-                        if not LOCAL_ID.fullmatch(local):raise ValueError(f'{path}: invalid local ID: {local}')
-                        if local in seen:raise ValueError(f'{path}: duplicate local ID in one list: {local}')
-                        seen.add(local)
-                    tag=name(child)
-                    if tag in PROSE or tag in METADATA or tag=='symptom-ref':continue
-                    segment=(child.get('ref') if tag=='intervention-ref' else local) or tag
-                    scoped=(parent_path+'/'+segment) if parent_path else segment
-                    register(child,did+'#'+scoped);walk(child,scoped)
-            walk(node,'')
+    for path in sorted((root/'entries').rglob('*.xml')):
+        raw=path.read_bytes();raw.decode('utf-8')
+        if b'<!DOCTYPE' in raw or b'<!ENTITY' in raw:raise ValueError(f'{path}: DTDs and entities are unsupported')
+        try:
+            node=ET.fromstring(raw,ET.XMLParser(resolve_entities=False,no_network=True,load_dtd=False,remove_comments=True))
+            schema.assertValid(node)
+        except (ET.XMLSyntaxError,ET.DocumentInvalid) as e:raise ValueError(f'{path}: {e}') from e
+        kind=name(node);did=node.get('id');rel=path.relative_to(root/'entries')
+        dirs={'symptom':'symptoms','diagnosis':'diagnoses','intervention':'interventions'}
+        prefixes={'symptom':'S','diagnosis':'D','intervention':'I'}
+        if kind not in dirs or rel.parts[0]!=dirs[kind]:raise ValueError(f'{path}: wrong directory for {kind}')
+        if not re.fullmatch(prefixes[kind]+r'\d{3,}',did):raise ValueError(f'{path}: invalid document ID')
+        if did in objects:raise ValueError(f'duplicate document ID: {did}')
+        output=rel.with_suffix('.html').as_posix()
+        if output in paths:raise ValueError(f'output path collision: {output}')
+        paths.add(output)
+        meta={'id':did,'kind':kind,'summary':node.findtext('a:summary',namespaces=N),**{k:v for k,v in node.attrib.items() if k!='id'}}
+        doc={'node':node,'meta':meta,'path':output,'source':path.relative_to(root).as_posix()};documents.append(doc)
+        def register(obj,address):
+            if address in objects:raise ValueError(f'duplicate address: {address}')
+            objects[address]={'node':obj,'document':doc};node_addresses[obj]=address
+        register(node,did)
+        def walk(parent,parent_path):
+            seen=set()
+            for child in parent:
+                local=child.get('id')
+                if local:
+                    if not LOCAL_ID.fullmatch(local):raise ValueError(f'{path}: invalid local ID: {local}')
+                    if local in seen:raise ValueError(f'{path}: duplicate local ID in one list: {local}')
+                    seen.add(local)
+                tag=name(child)
+                if tag in PROSE or tag in METADATA or tag=='symptom-ref':continue
+                segment=(child.get('ref') if tag=='intervention-ref' else local) or tag
+                scoped=(parent_path+'/'+segment) if parent_path else segment
+                register(child,did+'#'+scoped);walk(child,scoped)
+        walk(node,'')
     refs=[]
     for doc in documents:
         for node in doc['node'].iter():

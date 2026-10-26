@@ -58,18 +58,6 @@ class Renderer:
         if tag in ('ul','ol'):
             if self.mode=='html':return f'<{tag}>'+''.join('<li>'+self.mixed(c)+'</li>' for c in n)+f'</{tag}>\n'
             return '\n'.join((f'{i}. ' if tag=='ol' else '- ')+self.mixed(c) for i,c in enumerate(n,1))+'\n\n'
-        if tag=='pre':
-            value=''.join(n.itertext())
-            if self.mode=='html':return '<pre><code>'+html.escape(value)+'</code></pre>\n'
-            fence='`'*max(3,1+max([len(m) for m in re.findall(r'`+',value)]+[0]))
-            return fence+'\n'+value.rstrip()+'\n'+fence+'\n\n'
-        if tag=='table':
-            if self.mode=='html':
-                return '<table>'+''.join('<'+name(group)+'>'+''.join('<tr>'+''.join('<'+name(cell)+'>'+self.mixed(cell)+'</'+name(cell)+'>' for cell in row)+'</tr>' for row in group)+'</'+name(group)+'>' for group in n)+'</table>\n'
-            rows=list(n.findall('a:thead/a:tr',N))+list(n.findall('a:tbody/a:tr',N))
-            lines=['| '+' | '.join(self.mixed(c) for c in row)+' |' for row in rows]
-            lines.insert(1,'| '+' | '.join('---' for _ in rows[0])+' |')
-            return '\n'.join(lines)+'\n\n'
         if tag=='symptom-ref':
             value=self.link(n.get('ref'),self.esc(n.get('ref')))
             return '<p>Related symptom: '+value+'</p>\n' if self.mode=='html' else 'Related symptom: '+value+'\n\n'
@@ -77,7 +65,6 @@ class Renderer:
             value=self.link(n.get('ref'),self.esc(n.get('ref')))
             condition=self.esc(n.findtext('a:when',namespaces=N))
             return self.anchor(n)+self.anchor(n.find('a:when',N))+(f'<p>{value}</p><p><strong>When:</strong> {condition}</p>\n' if self.mode=='html' else value+'\n\n**When:** '+condition+'\n\n')
-        if tag=='sections':return self.anchor(n)+''.join(self.block(c,depth) for c in n)
         title=n.get('title') or TITLES.get(tag) or (n.get('id') or tag).replace('-',' ').capitalize()
         return self.anchor(n)+self.heading(title,depth)+''.join(self.block(c,depth+1) for c in n)
     def body(self):
@@ -92,11 +79,22 @@ def build(root=ROOT,check=False):
         for doc in docs:
             dest=out/doc['path'];dest.parent.mkdir(parents=True,exist_ok=True)
             renderer=Renderer(doc,objects,addresses,'html');m=doc['meta']
-            nav=' '.join(renderer.link(i,label) for i,label in [('manual','ASM'),('symptoms','Symptoms'),('diagnoses','Diagnoses'),('interventions','Interventions'),('structure','Structure'),('format','Format')])
+            home=os.path.relpath('index.html',str(Path(doc['path']).parent)).replace(os.sep,'/')
+            nav='<a href="'+html.escape(home,quote=True)+'">ASM</a> '+ ' '.join(renderer.link(d['meta']['id'],renderer.esc(d['meta']['id'])) for d in docs)
             badges=' · '.join(html.escape(m[k]) for k in ('id','kind','status','evidence') if k in m)
             dest.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(m['title'])+' · ASM</title><style>'+CSS+'</style></head><body><header><nav>'+nav+'</nav></header><main><div class="eyebrow">'+badges+'</div>'+renderer.body()+'</main></body></html>',encoding='utf-8')
             md=out/'markdown'/Path(doc['path']).with_suffix('.md');md.parent.mkdir(parents=True,exist_ok=True)
             md.write_text('<!-- Generated from '+doc['source']+'; edit XML and rebuild. -->\n\n'+Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
+        groups=[]
+        md_groups=[]
+        for kind in ('symptom','diagnosis','intervention'):
+            entries=[d for d in docs if d['meta']['kind']==kind]
+            heading={'symptom':'Symptoms','diagnosis':'Diagnoses','intervention':'Interventions'}[kind]
+            items=''.join('<li><a href="'+html.escape(d['path'],quote=True)+'">'+html.escape(d['meta']['id']+' — '+d['meta']['title'])+'</a></li>' for d in entries)
+            groups.append('<h2>'+heading+'</h2><ul>'+items+'</ul>')
+            md_groups.append('## '+heading+'\n\n'+'\n'.join('- ['+d['meta']['id']+' — '+Renderer(d,objects,addresses,'md').esc(d['meta']['title'])+']('+str(Path(d['path']).with_suffix('.md'))+')' for d in entries))
+        (out/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Diagnostic Manual</title><style>'+CSS+'</style></head><body><main><h1>Agent Diagnostic Manual</h1>'+''.join(groups)+'</main></body></html>',encoding='utf-8')
+        (out/'markdown/index.md').write_text('# Agent Diagnostic Manual\n\n'+'\n\n'.join(md_groups)+'\n',encoding='utf-8')
         catalog={'schema_version':3,'xml_namespace':'urn:asm:1',
             'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
             'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}

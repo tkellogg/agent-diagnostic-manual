@@ -2,7 +2,7 @@
 
 A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.
 
-Start with the [structure](guides/structure.xml) and [format contract](guides/format.xml).
+Start with [how to use the files](skills/agent-diagnostics/SKILL.md) and the [format reference](skills/agent-diagnostics/references/format.md).
 
 The first worked example:
 
@@ -11,6 +11,12 @@ The first worked example:
 - [I001 — Preserve task-relevant evidence](entries/interventions/preserve-task-relevant-evidence.xml)
 
 These are draft, unvalidated entries. Examples are synthetic. Severity remains deferred. The repository is private; publication and licensing are separate decisions.
+
+## Use the skill
+
+Distribute `skills/agent-diagnostics/` as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ASM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.
+
+XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.
 
 ## Build and read
 
@@ -28,7 +34,7 @@ Open `http://127.0.0.1:8000`. The build also writes Markdown reading copies unde
 
 ## Authoring
 
-`entries/` contains canonical symptoms, diagnoses, and interventions. `guides/` contains canonical explanatory documents and navigation. [XSD](schema/asm-v1.xsd) validates document structure; the [format contract](guides/format.xml) defines cross-document rules. The builder is a reference implementation.
+`entries/` contains canonical symptoms, diagnoses, and interventions. [XSD](schema/asm-v1.xsd) validates document structure; the [format reference](skills/agent-diagnostics/references/format.md) defines cross-document rules. The builder is a reference implementation.
 
 Singleton sections use tag names; list members use short, locally unique IDs:
 

@@ -81,6 +81,6 @@
   <evidence-and-uncertainty>
     <p><strong>Category status: unvalidated.</strong> No real trace has been adjudicated and no intervention outcome is claimed in this repository. The criteria and label are proposals.</p>
     <p>Open questions include whether low information gain can be rated consistently, how to distinguish valuable verification from waste, and whether this category predicts useful interventions across different harnesses.</p>
-    <p>The next evidence should include one inspectable failing episode and a closely matched healthy comparison. A positive result under one configuration would not establish a universal cause or remedy. See the <ref target="cases">evidence policy</ref>.</p>
+    <p>The next evidence should include one inspectable failing episode and a closely matched healthy comparison. A positive result under one configuration would not establish a universal cause or remedy.</p>
   </evidence-and-uncertainty>
 </diagnosis>
