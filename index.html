@@ -22,9 +22,13 @@
     </head>
 
     <body class="homepage">
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="index.html">Agent Diagnostic Manual</a>
+<a class="navbar-brand" href="index.html" aria-label="Agent Diagnostic Manual home">
+  <span class="adm-monogram" aria-hidden="true">ADM</span>
+  <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
+</a>
+
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -129,26 +133,49 @@
 
                     <ul class="nav navbar-nav ms-md-auto">
                             <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="symptoms/repeated-retrieval.html" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <button id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" class="nav-link dropdown-toggle">
+                                <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                <span class="d-lg-none ms-2">Toggle theme</span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="true">
+                                    <i class="fa-solid fa-sun fa-fw"></i>
+                                    <span class="ms-2">Light</span>
+                                    <i class="fa-solid fa-check ms-auto"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                                    <i class="fa-solid fa-moon fa-fw"></i>
+                                    <span class="ms-2">Dark</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                                    <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                    <span class="ms-2">Auto</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                              </ul>
                             </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <script src="js/darkmode.js"></script>
 
         <div class="container">
             <div class="row">
-<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<a class="adm-skip" href="#manual-content">Skip to content</a>
+<aside class="col-md-3 adm-sidebar" aria-label="On this page">
+  <p class="adm-eyebrow">On this page</p>
+  <div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -159,7 +186,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#agent-diagnostic-manual-adm" class="nav-link">Agent Diagnostic Manual (ADM)</a>
+            <li class="nav-item" data-bs-level="1"><a href="#agent-diagnostic-manual" class="nav-link">Agent Diagnostic Manual</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#symptoms" class="nav-link">Symptoms</a>
               <ul class="nav flex-column">
@@ -201,49 +228,100 @@
             </li>
         </ul>
     </div>
-</div></div>
-<div class="col-md-9" role="main">
+</div>
+</aside>
+<main class="col-md-9 adm-main" id="manual-content" tabindex="-1">
+  <div class="adm-toolbar" data-pagefind-ignore>
+    <span class="adm-eyebrow">The manual</span>
   
   <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
     <a href="index.md" download>Markdown</a>
     
   </nav>
   
+  </div>
   <details class="adm-search" data-pagefind-ignore>
     <summary>Search the manual</summary>
     <div id="search"></div>
     <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
   </details>
   
+  <p class="adm-eyebrow adm-intro">Observe · Investigate · Understand</p>
+  
   <article data-pagefind-body>
 
-<h1 id="agent-diagnostic-manual-adm">Agent Diagnostic Manual (ADM)<a class="headerlink" href="#agent-diagnostic-manual-adm" title="Permanent link">&para;</a></h1>
+<h1 id="agent-diagnostic-manual">Agent Diagnostic Manual<a class="headerlink" href="#agent-diagnostic-manual" title="Permanent link">&para;</a></h1>
 <p>A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.</p>
 <p>Start with <a href="skills/agent-diagnostics/SKILL.html">how to use the files</a> and the <a href="skills/agent-diagnostics/references/format.html">format reference</a>.</p>
 <p>Browse the XML entries for <a href="#symptoms">symptoms</a>, <a href="#diagnoses">diagnoses</a>, and <a href="#interventions">interventions</a>. The website lists all entries automatically.</p>
 <h2 id="symptoms">Symptoms<a class="headerlink" href="#symptoms" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a>: An agent repeatedly retrieves substantially the same information during an episode.</li>
-<li><a href="symptoms/doom-looping.html">S002 — Doom looping</a>: An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.</li>
-<li><a href="symptoms/sudden-performance-degradation.html">S003 — Sudden performance degradation</a>: An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.</li>
-<li><a href="symptoms/excessive-verification.html">S004 — Excessive verification</a>: An agent continues or expands verification beyond the task’s justified checking needs, delaying the requested outcome.</li>
-<li><a href="symptoms/correction-without-behavioral-change.html">S005 — Correction without behavioral change</a>: An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.</li>
-<li><a href="symptoms/lost-task-constraints.html">S006 — Lost task constraints</a>: A previously established task requirement or decision ceases to govern the agent’s later continuation.</li>
-<li><a href="symptoms/premature-stopping.html">S007 — Premature stopping</a>: An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.</li>
-<li><a href="symptoms/repeated-reauthorization.html">S008 — Repeated reauthorization</a>: An agent requests permission again for an action that remains covered by a clear, applicable authorization.</li>
-<li><a href="symptoms/unrequested-changes.html">S009 — Unrequested changes</a>: An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.</li>
-<li><a href="symptoms/completion-artifact-mismatch.html">S010 — Completion–artifact mismatch</a>: An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.</li>
-<li><a href="symptoms/unsupported-verification-claims.html">S011 — Unsupported verification claims</a>: An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.</li>
-<li><a href="symptoms/weakening-the-checks.html">S012 — Weakening the checks</a>: An agent reduces verification’s ability to detect an unmet requirement while working on the problem that verification is meant to expose.</li>
-<li><a href="symptoms/agreement-driven-reversal.html">S013 — Agreement-driven reversal</a>: An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.</li>
+<li>
+<p><a href="symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></p>
+<p>An agent repeatedly retrieves substantially the same information during an episode.</p>
+</li>
+<li>
+<p><a href="symptoms/doom-looping.html">S002 — Doom looping</a></p>
+<p>An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.</p>
+</li>
+<li>
+<p><a href="symptoms/sudden-performance-degradation.html">S003 — Sudden performance degradation</a></p>
+<p>An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.</p>
+</li>
+<li>
+<p><a href="symptoms/excessive-verification.html">S004 — Excessive verification</a></p>
+<p>An agent continues or expands verification beyond the task’s justified checking needs, delaying the requested outcome.</p>
+</li>
+<li>
+<p><a href="symptoms/correction-without-behavioral-change.html">S005 — Correction without behavioral change</a></p>
+<p>An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.</p>
+</li>
+<li>
+<p><a href="symptoms/lost-task-constraints.html">S006 — Lost task constraints</a></p>
+<p>A previously established task requirement or decision ceases to govern the agent’s later continuation.</p>
+</li>
+<li>
+<p><a href="symptoms/premature-stopping.html">S007 — Premature stopping</a></p>
+<p>An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.</p>
+</li>
+<li>
+<p><a href="symptoms/repeated-reauthorization.html">S008 — Repeated reauthorization</a></p>
+<p>An agent requests permission again for an action that remains covered by a clear, applicable authorization.</p>
+</li>
+<li>
+<p><a href="symptoms/unrequested-changes.html">S009 — Unrequested changes</a></p>
+<p>An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.</p>
+</li>
+<li>
+<p><a href="symptoms/completion-artifact-mismatch.html">S010 — Completion–artifact mismatch</a></p>
+<p>An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.</p>
+</li>
+<li>
+<p><a href="symptoms/unsupported-verification-claims.html">S011 — Unsupported verification claims</a></p>
+<p>An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.</p>
+</li>
+<li>
+<p><a href="symptoms/weakening-the-checks.html">S012 — Weakening the checks</a></p>
+<p>An agent reduces verification’s ability to detect an unmet requirement while working on the problem that verification is meant to expose.</p>
+</li>
+<li>
+<p><a href="symptoms/agreement-driven-reversal.html">S013 — Agreement-driven reversal</a></p>
+<p>An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.</p>
+</li>
 </ul>
 <h2 id="diagnoses">Diagnoses<a class="headerlink" href="#diagnoses" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="diagnoses/unproductive-repeated-retrieval.html">D001 — Unproductive repeated retrieval</a>: Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</li>
+<li>
+<p><a href="diagnoses/unproductive-repeated-retrieval.html">D001 — Unproductive repeated retrieval</a></p>
+<p>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</p>
+</li>
 </ul>
 <h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="interventions/preserve-task-relevant-evidence.html">I001 — Preserve task-relevant evidence</a>: Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</li>
+<li>
+<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Preserve task-relevant evidence</a></p>
+<p>Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.</p>
+</li>
 </ul>
 <p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.</p>
 <p>These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
@@ -288,14 +366,18 @@ python examples/query_manual.py
 <p>The Pages workflow builds with MkDocs and Pagefind; no separate Jekyll workflow is needed. With Actions-based publishing, GitHub uses the custom domain saved in repository settings, not a CNAME file in the artifact.</p>
 <p><code>mkdocs.yml</code> sets <code>https://diag.timkellogg.me/</code> as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use <code>python tools/build.py --no-search</code>.</p>
 <p>The CI, release, and Pages workflows all validate against <code>schema/adm-v1.xsd</code> and check document IDs, local IDs, and typed references before building.</p></article>
-</div>
+  
+</main>
 
             </div>
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<div class="adm-footer">
+  <span>ADM <span class="footer-separator">/</span> Agent Diagnostic Manual</span>
+  <span>Built with <a href="https://www.mkdocs.org/">MkDocs</a> · <a href="https://github.com/tkellogg/agent-diagnostic-manual">Source on GitHub</a></span>
+</div>
+
         </footer>
 
         <script src="js/bootstrap.bundle.min.js"></script>
@@ -359,5 +441,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-27 02:17:12.833596+00:00
+Build Date UTC : 2026-10-27 11:48:14.786672+00:00
 -->

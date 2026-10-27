@@ -22,9 +22,13 @@
     </head>
 
     <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="../index.html">Agent Diagnostic Manual</a>
+<a class="navbar-brand" href="../index.html" aria-label="Agent Diagnostic Manual home">
+  <span class="adm-monogram" aria-hidden="true">ADM</span>
+  <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
+</a>
+
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -129,26 +133,49 @@
 
                     <ul class="nav navbar-nav ms-md-auto">
                             <li class="nav-item">
-                                <a rel="prev" href="unsupported-verification-claims.html" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="agreement-driven-reversal.html" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <button id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" class="nav-link dropdown-toggle">
+                                <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                <span class="d-lg-none ms-2">Toggle theme</span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="true">
+                                    <i class="fa-solid fa-sun fa-fw"></i>
+                                    <span class="ms-2">Light</span>
+                                    <i class="fa-solid fa-check ms-auto"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                                    <i class="fa-solid fa-moon fa-fw"></i>
+                                    <span class="ms-2">Dark</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                                    <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                    <span class="ms-2">Auto</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                              </ul>
                             </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <script src="../js/darkmode.js"></script>
 
         <div class="container">
             <div class="row">
-<div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+<a class="adm-skip" href="#manual-content">Skip to content</a>
+<aside class="col-md-3 adm-sidebar" aria-label="On this page">
+  <p class="adm-eyebrow">On this page</p>
+  <div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
         <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
@@ -185,8 +212,11 @@
             </li>
         </ul>
     </div>
-</div></div>
-<div class="col-md-9" role="main">
+</div>
+</aside>
+<main class="col-md-9 adm-main" id="manual-content" tabindex="-1">
+  <div class="adm-toolbar" data-pagefind-ignore>
+    <span class="adm-eyebrow">symptom</span>
   
   <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
     <a href="weakening-the-checks.md" download>Markdown</a>
@@ -195,13 +225,14 @@
     
   </nav>
   
+  </div>
   <details class="adm-search" data-pagefind-ignore>
     <summary>Search the manual</summary>
     <div id="search"></div>
     <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
   </details>
   
-  <p class="entry-status">S012 · draft · unvalidated</p>
+  <p class="entry-status"><span class="entry-id">S012</span><span>draft</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
@@ -242,14 +273,23 @@
 <p><a id="examples/corrected-contract"></a></p>
 <h3 id="corrected-contract">Corrected contract<a class="headerlink" href="#corrected-contract" title="Permanent link">&para;</a></h3>
 <p>Synthetic comparison: the user explicitly changes an API contract from ordered to unordered output. Updating the ordering assertion then reflects the new contract rather than weakening a still-required check.</p></article>
-</div>
+  
+  <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
+    <a rel="prev" href="unsupported-verification-claims.html"><span>← Previous</span>S011 — Unsupported verification claims</a>
+    <a rel="next" href="agreement-driven-reversal.html"><span>Next →</span>S013 — Agreement-driven reversal</a>
+  </nav>
+  
+</main>
 
             </div>
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<div class="adm-footer">
+  <span>ADM <span class="footer-separator">/</span> Agent Diagnostic Manual</span>
+  <span>Built with <a href="https://www.mkdocs.org/">MkDocs</a> · <a href="https://github.com/tkellogg/agent-diagnostic-manual">Source on GitHub</a></span>
+</div>
+
         </footer>
 
         <script src="../js/bootstrap.bundle.min.js"></script>

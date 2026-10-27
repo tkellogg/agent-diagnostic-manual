@@ -1,4 +1,4 @@
-# Agent Diagnostic Manual (ADM)
+# Agent Diagnostic Manual
 
 A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.
 
@@ -8,27 +8,72 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
 ## Symptoms
 
-- [S001 — Repeated retrieval](symptoms/repeated-retrieval.md): An agent repeatedly retrieves substantially the same information during an episode.
-- [S002 — Doom looping](symptoms/doom-looping.md): An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.
-- [S003 — Sudden performance degradation](symptoms/sudden-performance-degradation.md): An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.
-- [S004 — Excessive verification](symptoms/excessive-verification.md): An agent continues or expands verification beyond the task’s justified checking needs, delaying the requested outcome.
-- [S005 — Correction without behavioral change](symptoms/correction-without-behavioral-change.md): An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.
-- [S006 — Lost task constraints](symptoms/lost-task-constraints.md): A previously established task requirement or decision ceases to govern the agent’s later continuation.
-- [S007 — Premature stopping](symptoms/premature-stopping.md): An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.
-- [S008 — Repeated reauthorization](symptoms/repeated-reauthorization.md): An agent requests permission again for an action that remains covered by a clear, applicable authorization.
-- [S009 — Unrequested changes](symptoms/unrequested-changes.md): An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.
-- [S010 — Completion–artifact mismatch](symptoms/completion-artifact-mismatch.md): An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.
-- [S011 — Unsupported verification claims](symptoms/unsupported-verification-claims.md): An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.
-- [S012 — Weakening the checks](symptoms/weakening-the-checks.md): An agent reduces verification’s ability to detect an unmet requirement while working on the problem that verification is meant to expose.
-- [S013 — Agreement-driven reversal](symptoms/agreement-driven-reversal.md): An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.
+- [S001 — Repeated retrieval](symptoms/repeated-retrieval.md)
+
+    An agent repeatedly retrieves substantially the same information during an episode.
+
+- [S002 — Doom looping](symptoms/doom-looping.md)
+
+    An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.
+
+- [S003 — Sudden performance degradation](symptoms/sudden-performance-degradation.md)
+
+    An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.
+
+- [S004 — Excessive verification](symptoms/excessive-verification.md)
+
+    An agent continues or expands verification beyond the task’s justified checking needs, delaying the requested outcome.
+
+- [S005 — Correction without behavioral change](symptoms/correction-without-behavioral-change.md)
+
+    An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.
+
+- [S006 — Lost task constraints](symptoms/lost-task-constraints.md)
+
+    A previously established task requirement or decision ceases to govern the agent’s later continuation.
+
+- [S007 — Premature stopping](symptoms/premature-stopping.md)
+
+    An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.
+
+- [S008 — Repeated reauthorization](symptoms/repeated-reauthorization.md)
+
+    An agent requests permission again for an action that remains covered by a clear, applicable authorization.
+
+- [S009 — Unrequested changes](symptoms/unrequested-changes.md)
+
+    An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.
+
+- [S010 — Completion–artifact mismatch](symptoms/completion-artifact-mismatch.md)
+
+    An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.
+
+- [S011 — Unsupported verification claims](symptoms/unsupported-verification-claims.md)
+
+    An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.
+
+- [S012 — Weakening the checks](symptoms/weakening-the-checks.md)
+
+    An agent reduces verification’s ability to detect an unmet requirement while working on the problem that verification is meant to expose.
+
+- [S013 — Agreement-driven reversal](symptoms/agreement-driven-reversal.md)
+
+    An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.
+
 
 ## Diagnoses
 
-- [D001 — Unproductive repeated retrieval](diagnoses/unproductive-repeated-retrieval.md): Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.
+- [D001 — Unproductive repeated retrieval](diagnoses/unproductive-repeated-retrieval.md)
+
+    Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.
+
 
 ## Interventions
 
-- [I001 — Preserve task-relevant evidence](interventions/preserve-task-relevant-evidence.md): Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.
+- [I001 — Preserve task-relevant evidence](interventions/preserve-task-relevant-evidence.md)
+
+    Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.
+
 
 Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.
 
