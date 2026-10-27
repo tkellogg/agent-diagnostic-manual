@@ -6,7 +6,7 @@ summary: Repeated retrieval adds little relevant information while interfering w
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 unit: configured-agent-episode
 level: descriptive
 title: Unproductive repeated retrieval
@@ -27,7 +27,7 @@ Related symptom: [S001](../symptoms/repeated-retrieval.md)
 <a id="relations/I001/when"></a>
 [I001](../interventions/preserve-task-relevant-evidence.md)
 
-**When:** Necessary evidence appears to be lost from the active context; preserving it is feasible without changing source freshness requirements.
+**When:** Necessary evidence appears to be lost after a context transition; a still-current source excerpt can be restored to the next model input without changing source freshness requirements.
 
 <a id="definition"></a>
 
@@ -150,14 +150,14 @@ Verify evidence remains available and no new check is needed; inspect why an ava
 1. Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible.
 2. Annotate each retrieval with information gained and the next task action it enabled or displaced. Record uncertainty in these judgments.
 3. Have a second reviewer assess the criteria without seeing the first review. Disagreements identify weak boundaries; agreement alone does not validate the category.
-4. Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider [preserving task-relevant evidence](../interventions/preserve-task-relevant-evidence.md).
+4. Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider [restoring missing evidence to active context](../interventions/preserve-task-relevant-evidence.md).
 5. Evaluate completion and correctness as well as retrieval count and cost. Repeat trials as feasible and state model, task, and harness limits.
 
 <a id="interventions"></a>
 
 ## Interventions
 
-[I001 — Preserve task-relevant evidence](../interventions/preserve-task-relevant-evidence.md) is an experimental option when required evidence appears to be disappearing from the active context. It is not a general prescription for every case of D001.
+[I001 — Restore missing evidence to active context](../interventions/preserve-task-relevant-evidence.md) reinserts a still-current source excerpt into the next model input when a context transition has removed evidence needed for the pending action. It may help resume the task and can also test the evidence-loss hypothesis. It is not a general prescription for every case of D001.
 
 If evidence was never delivered, repair delivery first. If a rule forces redundant checks, investigate the rule. These are differential-directed next steps, not additional intervention entries or proven remedies.
 

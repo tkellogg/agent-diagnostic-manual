@@ -1,27 +1,28 @@
 ---
 id: I001
 kind: intervention
-summary: Keep a bounded, versioned evidence record available across context transitions
-  and compare task outcomes.
+summary: Reinsert a previously delivered, still-current source excerpt into the next
+  model input when a context transition has removed information needed for the pending
+  action.
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
-title: Preserve task-relevant evidence
+updated: '2026-10-27'
+title: Restore missing evidence to active context
 xml_source: interventions/preserve-task-relevant-evidence.xml
 ---
 
-# Preserve task-relevant evidence
+# Restore missing evidence to active context
 
-Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.
+Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action.
 
 <a id="purpose"></a>
 
 ## Purpose
 
-Test whether loss of task-relevant evidence from the active context contributes to repeated retrieval, and evaluate whether preserving that evidence improves the task outcome.
+Restore the missing information so the agent can resume the pending task action. Apply this at an affected decision point after compaction, truncation, or a handoff. The same action can test whether evidence loss contributes to [repeated retrieval](../symptoms/repeated-retrieval.md); a diagnosis is not required to try it when the preconditions below hold.
 
-This is a **proposed protocol**, not a demonstrated remedy. A diagnosis's applicability link determines when it is worth considering; mere repetition does not justify it.
+**Principle:** information retained in a transcript or memory file is only useful at a decision point if it reaches the model's input. Restore the smallest sufficient source excerpt with its provenance, rather than relying on a new interpretation of what the agent should remember.
 
 <a id="preconditions"></a>
 
@@ -31,25 +32,19 @@ This is a **proposed protocol**, not a demonstrated remedy. A diagnosis's applic
 
 ### Missing evidence
 
-A prior retrieval delivered usable evidence, but the evidence appears absent from a later model input where it is needed.
-
-<a id="preconditions/replayable-task"></a>
-
-### Replayable task
-
-The task and relevant source versions can be captured or replayed well enough for a meaningful comparison.
+A prior retrieval delivered usable evidence, but it appears absent from the active context after a transition. Identify the recoverable source excerpt and the pending task action that needs it. Repetition alone does not establish that evidence is missing.
 
 <a id="preconditions/persistent-record"></a>
 
 ### Persistent record
 
-The harness allows a bounded record to remain available across context transitions.
+The operator or harness can include a bounded evidence block in the next model input after the transition, without it immediately being removed by the same context policy.
 
 <a id="preconditions/freshness-enforced"></a>
 
 ### Freshness enforced
 
-Freshness requirements can still be enforced. Sensitive evidence remains within the system's existing access boundaries.
+The excerpt's source version remains applicable to the task, and using it respects the task's freshness requirements. If a fresh read is required, perform that read instead. The excerpt can be supplied within the system's existing access boundaries.
 
 <a id="procedure"></a>
 
@@ -59,66 +54,64 @@ Freshness requirements can still be enforced. Sensitive evidence remains within 
 
 ### Save baseline
 
-Save a baseline checkpoint, configuration, and source versions. Define completion and correctness checks before inspecting the experimental outcome.
+Capture the pending action, the transition that lost the evidence, the input before restoration where accessible, and the relevant source version. Record what successful progress and correctness would look like at the next decision point.
 
 <a id="procedure/create-record"></a>
 
 ### Create record
 
-Create a small evidence record containing the needed fact or excerpt, source identity/version, and its relationship to the pending task. Prefer source-grounded content over a new interpretive summary.
+Copy the smallest sufficient fact or excerpt from the earlier tool result into a labeled evidence block. Include the source path or identifier, version or retrieval time, and the pending action it informs. Keep the source text distinct from the operator's explanation of its relevance.
 
 <a id="procedure/preserve-record"></a>
 
 ### Preserve record
 
-Keep that record available across the context transition. Record exactly what is inserted, where, and how much context it consumes. This protocol preserves evidence; it does not prohibit further reads.
+Insert that block into the next model input after the transition, using the harness's task-context or tool-result mechanism. Treat the excerpt as source data under its original trust level. Keep task instructions and tool permissions unchanged, including permission to retrieve information when needed. Record the block's location and size.
 
-<a id="procedure/compare-runs"></a>
+<a id="procedure/verify-input"></a>
 
-### Compare runs
+### Verify input
 
-Run a baseline and a modified condition from comparable checkpoints, with other conditions as similar as practical. Record unavoidable differences.
+Inspect the assembled model input or delivery trace to confirm the block actually survived truncation and was supplied. Writing it to a memory file alone does not establish delivery. If the effective input is inaccessible, record delivery as unverified and limit conclusions accordingly.
 
-<a id="procedure/repeat-trials"></a>
+<a id="procedure/resume-task"></a>
 
-### Repeat trials
+### Resume task
 
-Repeat trials to characterize variation. Where feasible, add a comparison retaining a similarly sized irrelevant record to help distinguish evidence availability from generic prompt or context changes.
+Resume the pending task without adding a separate instruction to stop rereading. At the next decision point, record whether the agent uses the restored evidence, retrieves it again, or takes another action, and whether that action advances the task correctly.
 
 <a id="procedure/review-outcome"></a>
 
 ### Review outcome
 
-Review outcome and tradeoffs before retaining the change. Invalidate or refresh the record when its source version or task relevance changes.
+Check the resulting task state against the recorded success conditions. Remove the block when the pending need ends or its source changes. If another context transition loses still-needed evidence, recheck the preconditions before reinserting it; do not accumulate duplicate blocks.
 
 <a id="evaluation"></a>
 
 ## Evaluation
 
-Compare task completion and correctness first. Also record repeated retrievals, information gained, elapsed time, token/tool cost, and legitimate checks skipped.
+**For this episode:** assess the next decision and the eventual task outcome. The prediction is that the agent can use the restored excerpt to advance the pending action with fewer redundant retrievals. Record correctness, completion, repeated reads of that source, elapsed time, added context tokens, tool cost, and any necessary checks skipped. Fewer reads without correct progress is not a successful remedy.
 
-A favorable result improves progress or resource use without unacceptable loss of correctness or necessary verification. Define acceptable tradeoffs for the task before running the experiment; this manual does not supply universal thresholds.
+**For a controlled evaluation:** save a checkpoint immediately before the affected decision and compare continuation with and without the evidence block. Keep the task, source versions, model, instructions, and tool configuration the same where practical; record differences. Repeat matched trials when assessing a general preservation policy. A similarly sized irrelevant block can provide an additional control for generic context changes, but is not required to restore evidence in one episode.
 
-A null result is inconclusive when the manipulation failed to keep evidence visible. If evidence remained visible and repetition persisted, that weakens the simple evidence-loss hypothesis for this case. A positive result supports this intervention under these conditions; it does not uniquely establish the cause.
+**Interpretation:** failure to deliver the block leaves the intervention untested. If the excerpt is confirmed present but the same retrieval loop persists, that weakens the hypothesis that absence of this evidence is sufficient to explain the loop. Correct progress after restoration is useful case evidence, but a single continuation cannot separate the effect from sampling variation, and even a controlled improvement does not uniquely establish the cause.
 
 <a id="risks-and-confounders"></a>
 
 ## Risks and confounders
 
-Preserved evidence can become stale, displace other useful context, change attention, or introduce additional instructions through its wording. Model sampling variation and changed source content can also explain differences.
+The excerpt can become stale or displace other needed context. Reinsertion changes placement and attention as well as availability, so a benefit may depend on presentation. Added instructions, a newly written summary, changed source content, and model sampling variation can also explain differences.
 
-Record these limitations. Avoid turning a new summary into an unquestioned authority. Preserve provenance and version checks.
+Source text may contain instructions that should remain untrusted data. Preserve its provenance and trust boundary; do not promote it into system instructions or treat the agent's claim to remember it as evidence that it was delivered.
 
 <a id="stop-and-rollback"></a>
 
 ## Stop and rollback
 
-Stop if the record becomes stale, correctness declines, necessary verification is skipped, or the comparison cannot maintain meaningful conditions. Remove the preservation policy and restore the prior context configuration. Retain the experimental record and failure outcome for review.
+Stop reinserting the block if its source becomes stale, it displaces necessary context, correctness declines, or required checks are skipped. Remove the block from subsequent inputs and disable any reinsertion hook added for this intervention. Retain the before/after inputs and outcome for review. Removing the block does not undo completed tool actions; inspect any resulting changes before continuing the task.
 
 <a id="evidence-and-uncertainty"></a>
 
 ## Evidence and uncertainty
 
-**Unvalidated.** No baseline/modified comparison has been performed for this repository. The procedure is intended to make a hypothesis testable and a possible remedy reviewable.
-
-Do not promote this entry's evidence label because a synthetic example sounds plausible.
+**Unvalidated.** No inspected outcome or controlled comparison supports this procedure in the repository. It is a proposed action with a testable prediction; its effectiveness across tasks, models, and context policies remains unknown.

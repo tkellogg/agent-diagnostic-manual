@@ -70,9 +70,9 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
 ## Interventions
 
-- [I001 — Preserve task-relevant evidence](interventions/preserve-task-relevant-evidence.md)
+- [I001 — Restore missing evidence to active context](interventions/preserve-task-relevant-evidence.md)
 
-    Keep a bounded, versioned evidence record available across context transitions and compare task outcomes.
+    Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action.
 
 
 Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.

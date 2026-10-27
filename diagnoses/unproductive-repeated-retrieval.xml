@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" unit="configured-agent-episode" level="descriptive" title="Unproductive repeated retrieval">
+<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" unit="configured-agent-episode" level="descriptive" title="Unproductive repeated retrieval">
   <summary>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</summary>
   <relations>
     <symptom-ref ref="S001"/>
     <intervention-ref ref="I001">
-      <when>Necessary evidence appears to be lost from the active context; preserving it is feasible without changing source freshness requirements.</when>
+      <when>Necessary evidence appears to be lost after a context transition; a still-current source excerpt can be restored to the next model input without changing source freshness requirements.</when>
     </intervention-ref>
   </relations>
   <definition>
@@ -69,12 +69,12 @@
       <li>Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible.</li>
       <li>Annotate each retrieval with information gained and the next task action it enabled or displaced. Record uncertainty in these judgments.</li>
       <li>Have a second reviewer assess the criteria without seeing the first review. Disagreements identify weak boundaries; agreement alone does not validate the category.</li>
-      <li>Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider <ref target="I001">preserving task-relevant evidence</ref>.</li>
+      <li>Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider <ref target="I001">restoring missing evidence to active context</ref>.</li>
       <li>Evaluate completion and correctness as well as retrieval count and cost. Repeat trials as feasible and state model, task, and harness limits.</li>
     </ol>
   </investigation>
   <interventions>
-    <p><ref target="I001">I001 — Preserve task-relevant evidence</ref> is an experimental option when required evidence appears to be disappearing from the active context. It is not a general prescription for every case of D001.</p>
+    <p><ref target="I001">I001 — Restore missing evidence to active context</ref> reinserts a still-current source excerpt into the next model input when a context transition has removed evidence needed for the pending action. It may help resume the task and can also test the evidence-loss hypothesis. It is not a general prescription for every case of D001.</p>
     <p>If evidence was never delivered, repair delivery first. If a rule forces redundant checks, investigate the rule. These are differential-directed next steps, not additional intervention entries or proven remedies.</p>
     <p>Do not implement “never read twice” as a treatment. It can hide the symptom while increasing factual errors or skipping legitimate checks.</p>
   </interventions>
