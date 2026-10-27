@@ -53,6 +53,13 @@ body > .container { margin-top: 3rem; }
 .formats a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--adm-muted); text-decoration: none; border: 1px solid transparent; border-radius: 3px; font-size: 1.2rem; }
 .formats a:hover, .formats a:focus-visible { color: var(--adm-accent); background: var(--adm-hover); border-color: var(--adm-line); }
 .adm-toolbar { margin-bottom: 1.5rem; }
+.adm-review { margin: 0 0 1.75rem; padding: .85rem 1rem; border: 1px solid var(--adm-line); border-radius: 3px; background: var(--adm-surface); }
+.adm-review-actions { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+.adm-review button { min-height: 40px; padding: .4rem .6rem; border: 1px solid var(--adm-line); border-radius: 3px; background: transparent; color: var(--adm-accent); font-size: .8rem; }
+.adm-review button:hover { background: var(--adm-hover); }
+.adm-review button:disabled { opacity: .5; cursor: wait; }
+.adm-review button i { margin-right: .35rem; }
+.adm-review p { margin: .5rem 0 0; color: var(--adm-muted); font-size: .75rem; line-height: 1.5; }
 .adm-search-trigger { display: flex; align-items: center; gap: .65rem; margin-left: 1rem; padding: .55rem .7rem; border: 1px solid var(--adm-line); border-radius: 3px; background: var(--adm-surface); color: var(--adm-muted); font-size: .8rem; white-space: nowrap; }
 .adm-search-trigger:hover { color: var(--adm-accent); border-color: var(--adm-accent); }
 .adm-search-trigger kbd { background: transparent; color: var(--adm-muted); box-shadow: none; border: 1px solid var(--adm-line); }
@@ -137,7 +144,7 @@ footer { margin: 5rem 0 0; font-weight: 400; text-align: left; }
 @media print {
   :root, [data-bs-theme] { --adm-paper: white; --adm-surface: white; --adm-ink: black; --adm-muted: #444; --adm-accent: #444; --adm-line: #ccc; }
   body { background: white; color: black; }
-  .adm-search, .adm-toolbar, .adm-sidebar, .adm-pagination, .navbar, .adm-skip { display: none !important; }
+  .adm-search, .adm-toolbar, .adm-review, .adm-sidebar, .adm-pagination, .navbar, .adm-skip, #__an_host { display: none !important; }
   .adm-main { width: 100%; padding: 0; }
   article { max-width: none; }
 }

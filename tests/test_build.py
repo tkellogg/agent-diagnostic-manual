@@ -20,6 +20,7 @@ class FormatTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
         for folder in ('entries','schema','skills','website','docs'):shutil.copytree(ROOT/folder,self.root/folder)
         for file in ('README.md','mkdocs.yml'):shutil.copyfile(ROOT/file,self.root/file)
+        shutil.copytree(ROOT/'node_modules/@reviewjs/annotate',self.root/'node_modules/@reviewjs/annotate')
     def tearDown(self):self.temp.cleanup()
     def change(self,path,old,new):
         p=self.root/path;s=p.read_text();self.assertIn(old,s);p.write_text(s.replace(old,new))
@@ -290,5 +291,25 @@ class FormatTests(unittest.TestCase):
         rows=json.loads(result.stdout);s=next(x for x in rows if x.get('symptom')=='S001')
         self.assertEqual(s['observations'],['S001#observations/multi-read'])
         self.assertEqual(len(s['lookalikes']),5)
+    def test_review_export_adapter(self):
+        subprocess.run(['node','--test',str(ROOT/'tests/review-export.test.cjs')],check=True,capture_output=True,text=True)
+    def test_review_tools_are_local_and_use_stable_page_keys(self):
+        docs,_,_=build(self.root)
+        out=self.root/'dist'
+        for doc in docs:
+            page=ET.HTML((out/doc['path']).read_text())
+            script=page.xpath('//script[@data-project="agent-diagnostic-manual"]')[0]
+            self.assertEqual(script.get('data-page'),doc['meta']['id'])
+            self.assertIn('annotate-1.5.3.js',script.get('src'))
+            self.assertFalse(script.get('src').startswith('https:'))
+            self.assertIsNone(script.get('data-api'))
+            self.assertIsNone(script.get('data-post-url'))
+            self.assertTrue(page.xpath('//button[@id="adm-review-export"]'))
+        home=ET.HTML((out/'index.html').read_text())
+        self.assertEqual(home.xpath('//script[@data-project]/@data-page'),['index.md'])
+        guide=ET.HTML((out/'docs/authoring-diagnosis.html').read_text())
+        self.assertEqual(guide.xpath('//script[@data-project]/@data-page'),['docs/authoring-diagnosis.md'])
+        self.assertEqual((out/'assets/vendor/annotate-1.5.3.js').read_bytes(),(ROOT/'node_modules/@reviewjs/annotate/annotate.js').read_bytes())
+        self.assertTrue((out/'assets/vendor/annotate-LICENSE.txt').is_file())
 
 if __name__=='__main__':unittest.main()

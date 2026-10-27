@@ -6,6 +6,7 @@
     "search": "pagefind --site dist --exclude-selectors '.formats, .pagefind-ui, .headerlink'"
   },
   "devDependencies": {
+    "@reviewjs/annotate": "1.5.3",
     "pagefind": "1.5.2"
   }
 }

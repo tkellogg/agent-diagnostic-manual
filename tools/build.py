@@ -139,13 +139,24 @@ def build(root=ROOT,check=False,search=False):
     shutil.copytree(root/'skills',staging/'skills')
     shutil.copytree(root/'schema',staging/'schema')
     shutil.copytree(root/'website/assets',staging/'assets')
+    # Ship a pinned, self-hosted annotation layer, including its MIT license.
+    annotate=root/'node_modules/@reviewjs/annotate'
+    if not (annotate/'package.json').exists():
+        raise ValueError('Run npm ci before building the site (annotate.js is required)')
+    if json.loads((annotate/'package.json').read_text())['version']!='1.5.3':
+        raise ValueError('The review export adapter requires annotate.js 1.5.3; run npm ci')
+    vendor=staging/'assets/vendor'
+    vendor.mkdir(parents=True,exist_ok=True)
+    shutil.copyfile(annotate/'annotate.js',vendor/'annotate-1.5.3.js')
+    shutil.copyfile(annotate/'LICENSE',vendor/'annotate-LICENSE.txt')
     catalog={'schema_version':4,'xml_namespace':'urn:adm:1',
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
     (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
     # A content version prevents an old cached stylesheet accompanying new HTML.
     asset_version=hashlib.sha256((root/'website/assets/adm.css').read_bytes()+
-                                 (root/'website/assets/adm.js').read_bytes()).hexdigest()[:12]
+                                 (root/'website/assets/adm.js').read_bytes()+
+                                 (root/'website/assets/adm-review.js').read_bytes()).hexdigest()[:12]
     config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True,
                        extra_css=['assets/adm.css?v='+asset_version],
                        extra={'asset_version':asset_version})
