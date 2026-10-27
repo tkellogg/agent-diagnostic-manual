@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S007" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Premature stopping">
+<symptom xmlns="urn:adm:1" id="S007" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Premature stopping">
   <summary>An agent ends its turn or run with authorized, actionable work remaining and no identified dependency requiring a stop.</summary>
   <observations>
     <observation id="unfinished-stop">
@@ -7,33 +7,32 @@
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>Establish the unfinished acceptance criteria and a concrete next action the configured system could perform. Distinguish an actual ended turn from a progress message, active background work, or the expected wait for a tool result.</p>
-    <p>A content-free continuation prompt that resumes the same task is useful corroboration: it supplies no missing task information or new authorization. It is not proof of cause, because the prompt may also restart a failed scheduler or restore a tool connection.</p>
-    <p>The agent need not falsely claim completion. An accurate partial-progress report followed by an unnecessary stop can fit. <ref target="S010">Completion–artifact mismatch</ref> instead concerns what the agent claims about the delivered result.</p>
+    <p>Compare the active request and acceptance checklist with delivered files, deployed state, or other outputs. Use conversation end markers and scheduler or job status to locate the actual stop and identify a remaining action supported by the available tools and authority.</p>
+    <p>Inspect permission records, missing-input messages, runtime limits, and active background jobs for a dependency that explains the pause. If a later continuation exists, compare its prompt and first action with the stopped state to see whether new information or authorization was supplied.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="human-dependency">
-      <p>A necessary approval, credential, choice, or unavailable input genuinely requires the user.</p>
+      <p>Every relevant next step depends on an approval, credential, choice, or missing input that only the user can provide. The available authorized next step required by <ref target="S007#observations/unfinished-stop">unfinished stop</ref> is absent.</p>
     </lookalike>
     <lookalike id="active-job">
-      <p>A background operation remains active and the system is correctly waiting for its result.</p>
+      <p>A relevant background operation remains active and the system is waiting for its result. The run has not entered the final or idle state described in <ref target="S007#observations/unfinished-stop">unfinished stop</ref>.</p>
     </lookalike>
     <lookalike id="bounded-task">
-      <p>The user requested only the completed stage, a time or step budget has been reached, or an actual runtime limit prevents continuation.</p>
+      <p>The requested stage or agreed budget is complete, or a runtime limit leaves no available next action. A satisfied stopping condition or unavailable continuation excludes these cases from <ref target="S007#observations/unfinished-stop">unfinished stop</ref>.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
-    <p>Record the active request, completed and remaining work, available next step, final message, tool/job states, stop reason, and runtime limits. Preserve handoff or compaction events and the exact follow-up that resumed work. Distinguish model termination from a transport, scheduler, or user interruption.</p>
+    <p>Record the episode identifier and date, task type, model/client and harness versions, requested acceptance criteria, completed and remaining work, and the concrete next step available at the stop. Preserve the final message, stop reason, tool/job states, runtime limits, and context transitions. Include stop and resume times, unnecessary stops per task, user nudges, unattended waiting time, eventual completion, and abandoned work. Retain the exact resuming prompt to distinguish continuation from new authorization or missing information.</p>
   </what-to-record>
   <examples>
     <example id="stage-one" kind="synthetic">
-      <p>Synthetic example: asked to implement and document a change, the agent finishes implementation and ends with an offer to write the documentation. No input is missing. A user message saying continue causes it to write the already-requested documentation.</p>
+      <p>Synthetic incident: asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.</p>
     </example>
     <example id="handoff-stop" kind="observed">
-      <p>Reported examples: <a href="https://github.com/openai/codex/issues/33398">Codex issue #33398 and its commenters</a> describe unfinished tasks stopping after context transitions and resuming after short user nudges. The reports leave model and orchestration causes unresolved.</p>
+      <p>Reported incident: <a href="https://github.com/openai/codex/issues/33398">Codex issue #33398</a> describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.</p>
     </example>
     <example id="needed-choice" kind="synthetic">
-      <p>Synthetic comparison: the next step would publish to one of two accounts, and the user has not specified which. Stopping to obtain that choice is a real dependency.</p>
+      <p>Synthetic comparison: the next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.</p>
     </example>
   </examples>
 </symptom>

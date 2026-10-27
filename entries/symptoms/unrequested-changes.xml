@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S009" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Unrequested changes">
+<symptom xmlns="urn:adm:1" id="S009" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Unrequested changes">
   <summary>An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.</summary>
   <observations>
     <observation id="scope-expansion">
@@ -7,33 +7,32 @@
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>Compare the actual change with the task boundary and standing authorization. Scope can be defined by intended behavior rather than a literal file list; a necessary supporting change may be in an unmentioned file. Require an explanation grounded in dependencies, not just the agent’s preference for cleanup.</p>
-    <p>Inspect semantic changes and actual execution. A large diff can reflect line endings or formatting, and a proposed rewrite may never have been applied. Distinguish changed files from deleted work, and recoverable intermediate edits from lasting output.</p>
-    <p>Record unrelated concurrent or preexisting work separately from the agent’s own changes. Unrequested test infrastructure can overlap with <ref target="S004">Excessive verification</ref>; the same episode can have both scope and resource consequences.</p>
+    <p>Compare the request and standing instructions with version-control diffs, file snapshots, deployment events, or service audit logs. Identify what the agent actually changed and use timestamps or authorship records to separate its edits from concurrent work.</p>
+    <p>Trace each candidate extra change to the requested behavior using interfaces, dependencies, and configuration. Compare semantic diffs with whitespace-insensitive views, and inspect command results to distinguish a proposed change from an applied one. These records can expose authorized supporting work as well as unrelated cleanup.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="necessary-dependency">
-      <p>The requested behavior requires a supporting schema, interface, or configuration change within the granted authority.</p>
+      <p>The requested behavior requires a supporting schema, interface, or configuration change within the granted authority. This is the necessary dependency excluded by <ref target="S009#observations/scope-expansion">scope expansion</ref>.</p>
     </lookalike>
     <lookalike id="authorized-refactor">
-      <p>The user grants broad refactoring or cleanup scope that includes the affected components.</p>
+      <p>The user grants refactoring or cleanup scope that includes the affected components. The change is not outside the authorized boundary in <ref target="S009#observations/scope-expansion">scope expansion</ref>.</p>
     </lookalike>
     <lookalike id="display-noise">
-      <p>The apparent rewrite is a diff-display, formatting, or line-ending effect without the alleged semantic change.</p>
+      <p>A viewer renders an apparent rewrite, but the underlying artifact and behavior are unchanged. There is no material change under <ref target="S009#observations/scope-expansion">scope expansion</ref>; actual unsolicited formatting changes still require a scope assessment.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
-    <p>Record the request and standing scope, before-and-after artifacts, semantic diff, actual commands, dependencies, and stated rationale. Identify ownership and timing of unrelated edits, whether changes were proposed or applied, and any recovery. Preserve enough baseline state to distinguish the agent’s work from concurrent changes.</p>
+    <p>Record the episode identifier and date, task type, model and harness versions, request and standing authority, baseline revision, and before-and-after artifacts. Preserve semantic diffs, commands and execution times, claimed dependencies, concurrent-edit ownership, and whether each change was proposed or applied. Include total and out-of-scope files or resources changed, lost work, rollback success, recovery time, downstream failures, and the final task outcome.</p>
   </what-to-record>
   <examples>
     <example id="unrelated-reset" kind="synthetic">
-      <p>Synthetic example: while fixing a parser, the agent discovers uncommitted documentation edits made by the user and restores them to HEAD as cleanup. The edits have no bearing on the parser fix and were outside its authority.</p>
+      <p>Synthetic incident: while fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.</p>
     </example>
     <example id="concurrent-edits" kind="observed">
-      <p>Reported example: <a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits being reset during a check for unexpected changes despite an instruction to preserve them. The account does not provide an independently reproduced incident.</p>
+      <p>Reported incident: <a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.</p>
     </example>
     <example id="required-interface" kind="synthetic">
-      <p>Synthetic comparison: implementing an authorized API field requires updating its serializer and schema as well as the initially mentioned handler. The supporting edits are necessary to the requested behavior.</p>
+      <p>Synthetic comparison: an authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.</p>
     </example>
   </examples>
 </symptom>

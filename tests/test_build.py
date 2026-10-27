@@ -175,7 +175,7 @@ class FormatTests(unittest.TestCase):
     def test_lookalikes_and_examples_are_individual_objects(self):
         node=ET.parse(str(self.root/S)).getroot()
         self.assertEqual(len(node.findall('a:benign-lookalikes/a:lookalike',N)),5)
-        self.assertEqual(len(node.findall('a:examples/a:example',N)),2)
+        self.assertTrue({'stalled-edit','verified-edit'} <= {e.get('id') for e in node.findall('a:examples/a:example',N)})
         self.assertIsNone(node.find('a:what-to-record',N).get('id'))
         self.assertIsNone(node.find('a:benign-lookalikes/a:ul',N))
     def test_scoped_link_renders_in_both_outputs(self):
