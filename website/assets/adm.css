@@ -122,6 +122,7 @@ footer { margin: 5rem 0 0; font-weight: 400; text-align: left; }
   .adm-pagination { gap: 1rem; }
 }
 @media print {
+  :root, [data-bs-theme] { --adm-paper: white; --adm-surface: white; --adm-ink: black; --adm-muted: #444; --adm-accent: #444; --adm-line: #ccc; }
   body { background: white; color: black; }
   .adm-search, .adm-toolbar, .adm-sidebar, .adm-pagination, .navbar, .adm-skip { display: none !important; }
   .adm-main { width: 100%; padding: 0; }

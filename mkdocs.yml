@@ -9,7 +9,7 @@ use_directory_urls: false
 theme:
   name: mkdocs
   custom_dir: website/overrides
-  highlightjs: false
+  highlightjs: true
   navigation_depth: 2
   nav_style: light
   color_mode: light

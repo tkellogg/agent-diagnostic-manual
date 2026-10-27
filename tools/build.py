@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate canonical XML and build disposable HTML, Markdown, and JSON."""
 import argparse
+import hashlib
 import html
 import json
 import os
@@ -132,7 +133,12 @@ def build(root=ROOT,check=False,search=False):
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
     (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
-    config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True)
+    # A content version prevents an old cached stylesheet accompanying new HTML.
+    asset_version=hashlib.sha256((root/'website/assets/adm.css').read_bytes()+
+                                 (root/'website/assets/adm.js').read_bytes()).hexdigest()[:12]
+    config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True,
+                       extra_css=['assets/adm.css?v='+asset_version],
+                       extra={'asset_version':asset_version})
     mkdocs_build(config)
     # MkDocs consumes Markdown; expose exact source variants alongside HTML.
     for md in staging.rglob('*.md'):

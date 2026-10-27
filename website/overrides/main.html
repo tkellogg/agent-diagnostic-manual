@@ -54,12 +54,8 @@
 <link href="{{ 'pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
 {% endblock %}
 {% block scripts %}
-{{ super() }}
+{# MkDocs' base.js assumes its search plugin is enabled; ADM uses Pagefind. #}
+<script src="{{ 'js/bootstrap.bundle.min.js' | url }}"></script>
 <script src="{{ 'pagefind/pagefind-ui.js' | url }}"></script>
-<script>
-  if (window.PagefindUI) {
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false,
-      baseUrl: {{ ('.' | url) | tojson }} + "/" });
-  }
-</script>
+<script src="{{ 'assets/adm.js' | url }}?v={{ config.extra.asset_version }}" data-base-url="{{ '.' | url }}/"></script>
 {% endblock %}
