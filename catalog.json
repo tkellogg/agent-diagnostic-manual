@@ -779,32 +779,32 @@
       }
     },
     {
-      "id": "S013",
+      "id": "S001",
       "kind": "symptom",
-      "summary": "An agent reverses a substantive conclusion toward a user\u2019s assertion without establishing evidence or reasoning that supports the reversal.",
+      "summary": "An agent repeatedly retrieves substantially the same information during an episode.",
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
       "updated": "2026-10-26",
-      "title": "Agreement-driven reversal",
-      "source": "entries/symptoms/agreement-driven-reversal.xml",
-      "url": "symptoms/agreement-driven-reversal.html",
+      "title": "Repeated retrieval",
+      "source": "entries/symptoms/repeated-retrieval.xml",
+      "url": "symptoms/repeated-retrieval.html",
       "document": {
         "name": "symptom",
         "attributes": {
-          "id": "S013",
+          "id": "S001",
           "version": "1",
           "status": "draft",
           "evidence": "unvalidated",
           "updated": "2026-10-26",
-          "title": "Agreement-driven reversal"
+          "title": "Repeated retrieval"
         },
         "content": [
           {
             "name": "summary",
             "attributes": {},
             "content": [
-              "An agent reverses a substantive conclusion toward a user\u2019s assertion without establishing evidence or reasoning that supports the reversal."
+              "An agent repeatedly retrieves substantially the same information during an episode."
             ]
           },
           {
@@ -814,14 +814,38 @@
               {
                 "name": "observation",
                 "attributes": {
-                  "id": "unsupported-reversal"
+                  "id": "multi-read"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "After a user challenges a substantive conclusion, the agent adopts the user\u2019s opposing claim or reverses related work while providing no adequate new evidence, applicable premise, or reasoning to support that change. The earlier and later positions concern the same factual or technical question."
+                      "The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "This observation is neutral about usefulness and cause."
+                        ]
+                      },
+                      " Repetition can be appropriate. The corresponding candidate diagnosis is ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "D001"
+                        },
+                        "content": [
+                          "Unproductive repeated retrieval"
+                        ]
+                      },
+                      "."
                     ]
                   }
                 ]
@@ -836,21 +860,21 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Compare the original conclusion, supporting evidence, user challenge, and revised conclusion. Determine whether the user supplied a correction, new fact, changed requirement, or a valid argument. Agreement and politeness alone are not the observation."
+                  "Compare the question each call is trying to answer, the requested content or range, the source version, and the returned information. Identical tool arguments are a clue, not sufficient evidence. Different arguments can still retrieve the same information."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Look for abandonment of an available check or contradiction of evidence the agent previously cited without resolving it. To establish that the new answer is wrong, evaluate it independently; an unsupported reversal can be observed even when neither answer has yet been verified."
+                  "Track both exact repetition and semantically equivalent retrieval. Automated exact-match detectors can nominate cases for inspection; they cannot decide usefulness."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "The title describes the conversational sequence, not a proven internal motive. A controlled comparison with and without an unsupported challenge can test susceptibility, but is not required to record a concrete episode. An instruction to perform a revert is different from asserting that the previous implementation was incorrect."
+                  "There is no diagnostic count threshold. \u201cMore than once\u201d identifies repetition, not pathology."
                 ]
               }
             ]
@@ -862,14 +886,14 @@
               {
                 "name": "lookalike",
                 "attributes": {
-                  "id": "valid-correction"
+                  "id": "changed-source"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The user supplies a sound counterexample or exposes an error, and the agent updates its conclusion accordingly."
+                      "A file changed after the previous read."
                     ]
                   }
                 ]
@@ -877,14 +901,14 @@
               {
                 "name": "lookalike",
                 "attributes": {
-                  "id": "changed-preference"
+                  "id": "different-content"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The user changes a design preference or requirement where their choice legitimately determines the desired result."
+                      "The new call obtains a different passage or field needed for the task."
                     ]
                   }
                 ]
@@ -892,14 +916,44 @@
               {
                 "name": "lookalike",
                 "attributes": {
-                  "id": "explicit-revert"
+                  "id": "failed-delivery"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The user explicitly requests reverting work, and the agent complies without falsely claiming the original work was technically wrong."
+                      "Earlier output was truncated, empty, wrong, or not delivered."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "freshness-check"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A fresh result is required at a decision boundary."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "required-verification"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A legitimate task explicitly requires checking a result again."
                     ]
                   }
                 ]
@@ -914,7 +968,14 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Record both conclusions, the evidence or reasoning supporting each, the exact user challenge, intervening tool use, and any code changes. Preserve an independent reference or counterexample where possible. Distinguish factual agreement from compliance with a preference or action request, and record uncertainty about correctness."
+                  "Record task intent, call sequence, arguments, source identity/version, result content or permitted content hashes, and which result was actually delivered to the model. Preserve the relevant model input at the later decision point, including compaction boundaries and active instructions when available."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Also record what the agent did between reads and what changed after each read. Collect enough detail to assess progress and new information. Keep sensitive raw traces outside this repository unless their inclusion is deliberate and appropriate; link to an access-controlled evidence location where needed."
                 ]
               }
             ]
@@ -926,7 +987,7 @@
               {
                 "name": "example",
                 "attributes": {
-                  "id": "unsupported-flip",
+                  "id": "stalled-edit",
                   "kind": "synthetic"
                 },
                 "content": [
@@ -934,33 +995,14 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Synthetic example: an agent verifies that a function returns a new list without mutating its input. The user asserts that it mutates the input but offers no evidence. The agent declares its earlier analysis wrong and adds a workaround without inspecting the function again or explaining the contradiction."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "developer-study",
-                  "kind": "observed"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Research observation: ",
                       {
-                        "name": "a",
-                        "attributes": {
-                          "href": "https://arxiv.org/html/2506.12347v3"
-                        },
+                        "name": "strong",
+                        "attributes": {},
                         "content": [
-                          "Why AI Agents Still Need You"
+                          "Synthetic example \u2014 potentially unproductive."
                         ]
                       },
-                      " reports developers losing confidence when agents offered contradictory explanations or reverted changes after challenges. The study documents the interaction pattern; the quoted complaint alone does not establish that every reverted change was correct."
+                      " An agent reads an unchanged configuration file, extracts the requested setting, then retrieves that same setting again before making the requested edit. Repetition continues without any edit or new question. This merits investigation; it does not reveal whether the previous result remained available to the model."
                     ]
                   }
                 ]
@@ -968,7 +1010,7 @@
               {
                 "name": "example",
                 "attributes": {
-                  "id": "real-counterexample",
+                  "id": "verified-edit",
                   "kind": "synthetic"
                 },
                 "content": [
@@ -976,453 +1018,14 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Synthetic comparison: the user supplies a failing input that disproves the agent\u2019s conclusion. The agent reproduces it, explains the mistaken assumption, and revises the implementation."
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "S010",
-      "kind": "symptom",
-      "summary": "An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.",
-      "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
-      "updated": "2026-10-26",
-      "title": "Completion\u2013artifact mismatch",
-      "source": "entries/symptoms/completion-artifact-mismatch.xml",
-      "url": "symptoms/completion-artifact-mismatch.html",
-      "document": {
-        "name": "symptom",
-        "attributes": {
-          "id": "S010",
-          "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
-          "updated": "2026-10-26",
-          "title": "Completion\u2013artifact mismatch"
-        },
-        "content": [
-          {
-            "name": "summary",
-            "attributes": {},
-            "content": [
-              "An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part."
-            ]
-          },
-          {
-            "name": "observations",
-            "attributes": {},
-            "content": [
-              {
-                "name": "observation",
-                "attributes": {
-                  "id": "unsupported-completion"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "A completion claim covers a stated deliverable or acceptance criterion, but inspection of the corresponding artifact or system state at that time contradicts the claim. The discrepancy is about delivered work, not merely confidence or phrasing."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "how-to-recognize-it",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Extract the exact completion claim and map it to the agreed scope. Inspect the actual destination, revision, branch, environment, or deployed state named by the claim. A missing file in a different worktree is not evidence that no file was written anywhere."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Check whether the work was created but not persisted, committed, transferred, or deployed as requested. These possibilities still matter to the completion claim, but differ from never performing the work. Compare contemporaneous state where possible; later deletion does not establish an earlier mismatch."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "An explicit and accurate disclosure of incomplete work is not this symptom, although ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S007"
-                    },
-                    "content": [
-                      "Premature stopping"
-                    ]
-                  },
-                  " may apply. A claim specifically about checks or evidence can also fit ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S011"
-                    },
-                    "content": [
-                      "Unsupported verification claims"
-                    ]
-                  },
-                  ". Do not infer intentional deception from the discrepancy alone."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "benign-lookalikes",
-            "attributes": {},
-            "content": [
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "scoped-completion"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The agent accurately says one stage is complete and clearly identifies the unfinished stages."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "wrong-location"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The reviewer inspects a different revision or destination from the one the agent correctly reported."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "later-change"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The artifact satisfied the claim when reported but was changed or removed afterward."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "what-to-record",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Record acceptance criteria, exact completion language, claim time, artifact identity and revision, inspection method, and the missing or contradictory behavior. Preserve tool results and persistence/commit/deployment events. Record disclosed limitations, asynchronous state, and later modifications separately."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "examples",
-            "attributes": {},
-            "content": [
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "missing-export",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Synthetic example: the agent says the requested CSV export is implemented and ready. The delivered revision contains a button and success message but no export path, and exercising the named workflow produces no file."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "empty-worktree",
-                  "kind": "observed"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Reported example: ",
                       {
-                        "name": "a",
-                        "attributes": {
-                          "href": "https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything"
-                        },
+                        "name": "strong",
+                        "attributes": {},
                         "content": [
-                          "Matthew Hawthorne\u2019s February 2026 account"
+                          "Synthetic comparison \u2014 useful."
                         ]
                       },
-                      " describes a resumed agent reporting success after inheriting a nearly completed checklist and a clean worktree. Earlier work had occurred but was not committed into the resumed task\u2019s branch."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "explicit-partial",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Synthetic comparison: the agent states that the button is implemented but export generation remains unfinished. The delivery is incomplete, but the completion claim accurately describes its limited scope."
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "S005",
-      "kind": "symptom",
-      "summary": "An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.",
-      "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
-      "updated": "2026-10-26",
-      "title": "Correction without behavioral change",
-      "source": "entries/symptoms/correction-without-behavioral-change.xml",
-      "url": "symptoms/correction-without-behavioral-change.html",
-      "document": {
-        "name": "symptom",
-        "attributes": {
-          "id": "S005",
-          "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
-          "updated": "2026-10-26",
-          "title": "Correction without behavioral change"
-        },
-        "content": [
-          {
-            "name": "summary",
-            "attributes": {},
-            "content": [
-              "An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions."
-            ]
-          },
-          {
-            "name": "observations",
-            "attributes": {},
-            "content": [
-              {
-                "name": "observation",
-                "attributes": {
-                  "id": "repeated-violation"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action again while the correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "how-to-recognize-it",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Identify the exact correction, the agent\u2019s acknowledgment, and the subsequent action. Compare the relevant conditions and any intervening instructions. An apology, promise, or saved memory demonstrates acknowledgment; it does not demonstrate that the later action complies."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "A single clear recurrence after acknowledgment can establish this symptom; record additional recurrences rather than requiring an arbitrary count. If acknowledgment is absent, the episode may show an instruction violation but does not meet this narrower description."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Check whether the correction was available at the later decision. If a context transition removed it, ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S006"
-                    },
-                    "content": [
-                      "Lost task constraints"
-                    ]
-                  },
-                  " may also apply. If availability cannot be established, leave that mechanism unresolved. Neither repetition nor an apology establishes deliberate disregard."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "benign-lookalikes",
-            "attributes": {},
-            "content": [
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "changed-context"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The later action occurs under materially different circumstances outside the correction\u2019s scope."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "superseded-rule"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "A later applicable instruction changes the rule, or a higher-priority constraint requires another action."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "action-in-flight"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The apparently repeated action was already issued before the correction could be applied."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "what-to-record",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Record the correction\u2019s exact scope, delivery time, acknowledgment, later action, relevant context and authority, and any intervening changes. Preserve both the original instruction and the effective later input where available. Count distinct recurrences and record whether the correction affected any subsequent behavior."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "examples",
-            "attributes": {},
-            "content": [
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "repeated-file",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Synthetic example: the user says not to edit a generated file, and the agent acknowledges that changes belong in its source template. On the next comparable fix it edits the generated file again without any changed instruction."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "saved-feedback",
-                  "kind": "observed"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Reported example: ",
-                      {
-                        "name": "a",
-                        "attributes": {
-                          "href": "https://github.com/anthropics/claude-code/issues/37847"
-                        },
-                        "content": [
-                          "Claude Code issue #37847"
-                        ]
-                      },
-                      " describes specific feedback saved to memory followed by recurring actions contrary to that feedback. The report does not independently establish which memory content reached every later model invocation."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "new-authorization",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Synthetic comparison: after saying never to edit generated output, the user explicitly requests a one-off emergency change to that output. Following the new instruction is not recurrence under the original unchanged constraint."
+                      " An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis."
                     ]
                   }
                 ]
@@ -1651,6 +1254,234 @@
       }
     },
     {
+      "id": "S003",
+      "kind": "symptom",
+      "summary": "An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Sudden performance degradation",
+      "source": "entries/symptoms/sudden-performance-degradation.xml",
+      "url": "symptoms/sudden-performance-degradation.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S003",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Sudden performance degradation"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent shows an abrupt, observable decline relative to its own recent performance on comparable work."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "performance-drop"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Across a bounded transition, performance worsens on a named measure relative to a recorded earlier baseline: for example, more errors on comparable tasks, missed constraints, reduced completion, or greater time or cost for the same accepted result."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Specify the measure and comparison before attributing the decline. Identify the last adequate and first degraded work, and compare task difficulty, available information, acceptance criteria, tools, and environment. A change in style or a general impression of reduced intelligence is a lead to investigate, not enough to establish a performance drop."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Use repeated comparable tasks when available. For a single session, identify concrete before-and-after behavior under the same relevant constraints and retain uncertainty about ordinary variation. Describe how abrupt the change was in turns, time, or releases; there is no universal effect-size or time threshold in this draft."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The observable decline can be real even when its cause is unknown. Changes to model, effort, instructions, harness, context, or service conditions are possible explanations, not part of the symptom definition. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S006"
+                    },
+                    "content": [
+                      "Lost task constraints"
+                    ]
+                  },
+                  " and ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S002"
+                    },
+                    "content": [
+                      "Doom looping"
+                    ]
+                  },
+                  " may describe particular ways the decline manifests."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "harder-work"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Later tasks require different skills or greater complexity, so the earlier success rate is not a comparable baseline."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-standard"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user changes acceptance criteria or requests faster, shorter, or cheaper work and observes the resulting tradeoff."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "isolated-miss"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "One stochastic failure follows a small number of successes without enough evidence of a sustained or repeatable shift."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the baseline and later tasks or trace segments, explicit performance measures, errors and outcomes, transition interval, and sample sizes. Preserve model/client versions, effort settings, prompts, tool availability, context transitions, service incidents, and environmental differences. Keep perceived change, measured change, and proposed cause distinct."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "abrupt-omissions",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: an agent correctly processes six records using the same explicit four-field rule, then omits two required fields on each of the next six comparable records after a session transition. The omissions establish a local decline; the transition alone does not establish its cause."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "quality-postmortem",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported investigation: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://www.anthropic.com/research/april-23-postmortem"
+                        },
+                        "content": [
+                          "Anthropic\u2019s April 23, 2026 postmortem"
+                        ]
+                      },
+                      " attributes quality complaints to separate effort, context-management, and system-prompt changes. One bug repeatedly dropped prior thinking after an idle session resumed. These confirmed product incidents do not explain an unrelated episode automatically."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "different-task",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: an agent succeeds at five typo fixes and then fails a distributed-systems redesign. The change in task difficulty prevents using that sequence alone as evidence of sudden degradation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "S004",
       "kind": "symptom",
       "summary": "An agent continues or expands verification beyond the task\u2019s justified checking needs, delaying the requested outcome.",
@@ -1869,6 +1700,224 @@
                     "attributes": {},
                     "content": [
                       "Synthetic comparison: a one-line authentication change triggers a required regression suite before release. Its duration exceeds the edit time, but it satisfies an applicable gate and does not establish excessive verification."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S005",
+      "kind": "symptom",
+      "summary": "An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Correction without behavioral change",
+      "source": "entries/symptoms/correction-without-behavioral-change.xml",
+      "url": "symptoms/correction-without-behavioral-change.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S005",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Correction without behavioral change"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "repeated-violation"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action again while the correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Identify the exact correction, the agent\u2019s acknowledgment, and the subsequent action. Compare the relevant conditions and any intervening instructions. An apology, promise, or saved memory demonstrates acknowledgment; it does not demonstrate that the later action complies."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A single clear recurrence after acknowledgment can establish this symptom; record additional recurrences rather than requiring an arbitrary count. If acknowledgment is absent, the episode may show an instruction violation but does not meet this narrower description."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Check whether the correction was available at the later decision. If a context transition removed it, ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S006"
+                    },
+                    "content": [
+                      "Lost task constraints"
+                    ]
+                  },
+                  " may also apply. If availability cannot be established, leave that mechanism unresolved. Neither repetition nor an apology establishes deliberate disregard."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-context"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The later action occurs under materially different circumstances outside the correction\u2019s scope."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "superseded-rule"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A later applicable instruction changes the rule, or a higher-priority constraint requires another action."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "action-in-flight"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The apparently repeated action was already issued before the correction could be applied."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the correction\u2019s exact scope, delivery time, acknowledgment, later action, relevant context and authority, and any intervening changes. Preserve both the original instruction and the effective later input where available. Count distinct recurrences and record whether the correction affected any subsequent behavior."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "repeated-file",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: the user says not to edit a generated file, and the agent acknowledges that changes belong in its source template. On the next comparable fix it edits the generated file again without any changed instruction."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "saved-feedback",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/anthropics/claude-code/issues/37847"
+                        },
+                        "content": [
+                          "Claude Code issue #37847"
+                        ]
+                      },
+                      " describes specific feedback saved to memory followed by recurring actions contrary to that feedback. The report does not independently establish which memory content reached every later model invocation."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "new-authorization",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: after saying never to edit generated output, the user explicitly requests a one-off emergency change to that output. Following the new instruction is not recurrence under the original unchanged constraint."
                     ]
                   }
                 ]
@@ -2533,491 +2582,6 @@
       }
     },
     {
-      "id": "S001",
-      "kind": "symptom",
-      "summary": "An agent repeatedly retrieves substantially the same information during an episode.",
-      "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
-      "updated": "2026-10-26",
-      "title": "Repeated retrieval",
-      "source": "entries/symptoms/repeated-retrieval.xml",
-      "url": "symptoms/repeated-retrieval.html",
-      "document": {
-        "name": "symptom",
-        "attributes": {
-          "id": "S001",
-          "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
-          "updated": "2026-10-26",
-          "title": "Repeated retrieval"
-        },
-        "content": [
-          {
-            "name": "summary",
-            "attributes": {},
-            "content": [
-              "An agent repeatedly retrieves substantially the same information during an episode."
-            ]
-          },
-          {
-            "name": "observations",
-            "attributes": {},
-            "content": [
-              {
-                "name": "observation",
-                "attributes": {
-                  "id": "multi-read"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools."
-                    ]
-                  },
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      {
-                        "name": "strong",
-                        "attributes": {},
-                        "content": [
-                          "This observation is neutral about usefulness and cause."
-                        ]
-                      },
-                      " Repetition can be appropriate. The corresponding candidate diagnosis is ",
-                      {
-                        "name": "ref",
-                        "attributes": {
-                          "target": "D001"
-                        },
-                        "content": [
-                          "Unproductive repeated retrieval"
-                        ]
-                      },
-                      "."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "how-to-recognize-it",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Compare the question each call is trying to answer, the requested content or range, the source version, and the returned information. Identical tool arguments are a clue, not sufficient evidence. Different arguments can still retrieve the same information."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Track both exact repetition and semantically equivalent retrieval. Automated exact-match detectors can nominate cases for inspection; they cannot decide usefulness."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "There is no diagnostic count threshold. \u201cMore than once\u201d identifies repetition, not pathology."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "benign-lookalikes",
-            "attributes": {},
-            "content": [
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "changed-source"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "A file changed after the previous read."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "different-content"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The new call obtains a different passage or field needed for the task."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "failed-delivery"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Earlier output was truncated, empty, wrong, or not delivered."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "freshness-check"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "A fresh result is required at a decision boundary."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "required-verification"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "A legitimate task explicitly requires checking a result again."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "what-to-record",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Record task intent, call sequence, arguments, source identity/version, result content or permitted content hashes, and which result was actually delivered to the model. Preserve the relevant model input at the later decision point, including compaction boundaries and active instructions when available."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Also record what the agent did between reads and what changed after each read. Collect enough detail to assess progress and new information. Keep sensitive raw traces outside this repository unless their inclusion is deliberate and appropriate; link to an access-controlled evidence location where needed."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "examples",
-            "attributes": {},
-            "content": [
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "stalled-edit",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      {
-                        "name": "strong",
-                        "attributes": {},
-                        "content": [
-                          "Synthetic example \u2014 potentially unproductive."
-                        ]
-                      },
-                      " An agent reads an unchanged configuration file, extracts the requested setting, then retrieves that same setting again before making the requested edit. Repetition continues without any edit or new question. This merits investigation; it does not reveal whether the previous result remained available to the model."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "verified-edit",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      {
-                        "name": "strong",
-                        "attributes": {},
-                        "content": [
-                          "Synthetic comparison \u2014 useful."
-                        ]
-                      },
-                      " An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis."
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "S003",
-      "kind": "symptom",
-      "summary": "An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.",
-      "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
-      "updated": "2026-10-26",
-      "title": "Sudden performance degradation",
-      "source": "entries/symptoms/sudden-performance-degradation.xml",
-      "url": "symptoms/sudden-performance-degradation.html",
-      "document": {
-        "name": "symptom",
-        "attributes": {
-          "id": "S003",
-          "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
-          "updated": "2026-10-26",
-          "title": "Sudden performance degradation"
-        },
-        "content": [
-          {
-            "name": "summary",
-            "attributes": {},
-            "content": [
-              "An agent shows an abrupt, observable decline relative to its own recent performance on comparable work."
-            ]
-          },
-          {
-            "name": "observations",
-            "attributes": {},
-            "content": [
-              {
-                "name": "observation",
-                "attributes": {
-                  "id": "performance-drop"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Across a bounded transition, performance worsens on a named measure relative to a recorded earlier baseline: for example, more errors on comparable tasks, missed constraints, reduced completion, or greater time or cost for the same accepted result."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "how-to-recognize-it",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Specify the measure and comparison before attributing the decline. Identify the last adequate and first degraded work, and compare task difficulty, available information, acceptance criteria, tools, and environment. A change in style or a general impression of reduced intelligence is a lead to investigate, not enough to establish a performance drop."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Use repeated comparable tasks when available. For a single session, identify concrete before-and-after behavior under the same relevant constraints and retain uncertainty about ordinary variation. Describe how abrupt the change was in turns, time, or releases; there is no universal effect-size or time threshold in this draft."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "The observable decline can be real even when its cause is unknown. Changes to model, effort, instructions, harness, context, or service conditions are possible explanations, not part of the symptom definition. ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S006"
-                    },
-                    "content": [
-                      "Lost task constraints"
-                    ]
-                  },
-                  " and ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S002"
-                    },
-                    "content": [
-                      "Doom looping"
-                    ]
-                  },
-                  " may describe particular ways the decline manifests."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "benign-lookalikes",
-            "attributes": {},
-            "content": [
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "harder-work"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Later tasks require different skills or greater complexity, so the earlier success rate is not a comparable baseline."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "changed-standard"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The user changes acceptance criteria or requests faster, shorter, or cheaper work and observes the resulting tradeoff."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "lookalike",
-                "attributes": {
-                  "id": "isolated-miss"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "One stochastic failure follows a small number of successes without enough evidence of a sustained or repeatable shift."
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "what-to-record",
-            "attributes": {},
-            "content": [
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Record the baseline and later tasks or trace segments, explicit performance measures, errors and outcomes, transition interval, and sample sizes. Preserve model/client versions, effort settings, prompts, tool availability, context transitions, service incidents, and environmental differences. Keep perceived change, measured change, and proposed cause distinct."
-                ]
-              }
-            ]
-          },
-          {
-            "name": "examples",
-            "attributes": {},
-            "content": [
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "abrupt-omissions",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Synthetic example: an agent correctly processes six records using the same explicit four-field rule, then omits two required fields on each of the next six comparable records after a session transition. The omissions establish a local decline; the transition alone does not establish its cause."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "quality-postmortem",
-                  "kind": "observed"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Reported investigation: ",
-                      {
-                        "name": "a",
-                        "attributes": {
-                          "href": "https://www.anthropic.com/research/april-23-postmortem"
-                        },
-                        "content": [
-                          "Anthropic\u2019s April 23, 2026 postmortem"
-                        ]
-                      },
-                      " attributes quality complaints to separate effort, context-management, and system-prompt changes. One bug repeatedly dropped prior thinking after an idle session resumed. These confirmed product incidents do not explain an unrelated episode automatically."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "example",
-                "attributes": {
-                  "id": "different-task",
-                  "kind": "synthetic"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Synthetic comparison: an agent succeeds at five typo fixes and then fails a distributed-systems redesign. The change in task difficulty prevents using that sequence alone as evidence of sudden degradation."
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": "S009",
       "kind": "symptom",
       "summary": "An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.",
@@ -3226,6 +2790,234 @@
                     "attributes": {},
                     "content": [
                       "Synthetic comparison: implementing an authorized API field requires updating its serializer and schema as well as the initially mentioned handler. The supporting edits are necessary to the requested behavior."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S010",
+      "kind": "symptom",
+      "summary": "An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Completion\u2013artifact mismatch",
+      "source": "entries/symptoms/completion-artifact-mismatch.xml",
+      "url": "symptoms/completion-artifact-mismatch.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S010",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Completion\u2013artifact mismatch"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "unsupported-completion"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A completion claim covers a stated deliverable or acceptance criterion, but inspection of the corresponding artifact or system state at that time contradicts the claim. The discrepancy is about delivered work, not merely confidence or phrasing."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Extract the exact completion claim and map it to the agreed scope. Inspect the actual destination, revision, branch, environment, or deployed state named by the claim. A missing file in a different worktree is not evidence that no file was written anywhere."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Check whether the work was created but not persisted, committed, transferred, or deployed as requested. These possibilities still matter to the completion claim, but differ from never performing the work. Compare contemporaneous state where possible; later deletion does not establish an earlier mismatch."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "An explicit and accurate disclosure of incomplete work is not this symptom, although ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S007"
+                    },
+                    "content": [
+                      "Premature stopping"
+                    ]
+                  },
+                  " may apply. A claim specifically about checks or evidence can also fit ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S011"
+                    },
+                    "content": [
+                      "Unsupported verification claims"
+                    ]
+                  },
+                  ". Do not infer intentional deception from the discrepancy alone."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "scoped-completion"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent accurately says one stage is complete and clearly identifies the unfinished stages."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "wrong-location"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The reviewer inspects a different revision or destination from the one the agent correctly reported."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "later-change"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The artifact satisfied the claim when reported but was changed or removed afterward."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record acceptance criteria, exact completion language, claim time, artifact identity and revision, inspection method, and the missing or contradictory behavior. Preserve tool results and persistence/commit/deployment events. Record disclosed limitations, asynchronous state, and later modifications separately."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "missing-export",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: the agent says the requested CSV export is implemented and ready. The delivered revision contains a button and success message but no export path, and exercising the named workflow produces no file."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "empty-worktree",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Reported example: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything"
+                        },
+                        "content": [
+                          "Matthew Hawthorne\u2019s February 2026 account"
+                        ]
+                      },
+                      " describes a resumed agent reporting success after inheriting a nearly completed checklist and a clean worktree. Earlier work had occurred but was not committed into the resumed task\u2019s branch."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "explicit-partial",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the agent states that the button is implemented but export generation remains unfinished. The delivery is incomplete, but the completion claim accurately describes its limited scope."
                     ]
                   }
                 ]
@@ -3662,6 +3454,214 @@
                     "attributes": {},
                     "content": [
                       "Synthetic comparison: the user explicitly changes an API contract from ordered to unordered output. Updating the ordering assertion then reflects the new contract rather than weakening a still-required check."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "S013",
+      "kind": "symptom",
+      "summary": "An agent reverses a substantive conclusion toward a user\u2019s assertion without establishing evidence or reasoning that supports the reversal.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-26",
+      "title": "Agreement-driven reversal",
+      "source": "entries/symptoms/agreement-driven-reversal.xml",
+      "url": "symptoms/agreement-driven-reversal.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S013",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-26",
+          "title": "Agreement-driven reversal"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent reverses a substantive conclusion toward a user\u2019s assertion without establishing evidence or reasoning that supports the reversal."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "unsupported-reversal"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "After a user challenges a substantive conclusion, the agent adopts the user\u2019s opposing claim or reverses related work while providing no adequate new evidence, applicable premise, or reasoning to support that change. The earlier and later positions concern the same factual or technical question."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the original conclusion, supporting evidence, user challenge, and revised conclusion. Determine whether the user supplied a correction, new fact, changed requirement, or a valid argument. Agreement and politeness alone are not the observation."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Look for abandonment of an available check or contradiction of evidence the agent previously cited without resolving it. To establish that the new answer is wrong, evaluate it independently; an unsupported reversal can be observed even when neither answer has yet been verified."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The title describes the conversational sequence, not a proven internal motive. A controlled comparison with and without an unsupported challenge can test susceptibility, but is not required to record a concrete episode. An instruction to perform a revert is different from asserting that the previous implementation was incorrect."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "valid-correction"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user supplies a sound counterexample or exposes an error, and the agent updates its conclusion accordingly."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "changed-preference"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user changes a design preference or requirement where their choice legitimately determines the desired result."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "explicit-revert"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The user explicitly requests reverting work, and the agent complies without falsely claiming the original work was technically wrong."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record both conclusions, the evidence or reasoning supporting each, the exact user challenge, intervening tool use, and any code changes. Preserve an independent reference or counterexample where possible. Distinguish factual agreement from compliance with a preference or action request, and record uncertainty about correctness."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "unsupported-flip",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic example: an agent verifies that a function returns a new list without mutating its input. The user asserts that it mutates the input but offers no evidence. The agent declares its earlier analysis wrong and adds a workaround without inspecting the function again or explaining the contradiction."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "developer-study",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Research observation: ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://arxiv.org/html/2506.12347v3"
+                        },
+                        "content": [
+                          "Why AI Agents Still Need You"
+                        ]
+                      },
+                      " reports developers losing confidence when agents offered contradictory explanations or reverted changes after challenges. The study documents the interaction pattern; the quoted complaint alone does not establish that every reverted change was correct."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "real-counterexample",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the user supplies a failing input that disproves the agent\u2019s conclusion. The agent reproduces it, explains the mistaken assumption, and revises the implementation."
                     ]
                   }
                 ]
