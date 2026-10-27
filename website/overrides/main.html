@@ -4,9 +4,33 @@
   <span class="adm-monogram" aria-hidden="true">ADM</span>
   <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
 </a>
+<button class="adm-search-trigger order-lg-last" type="button" data-bs-toggle="modal" data-bs-target="#adm-search-dialog" aria-haspopup="dialog">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span>Search all ADM</span><kbd aria-hidden="true">/</kbd>
+</button>
+{% endblock %}
+{% block extrahead %}
+{% if page %}
+<meta data-pagefind-meta="kind[content]" content="{% if page.meta.kind %}{{ page.meta.kind | capitalize }}{% elif page.is_homepage %}Overview{% else %}Guide{% endif %}">
+{% if page.meta.id %}<meta data-pagefind-meta="entry_id[content]" content="{{ page.meta.id }}">{% endif %}
+{% endif %}
 {% endblock %}
 {% block next_prev %}{% endblock %}
 {% block content %}
+<div class="modal adm-search" id="adm-search-dialog" tabindex="-1" aria-labelledby="adm-search-title" aria-hidden="true" data-pagefind-ignore>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="adm-search-title">Search all ADM</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close search"></button>
+      </div>
+      <div class="modal-body">
+        <p class="adm-search-scope">Symptoms, diagnoses, interventions, and guides</p>
+        <div id="search"></div>
+        <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+      </div>
+    </div>
+  </div>
+</div>
 <a class="adm-skip" href="#manual-content">Skip to content</a>
 <aside class="col-md-3 adm-sidebar" aria-label="On this page">
   <p class="adm-eyebrow">On this page</p>
@@ -23,10 +47,6 @@
     {% endif %}
   </nav>
   {% endif %}
-  </div>
-  <div class="adm-search" data-pagefind-ignore>
-    <div id="search"></div>
-    <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
   </div>
   {% if page and page.meta.id %}
   <p class="entry-status"><span class="entry-id">{{ page.meta.id }}</span><span>{{ page.meta.status }}</span><span>{{ page.meta.evidence }}</span></p>
