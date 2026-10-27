@@ -6,16 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     table.classList.add('table', 'table-striped', 'table-hover');
   });
   if (window.PagefindUI) {
-    new PagefindUI({ element: '#search', showSubResults: true,
-      showImages: false, baseUrl: admBaseUrl });
+    new PagefindUI({ element: '#search', showSubResults: false,
+      showImages: false, baseUrl: admBaseUrl, focusOnSlash: true,
+      translations: { placeholder: 'Search the manual…', search_label: 'Search the manual' } });
   }
-  document.addEventListener('keydown', event => {
-    if (event.ctrlKey || event.metaKey || event.altKey ||
-        event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
-    if (event.key === '/') {
-      event.preventDefault();
-      document.querySelector('.adm-search').open = true;
-      document.querySelector('#search input')?.focus();
-    }
-  });
 });
