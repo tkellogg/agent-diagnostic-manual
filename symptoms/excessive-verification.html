@@ -267,34 +267,33 @@
 <p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Establish the user’s requested outcome, applicable project requirements, verification scope, and stopping condition. Identify the decision each extra check could change. A check can be justified by a concrete unresolved risk even if the user did not name it individually; a genuine instruction conflict should be surfaced, not silently resolved by exceeding the budget.</p>
-<p>Compare inputs, code and environment state, selected tests, outputs, and what the agent does with the result. A repeated check that obtains previously missing output or measures flakiness is different from one that merely reproduces an already-understood result. Include time spent creating and repairing self-assigned test infrastructure.</p>
-<p>High test counts, slow suites, and user impatience alone do not establish excess. If the trace supports cost but not the absence of a reason, record verification cost with the judgment unresolved. Repeated checking may also fit <a href="doom-looping.html">Doom looping</a>; unnecessary new infrastructure may fit <a href="unrequested-changes.html">Unrequested changes</a>.</p>
+<p>Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.</p>
+<p>Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Requirements, new failures, and planned repeatability studies provide evidence for the benign lookalikes.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/required-gate"></a></p>
 <h3 id="required-gate">Required gate<a class="headerlink" href="#required-gate" title="Permanent link">&para;</a></h3>
-<p>A release, security, or project rule requires the full check before the requested action can proceed.</p>
+<p>A release, security, or project rule still requires the full check before the requested action. This supplies the applicable requirement absent from <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>, even when the suite takes longer than the edit.</p>
 <p><a id="benign-lookalikes/new-risk"></a></p>
 <h3 id="new-risk">New risk<a class="headerlink" href="#new-risk" title="Permanent link">&para;</a></h3>
-<p>A check reveals a relevant new failure or the edit affects additional behavior, justifying broader verification.</p>
+<p>A check reveals a relevant new failure or an edit affects additional behavior. The new evidence justifies the broader checking, unlike the unexplained extra work in <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>.</p>
 <p><a id="benign-lookalikes/repeatability-study"></a></p>
 <h3 id="repeatability-study">Repeatability study<a class="headerlink" href="#repeatability-study" title="Permanent link">&para;</a></h3>
-<p>Repeated unchanged runs are part of an agreed flakiness, load, or reproducibility investigation.</p>
+<p>Unchanged runs belong to an agreed flakiness, load, or reproducibility investigation. They answer its unresolved question and satisfy its checking scope, so repetition alone is not <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the requested outcome and urgency, explicit scope or budget, applicable mandatory checks, stopping condition, check sequence and duration, state changes, results, and the decision each check informed. Separate required work, newly justified work, and unexplained additions; record delivery delay and any actual defects caught.</p>
+<p>Record the episode identifier and date, task type, model and harness versions, requested outcome and urgency, explicit checking budget, mandatory gates, and stopping condition. Preserve check commands, selected tests, job timestamps, state changes, results, and the decision each check informed. Include required versus unexplained runs, infrastructure added, time after the stopping condition, tokens or cost where available, delivery delay, and defects actually caught. Record total tasks or checks reviewed when aggregating incidents, rather than treating a count of complaints as a rate.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/past-completion"></a></p>
 <h3 id="past-completion">Past completion<a class="headerlink" href="#past-completion" title="Permanent link">&para;</a></h3>
-<p>Synthetic example: a user requests a reversible text edit and one targeted check. That check passes. With no new failure or broader requirement, the agent adds a test framework, repairs its setup, and reruns the entire suite twice before delivering the edit.</p>
+<p>Synthetic incident: a user requests a reversible text edit and one targeted check, which passes. With no new failure or broader requirement, the agent installs a test framework, repairs its setup, and runs the full suite twice. The command timeline shows twenty-four additional minutes before delivery and no further defect found.</p>
 <p><a id="examples/suite-overrun"></a></p>
 <h3 id="suite-overrun">Suite overrun<a class="headerlink" href="#suite-overrun" title="Permanent link">&para;</a></h3>
-<p>Reported example: <a href="https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/">a Claude Code user describes repeated full-suite runs after small edits despite requests to stop</a>. The account reports substantial delays but provides no full trace establishing which checks were required or unnecessary.</p>
+<p>Reported incident: <a href="https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/">a Claude Code user reports repeated runs of more than 1,500 tests after small edits despite instructions to stop</a>. The user recognized the activity by inspecting long-running background tasks and reports about two hours per run, with the project largely stalled for weeks. These are user estimates; the post does not supply a full trace establishing the applicable requirements for each run.</p>
 <p><a id="examples/release-check"></a></p>
 <h3 id="release-check">Release check<a class="headerlink" href="#release-check" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: a one-line authentication change triggers a required regression suite before release. Its duration exceeds the edit time, but it satisfies an applicable gate and does not establish excessive verification.</p></article>
+<p>Synthetic comparison: a one-line authentication edit takes one minute and its mandatory regression suite takes twelve minutes. The release policy and CI log account for the longer check; the run satisfies a required gate rather than adding unexplained verification.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="sudden-performance-degradation.html"><span>← Previous</span>S003 — Sudden performance degradation</a>

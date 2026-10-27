@@ -6,7 +6,7 @@ summary: An agent modifies artifacts or system state beyond the authorized task 
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Unrequested changes
 xml_source: symptoms/unrequested-changes.xml
 ---
@@ -29,11 +29,9 @@ The agent makes a material change to an artifact or system state that is outside
 
 ## How to recognize it
 
-Compare the actual change with the task boundary and standing authorization. Scope can be defined by intended behavior rather than a literal file list; a necessary supporting change may be in an unmentioned file. Require an explanation grounded in dependencies, not just the agent’s preference for cleanup.
+Compare the request and standing instructions with version-control diffs, file snapshots, deployment events, or service audit logs. Identify what the agent actually changed and use timestamps or authorship records to separate its edits from concurrent work.
 
-Inspect semantic changes and actual execution. A large diff can reflect line endings or formatting, and a proposed rewrite may never have been applied. Distinguish changed files from deleted work, and recoverable intermediate edits from lasting output.
-
-Record unrelated concurrent or preexisting work separately from the agent’s own changes. Unrequested test infrastructure can overlap with [Excessive verification](excessive-verification.md); the same episode can have both scope and resource consequences.
+Trace each candidate extra change to the requested behavior using interfaces, dependencies, and configuration. Compare semantic diffs with whitespace-insensitive views, and inspect command results to distinguish a proposed change from an applied one. These records can expose authorized supporting work as well as unrelated cleanup.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ Record unrelated concurrent or preexisting work separately from the agent’s ow
 
 ### Necessary dependency
 
-The requested behavior requires a supporting schema, interface, or configuration change within the granted authority.
+The requested behavior requires a supporting schema, interface, or configuration change within the granted authority. This is the necessary dependency excluded by [scope expansion](unrequested-changes.md#observations/scope-expansion).
 
 <a id="benign-lookalikes/authorized-refactor"></a>
 
 ### Authorized refactor
 
-The user grants broad refactoring or cleanup scope that includes the affected components.
+The user grants refactoring or cleanup scope that includes the affected components. The change is not outside the authorized boundary in [scope expansion](unrequested-changes.md#observations/scope-expansion).
 
 <a id="benign-lookalikes/display-noise"></a>
 
 ### Display noise
 
-The apparent rewrite is a diff-display, formatting, or line-ending effect without the alleged semantic change.
+A viewer renders an apparent rewrite, but the underlying artifact and behavior are unchanged. There is no material change under [scope expansion](unrequested-changes.md#observations/scope-expansion); actual unsolicited formatting changes still require a scope assessment.
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the request and standing scope, before-and-after artifacts, semantic diff, actual commands, dependencies, and stated rationale. Identify ownership and timing of unrelated edits, whether changes were proposed or applied, and any recovery. Preserve enough baseline state to distinguish the agent’s work from concurrent changes.
+Record the episode identifier and date, task type, model and harness versions, request and standing authority, baseline revision, and before-and-after artifacts. Preserve semantic diffs, commands and execution times, claimed dependencies, concurrent-edit ownership, and whether each change was proposed or applied. Include total and out-of-scope files or resources changed, lost work, rollback success, recovery time, downstream failures, and the final task outcome.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record the request and standing scope, before-and-after artifacts, semantic diff
 
 ### Unrelated reset
 
-Synthetic example: while fixing a parser, the agent discovers uncommitted documentation edits made by the user and restores them to HEAD as cleanup. The edits have no bearing on the parser fix and were outside its authority.
+Synthetic incident: while fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.
 
 <a id="examples/concurrent-edits"></a>
 
 ### Concurrent edits
 
-Reported example: [Codex issue #6187](https://github.com/openai/codex/issues/6187) describes unrelated concurrent edits being reset during a check for unexpected changes despite an instruction to preserve them. The account does not provide an independently reproduced incident.
+Reported incident: [Codex issue #6187](https://github.com/openai/codex/issues/6187) describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.
 
 <a id="examples/required-interface"></a>
 
 ### Required interface
 
-Synthetic comparison: implementing an authorized API field requires updating its serializer and schema as well as the initially mentioned handler. The supporting edits are necessary to the requested behavior.
+Synthetic comparison: an authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.

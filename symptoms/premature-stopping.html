@@ -267,34 +267,33 @@
 <p>The agent yields a final or idle state while the active request remains incomplete and at least one relevant next step is available within its authority. It does not identify a genuine blocker, requested pause, or completed stopping condition.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Establish the unfinished acceptance criteria and a concrete next action the configured system could perform. Distinguish an actual ended turn from a progress message, active background work, or the expected wait for a tool result.</p>
-<p>A content-free continuation prompt that resumes the same task is useful corroboration: it supplies no missing task information or new authorization. It is not proof of cause, because the prompt may also restart a failed scheduler or restore a tool connection.</p>
-<p>The agent need not falsely claim completion. An accurate partial-progress report followed by an unnecessary stop can fit. <a href="completion-artifact-mismatch.html">Completion–artifact mismatch</a> instead concerns what the agent claims about the delivered result.</p>
+<p>Compare the active request and acceptance checklist with delivered files, deployed state, or other outputs. Use conversation end markers and scheduler or job status to locate the actual stop and identify a remaining action supported by the available tools and authority.</p>
+<p>Inspect permission records, missing-input messages, runtime limits, and active background jobs for a dependency that explains the pause. If a later continuation exists, compare its prompt and first action with the stopped state to see whether new information or authorization was supplied.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/human-dependency"></a></p>
 <h3 id="human-dependency">Human dependency<a class="headerlink" href="#human-dependency" title="Permanent link">&para;</a></h3>
-<p>A necessary approval, credential, choice, or unavailable input genuinely requires the user.</p>
+<p>Every relevant next step depends on an approval, credential, choice, or missing input that only the user can provide. The available authorized next step required by <a href="premature-stopping.html#observations/unfinished-stop">unfinished stop</a> is absent.</p>
 <p><a id="benign-lookalikes/active-job"></a></p>
 <h3 id="active-job">Active job<a class="headerlink" href="#active-job" title="Permanent link">&para;</a></h3>
-<p>A background operation remains active and the system is correctly waiting for its result.</p>
+<p>A relevant background operation remains active and the system is waiting for its result. The run has not entered the final or idle state described in <a href="premature-stopping.html#observations/unfinished-stop">unfinished stop</a>.</p>
 <p><a id="benign-lookalikes/bounded-task"></a></p>
 <h3 id="bounded-task">Bounded task<a class="headerlink" href="#bounded-task" title="Permanent link">&para;</a></h3>
-<p>The user requested only the completed stage, a time or step budget has been reached, or an actual runtime limit prevents continuation.</p>
+<p>The requested stage or agreed budget is complete, or a runtime limit leaves no available next action. A satisfied stopping condition or unavailable continuation excludes these cases from <a href="premature-stopping.html#observations/unfinished-stop">unfinished stop</a>.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the active request, completed and remaining work, available next step, final message, tool/job states, stop reason, and runtime limits. Preserve handoff or compaction events and the exact follow-up that resumed work. Distinguish model termination from a transport, scheduler, or user interruption.</p>
+<p>Record the episode identifier and date, task type, model/client and harness versions, requested acceptance criteria, completed and remaining work, and the concrete next step available at the stop. Preserve the final message, stop reason, tool/job states, runtime limits, and context transitions. Include stop and resume times, unnecessary stops per task, user nudges, unattended waiting time, eventual completion, and abandoned work. Retain the exact resuming prompt to distinguish continuation from new authorization or missing information.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/stage-one"></a></p>
 <h3 id="stage-one">Stage one<a class="headerlink" href="#stage-one" title="Permanent link">&para;</a></h3>
-<p>Synthetic example: asked to implement and document a change, the agent finishes implementation and ends with an offer to write the documentation. No input is missing. A user message saying continue causes it to write the already-requested documentation.</p>
+<p>Synthetic incident: asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.</p>
 <p><a id="examples/handoff-stop"></a></p>
 <h3 id="handoff-stop">Handoff stop<a class="headerlink" href="#handoff-stop" title="Permanent link">&para;</a></h3>
-<p>Reported examples: <a href="https://github.com/openai/codex/issues/33398">Codex issue #33398 and its commenters</a> describe unfinished tasks stopping after context transitions and resuming after short user nudges. The reports leave model and orchestration causes unresolved.</p>
+<p>Reported incident: <a href="https://github.com/openai/codex/issues/33398">Codex issue #33398</a> describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.</p>
 <p><a id="examples/needed-choice"></a></p>
 <h3 id="needed-choice">Needed choice<a class="headerlink" href="#needed-choice" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: the next step would publish to one of two accounts, and the user has not specified which. Stopping to obtain that choice is a real dependency.</p></article>
+<p>Synthetic comparison: the next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="lost-task-constraints.html"><span>← Previous</span>S006 — Lost task constraints</a>

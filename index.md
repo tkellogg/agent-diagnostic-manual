@@ -10,7 +10,7 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
 - [S001 — Repeated retrieval](symptoms/repeated-retrieval.md)
 
-    An agent repeatedly retrieves substantially the same information during an episode.
+    An agent retrieves already-delivered information again without a new content, freshness, or verification need.
 
 - [S002 — Doom looping](symptoms/doom-looping.md)
 

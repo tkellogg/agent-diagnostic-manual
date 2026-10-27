@@ -1,39 +1,38 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S003" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Sudden performance degradation">
+<symptom xmlns="urn:adm:1" id="S003" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Sudden performance degradation">
   <summary>An agent shows an abrupt, observable decline relative to its own recent performance on comparable work.</summary>
   <observations>
     <observation id="performance-drop">
-      <p>Across a bounded transition, performance worsens on a named measure relative to a recorded earlier baseline: for example, more errors on comparable tasks, missed constraints, reduced completion, or greater time or cost for the same accepted result.</p>
+      <p>After a bounded transition, at least two consecutive comparable outputs or task attempts perform worse on a named measure than a recorded recent baseline under the same acceptance criteria. The decline appears as errors, missed requirements, reduced completion, or greater time or cost for an equivalent accepted result.</p>
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>Specify the measure and comparison before attributing the decline. Identify the last adequate and first degraded work, and compare task difficulty, available information, acceptance criteria, tools, and environment. A change in style or a general impression of reduced intelligence is a lead to investigate, not enough to establish a performance drop.</p>
-    <p>Use repeated comparable tasks when available. For a single session, identify concrete before-and-after behavior under the same relevant constraints and retain uncertainty about ordinary variation. Describe how abrupt the change was in turns, time, or releases; there is no universal effect-size or time threshold in this draft.</p>
-    <p>The observable decline can be real even when its cause is unknown. Changes to model, effort, instructions, harness, context, or service conditions are possible explanations, not part of the symptom definition. <ref target="S006">Lost task constraints</ref> and <ref target="S002">Doom looping</ref> may describe particular ways the decline manifests.</p>
+    <p>Locate the last adequate and first degraded work in session transcripts, saved outputs, evaluation results, or issue history. Put the before-and-after artifacts beside the acceptance criteria and compare the named measure, task difficulty, and available information.</p>
+    <p>Use timestamps and model/client release records to locate the transition, then inspect tool logs, memory files, handoff summaries, and configuration changes for differences worth investigating. Preserve successful as well as failed nearby attempts so the baseline and the extent of the decline can be checked.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="harder-work">
-      <p>Later tasks require different skills or greater complexity, so the earlier success rate is not a comparable baseline.</p>
+      <p>Later work requires substantially different skills or complexity. It lacks the comparable tasks required by <ref target="S003#observations/performance-drop">performance drop</ref>, even if its raw success rate is lower.</p>
     </lookalike>
     <lookalike id="changed-standard">
-      <p>The user changes acceptance criteria or requests faster, shorter, or cheaper work and observes the resulting tradeoff.</p>
+      <p>The user changes acceptance criteria or explicitly requests a faster, cheaper result with lower quality. The before-and-after work is not assessed under the same criteria as <ref target="S003#observations/performance-drop">performance drop</ref>.</p>
     </lookalike>
     <lookalike id="isolated-miss">
-      <p>One stochastic failure follows a small number of successes without enough evidence of a sustained or repeatable shift.</p>
+      <p>One failed attempt occurs among otherwise comparable successes, with the next attempt returning to baseline. It does not meet the two consecutive degraded attempts in <ref target="S003#observations/performance-drop">performance drop</ref>.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
-    <p>Record the baseline and later tasks or trace segments, explicit performance measures, errors and outcomes, transition interval, and sample sizes. Preserve model/client versions, effort settings, prompts, tool availability, context transitions, service incidents, and environmental differences. Keep perceived change, measured change, and proposed cause distinct.</p>
+    <p>Record the episode or run identifiers, dates, task types, model/client and harness versions, effort settings, and the performance measure with its units. Preserve baseline and later artifacts, acceptance criteria, sample sizes, successful and failed attempts, and the transition interval. Include task difficulty, context transitions, tool availability, configuration or service changes, completion rates, latency, cost, and user rework where available. Keep the corpus revision and raw comparisons so the two-attempt screening rule and apparent trends can be reassessed.</p>
   </what-to-record>
   <examples>
     <example id="abrupt-omissions" kind="synthetic">
-      <p>Synthetic example: an agent correctly processes six records using the same explicit four-field rule, then omits two required fields on each of the next six comparable records after a session transition. The omissions establish a local decline; the transition alone does not establish its cause.</p>
+      <p>Synthetic incident: an agent produces six valid records under a four-field rule, then omits two fields from each of the next six comparable records after resuming the session. Comparing outputs with the unchanged schema reveals a fall from 6/6 valid records to 0/6 and twelve missing values requiring repair. The timing identifies a transition, not its cause.</p>
     </example>
     <example id="quality-postmortem" kind="observed">
-      <p>Reported investigation: <a href="https://www.anthropic.com/research/april-23-postmortem">Anthropic’s April 23, 2026 postmortem</a> attributes quality complaints to separate effort, context-management, and system-prompt changes. One bug repeatedly dropped prior thinking after an idle session resumed. These confirmed product incidents do not explain an unrelated episode automatically.</p>
+      <p>Reported investigation: <a href="https://www.anthropic.com/research/april-23-postmortem">Anthropic’s April 23, 2026 postmortem</a> describes a prompt change that reduced coding quality. Broader evaluations and prompt ablations exposed a reported 3% drop on one evaluation for Opus 4.6 and 4.7, leading to a rollback. A separate resumed-session bug produced forgetfulness, repetition, and faster usage-limit depletion. These are population-level comparisons; the postmortem does not publish the consecutive task results needed to adjudicate a particular episode under this screening rule.</p>
     </example>
     <example id="different-task" kind="synthetic">
-      <p>Synthetic comparison: an agent succeeds at five typo fixes and then fails a distributed-systems redesign. The change in task difficulty prevents using that sequence alone as evidence of sudden degradation.</p>
+      <p>Synthetic comparison: an agent completes five typo fixes and fails one distributed-systems redesign. The task records reveal a change in difficulty and only one failed redesign, so the five successes and one failure do not establish this symptom or quantify a decline on comparable work.</p>
     </example>
   </examples>
 </symptom>

@@ -6,7 +6,7 @@ summary: An agent claims that requested work is complete while the delivered art
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: "Completion\u2013artifact mismatch"
 xml_source: symptoms/completion-artifact-mismatch.xml
 ---
@@ -29,11 +29,9 @@ A completion claim covers a stated deliverable or acceptance criterion, but insp
 
 ## How to recognize it
 
-Extract the exact completion claim and map it to the agreed scope. Inspect the actual destination, revision, branch, environment, or deployed state named by the claim. A missing file in a different worktree is not evidence that no file was written anywhere.
+Take the exact completion statement from the transcript and map it to the requested deliverable. Inspect the named branch, revision, destination, or deployed environment using files, git history, deployment records, or the delivered workflow.
 
-Check whether the work was created but not persisted, committed, transferred, or deployed as requested. These possibilities still matter to the completion claim, but differ from never performing the work. Compare contemporaneous state where possible; later deletion does not establish an earlier mismatch.
-
-An explicit and accurate disclosure of incomplete work is not this symptom, although [Premature stopping](premature-stopping.md) may apply. A claim specifically about checks or evidence can also fit [Unsupported verification claims](unsupported-verification-claims.md). Do not infer intentional deception from the discrepancy alone.
+Compare artifact timestamps with the claim, and follow persistence, commit, transfer, and deployment events to locate where work stopped reaching the destination. Check disclosed limitations and later modifications before attributing a discrepancy to the state at claim time.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ An explicit and accurate disclosure of incomplete work is not this symptom, alth
 
 ### Scoped completion
 
-The agent accurately says one stage is complete and clearly identifies the unfinished stages.
+The agent accurately reports completion of one stage and identifies unfinished stages. Inspection does not contradict that scoped claim as required by [unsupported completion](completion-artifact-mismatch.md#observations/unsupported-completion).
 
 <a id="benign-lookalikes/wrong-location"></a>
 
 ### Wrong location
 
-The reviewer inspects a different revision or destination from the one the agent correctly reported.
+The reviewer inspects a different revision or destination from the correctly reported one. The corresponding artifact required for [unsupported completion](completion-artifact-mismatch.md#observations/unsupported-completion) has not been shown to contradict the claim.
 
 <a id="benign-lookalikes/later-change"></a>
 
 ### Later change
 
-The artifact satisfied the claim when reported but was changed or removed afterward.
+The artifact satisfied the reported scope and was changed or removed afterward. There is no contradiction at claim time under [unsupported completion](completion-artifact-mismatch.md#observations/unsupported-completion).
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record acceptance criteria, exact completion language, claim time, artifact identity and revision, inspection method, and the missing or contradictory behavior. Preserve tool results and persistence/commit/deployment events. Record disclosed limitations, asynchronous state, and later modifications separately.
+Record the episode identifier and date, task type, model and harness versions, acceptance criteria, exact completion language, and claim time. Preserve artifact identity and revision, inspection steps and results, tool responses, persistence/commit/deployment events, and later modifications. Include claimed versus delivered requirements, time until discovery, failed downstream actions, user reliance on the claim, and repair or rework time. Record accurately disclosed limitations separately from contradicted claims.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record acceptance criteria, exact completion language, claim time, artifact iden
 
 ### Missing export
 
-Synthetic example: the agent says the requested CSV export is implemented and ready. The delivered revision contains a button and success message but no export path, and exercising the named workflow produces no file.
+Synthetic incident: an agent reports that CSV export is implemented and ready. The delivered revision has a button and success message but no export path; exercising that workflow produces zero files. The user discovers the mismatch during a scheduled export and spends twenty minutes producing the CSV manually.
 
 <a id="examples/empty-worktree"></a>
 
 ### Empty worktree
 
-Reported example: [Matthew Hawthorne’s February 2026 account](https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything) describes a resumed agent reporting success after inheriting a nearly completed checklist and a clean worktree. Earlier work had occurred but was not committed into the resumed task’s branch.
+Reported incident: [Matthew Hawthorne’s February 2026 account](https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything) describes a seven-turn resumed task declaring success on a branch with no changes. Code review exposed the empty branch; the earlier run’s uncommitted work had not reached the new worktree. The requested feature was absent despite the completion report, and investigation prompted changes to resume and persistence handling. Recovery time is not given.
 
 <a id="examples/explicit-partial"></a>
 
 ### Explicit partial
 
-Synthetic comparison: the agent states that the button is implemented but export generation remains unfinished. The delivery is incomplete, but the completion claim accurately describes its limited scope.
+Synthetic comparison: an agent delivers an export button and explicitly says CSV generation remains unfinished. The diff and a workflow check confirm that exact boundary. One requirement remains open, but the report does not falsely describe it as complete.

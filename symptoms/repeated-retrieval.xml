@@ -1,44 +1,44 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-26" title="Repeated retrieval">
-  <summary>An agent repeatedly retrieves substantially the same information during an episode.</summary>
+<symptom xmlns="urn:adm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Repeated retrieval">
+  <summary>An agent retrieves already-delivered information again without a new content, freshness, or verification need.</summary>
   <observations>
     <observation id="multi-read">
-      <p>The agent makes multiple retrieval attempts for substantially the same information within a task episode. This includes rereading a file, repeating a search, or fetching the same document through different tools.</p>
-      <p><strong>This observation is neutral about usefulness and cause.</strong> Repetition can be appropriate. The corresponding candidate diagnosis is <ref target="D001">Unproductive repeated retrieval</ref>.</p>
+      <p>Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and is not required by an applicable freshness or verification instruction.</p>
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>Compare the question each call is trying to answer, the requested content or range, the source version, and the returned information. Identical tool arguments are a clue, not sufficient evidence. Different arguments can still retrieve the same information.</p>
-    <p>Track both exact repetition and semantically equivalent retrieval. Automated exact-match detectors can nominate cases for inspection; they cannot decide usefulness.</p>
-    <p>There is no diagnostic count threshold. “More than once” identifies repetition, not pathology.</p>
+    <p>In the session transcript or tool audit log, group retrievals by the question answered, source, and returned passage or field. Compare result bodies or hashes, delivery status, and file versions or timestamps; identical commands can return changed content, while different commands can return the same content.</p>
+    <p>Check the task instructions and intervening edits for a new content need, freshness condition, or required verification. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="changed-source">
-      <p>A file changed after the previous read.</p>
+      <p>A reread after an edit returns the changed setting needed for the next decision. Unlike <ref target="S001#observations/multi-read">multi-read</ref>, it supplies a needed new source state.</p>
     </lookalike>
     <lookalike id="different-content">
-      <p>The new call obtains a different passage or field needed for the task.</p>
+      <p>A second call obtains a different passage or field needed for the task. It does not retrieve substantially the same information as <ref target="S001#observations/multi-read">multi-read</ref>.</p>
     </lookalike>
     <lookalike id="failed-delivery">
-      <p>Earlier output was truncated, empty, wrong, or not delivered.</p>
+      <p>A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by <ref target="S001#observations/multi-read">multi-read</ref> is absent.</p>
     </lookalike>
     <lookalike id="freshness-check">
-      <p>A fresh result is required at a decision boundary.</p>
+      <p>An applicable instruction requires a fresh reading at a decision boundary, even if the value is unchanged. This is the freshness requirement excluded by <ref target="S001#observations/multi-read">multi-read</ref>.</p>
     </lookalike>
     <lookalike id="required-verification">
-      <p>A legitimate task explicitly requires checking a result again.</p>
+      <p>The task requires an independent second retrieval to verify a value, and the agent performs that check. The applicable verification instruction excludes it from <ref target="S001#observations/multi-read">multi-read</ref>.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
-    <p>Record task intent, call sequence, arguments, source identity/version, result content or permitted content hashes, and which result was actually delivered to the model. Preserve the relevant model input at the later decision point, including compaction boundaries and active instructions when available.</p>
-    <p>Also record what the agent did between reads and what changed after each read. Collect enough detail to assess progress and new information. Keep sensitive raw traces outside this repository unless their inclusion is deliberate and appropriate; link to an access-controlled evidence location where needed.</p>
+    <p>Record the episode identifier and date, task type, model and harness versions, retrieval tools, and relevant instructions. Preserve call timestamps, arguments, source versions, returned passages or permitted hashes, delivery status, and the earlier result associated with each repeat. Include total retrievals and repeat counts, output volume, elapsed time, tokens or cost where available, context transitions, intervening edits, and the eventual task outcome. Record user interruptions and recovery work so incident frequency and impact can be compared across runs.</p>
   </what-to-record>
   <examples>
     <example id="stalled-edit" kind="synthetic">
-      <p><strong>Synthetic example — potentially unproductive.</strong> An agent reads an unchanged configuration file, extracts the requested setting, then retrieves that same setting again before making the requested edit. Repetition continues without any edit or new question. This merits investigation; it does not reveal whether the previous result remained available to the model.</p>
+      <p>Synthetic incident: an agent reads a 200-line configuration file, extracts the requested setting, and rereads the unchanged file twice without making the edit or encountering a new requirement. The tool log and file hash identify two redundant retrievals: 400 additional lines enter the transcript while the edit remains unstarted.</p>
     </example>
     <example id="verified-edit" kind="synthetic">
-      <p><strong>Synthetic comparison — useful.</strong> An agent reads a configuration file, edits it, then rereads the changed file to confirm the edit. The call may look identical while its purpose and source version differ. That is not evidence of the candidate diagnosis.</p>
+      <p>Synthetic comparison: an agent reads a configuration file, edits one setting, and rereads it once. The diff and returned value show that the second read verifies the changed state; two reads support one completed edit and reveal no redundant retrieval under this definition.</p>
+    </example>
+    <example id="repeated-grep" kind="observed">
+      <p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes recognizing 30–50+ consecutive grep calls with identical arguments and output during codebase research. The reporter says tasks expected to take 2–3 minutes instead occupied 1–2 hours and required manual interruption. The account supplies repetition and impact estimates, but not a complete trace separating model requests from runtime replays.</p>
     </example>
   </examples>
 </symptom>

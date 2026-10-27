@@ -264,37 +264,36 @@
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p><a id="observations/repeated-violation"></a></p>
 <h3 id="repeated-violation">Repeated violation<a class="headerlink" href="#repeated-violation" title="Permanent link">&para;</a></h3>
-<p>After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action again while the correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation.</p>
+<p>After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action at least once more while that correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Identify the exact correction, the agent’s acknowledgment, and the subsequent action. Compare the relevant conditions and any intervening instructions. An apology, promise, or saved memory demonstrates acknowledgment; it does not demonstrate that the later action complies.</p>
-<p>A single clear recurrence after acknowledgment can establish this symptom; record additional recurrences rather than requiring an arbitrary count. If acknowledgment is absent, the episode may show an instruction violation but does not meet this narrower description.</p>
-<p>Check whether the correction was available at the later decision. If a context transition removed it, <a href="lost-task-constraints.html">Lost task constraints</a> may also apply. If availability cannot be established, leave that mechanism unresolved. Neither repetition nor an apology establishes deliberate disregard.</p>
+<p>In the transcript, pair the specific correction and acknowledgment with the next relevant tool call, edit, or answer. Use execution timestamps to distinguish a newly chosen action from one already in flight, and compare intervening instructions for a change in scope.</p>
+<p>Inspect saved feedback files, memory loading records, and handoff summaries alongside the later input where available. These can show what was retained or omitted; compare actual later actions with the correction rather than treating an apology or memory write as proof of compliance.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/changed-context"></a></p>
 <h3 id="changed-context">Changed context<a class="headerlink" href="#changed-context" title="Permanent link">&para;</a></h3>
-<p>The later action occurs under materially different circumstances outside the correction’s scope.</p>
+<p>The later action falls outside the correction’s stated scope. It therefore lacks the applicable correction required by <a href="correction-without-behavioral-change.html#observations/repeated-violation">repeated violation</a>.</p>
 <p><a id="benign-lookalikes/superseded-rule"></a></p>
 <h3 id="superseded-rule">Superseded rule<a class="headerlink" href="#superseded-rule" title="Permanent link">&para;</a></h3>
-<p>A later applicable instruction changes the rule, or a higher-priority constraint requires another action.</p>
+<p>A later applicable instruction changes the rule, or a higher-priority requirement displaces it. The original correction is no longer in force as required by <a href="correction-without-behavioral-change.html#observations/repeated-violation">repeated violation</a>.</p>
 <p><a id="benign-lookalikes/action-in-flight"></a></p>
 <h3 id="action-in-flight">Action in flight<a class="headerlink" href="#action-in-flight" title="Permanent link">&para;</a></h3>
-<p>The apparently repeated action was already issued before the correction could be applied.</p>
+<p>Execution logs show that the apparent recurrence was issued before the correction and acknowledgment. It is not a later action chosen after acknowledgment under <a href="correction-without-behavioral-change.html#observations/repeated-violation">repeated violation</a>.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the correction’s exact scope, delivery time, acknowledgment, later action, relevant context and authority, and any intervening changes. Preserve both the original instruction and the effective later input where available. Count distinct recurrences and record whether the correction affected any subsequent behavior.</p>
+<p>Record the episode identifier and date, task type, model/harness versions, the correction’s exact text and scope, its delivery and acknowledgment times, and each subsequent opportunity to apply it. Preserve later actions, intervening instructions, memory artifacts, and effective input where available. Include recurrence counts relative to relevant opportunities, user correction turns, elapsed delay, damaged or redone work, and whether behavior eventually changed. Distinguish missing context evidence from a demonstrated loss of the correction.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/repeated-file"></a></p>
 <h3 id="repeated-file">Repeated file<a class="headerlink" href="#repeated-file" title="Permanent link">&para;</a></h3>
-<p>Synthetic example: the user says not to edit a generated file, and the agent acknowledges that changes belong in its source template. On the next comparable fix it edits the generated file again without any changed instruction.</p>
+<p>Synthetic incident: after being told to edit a source template rather than generated output, the agent acknowledges the correction but makes the next fix in the generated file. Comparing the correction with the diff identifies the recurrence. The next build overwrites that fix, leaving one unresolved defect and ten minutes of rework.</p>
 <p><a id="examples/saved-feedback"></a></p>
 <h3 id="saved-feedback">Saved feedback<a class="headerlink" href="#saved-feedback" title="Permanent link">&para;</a></h3>
-<p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/37847">Claude Code issue #37847</a> describes specific feedback saved to memory followed by recurring actions contrary to that feedback. The report does not independently establish which memory content reached every later model invocation.</p>
+<p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/37847">Claude Code issue #37847</a> lists eight shell-command recurrences after feedback was saved: four Python, two shell-loop, and two Node examples. The reporter compared saved memory and acknowledgments with later commands, describing repeated corrections and lost confidence in memory. Total time lost and the effective input to every invocation are not supplied.</p>
 <p><a id="examples/new-authorization"></a></p>
 <h3 id="new-authorization">New authorization<a class="headerlink" href="#new-authorization" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: after saying never to edit generated output, the user explicitly requests a one-off emergency change to that output. Following the new instruction is not recurrence under the original unchanged constraint.</p></article>
+<p>Synthetic comparison: after prohibiting edits to generated output, the user explicitly approves one emergency edit there. The transcript records that exception before the single edit, so the change does not violate a correction that remained in force for that action.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="excessive-verification.html"><span>← Previous</span>S004 — Excessive verification</a>

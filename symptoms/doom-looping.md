@@ -6,7 +6,7 @@ summary: An agent repeats an unsuccessful action cycle without relevant changes 
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Doom looping
 xml_source: symptoms/doom-looping.xml
 ---
@@ -23,17 +23,15 @@ An agent repeats an unsuccessful action cycle without relevant changes that woul
 
 ### Stalled cycles
 
-Within one task episode, at least five consecutive attempts at the same immediate outcome fail to advance it. Across those attempts, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result.
+Within one task episode, at least three consecutive complete action-and-feedback cycles aimed at the same immediate outcome fail to advance it. Across those cycles, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result.
 
 <a id="how-to-recognize-it"></a>
 
 ## How to recognize it
 
-Define a cycle by the attempted outcome and feedback received: for example, an edit followed by a failing test, or a search followed by an unhelpful result. Count complete cycles, not the number of tool calls inside one attempt. Semantically equivalent commands can belong to the same cycle even when their spelling differs.
+Use the session transcript and tool execution log to pair attempts with their feedback, such as an edit with its test result or a search with its returned matches. Group cycles by the immediate outcome; this helps separate several tool calls within one attempt from successive attempts.
 
-Compare what changed between attempts and whether that change addresses the observed blocker. A different command flag does not establish progress by itself; a new error, a corrected credential, or a narrower failed hypothesis may. If the trace does not expose the relevant inputs or state, record the sequence as a suspected loop rather than asserting that nothing changed.
-
-Five cycles is a provisional screening threshold for this draft, not an empirically established boundary. Record the actual count and duration, including shorter concerning sequences. The symptom does not require an infinite run, identical outputs, or proof of a particular cause. [Repeated retrieval](repeated-retrieval.md) describes one action that can participate in a loop.
+Compare command arguments, outputs, file diffs, service status, and timestamps between cycles. Look for evidence that a retry addresses the blocker: a corrected credential, new error, eliminated hypothesis, or documented recovery interval. Mark gaps in the recorded state rather than filling them with an assumption that nothing changed.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ Five cycles is a provisional screening threshold for this draft, not an empirica
 
 ### Bounded retries
 
-A bounded retry policy addresses a documented transient failure, with a plausible reason for expecting recovery and an appropriate delay.
+Retries follow a documented transient failure and a recovery interval that gives the next attempt a reason to succeed. That changed recovery state differs from [stalled cycles](doom-looping.md#observations/stalled-cycles); a retry limit alone would not explain unchanged failures.
 
 <a id="benign-lookalikes/active-polling"></a>
 
 ### Active polling
 
-An external operation is still progressing and status checks occur at a justified cadence; elapsed time can be a relevant change even when returned text is unchanged.
+Status checks follow an active external job at its expected cadence, and job telemetry shows progress or a documented completion window. The evolving job state supplies the relevant change missing from [stalled cycles](doom-looping.md#observations/stalled-cycles).
 
 <a id="benign-lookalikes/hypothesis-testing"></a>
 
 ### Hypothesis testing
 
-Attempts eliminate distinct possibilities or incorporate new evidence, including repeated samples deliberately collected to assess stochastic behavior.
+Successive attempts eliminate distinct hypotheses or add samples to a planned stochastic estimate. They advance the immediate investigation or add relevant information, unlike [stalled cycles](doom-looping.md#observations/stalled-cycles).
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the task, immediate outcome, cycle boundaries, tool requests and actual executions, feedback, relevant state changes, and information available before each retry. Include the stopping condition, elapsed time, cost where available, progress measure, and how the sequence ended. Distinguish model requests from harness replays.
+Record the episode identifier and date, model and harness versions, task type, immediate outcome, and the action/feedback boundaries used to count cycles. Preserve requested and executed calls, feedback, relevant state changes, retry policy, and context transitions. Include total cycles, consecutive stalled cycles, elapsed time, tokens or cost where available, and how the sequence ended: recovery, automatic limit, user interruption, or abandonment. Retain the corpus revision and actual counts so the provisional three-cycle screening rule can be reassessed across incidents.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record the task, immediate outcome, cycle boundaries, tool requests and actual e
 
 ### Unchanged permission
 
-Synthetic example: five attempts to read the same protected file return permission denied. The agent only changes quoting and output formatting; access rights and credentials remain unchanged. No attempt advances access or identifies a new cause.
+Synthetic incident: five file-read attempts receive permission denied over two minutes. The trace shows only quoting and output-format changes; credentials and access rights stay unchanged. Comparing the five errors exposes five stalled cycles, two minutes of delay, and no retrieved file before the user interrupts.
 
 <a id="examples/repeated-grep"></a>
 
 ### Repeated grep
 
-Reported example: [Claude Code issue #59318](https://github.com/anthropics/claude-code/issues/59318) describes 30–50+ identical grep calls with identical output before manual interruption. The public account motivates the symptom; it does not independently establish whether the model or runtime produced each repetition.
+Reported incident: [Claude Code issue #59318](https://github.com/anthropics/claude-code/issues/59318) describes 30–50+ identical grep calls returning identical output before manual interruption. The reporter recognized the loop in the repeated commands and estimated 1–2 hours spent on research expected to take 2–3 minutes. A complete execution trace is not supplied, so responsibility for the repeats remains unresolved.
 
 <a id="examples/changing-failures"></a>
 
 ### Changing failures
 
-Synthetic comparison: five successive edits resolve five different test failures. The suite is still red, but the relevant state and remaining failures change after each attempt; the cycle count alone does not fit this symptom.
+Synthetic comparison: five successive edits resolve five different test failures. Test logs show the remaining failure count falling from five to zero. Although the agent repeats the edit/test cycle five times, each cycle advances the outcome and the final suite passes.

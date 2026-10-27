@@ -6,7 +6,7 @@ summary: "An agent reverses a substantive conclusion toward a user\u2019s assert
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Agreement-driven reversal
 xml_source: symptoms/agreement-driven-reversal.xml
 ---
@@ -29,11 +29,9 @@ After a user challenges a substantive conclusion, the agent adopts the user’s 
 
 ## How to recognize it
 
-Compare the original conclusion, supporting evidence, user challenge, and revised conclusion. Determine whether the user supplied a correction, new fact, changed requirement, or a valid argument. Agreement and politeness alone are not the observation.
+Read the original conclusion, user challenge, and revised conclusion together in the transcript. Pair them with cited sources, tool outputs, test results, and any intervening code diff to see what factual or technical question stayed the same.
 
-Look for abandonment of an available check or contradiction of evidence the agent previously cited without resolving it. To establish that the new answer is wrong, evaluate it independently; an unsupported reversal can be observed even when neither answer has yet been verified.
-
-The title describes the conversational sequence, not a proven internal motive. A controlled comparison with and without an unsupported challenge can test susceptibility, but is not required to record a concrete episode. An instruction to perform a revert is different from asserting that the previous implementation was incorrect.
+Look for a supplied counterexample, corrected premise, changed preference, or explicit revert request that explains the update. Where the agent had already cited evidence, compare its later explanation with that evidence and any new checks to locate an unresolved contradiction.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ The title describes the conversational sequence, not a proven internal motive. A
 
 ### Valid correction
 
-The user supplies a sound counterexample or exposes an error, and the agent updates its conclusion accordingly.
+The user supplies a sound counterexample or exposes an error, and the agent explains the resulting revision. That supplies the supporting evidence or reasoning absent from [unsupported reversal](agreement-driven-reversal.md#observations/unsupported-reversal).
 
 <a id="benign-lookalikes/changed-preference"></a>
 
 ### Changed preference
 
-The user changes a design preference or requirement where their choice legitimately determines the desired result.
+The user changes a design preference or requirement that determines the desired outcome. The agent is following a new premise, not reversing the same factual or technical conclusion without support under [unsupported reversal](agreement-driven-reversal.md#observations/unsupported-reversal).
 
 <a id="benign-lookalikes/explicit-revert"></a>
 
 ### Explicit revert
 
-The user explicitly requests reverting work, and the agent complies without falsely claiming the original work was technically wrong.
+The user requests a revert and the agent carries it out without claiming the original implementation was technically wrong. There is no opposing factual conclusion adopted as in [unsupported reversal](agreement-driven-reversal.md#observations/unsupported-reversal).
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record both conclusions, the evidence or reasoning supporting each, the exact user challenge, intervening tool use, and any code changes. Preserve an independent reference or counterexample where possible. Distinguish factual agreement from compliance with a preference or action request, and record uncertainty about correctness.
+Record the episode identifier and date, task type, model and harness versions, original and revised conclusions, exact user challenge, and supporting evidence or reasoning for each position. Preserve intervening tool use, code changes, and any independent counterexample or reference. Include substantive challenges reviewed, unsupported reversals, unnecessary edits, changed correctness, review or rollback time, and user-reported trust effects. Keep compliance with preferences or action requests separate from factual reversals.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record both conclusions, the evidence or reasoning supporting each, the exact us
 
 ### Unsupported flip
 
-Synthetic example: an agent verifies that a function returns a new list without mutating its input. The user asserts that it mutates the input but offers no evidence. The agent declares its earlier analysis wrong and adds a workaround without inspecting the function again or explaining the contradiction.
+Synthetic incident: an agent checks that a function returns a new list without mutating its input. After an unsupported user assertion that it mutates the input, the agent reverses that conclusion and adds a defensive copy. Comparing the transcript, original test, and diff exposes the unsupported change: one unnecessary copy per call and twenty minutes of review and rollback, with no correctness benefit.
 
 <a id="examples/developer-study"></a>
 
 ### Developer study
 
-Research observation: [Why AI Agents Still Need You](https://arxiv.org/html/2506.12347v3) reports developers losing confidence when agents offered contradictory explanations or reverted changes after challenges. The study documents the interaction pattern; the quoted complaint alone does not establish that every reverted change was correct.
+Reported research example: in [Why AI Agents Still Need You](https://arxiv.org/html/2506.12347v3), participant P15 describes the agent reverting work after being told its change was wrong. The study connects contradictory explanations across the conversation with reduced developer confidence; P16 likewise reports that the agent was easy to mislead. These participant accounts make the trust impact tangible but do not quantify lost time or establish that every reverted change was originally correct.
 
 <a id="examples/real-counterexample"></a>
 
 ### Real counterexample
 
-Synthetic comparison: the user supplies a failing input that disproves the agent’s conclusion. The agent reproduces it, explains the mistaken assumption, and revises the implementation.
+Synthetic comparison: the user supplies one failing input that contradicts the agent’s conclusion. The agent reproduces it, identifies the mistaken assumption, and changes the implementation so that the input passes. The test result explains the reversal and shows one defect corrected.

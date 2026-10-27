@@ -6,7 +6,7 @@ summary: An agent ends its turn or run with authorized, actionable work remainin
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Premature stopping
 xml_source: symptoms/premature-stopping.xml
 ---
@@ -29,11 +29,9 @@ The agent yields a final or idle state while the active request remains incomple
 
 ## How to recognize it
 
-Establish the unfinished acceptance criteria and a concrete next action the configured system could perform. Distinguish an actual ended turn from a progress message, active background work, or the expected wait for a tool result.
+Compare the active request and acceptance checklist with delivered files, deployed state, or other outputs. Use conversation end markers and scheduler or job status to locate the actual stop and identify a remaining action supported by the available tools and authority.
 
-A content-free continuation prompt that resumes the same task is useful corroboration: it supplies no missing task information or new authorization. It is not proof of cause, because the prompt may also restart a failed scheduler or restore a tool connection.
-
-The agent need not falsely claim completion. An accurate partial-progress report followed by an unnecessary stop can fit. [Completion–artifact mismatch](completion-artifact-mismatch.md) instead concerns what the agent claims about the delivered result.
+Inspect permission records, missing-input messages, runtime limits, and active background jobs for a dependency that explains the pause. If a later continuation exists, compare its prompt and first action with the stopped state to see whether new information or authorization was supplied.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ The agent need not falsely claim completion. An accurate partial-progress report
 
 ### Human dependency
 
-A necessary approval, credential, choice, or unavailable input genuinely requires the user.
+Every relevant next step depends on an approval, credential, choice, or missing input that only the user can provide. The available authorized next step required by [unfinished stop](premature-stopping.md#observations/unfinished-stop) is absent.
 
 <a id="benign-lookalikes/active-job"></a>
 
 ### Active job
 
-A background operation remains active and the system is correctly waiting for its result.
+A relevant background operation remains active and the system is waiting for its result. The run has not entered the final or idle state described in [unfinished stop](premature-stopping.md#observations/unfinished-stop).
 
 <a id="benign-lookalikes/bounded-task"></a>
 
 ### Bounded task
 
-The user requested only the completed stage, a time or step budget has been reached, or an actual runtime limit prevents continuation.
+The requested stage or agreed budget is complete, or a runtime limit leaves no available next action. A satisfied stopping condition or unavailable continuation excludes these cases from [unfinished stop](premature-stopping.md#observations/unfinished-stop).
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the active request, completed and remaining work, available next step, final message, tool/job states, stop reason, and runtime limits. Preserve handoff or compaction events and the exact follow-up that resumed work. Distinguish model termination from a transport, scheduler, or user interruption.
+Record the episode identifier and date, task type, model/client and harness versions, requested acceptance criteria, completed and remaining work, and the concrete next step available at the stop. Preserve the final message, stop reason, tool/job states, runtime limits, and context transitions. Include stop and resume times, unnecessary stops per task, user nudges, unattended waiting time, eventual completion, and abandoned work. Retain the exact resuming prompt to distinguish continuation from new authorization or missing information.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record the active request, completed and remaining work, available next step, fi
 
 ### Stage one
 
-Synthetic example: asked to implement and document a change, the agent finishes implementation and ends with an offer to write the documentation. No input is missing. A user message saying continue causes it to write the already-requested documentation.
+Synthetic incident: asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.
 
 <a id="examples/handoff-stop"></a>
 
 ### Handoff stop
 
-Reported examples: [Codex issue #33398 and its commenters](https://github.com/openai/codex/issues/33398) describe unfinished tasks stopping after context transitions and resuming after short user nudges. The reports leave model and orchestration causes unresolved.
+Reported incident: [Codex issue #33398](https://github.com/openai/codex/issues/33398) describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.
 
 <a id="examples/needed-choice"></a>
 
 ### Needed choice
 
-Synthetic comparison: the next step would publish to one of two accounts, and the user has not specified which. Stopping to obtain that choice is a real dependency.
+Synthetic comparison: the next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.

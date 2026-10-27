@@ -6,7 +6,7 @@ summary: "An agent continues or expands verification beyond the task\u2019s just
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Excessive verification
 xml_source: symptoms/excessive-verification.xml
 ---
@@ -29,11 +29,9 @@ Verification continues or additional checking work is created after an applicabl
 
 ## How to recognize it
 
-Establish the user’s requested outcome, applicable project requirements, verification scope, and stopping condition. Identify the decision each extra check could change. A check can be justified by a concrete unresolved risk even if the user did not name it individually; a genuine instruction conflict should be surfaced, not silently resolved by exceeding the budget.
+Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.
 
-Compare inputs, code and environment state, selected tests, outputs, and what the agent does with the result. A repeated check that obtains previously missing output or measures flakiness is different from one that merely reproduces an already-understood result. Include time spent creating and repairing self-assigned test infrastructure.
-
-High test counts, slow suites, and user impatience alone do not establish excess. If the trace supports cost but not the absence of a reason, record verification cost with the judgment unresolved. Repeated checking may also fit [Doom looping](doom-looping.md); unnecessary new infrastructure may fit [Unrequested changes](unrequested-changes.md).
+Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Requirements, new failures, and planned repeatability studies provide evidence for the benign lookalikes.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ High test counts, slow suites, and user impatience alone do not establish excess
 
 ### Required gate
 
-A release, security, or project rule requires the full check before the requested action can proceed.
+A release, security, or project rule still requires the full check before the requested action. This supplies the applicable requirement absent from [checking overrun](excessive-verification.md#observations/checking-overrun), even when the suite takes longer than the edit.
 
 <a id="benign-lookalikes/new-risk"></a>
 
 ### New risk
 
-A check reveals a relevant new failure or the edit affects additional behavior, justifying broader verification.
+A check reveals a relevant new failure or an edit affects additional behavior. The new evidence justifies the broader checking, unlike the unexplained extra work in [checking overrun](excessive-verification.md#observations/checking-overrun).
 
 <a id="benign-lookalikes/repeatability-study"></a>
 
 ### Repeatability study
 
-Repeated unchanged runs are part of an agreed flakiness, load, or reproducibility investigation.
+Unchanged runs belong to an agreed flakiness, load, or reproducibility investigation. They answer its unresolved question and satisfy its checking scope, so repetition alone is not [checking overrun](excessive-verification.md#observations/checking-overrun).
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the requested outcome and urgency, explicit scope or budget, applicable mandatory checks, stopping condition, check sequence and duration, state changes, results, and the decision each check informed. Separate required work, newly justified work, and unexplained additions; record delivery delay and any actual defects caught.
+Record the episode identifier and date, task type, model and harness versions, requested outcome and urgency, explicit checking budget, mandatory gates, and stopping condition. Preserve check commands, selected tests, job timestamps, state changes, results, and the decision each check informed. Include required versus unexplained runs, infrastructure added, time after the stopping condition, tokens or cost where available, delivery delay, and defects actually caught. Record total tasks or checks reviewed when aggregating incidents, rather than treating a count of complaints as a rate.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record the requested outcome and urgency, explicit scope or budget, applicable m
 
 ### Past completion
 
-Synthetic example: a user requests a reversible text edit and one targeted check. That check passes. With no new failure or broader requirement, the agent adds a test framework, repairs its setup, and reruns the entire suite twice before delivering the edit.
+Synthetic incident: a user requests a reversible text edit and one targeted check, which passes. With no new failure or broader requirement, the agent installs a test framework, repairs its setup, and runs the full suite twice. The command timeline shows twenty-four additional minutes before delivery and no further defect found.
 
 <a id="examples/suite-overrun"></a>
 
 ### Suite overrun
 
-Reported example: [a Claude Code user describes repeated full-suite runs after small edits despite requests to stop](https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/). The account reports substantial delays but provides no full trace establishing which checks were required or unnecessary.
+Reported incident: [a Claude Code user reports repeated runs of more than 1,500 tests after small edits despite instructions to stop](https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/). The user recognized the activity by inspecting long-running background tasks and reports about two hours per run, with the project largely stalled for weeks. These are user estimates; the post does not supply a full trace establishing the applicable requirements for each run.
 
 <a id="examples/release-check"></a>
 
 ### Release check
 
-Synthetic comparison: a one-line authentication change triggers a required regression suite before release. Its duration exceeds the edit time, but it satisfies an applicable gate and does not establish excessive verification.
+Synthetic comparison: a one-line authentication edit takes one minute and its mandatory regression suite takes twelve minutes. The release policy and CI log account for the longer check; the run satisfies a required gate rather than adding unexplained verification.

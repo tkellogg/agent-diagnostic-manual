@@ -264,37 +264,36 @@
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p><a id="observations/stalled-cycles"></a></p>
 <h3 id="stalled-cycles">Stalled cycles<a class="headerlink" href="#stalled-cycles" title="Permanent link">&para;</a></h3>
-<p>Within one task episode, at least five consecutive attempts at the same immediate outcome fail to advance it. Across those attempts, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result.</p>
+<p>Within one task episode, at least three consecutive complete action-and-feedback cycles aimed at the same immediate outcome fail to advance it. Across those cycles, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Define a cycle by the attempted outcome and feedback received: for example, an edit followed by a failing test, or a search followed by an unhelpful result. Count complete cycles, not the number of tool calls inside one attempt. Semantically equivalent commands can belong to the same cycle even when their spelling differs.</p>
-<p>Compare what changed between attempts and whether that change addresses the observed blocker. A different command flag does not establish progress by itself; a new error, a corrected credential, or a narrower failed hypothesis may. If the trace does not expose the relevant inputs or state, record the sequence as a suspected loop rather than asserting that nothing changed.</p>
-<p>Five cycles is a provisional screening threshold for this draft, not an empirically established boundary. Record the actual count and duration, including shorter concerning sequences. The symptom does not require an infinite run, identical outputs, or proof of a particular cause. <a href="repeated-retrieval.html">Repeated retrieval</a> describes one action that can participate in a loop.</p>
+<p>Use the session transcript and tool execution log to pair attempts with their feedback, such as an edit with its test result or a search with its returned matches. Group cycles by the immediate outcome; this helps separate several tool calls within one attempt from successive attempts.</p>
+<p>Compare command arguments, outputs, file diffs, service status, and timestamps between cycles. Look for evidence that a retry addresses the blocker: a corrected credential, new error, eliminated hypothesis, or documented recovery interval. Mark gaps in the recorded state rather than filling them with an assumption that nothing changed.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/bounded-retries"></a></p>
 <h3 id="bounded-retries">Bounded retries<a class="headerlink" href="#bounded-retries" title="Permanent link">&para;</a></h3>
-<p>A bounded retry policy addresses a documented transient failure, with a plausible reason for expecting recovery and an appropriate delay.</p>
+<p>Retries follow a documented transient failure and a recovery interval that gives the next attempt a reason to succeed. That changed recovery state differs from <a href="doom-looping.html#observations/stalled-cycles">stalled cycles</a>; a retry limit alone would not explain unchanged failures.</p>
 <p><a id="benign-lookalikes/active-polling"></a></p>
 <h3 id="active-polling">Active polling<a class="headerlink" href="#active-polling" title="Permanent link">&para;</a></h3>
-<p>An external operation is still progressing and status checks occur at a justified cadence; elapsed time can be a relevant change even when returned text is unchanged.</p>
+<p>Status checks follow an active external job at its expected cadence, and job telemetry shows progress or a documented completion window. The evolving job state supplies the relevant change missing from <a href="doom-looping.html#observations/stalled-cycles">stalled cycles</a>.</p>
 <p><a id="benign-lookalikes/hypothesis-testing"></a></p>
 <h3 id="hypothesis-testing">Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permanent link">&para;</a></h3>
-<p>Attempts eliminate distinct possibilities or incorporate new evidence, including repeated samples deliberately collected to assess stochastic behavior.</p>
+<p>Successive attempts eliminate distinct hypotheses or add samples to a planned stochastic estimate. They advance the immediate investigation or add relevant information, unlike <a href="doom-looping.html#observations/stalled-cycles">stalled cycles</a>.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the task, immediate outcome, cycle boundaries, tool requests and actual executions, feedback, relevant state changes, and information available before each retry. Include the stopping condition, elapsed time, cost where available, progress measure, and how the sequence ended. Distinguish model requests from harness replays.</p>
+<p>Record the episode identifier and date, model and harness versions, task type, immediate outcome, and the action/feedback boundaries used to count cycles. Preserve requested and executed calls, feedback, relevant state changes, retry policy, and context transitions. Include total cycles, consecutive stalled cycles, elapsed time, tokens or cost where available, and how the sequence ended: recovery, automatic limit, user interruption, or abandonment. Retain the corpus revision and actual counts so the provisional three-cycle screening rule can be reassessed across incidents.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/unchanged-permission"></a></p>
 <h3 id="unchanged-permission">Unchanged permission<a class="headerlink" href="#unchanged-permission" title="Permanent link">&para;</a></h3>
-<p>Synthetic example: five attempts to read the same protected file return permission denied. The agent only changes quoting and output formatting; access rights and credentials remain unchanged. No attempt advances access or identifies a new cause.</p>
+<p>Synthetic incident: five file-read attempts receive permission denied over two minutes. The trace shows only quoting and output-format changes; credentials and access rights stay unchanged. Comparing the five errors exposes five stalled cycles, two minutes of delay, and no retrieved file before the user interrupts.</p>
 <p><a id="examples/repeated-grep"></a></p>
 <h3 id="repeated-grep">Repeated grep<a class="headerlink" href="#repeated-grep" title="Permanent link">&para;</a></h3>
-<p>Reported example: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes 30–50+ identical grep calls with identical output before manual interruption. The public account motivates the symptom; it does not independently establish whether the model or runtime produced each repetition.</p>
+<p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes 30–50+ identical grep calls returning identical output before manual interruption. The reporter recognized the loop in the repeated commands and estimated 1–2 hours spent on research expected to take 2–3 minutes. A complete execution trace is not supplied, so responsibility for the repeats remains unresolved.</p>
 <p><a id="examples/changing-failures"></a></p>
 <h3 id="changing-failures">Changing failures<a class="headerlink" href="#changing-failures" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: five successive edits resolve five different test failures. The suite is still red, but the relevant state and remaining failures change after each attempt; the cycle count alone does not fit this symptom.</p></article>
+<p>Synthetic comparison: five successive edits resolve five different test failures. Test logs show the remaining failure count falling from five to zero. Although the agent repeats the edit/test cycle five times, each cycle advances the outcome and the final suite passes.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="repeated-retrieval.html"><span>← Previous</span>S001 — Repeated retrieval</a>

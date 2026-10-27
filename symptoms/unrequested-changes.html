@@ -267,34 +267,33 @@
 <p>The agent makes a material change to an artifact or system state that is outside the requested or otherwise authorized scope and is not supported as necessary to complete the task. This includes reverting unrelated work, unsolicited rewrites, and additional infrastructure.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Compare the actual change with the task boundary and standing authorization. Scope can be defined by intended behavior rather than a literal file list; a necessary supporting change may be in an unmentioned file. Require an explanation grounded in dependencies, not just the agent’s preference for cleanup.</p>
-<p>Inspect semantic changes and actual execution. A large diff can reflect line endings or formatting, and a proposed rewrite may never have been applied. Distinguish changed files from deleted work, and recoverable intermediate edits from lasting output.</p>
-<p>Record unrelated concurrent or preexisting work separately from the agent’s own changes. Unrequested test infrastructure can overlap with <a href="excessive-verification.html">Excessive verification</a>; the same episode can have both scope and resource consequences.</p>
+<p>Compare the request and standing instructions with version-control diffs, file snapshots, deployment events, or service audit logs. Identify what the agent actually changed and use timestamps or authorship records to separate its edits from concurrent work.</p>
+<p>Trace each candidate extra change to the requested behavior using interfaces, dependencies, and configuration. Compare semantic diffs with whitespace-insensitive views, and inspect command results to distinguish a proposed change from an applied one. These records can expose authorized supporting work as well as unrelated cleanup.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/necessary-dependency"></a></p>
 <h3 id="necessary-dependency">Necessary dependency<a class="headerlink" href="#necessary-dependency" title="Permanent link">&para;</a></h3>
-<p>The requested behavior requires a supporting schema, interface, or configuration change within the granted authority.</p>
+<p>The requested behavior requires a supporting schema, interface, or configuration change within the granted authority. This is the necessary dependency excluded by <a href="unrequested-changes.html#observations/scope-expansion">scope expansion</a>.</p>
 <p><a id="benign-lookalikes/authorized-refactor"></a></p>
 <h3 id="authorized-refactor">Authorized refactor<a class="headerlink" href="#authorized-refactor" title="Permanent link">&para;</a></h3>
-<p>The user grants broad refactoring or cleanup scope that includes the affected components.</p>
+<p>The user grants refactoring or cleanup scope that includes the affected components. The change is not outside the authorized boundary in <a href="unrequested-changes.html#observations/scope-expansion">scope expansion</a>.</p>
 <p><a id="benign-lookalikes/display-noise"></a></p>
 <h3 id="display-noise">Display noise<a class="headerlink" href="#display-noise" title="Permanent link">&para;</a></h3>
-<p>The apparent rewrite is a diff-display, formatting, or line-ending effect without the alleged semantic change.</p>
+<p>A viewer renders an apparent rewrite, but the underlying artifact and behavior are unchanged. There is no material change under <a href="unrequested-changes.html#observations/scope-expansion">scope expansion</a>; actual unsolicited formatting changes still require a scope assessment.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the request and standing scope, before-and-after artifacts, semantic diff, actual commands, dependencies, and stated rationale. Identify ownership and timing of unrelated edits, whether changes were proposed or applied, and any recovery. Preserve enough baseline state to distinguish the agent’s work from concurrent changes.</p>
+<p>Record the episode identifier and date, task type, model and harness versions, request and standing authority, baseline revision, and before-and-after artifacts. Preserve semantic diffs, commands and execution times, claimed dependencies, concurrent-edit ownership, and whether each change was proposed or applied. Include total and out-of-scope files or resources changed, lost work, rollback success, recovery time, downstream failures, and the final task outcome.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/unrelated-reset"></a></p>
 <h3 id="unrelated-reset">Unrelated reset<a class="headerlink" href="#unrelated-reset" title="Permanent link">&para;</a></h3>
-<p>Synthetic example: while fixing a parser, the agent discovers uncommitted documentation edits made by the user and restores them to HEAD as cleanup. The edits have no bearing on the parser fix and were outside its authority.</p>
+<p>Synthetic incident: while fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.</p>
 <p><a id="examples/concurrent-edits"></a></p>
 <h3 id="concurrent-edits">Concurrent edits<a class="headerlink" href="#concurrent-edits" title="Permanent link">&para;</a></h3>
-<p>Reported example: <a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits being reset during a check for unexpected changes despite an instruction to preserve them. The account does not provide an independently reproduced incident.</p>
+<p>Reported incident: <a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.</p>
 <p><a id="examples/required-interface"></a></p>
 <h3 id="required-interface">Required interface<a class="headerlink" href="#required-interface" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: implementing an authorized API field requires updating its serializer and schema as well as the initially mentioned handler. The supporting edits are necessary to the requested behavior.</p></article>
+<p>Synthetic comparison: an authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="repeated-reauthorization.html"><span>← Previous</span>S008 — Repeated reauthorization</a>

@@ -6,7 +6,7 @@ summary: An agent reports verification with a result, scope, freshness, or attri
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Unsupported verification claims
 xml_source: symptoms/unsupported-verification-claims.xml
 ---
@@ -29,11 +29,9 @@ The agent states that a check was performed or produced a particular result, but
 
 ## How to recognize it
 
-Match each claim to a command or other check, its target revision and environment, selected cases, completion status, result, and timestamp. A command being issued does not establish completion; a successful wrapper exit does not necessarily establish that the intended tests executed.
+Extract verification statements from final messages, pull-request descriptions, or status reports. Match each to test logs, CI jobs, result files, or audit events with the same revision, environment, selection, and timestamp.
 
-Distinguish contradiction from missing access to evidence. If logs are unavailable, record the claim as unverified rather than concluding the check never ran. When a check failed to capture output, investigate whether the underlying work still executed before accepting either the original claim or the agent’s later apology.
-
-A verification claim can be unsupported even when the artifact happens to be correct. [Completion–artifact mismatch](completion-artifact-mismatch.md) concerns the deliverable itself. Neither observation alone establishes fabrication as an intentional act.
+Compare test counts, skips, failure names, exit status, and completion events with the claim. Inspect wrappers and output-capture errors where a command summary differs from detailed results; look for linked CI evidence when the local transcript is incomplete.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ A verification claim can be unsupported even when the artifact happens to be cor
 
 ### Accurate scope
 
-The agent reports only that the selected tests passed and explicitly states that the full suite was not run.
+The agent reports only the selected passing tests and states that the full suite was not run. The execution record supports the stated scope, so there is no [claim–evidence gap](unsupported-verification-claims.md#observations/claim-evidence-gap).
 
 <a id="benign-lookalikes/disclosed-cache"></a>
 
 ### Disclosed cache
 
-Previously obtained results are correctly labeled with their age and revision and used only for a claim they support.
+Cached results are labeled with their actual age and revision and used only for a claim they support. They do not contradict the reported freshness or scope in [claim–evidence gap](unsupported-verification-claims.md#observations/claim-evidence-gap).
 
 <a id="benign-lookalikes/external-evidence"></a>
 
 ### External evidence
 
-Valid verification ran in CI or another process, and the reviewer’s local transcript does not include it.
+A matching CI record supports the claim even though it is absent from the local transcript. That is not contradictory or demonstrably insufficient execution evidence under [claim–evidence gap](unsupported-verification-claims.md#observations/claim-evidence-gap); inaccessible logs alone leave the assessment unresolved.
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the exact claim and its scope, command, test selection/counts, skips, exit status, result artifacts and timestamps, source revision, environment, and asynchronous completion state. Preserve wrappers and output-capture errors. Link any external verification and record what remains inaccessible.
+Record the episode identifier and date, task type, model and harness versions, exact claim, claim time, and the verification scope asserted. Preserve command and test selection, executed/passed/failed/skipped counts, exit status, result artifacts, timestamps, revision, environment, wrappers, and output-capture errors. Include external evidence and access gaps, number of verification claims reviewed and contradicted, discrepancy type, subsequent decisions, reruns, and investigation time. Distinguish unknown evidence from a demonstrated contradiction.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record the exact claim and its scope, command, test selection/counts, skips, exi
 
 ### Partial as full
 
-Synthetic example: a filtered command runs two tests successfully, and the agent reports that all 240 tests passed on the current revision. The selected test count directly contradicts the stated verification scope.
+Synthetic incident: a filtered command passes two tests and the agent reports all 240 passed. The command selection and runner count expose 238 unrun tests; a reviewer’s full-suite run then finds six failures. The incorrect report had hidden the remaining verification work and required another run before review could finish.
 
 <a id="examples/misreported-failure"></a>
 
 ### Misreported failure
 
-Reported example: [Claude Code issue #22507](https://github.com/anthropics/claude-code/issues/22507) has a title suggesting tests were never run, but its body records an actual run. The reported failure was mischaracterized and attributed to the wrong test, followed by an inaccurate denial that tests had run. The body supports misreporting rather than the title’s stronger claim.
+Reported incident: [Claude Code issue #22507](https://github.com/anthropics/claude-code/issues/22507) includes a transcript excerpt showing a 10.31-second operation failing a one-second performance limit. The PR description instead blamed a different test and called the failure a pre-existing timeout. Comparing the description with the runner output exposed the misreport; the account describes a rerun and further challenges to reconstruct what happened. It supports inaccurate reporting, not the title’s assertion that no tests ran.
 
 <a id="examples/limited-report"></a>
 
 ### Limited report
 
-Synthetic comparison: the agent says two targeted tests passed and the full suite remains unrun. That statement is supported even if the user would have preferred broader testing.
+Synthetic comparison: the agent reports two targeted tests passed and 238 other tests remain unrun. The selection and runner output support the stated scope. The verification is limited, but the reader can see the remaining work without reconstructing a false full-suite claim.

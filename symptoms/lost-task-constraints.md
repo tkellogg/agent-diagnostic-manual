@@ -6,7 +6,7 @@ summary: "A previously established task requirement or decision ceases to govern
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-26'
+updated: '2026-10-27'
 title: Lost task constraints
 xml_source: symptoms/lost-task-constraints.xml
 ---
@@ -29,11 +29,9 @@ An explicit, still-applicable task constraint is represented or followed earlier
 
 ## How to recognize it
 
-Identify the original constraint and evidence that it was initially represented or followed. Compare it with a later task summary, plan, stated understanding, or action. A missing mention in an abbreviated summary alone is insufficient if the agent still acts consistently with the constraint.
+Find the original requirement and the earlier plan, answer, or action that represented or followed it. Compare those records with later tool calls and artifact diffs to locate the first incompatible continuation.
 
-A visible summary that changes the requirement provides stronger evidence of representational loss than action alone. If the instruction remains visible but the agent violates it, describe lost adherence without claiming literal memory erasure. Record compaction or handoff timing without assuming it caused the change.
-
-Distinguish a lost requirement from a newly introduced one and from a forgotten fact that does not constrain the task. [Correction without behavioral change](correction-without-behavioral-change.md) additionally requires an acknowledged correction; it can overlap with this symptom.
+Inspect compaction summaries, handoff messages, memory files, and replacement prompts around that point. Compare them with later user approvals or revisions, and inspect actual execution when a shortened summary leaves a requirement unstated.
 
 <a id="benign-lookalikes"></a>
 
@@ -43,25 +41,25 @@ Distinguish a lost requirement from a newly introduced one and from a forgotten 
 
 ### Revised request
 
-The user explicitly changes or withdraws the earlier constraint.
+The user changes or withdraws the earlier constraint before the later action. It is no longer the still-applicable requirement in [constraint loss](lost-task-constraints.md#observations/constraint-loss).
 
 <a id="benign-lookalikes/concise-summary"></a>
 
 ### Concise summary
 
-A summary omits a detail for brevity, but the complete instruction remains available and subsequent actions honor it.
+A shortened summary omits a detail, but later actions still honor it. The incompatible continuation required by [constraint loss](lost-task-constraints.md#observations/constraint-loss) is absent.
 
 <a id="benign-lookalikes/resolved-conflict"></a>
 
 ### Resolved conflict
 
-The agent identifies an instruction conflict or infeasible constraint and obtains an appropriate resolution before proceeding.
+The agent obtains an authorized resolution to conflicting or infeasible instructions before acting. The later work follows the resolved requirement rather than contradicting a still-applicable one under [constraint loss](lost-task-constraints.md#observations/constraint-loss).
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the original requirement and its authority, earlier compliant behavior or representation, later summaries and actions, and the exact discrepancy. Preserve compaction/handoff boundaries, replacement context, active instructions, and any superseding user messages. Note whether the evidence shows missing representation, incompatible action, or both.
+Record the episode identifier and date, task type, model and harness versions, original requirement and authority, and earlier evidence that it was represented or followed. Preserve later summaries, effective inputs, actions, and the first incompatible result, with compaction or handoff times and superseding instructions. Include the number of established constraints and affected constraints, unauthorized actions, user interruptions, rollback or rework time, and final outcome. Distinguish a missing representation from incompatible behavior when grouping incidents.
 
 <a id="examples"></a>
 
@@ -71,16 +69,16 @@ Record the original requirement and its authority, earlier compliant behavior or
 
 ### Review gate
 
-Synthetic example: the agent’s plan says to present a migration for review before running it. After a handoff, the replacement plan says to run the migration, and the agent does so without the requested review.
+Synthetic incident: an initial migration plan requires review before execution; a handoff summary instead directs execution. Audit logs show three tables changed before any approval. Comparing the two plans and execution timestamps exposes the lost gate; the user interrupts and spends twelve minutes rolling back the migration.
 
 <a id="examples/compacted-intent"></a>
 
 ### Compacted intent
 
-Reported example: [Claude Code issue #23776](https://github.com/anthropics/claude-code/issues/23776) describes a request to revise and present a plan for review being transformed during compaction into an instruction to implement changes. Technical details reportedly survived while the review requirement did not.
+Reported incident: [Claude Code issue #23776](https://github.com/anthropics/claude-code/issues/23776) compares a request to revise and present a plan with a compaction summary directing implementation. The agent reportedly made multiple file edits, added a test file, and ran builds before review. The user had to interrupt and restate the request; rollback was a possible consequence, not a confirmed outcome. No rework duration is reported.
 
 <a id="examples/waived-review"></a>
 
 ### Waived review
 
-Synthetic comparison: the user reviews the plan and explicitly approves execution. A subsequent summary omits the completed review gate and the agent proceeds; the constraint has been satisfied rather than lost.
+Synthetic comparison: the user reviews a migration and approves execution before the agent runs it. The approval timestamp explains why the next summary omits the completed gate; one authorized migration proceeds without loss of the still-applicable requirements.
