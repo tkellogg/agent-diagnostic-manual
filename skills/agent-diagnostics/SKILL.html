@@ -16,9 +16,13 @@
         <link href="../../css/solid.min.css" rel="stylesheet">
         <link href="../../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link href="../../assets/adm.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../assets/adm.css?v=04afce8cc3f5" rel="stylesheet">
 <link href="../../pagefind/pagefind-ui.css" rel="stylesheet">
- 
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
@@ -279,19 +283,9 @@
 
         </footer>
 
-        <script src="../../js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = "../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../js/base.js"></script>
+<script src="../../js/bootstrap.bundle.min.js"></script>
 <script src="../../pagefind/pagefind-ui.js"></script>
-<script>
-  if (window.PagefindUI) {
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false,
-      baseUrl: "../.." + "/" });
-  }
-</script>
+<script src="../../assets/adm.js?v=04afce8cc3f5" data-base-url="../../"></script>
 
 
         <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
