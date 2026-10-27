@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const label = document.createElement('span');
         label.className = 'adm-result-meta';
         label.textContent = [entry_id, kind].filter(Boolean).join(' · ');
-        return { ...result, meta, excerpt: label.outerHTML + result.excerpt };
+        return { ...result, meta, excerpt: label.outerHTML + ' ' + result.excerpt };
       },
       translations: { placeholder: 'Search all ADM…', search_label: 'Search all ADM' } });
   }

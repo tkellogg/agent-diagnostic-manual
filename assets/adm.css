@@ -61,7 +61,7 @@ body > .container { margin-top: 3rem; }
 .adm-search .modal-title { font-family: Georgia, serif; font-size: 1.6rem; }
 .adm-search .modal-body { padding: .5rem 1.5rem 1.5rem; }
 .adm-search-scope { color: var(--adm-muted); font-size: .85rem; margin-bottom: 1rem; }
-.adm-result-meta { display: block; margin: .2rem 0 .65rem; color: var(--adm-accent); font-size: .75rem; font-weight: 600; letter-spacing: .04em; }
+.adm-search #search .adm-result-meta { display: block; margin: .2rem 0 .65rem; color: var(--adm-accent); font-size: .75rem; font-weight: 600; letter-spacing: .04em; }
 .adm-intro { margin: 0 0 1rem; color: var(--adm-accent); }
 article { max-width: 78ch; overflow-wrap: anywhere; }
 article h1, article h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
