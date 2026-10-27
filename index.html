@@ -133,6 +133,18 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
+    <a href="docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
+</li>
+                                    
+<li>
+    <a href="docs/authoring-symptom.html" class="dropdown-item">Authoring symptoms XML files</a>
+</li>
+                                    
+<li>
+    <a href="docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
     <a href="skills/agent-diagnostics/SKILL.html" class="dropdown-item">Diagnostic skill</a>
 </li>
                                     
@@ -274,7 +286,7 @@
 
 <h1 id="agent-diagnostic-manual">Agent Diagnostic Manual<a class="headerlink" href="#agent-diagnostic-manual" title="Permanent link">&para;</a></h1>
 <p>A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.</p>
-<p>Start with <a href="skills/agent-diagnostics/SKILL.html">how to use the files</a> and the <a href="skills/agent-diagnostics/references/format.html">format reference</a>.</p>
+<p>Start with <a href="docs/diagnostic-process.html">the diagnostic process</a>: learn from past incidents, change the agent system, and use predictions about future behavior to refine the diagnosis. The <a href="skills/agent-diagnostics/SKILL.html">diagnostic skill</a> and <a href="skills/agent-diagnostics/references/format.html">format reference</a> explain how to work with the files.</p>
 <p>Browse the XML entries for <a href="#symptoms">symptoms</a>, <a href="#diagnoses">diagnoses</a>, and <a href="#interventions">interventions</a>. The website lists all entries automatically.</p>
 <h2 id="symptoms">Symptoms<a class="headerlink" href="#symptoms" title="Permanent link">&para;</a></h2>
 <ul>
@@ -362,6 +374,7 @@ python -m http.server 8000 --directory dist --bind 127.0.0.1
 <p>Open <code>http://127.0.0.1:8000</code>. MkDocs builds the site and Pagefind adds local, static search. Each entry has adjacent <code>.html</code>, <code>.md</code>, and <code>.xml</code> files, with format links on the HTML page. For example, replace <code>symptoms/repeated-retrieval.html</code> with <code>symptoms/repeated-retrieval.md</code> or <code>symptoms/repeated-retrieval.xml</code>. The build also writes <code>dist/catalog.json</code>. All output is disposable and ignored by Git. Edit XML and rebuild.</p>
 <h2 id="authoring">Authoring<a class="headerlink" href="#authoring" title="Permanent link">&para;</a></h2>
 <p><code>entries/</code> contains canonical symptoms, diagnoses, and interventions. <a href="schema/adm-v1.xsd">XSD</a> validates document structure; the <a href="skills/agent-diagnostics/references/format.html">format reference</a> defines cross-document rules. The builder is a reference implementation.</p>
+<p>Read the guides for <a href="docs/authoring-symptom.html">authoring symptoms</a> and <a href="docs/authoring-intervention.html">authoring interventions</a>. <code>docs/</code> holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent <code>.html</code> and <code>.md</code> files.</p>
 <p>Singleton sections use tag names; list members use short, locally unique IDs:</p>
 <pre><code class="language-xml">&lt;observations&gt;
   &lt;observation id=&quot;multi-read&quot;&gt;
@@ -453,5 +466,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-27 16:46:06.073029+00:00
+Build Date UTC : 2026-10-27 16:53:51.103520+00:00
 -->
