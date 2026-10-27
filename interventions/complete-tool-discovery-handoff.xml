@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<intervention xmlns="urn:adm:1" id="I005" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Complete the discovery-to-invocation handoff">
+  <summary>Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.</summary>
+  <purpose>
+    <p>Repair the interface between tool discovery and use. A capability name is not enough when invocation requires additional schema or runtime registration. Discovery should either complete that handoff or tell the agent what remains blocked.</p>
+  </purpose>
+  <preconditions>
+    <precondition id="delivery-gap">
+      <p>The adapter promises callable access after discovery, but inspection shows a gap in registration, schema delivery, or the supported invocation route.</p>
+    </precondition>
+    <precondition id="adapter-access">
+      <p>The maintainer can change and inspect the adapter and receiving tool configuration while preserving existing permissions.</p>
+    </precondition>
+  </preconditions>
+  <procedure>
+    <step id="trace-handoff">
+      <p>Locate where discovery resolves the capability, where runtime registration occurs, and how the receiving turn gets its invocation contract.</p>
+    </step>
+    <step id="complete-delivery">
+      <p>Change that shared path to register and deliver the interface before reporting callable availability. If activation is asynchronous, return its pending state and supported continuation instead of an apparently completed discovery.</p>
+    </step>
+    <step id="expose-blocks">
+      <p>Return an explicit unavailable result when activation fails, with the actionable reason and supported recovery if one exists. Repeated discovery should not return the same success-looking reference while the capability remains inaccessible.</p>
+    </step>
+    <step id="confirm-use">
+      <p>Inspect a representative receiving input and safe invocation, then observe ordinary subsequent tool-use opportunities. Check an unavailable capability as well so errors remain visible and permission boundaries hold.</p>
+    </step>
+  </procedure>
+  <evaluation>
+    <p>Record predictions for available and unavailable tools separately. On applicable future turns, compare successful discovery-to-use transitions, repeated searches for the same capability, explicit blocks, and completed required tool work.</p>
+    <p>Confirmed delivery with continued rediscovery weakens the delivery-gap explanation. Correct invocations that fail at an external service indicate another obstruction. Fewer searches caused by silently skipping required work are not success.</p>
+  </evaluation>
+  <risks-and-confounders>
+    <p>Loading unnecessary schemas can consume context; stale registrations can call the wrong interface. Adapter changes must preserve authorization and tool selection. Model or provider changes can independently affect discovery behavior.</p>
+  </risks-and-confounders>
+  <stop-and-rollback>
+    <p>Revert the adapter change if it exposes unauthorized tools, delivers incompatible schemas, or breaks working routes. Report unavailable capabilities explicitly while repairing the handoff; do not mask activation failures as successful access.</p>
+  </stop-and-rollback>
+  <evidence-and-uncertainty>
+    <p>This is an unvalidated proposed adapter repair. No particular harness is asserted to have this defect, and a completed handoff does not guarantee correct tool choice or successful task completion.</p>
+  </evidence-and-uncertainty>
+</intervention>

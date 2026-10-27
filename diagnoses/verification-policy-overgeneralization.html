@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://diag.timkellogg.me/diagnoses/unproductive-repeated-retrieval.html">
+        <link rel="canonical" href="https://diag.timkellogg.me/diagnoses/verification-policy-overgeneralization.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>D001 — Unproductive repeated retrieval - Agent Diagnostic Manual</title>
+        <title>D003 — Verification policy overgeneralization - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
         <script>hljs.highlightAll();</script>
 
 <meta data-pagefind-meta="kind[content]" content="Diagnosis">
-<meta data-pagefind-meta="entry_id[content]" content="D001">
+<meta data-pagefind-meta="entry_id[content]" content="D003">
 
 
     </head>
@@ -108,6 +108,10 @@
 <li>
     <a href="../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="unproductive-repeated-retrieval.html" class="dropdown-item active" aria-current="page">D001 — Unproductive repeated retrieval</a>
+    <a href="context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="verification-policy-overgeneralization.html" class="dropdown-item active" aria-current="page">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="../docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
@@ -225,7 +261,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#unproductive-repeated-retrieval" class="nav-link">Unproductive repeated retrieval</a>
+            <li class="nav-item" data-bs-level="1"><a href="#verification-policy-overgeneralization" class="nav-link">Verification policy overgeneralization</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#relationships" class="nav-link">Relationships</a>
               <ul class="nav flex-column">
@@ -270,107 +306,86 @@
     <span class="adm-eyebrow">diagnosis</span>
   
   <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
-    <a href="unproductive-repeated-retrieval.md" download title="Download Markdown" aria-label="Download Markdown"><i class="fa-brands fa-markdown" aria-hidden="true"></i></a>
+    <a href="verification-policy-overgeneralization.md" download title="Download Markdown" aria-label="Download Markdown"><i class="fa-brands fa-markdown" aria-hidden="true"></i></a>
     
-    <a href="unproductive-repeated-retrieval.xml" title="View XML" aria-label="View XML"><i class="fa-solid fa-code" aria-hidden="true"></i></a>
+    <a href="verification-policy-overgeneralization.xml" title="View XML" aria-label="View XML"><i class="fa-solid fa-code" aria-hidden="true"></i></a>
     
   </nav>
   
   </div>
   
-  <p class="entry-status"><span class="entry-id">D001</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">D003</span><span>draft</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
-<h1 id="unproductive-repeated-retrieval">Unproductive repeated retrieval<a class="headerlink" href="#unproductive-repeated-retrieval" title="Permanent link">&para;</a></h1>
-<p>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</p>
+<h1 id="verification-policy-overgeneralization">Verification policy overgeneralization<a class="headerlink" href="#verification-policy-overgeneralization" title="Permanent link">&para;</a></h1>
+<p>A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.</p>
 <p><a id="relations"></a></p>
 <h2 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h2>
 <p>Related symptom: <a href="../symptoms/repeated-retrieval.html">S001</a></p>
-<p><a id="relations/I001"></a>
-<a id="relations/I001/when"></a>
-<a href="../interventions/preserve-task-relevant-evidence.html">I001</a></p>
-<p><strong>When:</strong> Necessary evidence appears to be lost after a context transition; a still-current source excerpt can be restored to the next model input without changing source freshness requirements.</p>
+<p>Related symptom: <a href="../symptoms/excessive-verification.html">S004</a></p>
+<p><a id="relations/I002"></a>
+<a id="relations/I002/when"></a>
+<a href="../interventions/scope-verification-policy.html">I002</a></p>
+<p><strong>When:</strong> A specific editable instruction or workflow triggers checks without a relevant changed state, unresolved question, or still-unmet acceptance need.</p>
+<p><a id="relations/I002/predictions"></a></p>
+<h4 id="predictions">Predictions<a class="headerlink" href="#predictions" title="Permanent link">&para;</a></h4>
+<p>After narrowing that rule, verification overrun should decline for the affected class of work while required checks and defect detection remain intact. The reduction should occur at the rule's trigger points, not uniformly across unrelated tasks.</p>
+<p>Continued extra checks after the revised rule reaches the agent favor another cause. Fewer checks with more missed defects suggest the scope was narrowed too far; slower delivery from another bottleneck may remain.</p>
 <p><a id="definition"></a></p>
 <h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link">&para;</a></h2>
-<p>A candidate descriptive diagnosis for an episode in which <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a> contributes little additional task-relevant information and interferes with progress or spends resources without a justified verification purpose.</p>
-<p>The assessed system includes model, harness, tools, memory, instructions, and environment. The diagnosis does not by itself attribute failure to any one component. It also does not claim a human-like compulsion, anxiety, or subjective experience.</p>
+<p>A verification policy should connect each required check to a decision, risk, or acceptance condition and define when enough evidence has been gathered. A broad or self-retriggering rule instead demands another check irrespective of whether the relevant state changed or the question was already answered.</p>
+<p>The agent may be complying perfectly with that rule. The proposed pathology is in the configured checking policy, not an inference about caution, anxiety, or intent.</p>
 <p><a id="criteria"></a></p>
 <h2 id="candidate-criteria">Candidate criteria<a class="headerlink" href="#candidate-criteria" title="Permanent link">&para;</a></h2>
-<p><a id="criteria/recurrence"></a></p>
-<h3 id="recurrence">Recurrence<a class="headerlink" href="#recurrence" title="Permanent link">&para;</a></h3>
-<p>The episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone.</p>
-<p>Related symptom: <a href="../symptoms/repeated-retrieval.html">S001</a></p>
-<p><a id="criteria/low-value"></a></p>
-<h3 id="low-additional-value">Low additional value<a class="headerlink" href="#low-additional-value" title="Permanent link">&para;</a></h3>
-<p>The repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose.</p>
-<p><a id="criteria/functional-consequence"></a></p>
-<h3 id="functional-consequence">Functional consequence<a class="headerlink" href="#functional-consequence" title="Permanent link">&para;</a></h3>
-<p>The trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned.</p>
-<p><a id="criteria/alternative-assessment"></a></p>
-<h3 id="alternative-assessment">Alternative assessment<a class="headerlink" href="#alternative-assessment" title="Permanent link">&para;</a></h3>
-<p>The exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure.</p>
+<p><a id="criteria/operative-rule"></a></p>
+<h3 id="an-operative-rule-triggers-the-work">An operative rule triggers the work<a class="headerlink" href="#an-operative-rule-triggers-the-work" title="Permanent link">&para;</a></h3>
+<p>Identify the actual instruction or workflow rule and the decision points where it caused the extra checks. Similar wording in an unused file is insufficient.</p>
+<p><a id="criteria/scope-mismatch"></a></p>
+<h3 id="the-trigger-exceeds-the-checking-need">The trigger exceeds the checking need<a class="headerlink" href="#the-trigger-exceeds-the-checking-need" title="Permanent link">&para;</a></h3>
+<p>Establish that the rule covers a class of work whose relevant verification need is already satisfied or absent. Name the missing justification; elapsed time or passing results alone do not establish waste.</p>
+<p><a id="criteria/checking-consequence"></a></p>
+<h3 id="the-policy-produces-excess-checking">The policy produces excess checking<a class="headerlink" href="#the-policy-produces-excess-checking" title="Permanent link">&para;</a></h3>
+<p>Following the rule produces <a href="../symptoms/excessive-verification.html">excessive verification</a>, with delay or resource use traceable to the extra checks. Equivalent rereads may also match <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>.</p>
+<p>Related symptom: <a href="../symptoms/excessive-verification.html">S004</a></p>
 <p><a id="exclusions"></a></p>
 <h2 id="exclusions">Exclusions<a class="headerlink" href="#exclusions" title="Permanent link">&para;</a></h2>
-<p><a id="exclusions/useful-retrieval"></a></p>
-<h3 id="useful-retrieval">Useful retrieval<a class="headerlink" href="#useful-retrieval" title="Permanent link">&para;</a></h3>
-<p>Do not assign this candidate diagnosis solely because the same file or endpoint was accessed repeatedly. Exclude useful retrieval of changed content, different needed content, justified freshness checks, and ordinary recovery when the tool never delivered a usable result.</p>
-<p><a id="exclusions/failed-delivery"></a></p>
-<h3 id="failed-delivery">Failed delivery<a class="headerlink" href="#failed-delivery" title="Permanent link">&para;</a></h3>
-<p>A repeatedly failing tool may itself deserve investigation, but it is not evidence that adequate evidence was retrieved and then reused poorly.</p>
-<p><a id="exclusions/required-checks"></a></p>
-<h3 id="required-checks">Required checks<a class="headerlink" href="#required-checks" title="Permanent link">&para;</a></h3>
-<p>A mandatory verification instruction can explain repetition. If the checks are appropriate to the task, exclude the diagnosis. If a rule forces demonstrably wasteful repetition, the system-level pattern may still fit; record the rule as a suspected cause and avoid blaming model behavior in isolation.</p>
+<p><a id="exclusions/justified-check"></a></p>
+<h3 id="justified-check">Justified check<a class="headerlink" href="#justified-check" title="Permanent link">&para;</a></h3>
+<p>The checks address an unmet acceptance condition, relevant risk, new change, or an agreed repeatability study.</p>
+<p><a id="exclusions/execution-cost"></a></p>
+<h3 id="execution-cost">Execution cost<a class="headerlink" href="#execution-cost" title="Permanent link">&para;</a></h3>
+<p>The chosen check is appropriate but expensive because of its implementation or environment. Slow execution alone does not establish an overgeneral policy.</p>
 <p><a id="differential"></a></p>
 <h2 id="differential-diagnosis">Differential diagnosis<a class="headerlink" href="#differential-diagnosis" title="Permanent link">&para;</a></h2>
-<p><a id="differential/useful-refresh"></a></p>
-<h3 id="useful-refresh-or-different-information-need">Useful refresh or different information need<a class="headerlink" href="#useful-refresh-or-different-information-need" title="Permanent link">&para;</a></h3>
-<p><a id="differential/useful-refresh/discriminator"></a></p>
+<p><a id="differential/state-loss"></a></p>
+<h3 id="the-system-loses-evidence-that-checking-finished">The system loses evidence that checking finished<a class="headerlink" href="#the-system-loses-evidence-that-checking-finished" title="Permanent link">&para;</a></h3>
+<p><a id="differential/state-loss/discriminator"></a></p>
 <h4 id="discriminator">Discriminator<a class="headerlink" href="#discriminator" title="Permanent link">&para;</a></h4>
-<p>Compare source versions, requested ranges, decision purpose, and information gained.</p>
-<p><a id="differential/failed-delivery"></a></p>
-<h3 id="failed-or-truncated-delivery">Failed or truncated delivery<a class="headerlink" href="#failed-or-truncated-delivery" title="Permanent link">&para;</a></h3>
-<p><a id="differential/failed-delivery/discriminator"></a></p>
+<p>Inspect whether the prior result reaches the later turn. Repetition after a transition may instead reflect <a href="context-handoff-loss.html">context handoff loss</a>.</p>
+<p><a id="differential/new-evidence"></a></p>
+<h3 id="new-evidence-warrants-another-check">New evidence warrants another check<a class="headerlink" href="#new-evidence-warrants-another-check" title="Permanent link">&para;</a></h3>
+<p><a id="differential/new-evidence/discriminator"></a></p>
 <h4 id="discriminator_1">Discriminator<a class="headerlink" href="#discriminator_1" title="Permanent link">&para;</a></h4>
-<p>Inspect the exact result supplied to the model; a backend success response alone is insufficient.</p>
-<p><a id="differential/context-loss"></a></p>
-<h3 id="loss-from-active-context">Loss from active context<a class="headerlink" href="#loss-from-active-context" title="Permanent link">&para;</a></h3>
-<p><a id="differential/context-loss/discriminator"></a></p>
+<p>Compare code, environment, and failures at each trigger. The later check may answer a genuinely new question.</p>
+<p><a id="differential/rule-independent"></a></p>
+<h3 id="extra-checking-is-not-prescribed-by-the-rule">Extra checking is not prescribed by the rule<a class="headerlink" href="#extra-checking-is-not-prescribed-by-the-rule" title="Permanent link">&para;</a></h3>
+<p><a id="differential/rule-independent/discriminator"></a></p>
 <h4 id="discriminator_2">Discriminator<a class="headerlink" href="#discriminator_2" title="Permanent link">&para;</a></h4>
-<p>Inspect pre-call inputs and compaction boundaries; assess whether needed evidence is missing.</p>
-<p><a id="differential/required-checks"></a></p>
-<h3 id="instructions-demand-another-check">Instructions demand another check<a class="headerlink" href="#instructions-demand-another-check" title="Permanent link">&para;</a></h3>
-<p><a id="differential/required-checks/discriminator"></a></p>
-<h4 id="discriminator_3">Discriminator<a class="headerlink" href="#discriminator_3" title="Permanent link">&para;</a></h4>
-<p>Identify the operative rule and its scope; compare a controlled run with that rule clarified where legitimate.</p>
-<p><a id="differential/available-evidence"></a></p>
-<h3 id="repetition-despite-adequate-visible-evidence">Repetition despite adequate visible evidence<a class="headerlink" href="#repetition-despite-adequate-visible-evidence" title="Permanent link">&para;</a></h3>
-<p><a id="differential/available-evidence/discriminator"></a></p>
-<h4 id="discriminator_4">Discriminator<a class="headerlink" href="#discriminator_4" title="Permanent link">&para;</a></h4>
-<p>Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth.</p>
+<p>Compare the instruction with the chosen action. If the rule already limits scope and the agent exceeds it, this policy explanation is incomplete.</p>
 <p><a id="investigation"></a></p>
 <h2 id="investigation">Investigation<a class="headerlink" href="#investigation" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible.</li>
-<li>Annotate each retrieval with information gained and the next task action it enabled or displaced. Record uncertainty in these judgments.</li>
-<li>Have a second reviewer assess the criteria without seeing the first review. Disagreements identify weak boundaries; agreement alone does not validate the category.</li>
-<li>Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider <a href="../interventions/preserve-task-relevant-evidence.html">restoring missing evidence to active context</a>.</li>
-<li>Evaluate completion and correctness as well as retrieval count and cost. Repeat trials as feasible and state model, task, and harness limits.</li>
-</ol>
+<p>Map extra checks to the rule and the question each result could answer. Include a healthy task where the same rule is useful. Inspect ordinary future work after a scoped policy change; a costly replay study is not a prerequisite.</p>
 <p><a id="interventions"></a></p>
 <h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
-<p><a href="../interventions/preserve-task-relevant-evidence.html">I001 — Restore missing evidence to active context</a> reinserts a still-current source excerpt into the next model input when a context transition has removed evidence needed for the pending action. It may help resume the task and can also test the evidence-loss hypothesis. It is not a general prescription for every case of D001.</p>
-<p>If evidence was never delivered, repair delivery first. If a rule forces redundant checks, investigate the rule. These are differential-directed next steps, not additional intervention entries or proven remedies.</p>
-<p>Do not implement “never read twice” as a treatment. It can hide the symptom while increasing factual errors or skipping legitimate checks.</p>
+<p><a href="../interventions/scope-verification-policy.html">Give verification a scope and stopping condition</a> changes the offending policy. The maintainer must have authority to change it; an executing agent should not silently bypass a mandatory gate.</p>
 <p><a id="evidence-and-uncertainty"></a></p>
 <h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p><strong>Category status: unvalidated.</strong> No real trace has been adjudicated and no intervention outcome is claimed in this repository. The criteria and label are proposals.</p>
-<p>Open questions include whether low information gain can be rated consistently, how to distinguish valuable verification from waste, and whether this category predicts useful interventions across different harnesses.</p>
-<p>The next evidence should include one inspectable failing episode and a closely matched healthy comparison. A positive result under one configuration would not establish a universal cause or remedy.</p></article>
+<p>This is an unvalidated working model. An inefficient-looking check does not by itself establish a bad rule, and the entry provides no measured effect of changing one. Agreement about justified verification may vary with task risk.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../symptoms/agreement-driven-reversal.html"><span>← Previous</span>S013 — Agreement-driven reversal</a>
-    <a rel="next" href="../interventions/preserve-task-relevant-evidence.html"><span>Next →</span>I001 — Restore missing evidence to active context</a>
+    <a rel="prev" href="tool-discovery-delivery-gap.html"><span>← Previous</span>D002 — Tool discovery delivery gap</a>
+    <a rel="next" href="verification-scope-collapse.html"><span>Next →</span>D004 — Verification scope collapse</a>
   </nav>
   
 </main>

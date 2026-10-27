@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<intervention xmlns="urn:adm:1" id="I004" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Keep derived values out of source-only fields">
+  <summary>Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.</summary>
+  <purpose>
+    <p>Prevent <ref target="S014">inferred values presented as observations</ref> by preserving a field's meaning through collection and serialization. An accurate calculation can still violate a source-only contract.</p>
+  </purpose>
+  <preconditions>
+    <precondition id="field-contract">
+      <p>The task or output format distinguishes source-reported fields from calculations, and that distinction is being lost or bypassed.</p>
+    </precondition>
+    <precondition id="editable-publisher">
+      <p>The maintainer can change the collector instructions, serializer, or publication template and its consumers without silently changing the agreed output contract.</p>
+    </precondition>
+  </preconditions>
+  <procedure>
+    <step id="separate-values">
+      <p>Update the reusable collector and serializer to keep an observed value tied to its source location. Permit calculations only in explicitly authorized derived fields, with their formula and inputs; preserve the contract's missing-value representation.</p>
+    </step>
+    <step id="block-substitution">
+      <p>Remove formula fallbacks and guessed defaults from source-only assignments. When the source lacks a value, publish the agreed missing marker rather than a computed substitute. If the current format cannot express the distinction, leave that field missing and report the limitation.</p>
+    </step>
+    <step id="check-boundary">
+      <p>Check the final publication path with one observed value, a genuine zero, a missing value, and an authorized calculation. Confirm that serialization and display retain each meaning; use the existing data model where it can express these distinctions.</p>
+    </step>
+    <step id="review-publications">
+      <p>Review subsequent comparable outputs against available source evidence, including outputs that look complete and those with missing fields.</p>
+    </step>
+  </procedure>
+  <evaluation>
+    <p>Predict fewer unsupported non-missing values in source-only fields, with genuine observations and permitted calculations preserved. Compare published values with accessible sources and inspect whether downstream consumers retain the distinction.</p>
+    <p>More missing values may reflect honest uncertainty, lost access, or a broken collector. Check useful data coverage and publication success alongside provenance accuracy. Correct source records with misleading rendered labels point to the publication layer; this change will not repair unrelated date filters or arithmetic errors.</p>
+  </evaluation>
+  <risks-and-confounders>
+    <p>Overstrict handling can discard valid observations, convert real zeros to missing values, or break consumers expecting a complete row. Source changes and inaccessible source pages limit retrospective assessment.</p>
+  </risks-and-confounders>
+  <stop-and-rollback>
+    <p>Repair or revert the faulty collector or serializer if valid data is lost or publication breaks. Preserve the observed-versus-derived distinction in a compatible output or an explicit limitation; do not reinstate silent fabrication as the fallback.</p>
+  </stop-and-rollback>
+  <evidence-and-uncertainty>
+    <p>This proposed intervention has no established outcome here. It can be appropriate from an observed contract violation without a catalog diagnosis; the underlying cause may lie in instructions, extraction, serialization, or presentation.</p>
+  </evidence-and-uncertainty>
+</intervention>

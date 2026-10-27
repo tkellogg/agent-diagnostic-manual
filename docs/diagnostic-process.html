@@ -108,6 +108,10 @@
 <li>
     <a href="../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
@@ -271,7 +307,7 @@
 <p>A human or a separate maintenance agent can use this process. It does not require the agent doing the work to diagnose itself. This guide describes the method independently of any particular skill, harness, or XML representation.</p>
 <h2 id="the-working-model">The working model<a class="headerlink" href="#the-working-model" title="Permanent link">&para;</a></h2>
 <p>A symptom describes observable behavior. A working diagnosis explains how the system may be producing or maintaining that behavior. Differential diagnosis compares plausible explanations and identifies evidence that would distinguish them. A useful model also suggests other symptoms to look for, including ones the original report did not mention.</p>
-<p>The model need not identify one ultimate root cause. Several conditions can interact. A descriptive label can help organize cases without establishing their mechanism; keep the proposed explanation explicit and provisional. If no catalog diagnosis fits, record a working hypothesis rather than forcing a match.</p>
+<p>The model need not identify one ultimate root cause. Several conditions can interact. Keep the proposed explanation explicit and provisional; a descriptive pattern belongs among symptoms until there is a working model to add. If no catalog diagnosis fits, record a working hypothesis rather than forcing a match.</p>
 <p>An intervention makes a concrete, lasting change based on that explanation. Its prediction connects the change to future behavior:</p>
 <blockquote>
 <p>Given this explanation of the system, making this change should produce this particular pattern of future behavior.</p>
@@ -332,9 +368,10 @@
 <h2 id="what-to-retain">What to retain<a class="headerlink" href="#what-to-retain" title="Permanent link">&para;</a></h2>
 <p>Keep a proportionate record of the incident evidence, competing explanations, exact system change and version, predictions made beforehand, observation period and opportunities, actual outcomes, confounders, and the decision about what to do next. This can be ordinary prose with links to artifacts; the process does not require a new case schema or a formal study.</p>
 <p>A prediction coming true supports an explanation most strongly when competing explanations would have predicted something different. General improvement alone is less discriminating. Repeated useful outcomes may justify retaining a change while its mechanism remains uncertain. Case-level confidence and the evidence status of a reusable ADM entry are separate judgments.</p>
+<p>Distinguish a newly caused problem from one newly exposed by progress or better observation. A repaired handoff may let work reach a previously hidden failure; a better acceptance check may reveal an existing defect. Neither observation alone shows the intervention damaged the system.</p>
 <h2 id="where-the-knowledge-belongs">Where the knowledge belongs<a class="headerlink" href="#where-the-knowledge-belongs" title="Permanent link">&para;</a></h2>
 <p>Symptoms provide shared descriptions of behavior. Diagnoses organize reusable explanations and their alternatives. Interventions specify changes to the system. The prediction depends on the diagnosis, the intervention, and the configuration where it is applied; it should be stated for that combination rather than treated as an unconditional promise of the intervention.</p>
-<p>This guide is the shared methodology. The <a href="../skills/agent-diagnostics/SKILL.html">diagnostic skill</a> is an agent-facing aid for working with ADM files. The <a href="authoring-symptom.html">symptom authoring guide</a> and <a href="authoring-intervention.html">intervention authoring guide</a> describe how to contribute entries; the <a href="../skills/agent-diagnostics/references/format.html">format reference</a> describes their representation.</p></article>
+<p>This guide is the shared methodology. The <a href="../skills/agent-diagnostics/SKILL.html">diagnostic skill</a> is an agent-facing aid for working with ADM files. The <a href="authoring-symptom.html">symptom</a>, <a href="authoring-diagnosis.html">diagnosis</a>, and <a href="authoring-intervention.html">intervention</a> authoring guides describe how to contribute entries; the <a href="../skills/agent-diagnostics/references/format.html">format reference</a> describes their representation.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="authoring-symptom.html"><span>← Previous</span>Authoring symptoms XML files</a>

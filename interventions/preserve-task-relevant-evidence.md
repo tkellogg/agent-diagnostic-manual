@@ -1,117 +1,100 @@
 ---
 id: I001
 kind: intervention
-summary: Reinsert a previously delivered, still-current source excerpt into the next
-  model input when a context transition has removed information needed for the pending
-  action.
+summary: Change the compaction or handoff policy to carry still-needed evidence, constraints,
+  and scoped authorization into future receiving inputs.
 version: '1'
 status: draft
 evidence: unvalidated
 updated: '2026-10-27'
-title: Restore missing evidence to active context
+title: Preserve task state across context transitions
 xml_source: interventions/preserve-task-relevant-evidence.xml
 ---
 
-# Restore missing evidence to active context
+# Preserve task state across context transitions
 
-Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action.
+Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.
 
 <a id="purpose"></a>
 
 ## Purpose
 
-Restore the missing information so the agent can resume the pending task action. Apply this at an affected decision point after compaction, truncation, or a handoff. The same action can test whether evidence loss contributes to [repeated retrieval](../symptoms/repeated-retrieval.md); a diagnosis is not required to try it when the preconditions below hold.
+Repair continuity across context transitions so future agents can use established task state. The intervention changes the transition mechanism or reusable handoff instructions, rather than adding a reminder to one completed incident.
 
-**Principle:** information retained in a transcript or memory file is only useful at a decision point if it reaches the model's input. Restore the smallest sufficient source excerpt with its provenance, rather than relying on a new interpretation of what the agent should remember.
+Information stored in a transcript or memory file helps only when the receiving agent can use it. Preserve the smallest sufficient state with its source and scope; an excerpt of untrusted data must not become a new instruction.
 
 <a id="preconditions"></a>
 
 ## Preconditions
 
-<a id="preconditions/missing-evidence"></a>
+<a id="preconditions/identified-omission"></a>
 
-### Missing evidence
+### Identified omission
 
-A prior retrieval delivered usable evidence, but it appears absent from the active context after a transition. Identify the recoverable source excerpt and the pending task action that needs it. Repetition alone does not establish that evidence is missing.
+Identify still-needed state that the current transition policy omits, and the class of later decisions it affects. Repetition alone does not establish an omission.
 
-<a id="preconditions/persistent-record"></a>
+<a id="preconditions/editable-transition"></a>
 
-### Persistent record
+### Editable transition
 
-The operator or harness can include a bounded evidence block in the next model input after the transition, without it immediately being removed by the same context policy.
-
-<a id="preconditions/freshness-enforced"></a>
-
-### Freshness enforced
-
-The excerpt's source version remains applicable to the task, and using it respects the task's freshness requirements. If a fresh read is required, perform that read instead. The excerpt can be supplied within the system's existing access boundaries.
+The maintainer can change the compaction, delegation, or context-loading policy and has authority to supply the relevant information to the receiving agent.
 
 <a id="procedure"></a>
 
 ## Procedure
 
-<a id="procedure/save-baseline"></a>
+<a id="procedure/locate-boundary"></a>
 
-### Save baseline
+### Locate boundary
 
-Capture the pending action, the transition that lost the evidence, the input before restoration where accessible, and the relevant source version. Record what successful progress and correctness would look like at the next decision point.
+Locate the shared policy that selects and delivers state at the affected transition. Record its current version and the decision-relevant omission.
 
 <a id="procedure/create-record"></a>
 
 ### Create record
 
-Copy the smallest sufficient fact or excerpt from the earlier tool result into a labeled evidence block. Include the source path or identifier, version or retrieval time, and the pending action it informs. Keep the source text distinct from the operator's explanation of its relevance.
+Modify that policy to retain pending decisions, still-applicable constraints, authorization with its limits, and the minimum evidence needed for the next work. Keep source identifiers and freshness conditions; omit completed or irrelevant history.
 
 <a id="procedure/preserve-record"></a>
 
 ### Preserve record
 
-Insert that block into the next model input after the transition, using the harness's task-context or tool-result mechanism. Treat the excerpt as source data under its original trust level. Keep task instructions and tool permissions unchanged, including permission to retrieve information when needed. Record the block's location and size.
+Wire the selected state into the receiving input through the normal handoff or context-loading path. Preserve instruction precedence and source trust. Invalidate evidence when its source changes, and never broaden permissions while summarizing them.
 
-<a id="procedure/verify-input"></a>
+<a id="procedure/confirm-delivery"></a>
 
-### Verify input
+### Confirm delivery
 
-Inspect the assembled model input or delivery trace to confirm the block actually survived truncation and was supplied. Writing it to a memory file alone does not establish delivery. If the effective input is inaccessible, record delivery as unverified and limit conclusions accordingly.
+Inspect a representative subsequent transition to check that the selected state reaches the receiving input without immediate truncation. If effective input is inaccessible, record delivery as unconfirmed.
 
-<a id="procedure/resume-task"></a>
+<a id="procedure/review-work"></a>
 
-### Resume task
+### Review work
 
-Resume the pending task without adding a separate instruction to stop rereading. At the next decision point, record whether the agent uses the restored evidence, retrieves it again, or takes another action, and whether that action advances the task correctly.
-
-<a id="procedure/review-outcome"></a>
-
-### Review outcome
-
-Check the resulting task state against the recorded success conditions. Remove the block when the pending need ends or its source changes. If another context transition loses still-needed evidence, recheck the preconditions before reinserting it; do not accumulate duplicate blocks.
+Observe later tasks with the affected transition. Compare their relevant decisions with the predictions recorded before applying the policy change.
 
 <a id="evaluation"></a>
 
 ## Evaluation
 
-**For this episode:** assess the next decision and the eventual task outcome. The prediction is that the agent can use the restored excerpt to advance the pending action with fewer redundant retrievals. Record correctness, completion, repeated reads of that source, elapsed time, added context tokens, tool cost, and any necessary checks skipped. Fewer reads without correct progress is not a successful remedy.
+Choose a review point with actual opportunities for the omitted state to matter. Track avoidable rediscovery, constraint adherence, and appropriate authorization decisions alongside completion, correctness, and context cost. Compare similar transitions using existing logs; a replay study is optional.
 
-**For a controlled evaluation:** save a checkpoint immediately before the affected decision and compare continuation with and without the evidence block. Keep the task, source versions, model, instructions, and tool configuration the same where practical; record differences. Repeat matched trials when assessing a general preservation policy. A similarly sized irrelevant block can provide an additional control for generic context changes, but is not required to restore evidence in one episode.
-
-**Interpretation:** failure to deliver the block leaves the intervention untested. If the excerpt is confirmed present but the same retrieval loop persists, that weakens the hypothesis that absence of this evidence is sufficient to explain the loop. Correct progress after restoration is useful case evidence, but a single continuation cannot separate the effect from sampling variation, and even a controlled improvement does not uniquely establish the cause.
+Improvement after confirmed delivery supports the relevant diagnosis-dependent prediction. Persistence despite delivery weakens a simple omission account; missing delivery leaves the change untested. Fewer rereads accompanied by stale decisions or fewer permission questions accompanied by unauthorized actions are harmful outcomes.
 
 <a id="risks-and-confounders"></a>
 
 ## Risks and confounders
 
-The excerpt can become stale or displace other needed context. Reinsertion changes placement and attention as well as availability, so a benefit may depend on presentation. Added instructions, a newly written summary, changed source content, and model sampling variation can also explain differences.
-
-Source text may contain instructions that should remain untrusted data. Preserve its provenance and trust boundary; do not promote it into system instructions or treat the agent's claim to remember it as evidence that it was delivered.
+Retained state can become stale, displace useful context, strip permission limits, or promote source text into authority. Changes in task mix, source freshness, and model behavior can also change the symptom rate.
 
 <a id="stop-and-rollback"></a>
 
 ## Stop and rollback
 
-Stop reinserting the block if its source becomes stale, it displaces necessary context, correctness declines, or required checks are skipped. Remove the block from subsequent inputs and disable any reinsertion hook added for this intervention. Retain the before/after inputs and outcome for review. Removing the block does not undo completed tool actions; inspect any resulting changes before continuing the task.
+Narrow or revert the retention policy if it introduces stale decisions, authorization errors, or excessive context cost. Restore the previous transition configuration and correct affected retained state; reverting cannot undo actions already taken.
 
 <a id="evidence-and-uncertainty"></a>
 
 ## Evidence and uncertainty
 
-**Unvalidated.** No inspected outcome or controlled comparison supports this procedure in the repository. It is a proposed action with a testable prediction; its effectiveness across tasks, models, and context policies remains unknown.
+This is a proposed system change with no efficacy result established here. Successful storage, successful delivery, and improved decisions are separate claims.

@@ -108,6 +108,10 @@
 <li>
     <a href="symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+    <a href="diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
@@ -342,19 +378,51 @@
 <p><a href="symptoms/agreement-driven-reversal.html">S013 — Agreement-driven reversal</a></p>
 <p>An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.</p>
 </li>
+<li>
+<p><a href="symptoms/inferred-values-as-observations.html">S014 — Inferred values presented as observations</a></p>
+<p>An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source.</p>
+</li>
 </ul>
 <h2 id="diagnoses">Diagnoses<a class="headerlink" href="#diagnoses" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><a href="diagnoses/unproductive-repeated-retrieval.html">D001 — Unproductive repeated retrieval</a></p>
-<p>Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.</p>
+<p><a href="diagnoses/context-handoff-loss.html">D001 — Context handoff loss</a></p>
+<p>A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.</p>
+</li>
+<li>
+<p><a href="diagnoses/tool-discovery-delivery-gap.html">D002 — Tool discovery delivery gap</a></p>
+<p>The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use.</p>
+</li>
+<li>
+<p><a href="diagnoses/verification-policy-overgeneralization.html">D003 — Verification policy overgeneralization</a></p>
+<p>A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.</p>
+</li>
+<li>
+<p><a href="diagnoses/verification-scope-collapse.html">D004 — Verification scope collapse</a></p>
+<p>The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.</p>
 </li>
 </ul>
 <h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Restore missing evidence to active context</a></p>
-<p>Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action.</p>
+<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Preserve task state across context transitions</a></p>
+<p>Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.</p>
+</li>
+<li>
+<p><a href="interventions/scope-verification-policy.html">I002 — Give verification a scope and stopping condition</a></p>
+<p>Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.</p>
+</li>
+<li>
+<p><a href="interventions/verify-acceptance-path.html">I003 — Verify through the required acceptance path</a></p>
+<p>Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope.</p>
+</li>
+<li>
+<p><a href="interventions/separate-observed-derived-values.html">I004 — Keep derived values out of source-only fields</a></p>
+<p>Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.</p>
+</li>
+<li>
+<p><a href="interventions/complete-tool-discovery-handoff.html">I005 — Complete the discovery-to-invocation handoff</a></p>
+<p>Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.</p>
 </li>
 </ul>
 <p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.</p>
@@ -374,7 +442,7 @@ python -m http.server 8000 --directory dist --bind 127.0.0.1
 <p>Open <code>http://127.0.0.1:8000</code>. MkDocs builds the site and Pagefind adds local, static search. Each entry has adjacent <code>.html</code>, <code>.md</code>, and <code>.xml</code> files, with format links on the HTML page. For example, replace <code>symptoms/repeated-retrieval.html</code> with <code>symptoms/repeated-retrieval.md</code> or <code>symptoms/repeated-retrieval.xml</code>. The build also writes <code>dist/catalog.json</code>. All output is disposable and ignored by Git. Edit XML and rebuild.</p>
 <h2 id="authoring">Authoring<a class="headerlink" href="#authoring" title="Permanent link">&para;</a></h2>
 <p><code>entries/</code> contains canonical symptoms, diagnoses, and interventions. <a href="schema/adm-v1.xsd">XSD</a> validates document structure; the <a href="skills/agent-diagnostics/references/format.html">format reference</a> defines cross-document rules. The builder is a reference implementation.</p>
-<p>Read the guides for <a href="docs/authoring-symptom.html">authoring symptoms</a> and <a href="docs/authoring-intervention.html">authoring interventions</a>. <code>docs/</code> holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent <code>.html</code> and <code>.md</code> files.</p>
+<p>Read the guides for <a href="docs/authoring-symptom.html">authoring symptoms</a>, <a href="docs/authoring-diagnosis.html">authoring diagnoses</a>, and <a href="docs/authoring-intervention.html">authoring interventions</a>. <code>docs/</code> holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent <code>.html</code> and <code>.md</code> files.</p>
 <p>Singleton sections use tag names; list members use short, locally unique IDs:</p>
 <pre><code class="language-xml">&lt;observations&gt;
   &lt;observation id=&quot;multi-read&quot;&gt;
@@ -466,5 +534,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-27 16:53:51.103520+00:00
+Build Date UTC : 2026-10-27 20:07:07.177368+00:00
 -->

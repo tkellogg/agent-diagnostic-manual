@@ -3,16 +3,16 @@
   <summary>An agent continues or expands verification beyond the task’s justified checking needs, delaying the requested outcome.</summary>
   <observations>
     <observation id="checking-overrun">
-      <p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it.</p>
+      <p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an unmet acceptance need, relevant risk, or investigation question that justifies it; an overbroad standing rule can cause this behavior.</p>
     </observation>
   </observations>
   <how-to-recognize-it>
     <p>Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.</p>
-    <p>Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Requirements, new failures, and planned repeatability studies provide evidence for the benign lookalikes.</p>
+    <p>Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Distinguish a rule's existence from the acceptance need or risk it addresses; new failures, unmet coverage, and planned repeatability studies can justify further checking.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="required-gate">
-      <p>A release, security, or project rule still requires the full check before the requested action. This supplies the applicable requirement absent from <ref target="S004#observations/checking-overrun">checking overrun</ref>, even when the suite takes longer than the edit.</p>
+      <p>A release, security, or project check supplies coverage still needed for the requested action. That unmet acceptance need distinguishes it from <ref target="S004#observations/checking-overrun">checking overrun</ref>, even when the suite takes longer than the edit. A policy requiring equivalent checks after that need is met may itself warrant diagnosis.</p>
     </lookalike>
     <lookalike id="new-risk">
       <p>A check reveals a relevant new failure or an edit affects additional behavior. The new evidence justifies the broader checking, unlike the unexplained extra work in <ref target="S004#observations/checking-overrun">checking overrun</ref>.</p>

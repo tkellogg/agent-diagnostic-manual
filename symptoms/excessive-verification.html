@@ -108,6 +108,10 @@
 <li>
     <a href="agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="../docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
@@ -276,16 +312,16 @@
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p><a id="observations/checking-overrun"></a></p>
 <h3 id="checking-overrun">Checking overrun<a class="headerlink" href="#checking-overrun" title="Permanent link">&para;</a></h3>
-<p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it.</p>
+<p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an unmet acceptance need, relevant risk, or investigation question that justifies it; an overbroad standing rule can cause this behavior.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
 <p>Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.</p>
-<p>Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Requirements, new failures, and planned repeatability studies provide evidence for the benign lookalikes.</p>
+<p>Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Distinguish a rule's existence from the acceptance need or risk it addresses; new failures, unmet coverage, and planned repeatability studies can justify further checking.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/required-gate"></a></p>
 <h3 id="required-gate">Required gate<a class="headerlink" href="#required-gate" title="Permanent link">&para;</a></h3>
-<p>A release, security, or project rule still requires the full check before the requested action. This supplies the applicable requirement absent from <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>, even when the suite takes longer than the edit.</p>
+<p>A release, security, or project check supplies coverage still needed for the requested action. That unmet acceptance need distinguishes it from <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>, even when the suite takes longer than the edit. A policy requiring equivalent checks after that need is met may itself warrant diagnosis.</p>
 <p><a id="benign-lookalikes/new-risk"></a></p>
 <h3 id="new-risk">New risk<a class="headerlink" href="#new-risk" title="Permanent link">&para;</a></h3>
 <p>A check reveals a relevant new failure or an edit affects additional behavior. The new evidence justifies the broader checking, unlike the unexplained extra work in <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>.</p>

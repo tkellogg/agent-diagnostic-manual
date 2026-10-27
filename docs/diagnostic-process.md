@@ -8,7 +8,7 @@ A human or a separate maintenance agent can use this process. It does not requir
 
 A symptom describes observable behavior. A working diagnosis explains how the system may be producing or maintaining that behavior. Differential diagnosis compares plausible explanations and identifies evidence that would distinguish them. A useful model also suggests other symptoms to look for, including ones the original report did not mention.
 
-The model need not identify one ultimate root cause. Several conditions can interact. A descriptive label can help organize cases without establishing their mechanism; keep the proposed explanation explicit and provisional. If no catalog diagnosis fits, record a working hypothesis rather than forcing a match.
+The model need not identify one ultimate root cause. Several conditions can interact. Keep the proposed explanation explicit and provisional; a descriptive pattern belongs among symptoms until there is a working model to add. If no catalog diagnosis fits, record a working hypothesis rather than forcing a match.
 
 An intervention makes a concrete, lasting change based on that explanation. Its prediction connects the change to future behavior:
 
@@ -53,8 +53,10 @@ Keep a proportionate record of the incident evidence, competing explanations, ex
 
 A prediction coming true supports an explanation most strongly when competing explanations would have predicted something different. General improvement alone is less discriminating. Repeated useful outcomes may justify retaining a change while its mechanism remains uncertain. Case-level confidence and the evidence status of a reusable ADM entry are separate judgments.
 
+Distinguish a newly caused problem from one newly exposed by progress or better observation. A repaired handoff may let work reach a previously hidden failure; a better acceptance check may reveal an existing defect. Neither observation alone shows the intervention damaged the system.
+
 ## Where the knowledge belongs
 
 Symptoms provide shared descriptions of behavior. Diagnoses organize reusable explanations and their alternatives. Interventions specify changes to the system. The prediction depends on the diagnosis, the intervention, and the configuration where it is applied; it should be stated for that combination rather than treated as an unconditional promise of the intervention.
 
-This guide is the shared methodology. The [diagnostic skill](../skills/agent-diagnostics/SKILL.md) is an agent-facing aid for working with ADM files. The [symptom authoring guide](authoring-symptom.md) and [intervention authoring guide](authoring-intervention.md) describe how to contribute entries; the [format reference](../skills/agent-diagnostics/references/format.md) describes their representation.
+This guide is the shared methodology. The [diagnostic skill](../skills/agent-diagnostics/SKILL.md) is an agent-facing aid for working with ADM files. The [symptom](authoring-symptom.md), [diagnosis](authoring-diagnosis.md), and [intervention](authoring-intervention.md) authoring guides describe how to contribute entries; the [format reference](../skills/agent-diagnostics/references/format.md) describes their representation.

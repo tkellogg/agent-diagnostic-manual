@@ -23,7 +23,7 @@ An agent retrieves already-delivered information again without a new content, fr
 
 ### Multi read
 
-Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and is not required by an applicable freshness or verification instruction.
+Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and addresses no unmet freshness or verification need; a standing instruction to reread does not by itself establish such a need.
 
 <a id="how-to-recognize-it"></a>
 
@@ -31,7 +31,7 @@ Within one task episode, the agent retrieves substantially the same information 
 
 In the session transcript or tool audit log, group retrievals by the question answered, source, and returned passage or field. Compare result bodies or hashes, delivery status, and file versions or timestamps; identical commands can return changed content, while different commands can return the same content.
 
-Check the task instructions and intervening edits for a new content need, freshness condition, or required verification. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call.
+Check task requirements, source-change risks, and intervening edits for a new content need, freshness condition, or unresolved verification question. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call. A rule can explain a redundant read without making it useful; record that rule for investigation.
 
 <a id="benign-lookalikes"></a>
 
@@ -53,19 +53,19 @@ A second call obtains a different passage or field needed for the task. It does 
 
 ### Failed delivery
 
-A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by [multi-read](repeated-retrieval.md#observations/multi-read) is absent.
+A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by [multi-read](repeated-retrieval.md#observations/multi-read) is absent. This excludes this symptom, not a delivery fault or [doom looping](doom-looping.md) if repeated unsuccessful retries meet its definition.
 
 <a id="benign-lookalikes/freshness-check"></a>
 
 ### Freshness check
 
-An applicable instruction requires a fresh reading at a decision boundary, even if the value is unchanged. This is the freshness requirement excluded by [multi-read](repeated-retrieval.md#observations/multi-read).
+A reading at a decision boundary establishes freshness needed for a decision about mutable state, even if the value is unchanged. It answers an unmet freshness need, unlike [multi-read](repeated-retrieval.md#observations/multi-read); a generic reread instruction alone is insufficient.
 
 <a id="benign-lookalikes/required-verification"></a>
 
 ### Required verification
 
-The task requires an independent second retrieval to verify a value, and the agent performs that check. The applicable verification instruction excludes it from [multi-read](repeated-retrieval.md#observations/multi-read).
+An independent second retrieval checks a still-unresolved reliability question, and the agent performs that check. It supplies verification evidence missing from [multi-read](repeated-retrieval.md#observations/multi-read); equivalent repetitions after the question is settled are not excluded merely because a rule demands them.
 
 <a id="what-to-record"></a>
 

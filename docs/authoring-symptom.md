@@ -17,6 +17,8 @@ For this block, focus on where to look — session transcripts, memory files, c
 ## Benign lookalikes
 Describe situations that are acceptable but might look like. This is a chance to explore the boundry conditions and present counter examples. Every benign lookalike should reference the observations to explain why this lookalike doesn't match the criteria.
 
+An explanation is not automatically a benign lookalike: a faulty instruction, failed delivery, or context policy can cause a symptom of the configured system even when the model is behaving reasonably. Exclude justified behavior, not behavior whose cause you can explain. If a case falls outside this symptom's definition, do not imply that the entire system is healthy. Check linked diagnoses for contradictions before changing either boundary.
+
 ## What to record
 Describe in prose all data that would be helpful to capture per-incident in order to do population-level analysis to spot trends.
 

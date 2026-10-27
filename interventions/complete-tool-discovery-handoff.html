@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://diag.timkellogg.me/interventions/complete-tool-discovery-handoff.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>I005 — Complete the discovery-to-invocation handoff - Agent Diagnostic Manual</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../assets/adm.css?v=f3252ce9f223" rel="stylesheet">
+<link href="../pagefind/pagefind-ui.css" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+
+<meta data-pagefind-meta="kind[content]" content="Intervention">
+<meta data-pagefind-meta="entry_id[content]" content="I005">
+
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+<a class="navbar-brand" href="../index.html" aria-label="Agent Diagnostic Manual home">
+  <span class="adm-monogram" aria-hidden="true">ADM</span>
+  <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
+</a>
+<button class="adm-search-trigger order-lg-last" type="button" data-bs-toggle="modal" data-bs-target="#adm-search-dialog" aria-haspopup="dialog">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span>Search all ADM</span><kbd aria-hidden="true">/</kbd>
+</button>
+
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Symptoms</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../symptoms/repeated-retrieval.html" class="dropdown-item">S001 — Repeated retrieval</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/doom-looping.html" class="dropdown-item">S002 — Doom looping</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/sudden-performance-degradation.html" class="dropdown-item">S003 — Sudden performance degradation</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/excessive-verification.html" class="dropdown-item">S004 — Excessive verification</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/correction-without-behavioral-change.html" class="dropdown-item">S005 — Correction without behavioral change</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/lost-task-constraints.html" class="dropdown-item">S006 — Lost task constraints</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/premature-stopping.html" class="dropdown-item">S007 — Premature stopping</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/repeated-reauthorization.html" class="dropdown-item">S008 — Repeated reauthorization</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/unrequested-changes.html" class="dropdown-item">S009 — Unrequested changes</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/unsupported-verification-claims.html" class="dropdown-item">S011 — Unsupported verification claims</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/weakening-the-checks.html" class="dropdown-item">S012 — Weakening the checks</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Diagnoses</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Interventions</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="complete-tool-discovery-handoff.html" class="dropdown-item active" aria-current="page">I005 — Complete the discovery-to-invocation handoff</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/authoring-symptom.html" class="dropdown-item">Authoring symptoms XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/SKILL.html" class="dropdown-item">Diagnostic skill</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/references/format.html" class="dropdown-item">File format</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <button id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" class="nav-link dropdown-toggle">
+                                <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                <span class="d-lg-none ms-2">Toggle theme</span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="true">
+                                    <i class="fa-solid fa-sun fa-fw"></i>
+                                    <span class="ms-2">Light</span>
+                                    <i class="fa-solid fa-check ms-auto"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                                    <i class="fa-solid fa-moon fa-fw"></i>
+                                    <span class="ms-2">Dark</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                                    <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                    <span class="ms-2">Auto</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../js/darkmode.js"></script>
+
+        <div class="container">
+            <div class="row">
+<div class="modal adm-search" id="adm-search-dialog" tabindex="-1" aria-labelledby="adm-search-title" aria-hidden="true" data-pagefind-ignore>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="adm-search-title">Search all ADM</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close search"></button>
+      </div>
+      <div class="modal-body">
+        <p class="adm-search-scope">Symptoms, diagnoses, interventions, and guides</p>
+        <div id="search"></div>
+        <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+      </div>
+    </div>
+  </div>
+</div>
+<a class="adm-skip" href="#manual-content">Skip to content</a>
+<aside class="col-md-3 adm-sidebar" aria-label="On this page">
+  <p class="adm-eyebrow">On this page</p>
+  <div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#complete-the-discovery-to-invocation-handoff" class="nav-link">Complete the discovery-to-invocation handoff</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#preconditions" class="nav-link">Preconditions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#procedure" class="nav-link">Procedure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#evaluation" class="nav-link">Evaluation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#risks-and-confounders" class="nav-link">Risks and confounders</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stop-and-rollback" class="nav-link">Stop and rollback</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</aside>
+<main class="col-md-9 adm-main" id="manual-content" tabindex="-1">
+  <div class="adm-toolbar" data-pagefind-ignore>
+    <span class="adm-eyebrow">intervention</span>
+  
+  <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
+    <a href="complete-tool-discovery-handoff.md" download title="Download Markdown" aria-label="Download Markdown"><i class="fa-brands fa-markdown" aria-hidden="true"></i></a>
+    
+    <a href="complete-tool-discovery-handoff.xml" title="View XML" aria-label="View XML"><i class="fa-solid fa-code" aria-hidden="true"></i></a>
+    
+  </nav>
+  
+  </div>
+  
+  <p class="entry-status"><span class="entry-id">I005</span><span>draft</span><span>unvalidated</span></p>
+  
+  <article data-pagefind-body>
+
+<h1 id="complete-the-discovery-to-invocation-handoff">Complete the discovery-to-invocation handoff<a class="headerlink" href="#complete-the-discovery-to-invocation-handoff" title="Permanent link">&para;</a></h1>
+<p>Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.</p>
+<p><a id="purpose"></a></p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Repair the interface between tool discovery and use. A capability name is not enough when invocation requires additional schema or runtime registration. Discovery should either complete that handoff or tell the agent what remains blocked.</p>
+<p><a id="preconditions"></a></p>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
+<p><a id="preconditions/delivery-gap"></a></p>
+<h3 id="delivery-gap">Delivery gap<a class="headerlink" href="#delivery-gap" title="Permanent link">&para;</a></h3>
+<p>The adapter promises callable access after discovery, but inspection shows a gap in registration, schema delivery, or the supported invocation route.</p>
+<p><a id="preconditions/adapter-access"></a></p>
+<h3 id="adapter-access">Adapter access<a class="headerlink" href="#adapter-access" title="Permanent link">&para;</a></h3>
+<p>The maintainer can change and inspect the adapter and receiving tool configuration while preserving existing permissions.</p>
+<p><a id="procedure"></a></p>
+<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
+<p><a id="procedure/trace-handoff"></a></p>
+<h3 id="trace-handoff">Trace handoff<a class="headerlink" href="#trace-handoff" title="Permanent link">&para;</a></h3>
+<p>Locate where discovery resolves the capability, where runtime registration occurs, and how the receiving turn gets its invocation contract.</p>
+<p><a id="procedure/complete-delivery"></a></p>
+<h3 id="complete-delivery">Complete delivery<a class="headerlink" href="#complete-delivery" title="Permanent link">&para;</a></h3>
+<p>Change that shared path to register and deliver the interface before reporting callable availability. If activation is asynchronous, return its pending state and supported continuation instead of an apparently completed discovery.</p>
+<p><a id="procedure/expose-blocks"></a></p>
+<h3 id="expose-blocks">Expose blocks<a class="headerlink" href="#expose-blocks" title="Permanent link">&para;</a></h3>
+<p>Return an explicit unavailable result when activation fails, with the actionable reason and supported recovery if one exists. Repeated discovery should not return the same success-looking reference while the capability remains inaccessible.</p>
+<p><a id="procedure/confirm-use"></a></p>
+<h3 id="confirm-use">Confirm use<a class="headerlink" href="#confirm-use" title="Permanent link">&para;</a></h3>
+<p>Inspect a representative receiving input and safe invocation, then observe ordinary subsequent tool-use opportunities. Check an unavailable capability as well so errors remain visible and permission boundaries hold.</p>
+<p><a id="evaluation"></a></p>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
+<p>Record predictions for available and unavailable tools separately. On applicable future turns, compare successful discovery-to-use transitions, repeated searches for the same capability, explicit blocks, and completed required tool work.</p>
+<p>Confirmed delivery with continued rediscovery weakens the delivery-gap explanation. Correct invocations that fail at an external service indicate another obstruction. Fewer searches caused by silently skipping required work are not success.</p>
+<p><a id="risks-and-confounders"></a></p>
+<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
+<p>Loading unnecessary schemas can consume context; stale registrations can call the wrong interface. Adapter changes must preserve authorization and tool selection. Model or provider changes can independently affect discovery behavior.</p>
+<p><a id="stop-and-rollback"></a></p>
+<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
+<p>Revert the adapter change if it exposes unauthorized tools, delivers incompatible schemas, or breaks working routes. Report unavailable capabilities explicitly while repairing the handoff; do not mask activation failures as successful access.</p>
+<p><a id="evidence-and-uncertainty"></a></p>
+<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
+<p>This is an unvalidated proposed adapter repair. No particular harness is asserted to have this defect, and a completed handoff does not guarantee correct tool choice or successful task completion.</p></article>
+  
+  <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
+    <a rel="prev" href="separate-observed-derived-values.html"><span>← Previous</span>I004 — Keep derived values out of source-only fields</a>
+    <a rel="next" href="../docs/authoring-diagnosis.html"><span>Next →</span>Authoring diagnosis XML files</a>
+  </nav>
+  
+</main>
+
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+<div class="adm-footer">
+  <span>ADM <span class="footer-separator">/</span> Agent Diagnostic Manual</span>
+  <span>Built with <a href="https://www.mkdocs.org/">MkDocs</a> · <a href="https://github.com/tkellogg/agent-diagnostic-manual">Source on GitHub</a></span>
+</div>
+
+        </footer>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../pagefind/pagefind-ui.js"></script>
+<script src="../assets/adm.js?v=f3252ce9f223" data-base-url="../"></script>
+
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

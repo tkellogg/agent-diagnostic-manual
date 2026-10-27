@@ -108,6 +108,10 @@
 <li>
     <a href="../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
@@ -277,6 +313,7 @@
 <p>For this block, focus on where to look — session transcripts, memory files, code, git history, etc. And describe general recipes (not so much detail that it could conflict, but enough to make it tangible) for how to surface the data, how to surface counter examples, how to surface data to show it's not a benign lookalike, etc.</p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p>Describe situations that are acceptable but might look like. This is a chance to explore the boundry conditions and present counter examples. Every benign lookalike should reference the observations to explain why this lookalike doesn't match the criteria.</p>
+<p>An explanation is not automatically a benign lookalike: a faulty instruction, failed delivery, or context policy can cause a symptom of the configured system even when the model is behaving reasonably. Exclude justified behavior, not behavior whose cause you can explain. If a case falls outside this symptom's definition, do not imply that the entire system is healthy. Check linked diagnoses for contradictions before changing either boundary.</p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
 <p>Describe in prose all data that would be helpful to capture per-incident in order to do population-level analysis to spot trends.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>

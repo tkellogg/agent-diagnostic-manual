@@ -1,20 +1,19 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "xml_namespace": "urn:adm:1",
   "documents": [
     {
       "id": "D001",
       "kind": "diagnosis",
-      "summary": "Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.",
+      "summary": "A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.",
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
       "updated": "2026-10-27",
-      "unit": "configured-agent-episode",
-      "level": "descriptive",
-      "title": "Unproductive repeated retrieval",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html",
+      "unit": "configured-agent-system",
+      "title": "Context handoff loss",
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html",
       "document": {
         "name": "diagnosis",
         "attributes": {
@@ -23,16 +22,15 @@
           "status": "draft",
           "evidence": "unvalidated",
           "updated": "2026-10-27",
-          "unit": "configured-agent-episode",
-          "level": "descriptive",
-          "title": "Unproductive repeated retrieval"
+          "unit": "configured-agent-system",
+          "title": "Context handoff loss"
         },
         "content": [
           {
             "name": "summary",
             "attributes": {},
             "content": [
-              "Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose."
+              "A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization."
             ]
           },
           {
@@ -47,6 +45,20 @@
                 "content": []
               },
               {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S006"
+                },
+                "content": []
+              },
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S008"
+                },
+                "content": []
+              },
+              {
                 "name": "intervention-ref",
                 "attributes": {
                   "ref": "I001"
@@ -56,7 +68,27 @@
                     "name": "when",
                     "attributes": {},
                     "content": [
-                      "Necessary evidence appears to be lost after a context transition; a still-current source excerpt can be restored to the next model input without changing source freshness requirements."
+                      "Task state was available before a context transition and omitted from the continuation that needed it; the maintainer can change the transition policy."
+                    ]
+                  },
+                  {
+                    "name": "predictions",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "On future continuations that receive the preserved state, redundant retrieval, constraint violations, and repeated authorization requests attributable to that omission should decline. Legitimate source refreshes and requests for expanded authority should remain."
+                        ]
+                      },
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Failures before any transition should not improve through this mechanism. Persistence despite confirmed delivery weakens the omission explanation; acting beyond preserved permission suggests that the intervention lost its scope restrictions."
+                        ]
+                      }
                     ]
                   }
                 ]
@@ -71,24 +103,24 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "A candidate descriptive diagnosis for an episode in which ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S001"
-                    },
-                    "content": [
-                      "repeated retrieval"
-                    ]
-                  },
-                  " contributes little additional task-relevant information and interferes with progress or spends resources without a justified verification purpose."
+                  "The context-management system should carry forward the information needed for unfinished work. Its selection or delivery policy instead omits still-applicable evidence, constraints, or authorization at compaction or delegation. A later decision must reconstruct that state or proceeds without it."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "The assessed system includes model, harness, tools, memory, instructions, and environment. The diagnosis does not by itself attribute failure to any one component. It also does not claim a human-like compulsion, anxiety, or subjective experience."
+                  "This is a proposed explanation of the configured system. ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S001"
+                    },
+                    "content": [
+                      "Repeated retrieval"
+                    ]
+                  },
+                  " alone does not establish it, and a transcript retaining information does not establish that the receiving model had it."
                 ]
               }
             ]
@@ -102,15 +134,47 @@
               {
                 "name": "criterion",
                 "attributes": {
-                  "id": "recurrence",
-                  "title": "Recurrence"
+                  "id": "prior-state",
+                  "title": "Previously available task state"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The episode contains repeated retrieval of substantially the same information, established by purpose and returned content rather than tool-name counts alone."
+                      "Identify a specific fact, constraint, or authorization that was available before the transition and remained applicable to the later decision."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "delivery-loss",
+                  "title": "Loss at the transition"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The transition output and effective receiving input show the needed state omitted or materially altered, with no equivalent representation available at that decision. Inaccessible model inputs leave this criterion unknown."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "linked-disruption",
+                  "title": "A disruption the missing state explains"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The continuation unnecessarily retrieves the same evidence, violates the omitted constraint, or requests authorization already granted. Identify the connection to the particular missing state rather than relying on timing alone."
                     ]
                   },
                   {
@@ -119,54 +183,20 @@
                       "ref": "S001"
                     },
                     "content": []
-                  }
-                ]
-              },
-              {
-                "name": "criterion",
-                "attributes": {
-                  "id": "low-value",
-                  "title": "Low additional value"
-                },
-                "content": [
+                  },
                   {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The repeated calls add little information relevant to the task, and an independent review cannot identify a justified fresh-verification purpose."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "criterion",
-                "attributes": {
-                  "id": "functional-consequence",
-                  "title": "Functional consequence"
-                },
-                "content": [
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S006"
+                    },
+                    "content": []
+                  },
                   {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The trace shows work displaced or stalled, a budget consumed without corresponding benefit, or another concrete consequence for the task. State the consequence; no severity grade is assigned."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "criterion",
-                "attributes": {
-                  "id": "alternative-assessment",
-                  "title": "Alternative assessment"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The exclusions below have been examined and do not adequately account for the observed pattern as useful behavior or ordinary recovery from a delivery failure."
-                    ]
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S008"
+                    },
+                    "content": []
                   }
                 ]
               }
@@ -179,14 +209,14 @@
               {
                 "name": "exclusion",
                 "attributes": {
-                  "id": "useful-retrieval"
+                  "id": "expired-state"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Do not assign this candidate diagnosis solely because the same file or endpoint was accessed repeatedly. Exclude useful retrieval of changed content, different needed content, justified freshness checks, and ordinary recovery when the tool never delivered a usable result."
+                      "Information legitimately expired or the user changed the requirement or authorization before continuation."
                     ]
                   }
                 ]
@@ -194,29 +224,14 @@
               {
                 "name": "exclusion",
                 "attributes": {
-                  "id": "failed-delivery"
+                  "id": "equivalent-context"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "A repeatedly failing tool may itself deserve investigation, but it is not evidence that adequate evidence was retrieved and then reused poorly."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "exclusion",
-                "attributes": {
-                  "id": "required-checks"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "A mandatory verification instruction can explain repetition. If the checks are appropriate to the task, exclude the diagnosis. If a rule forces demonstrably wasteful repetition, the system-level pattern may still fit; record the rule as a suspected cause and avoid blaming model behavior in isolation."
+                      "The receiving input contains an adequate equivalent of the necessary state. Poor use of visible information requires another explanation."
                     ]
                   }
                 ]
@@ -230,8 +245,8 @@
               {
                 "name": "alternative",
                 "attributes": {
-                  "id": "useful-refresh",
-                  "title": "Useful refresh or different information need"
+                  "id": "initial-delivery",
+                  "title": "Information was never delivered"
                 },
                 "content": [
                   {
@@ -242,7 +257,7 @@
                         "name": "p",
                         "attributes": {},
                         "content": [
-                          "Compare source versions, requested ranges, decision purpose, and information gained."
+                          "Compare the original usable result with actual model input before the transition. Backend success or a saved file alone cannot establish prior delivery."
                         ]
                       }
                     ]
@@ -252,8 +267,8 @@
               {
                 "name": "alternative",
                 "attributes": {
-                  "id": "failed-delivery",
-                  "title": "Failed or truncated delivery"
+                  "id": "policy-conflict",
+                  "title": "A standing rule demands the behavior"
                 },
                 "content": [
                   {
@@ -264,7 +279,17 @@
                         "name": "p",
                         "attributes": {},
                         "content": [
-                          "Inspect the exact result supplied to the model; a backend success response alone is insufficient."
+                          "Check whether a fresh-consent or repeated-check rule still requires the action when the state is visible. For excessive checking, consider ",
+                          {
+                            "name": "ref",
+                            "attributes": {
+                              "target": "D003"
+                            },
+                            "content": [
+                              "verification policy overgeneralization"
+                            ]
+                          },
+                          "."
                         ]
                       }
                     ]
@@ -274,8 +299,8 @@
               {
                 "name": "alternative",
                 "attributes": {
-                  "id": "context-loss",
-                  "title": "Loss from active context"
+                  "id": "visible-state",
+                  "title": "The agent acts against visible state"
                 },
                 "content": [
                   {
@@ -286,51 +311,7 @@
                         "name": "p",
                         "attributes": {},
                         "content": [
-                          "Inspect pre-call inputs and compaction boundaries; assess whether needed evidence is missing."
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "alternative",
-                "attributes": {
-                  "id": "required-checks",
-                  "title": "Instructions demand another check"
-                },
-                "content": [
-                  {
-                    "name": "discriminator",
-                    "attributes": {},
-                    "content": [
-                      {
-                        "name": "p",
-                        "attributes": {},
-                        "content": [
-                          "Identify the operative rule and its scope; compare a controlled run with that rule clarified where legitimate."
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "alternative",
-                "attributes": {
-                  "id": "available-evidence",
-                  "title": "Repetition despite adequate visible evidence"
-                },
-                "content": [
-                  {
-                    "name": "discriminator",
-                    "attributes": {},
-                    "content": [
-                      {
-                        "name": "p",
-                        "attributes": {},
-                        "content": [
-                          "Verify evidence remains available and no new check is needed; inspect why an available next step was not taken without treating self-report as ground truth."
+                          "If the relevant state is present and clear at the decision, investigate competing instructions and action selection. Do not infer internal forgetting from incompatible behavior."
                         ]
                       }
                     ]
@@ -344,54 +325,10 @@
             "attributes": {},
             "content": [
               {
-                "name": "ol",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "li",
-                    "attributes": {},
-                    "content": [
-                      "Preserve the task, ordered trace, configuration, and the exact context supplied at relevant decision points where accessible."
-                    ]
-                  },
-                  {
-                    "name": "li",
-                    "attributes": {},
-                    "content": [
-                      "Annotate each retrieval with information gained and the next task action it enabled or displaced. Record uncertainty in these judgments."
-                    ]
-                  },
-                  {
-                    "name": "li",
-                    "attributes": {},
-                    "content": [
-                      "Have a second reviewer assess the criteria without seeing the first review. Disagreements identify weak boundaries; agreement alone does not validate the category."
-                    ]
-                  },
-                  {
-                    "name": "li",
-                    "attributes": {},
-                    "content": [
-                      "Select one hypothesis and a comparison that can distinguish it from an alternative. If context loss is plausible, consider ",
-                      {
-                        "name": "ref",
-                        "attributes": {
-                          "target": "I001"
-                        },
-                        "content": [
-                          "restoring missing evidence to active context"
-                        ]
-                      },
-                      "."
-                    ]
-                  },
-                  {
-                    "name": "li",
-                    "attributes": {},
-                    "content": [
-                      "Evaluate completion and correctness as well as retrieval count and cost. Repeat trials as feasible and state model, task, and harness limits."
-                    ]
-                  }
+                  "Inspect the affected transition and the next decision using existing input captures where available. Compare which state survived with what the pending work needed. Look for ordinary continuations under the same policy that preserved the state and proceeded correctly; no replay of the incident is required."
                 ]
               }
             ]
@@ -410,24 +347,10 @@
                       "target": "I001"
                     },
                     "content": [
-                      "I001 \u2014 Restore missing evidence to active context"
+                      "Preserve task state across context transitions"
                     ]
                   },
-                  " reinserts a still-current source excerpt into the next model input when a context transition has removed evidence needed for the pending action. It may help resume the task and can also test the evidence-loss hypothesis. It is not a general prescription for every case of D001."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "If evidence was never delivered, repair delivery first. If a rule forces redundant checks, investigate the rule. These are differential-directed next steps, not additional intervention entries or proven remedies."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Do not implement \u201cnever read twice\u201d as a treatment. It can hide the symptom while increasing factual errors or skipping legitimate checks."
+                  " changes future handoffs and compactions. A one-time reminder may rescue an episode but does not repair the transition policy."
                 ]
               }
             ]
@@ -440,28 +363,1037 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
+                  "This is an unvalidated working model. The entry supplies neither an adjudicated public case establishing the mechanism nor evidence that the intervention is effective. Evidence for an omission, its contribution to behavior, and benefit from changing the policy are separate claims."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "D002",
+      "kind": "diagnosis",
+      "summary": "The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "unit": "configured-agent-system",
+      "title": "Tool discovery delivery gap",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html",
+      "document": {
+        "name": "diagnosis",
+        "attributes": {
+          "id": "D002",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "unit": "configured-agent-system",
+          "title": "Tool discovery delivery gap"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use."
+            ]
+          },
+          {
+            "name": "relations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S002"
+                },
+                "content": []
+              },
+              {
+                "name": "intervention-ref",
+                "attributes": {
+                  "ref": "I005"
+                },
+                "content": [
                   {
-                    "name": "strong",
+                    "name": "when",
                     "attributes": {},
                     "content": [
-                      "Category status: unvalidated."
+                      "Discovery is expected to make a tool callable, but registration or delivery to the receiving turn is missing or inconsistent."
                     ]
                   },
-                  " No real trace has been adjudicated and no intervention outcome is claimed in this repository. The criteria and label are proposals."
+                  {
+                    "name": "predictions",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "After the adapter delivers a usable tool or an explicit unavailable result, repeated discovery for that same capability should decline. Available tools should be invoked when the task calls for them; unavailable tools should lead to a supported alternative or a specific blocker."
+                        ]
+                      },
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Invocation errors from invalid credentials, bad arguments, or external services may persist. Repeated search despite a confirmed callable interface weakens this diagnosis. Fewer searches accompanied by missing required tool work is not improvement."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "definition",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "In a deferred-tool system, discovery must connect a capability name to an invocation contract available to the receiving model and runtime. A partial handoff can advertise success while omitting the schema, registration, or supported invocation route. Rediscovery then returns the same reference without repairing the gap."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Open questions include whether low information gain can be rated consistently, how to distinguish valuable verification from waste, and whether this category predicts useful interventions across different harnesses."
+                  "The problem is the discovery-to-invocation boundary. Repeated search is a clue, not proof that this boundary failed."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "criteria",
+            "attributes": {
+              "operator": "all"
+            },
+            "content": [
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "promised-capability",
+                  "title": "Discovery promises usable access"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The adapter's contract says a successful discovery response makes the identified capability callable for the relevant turn."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "missing-interface",
+                  "title": "The invocation interface is missing"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Inspection of registration and effective model input establishes that the required callable interface or supported route was not delivered despite a successful discovery response."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "stalled-use",
+                  "title": "The gap obstructs tool use"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent needs that capability and enters repeated unsuccessful discovery cycles matching ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S002"
+                        },
+                        "content": [
+                          "doom looping"
+                        ]
+                      },
+                      ", while those cycles leave the invocation gap unchanged."
+                    ]
+                  },
+                  {
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S002"
+                    },
+                    "content": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "exclusions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "reference-contract"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The service promises only a directory reference and supplies a working, documented next step to activate it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "expected-delay"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Activation is asynchronous, still within its stated completion window, and the agent is following the supported wait or retry path."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "differential",
+            "attributes": {},
+            "content": [
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "callable-but-unused",
+                  "title": "A callable tool is present but unused"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Inspect the effective tool set for the actual decision turn. A transcript showing only a tool name cannot distinguish this explanation from a delivery gap."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "runtime-rejection",
+                  "title": "Invocation reaches a runtime block"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Look for an actual invocation and its authentication, permission, argument, or service error. Fixing discovery will not necessarily remove that block."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "context-loss",
+                  "title": "A later transition removes a delivered interface"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Establish whether the interface was initially usable and then lost at a transition; that timing distinguishes initial delivery failure from ",
+                          {
+                            "name": "ref",
+                            "attributes": {
+                              "target": "D001"
+                            },
+                            "content": [
+                              "context handoff loss"
+                            ]
+                          },
+                          "."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "investigation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare one failed discovery-to-use sequence with a successful sequence under the same adapter. Inspect the discovery result, registration state, receiving tool definitions, and invocation route. If those inputs are unavailable, retain this as an unconfirmed differential instead of diagnosing from repeated searches."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "interventions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "I005"
+                    },
+                    "content": [
+                      "Complete the discovery-to-invocation handoff"
+                    ]
+                  },
+                  " repairs the interface used on future turns. A blanket search limit may hide the loop while leaving needed capabilities inaccessible."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This is an unvalidated scaffold. No public case in this entry establishes missing registration or model-visible delivery, and no intervention benefit is claimed. It makes no claim about a particular tool provider or harness."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "D003",
+      "kind": "diagnosis",
+      "summary": "A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "unit": "configured-agent-system",
+      "title": "Verification policy overgeneralization",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html",
+      "document": {
+        "name": "diagnosis",
+        "attributes": {
+          "id": "D003",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "unit": "configured-agent-system",
+          "title": "Verification policy overgeneralization"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions."
+            ]
+          },
+          {
+            "name": "relations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S001"
+                },
+                "content": []
+              },
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S004"
+                },
+                "content": []
+              },
+              {
+                "name": "intervention-ref",
+                "attributes": {
+                  "ref": "I002"
+                },
+                "content": [
+                  {
+                    "name": "when",
+                    "attributes": {},
+                    "content": [
+                      "A specific editable instruction or workflow triggers checks without a relevant changed state, unresolved question, or still-unmet acceptance need."
+                    ]
+                  },
+                  {
+                    "name": "predictions",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "After narrowing that rule, verification overrun should decline for the affected class of work while required checks and defect detection remain intact. The reduction should occur at the rule's trigger points, not uniformly across unrelated tasks."
+                        ]
+                      },
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Continued extra checks after the revised rule reaches the agent favor another cause. Fewer checks with more missed defects suggest the scope was narrowed too far; slower delivery from another bottleneck may remain."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "definition",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A verification policy should connect each required check to a decision, risk, or acceptance condition and define when enough evidence has been gathered. A broad or self-retriggering rule instead demands another check irrespective of whether the relevant state changed or the question was already answered."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "The next evidence should include one inspectable failing episode and a closely matched healthy comparison. A positive result under one configuration would not establish a universal cause or remedy."
+                  "The agent may be complying perfectly with that rule. The proposed pathology is in the configured checking policy, not an inference about caution, anxiety, or intent."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "criteria",
+            "attributes": {
+              "operator": "all"
+            },
+            "content": [
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "operative-rule",
+                  "title": "An operative rule triggers the work"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Identify the actual instruction or workflow rule and the decision points where it caused the extra checks. Similar wording in an unused file is insufficient."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "scope-mismatch",
+                  "title": "The trigger exceeds the checking need"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Establish that the rule covers a class of work whose relevant verification need is already satisfied or absent. Name the missing justification; elapsed time or passing results alone do not establish waste."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "checking-consequence",
+                  "title": "The policy produces excess checking"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Following the rule produces ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S004"
+                        },
+                        "content": [
+                          "excessive verification"
+                        ]
+                      },
+                      ", with delay or resource use traceable to the extra checks. Equivalent rereads may also match ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S001"
+                        },
+                        "content": [
+                          "repeated retrieval"
+                        ]
+                      },
+                      "."
+                    ]
+                  },
+                  {
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S004"
+                    },
+                    "content": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "exclusions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "justified-check"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The checks address an unmet acceptance condition, relevant risk, new change, or an agreed repeatability study."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "execution-cost"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The chosen check is appropriate but expensive because of its implementation or environment. Slow execution alone does not establish an overgeneral policy."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "differential",
+            "attributes": {},
+            "content": [
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "state-loss",
+                  "title": "The system loses evidence that checking finished"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Inspect whether the prior result reaches the later turn. Repetition after a transition may instead reflect ",
+                          {
+                            "name": "ref",
+                            "attributes": {
+                              "target": "D001"
+                            },
+                            "content": [
+                              "context handoff loss"
+                            ]
+                          },
+                          "."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "new-evidence",
+                  "title": "New evidence warrants another check"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Compare code, environment, and failures at each trigger. The later check may answer a genuinely new question."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "rule-independent",
+                  "title": "Extra checking is not prescribed by the rule"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Compare the instruction with the chosen action. If the rule already limits scope and the agent exceeds it, this policy explanation is incomplete."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "investigation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Map extra checks to the rule and the question each result could answer. Include a healthy task where the same rule is useful. Inspect ordinary future work after a scoped policy change; a costly replay study is not a prerequisite."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "interventions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "I002"
+                    },
+                    "content": [
+                      "Give verification a scope and stopping condition"
+                    ]
+                  },
+                  " changes the offending policy. The maintainer must have authority to change it; an executing agent should not silently bypass a mandatory gate."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This is an unvalidated working model. An inefficient-looking check does not by itself establish a bad rule, and the entry provides no measured effect of changing one. Agreement about justified verification may vary with task risk."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "D004",
+      "kind": "diagnosis",
+      "summary": "The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "unit": "configured-agent-system",
+      "title": "Verification scope collapse",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html",
+      "document": {
+        "name": "diagnosis",
+        "attributes": {
+          "id": "D004",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "unit": "configured-agent-system",
+          "title": "Verification scope collapse"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions."
+            ]
+          },
+          {
+            "name": "relations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S011"
+                },
+                "content": []
+              },
+              {
+                "name": "intervention-ref",
+                "attributes": {
+                  "ref": "I003"
+                },
+                "content": [
+                  {
+                    "name": "when",
+                    "attributes": {},
+                    "content": [
+                      "The QA skill, tool result, or completion policy treats a component or simulated check as sufficient for a broader required behavior."
+                    ]
+                  },
+                  {
+                    "name": "predictions",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Future tasks requiring the broader behavior should exercise its actual acceptance path and produce fewer unsupported verification claims. Failures at previously bypassed boundaries may become visible even before underlying implementation quality improves."
+                        ]
+                      },
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Component-only tasks should retain their lightweight checks. If claims become narrower but required paths remain untested, the intervention changed reporting without completing the repair. Persistent overclaims despite clear path evidence favor a separate interpretation or reporting failure."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "definition",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Verification evidence has a scope: a component, input path, artifact revision, environment, or physical stage. The system should preserve that scope when deciding whether acceptance has been demonstrated. Instead, its workflow equates a narrower success with the broader requirement and closes the requirement without evidence for the missing boundary."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A hypothetical example is treating a successful internal handler call as proof that the user-facing input reaches that handler. The handler may work perfectly while the input path remains unknown."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "criteria",
+            "attributes": {
+              "operator": "all"
+            },
+            "content": [
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "broader-requirement",
+                  "title": "A broader acceptance condition applies"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Identify the requested behavior and the boundaries its verification must cover."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "limited-probe",
+                  "title": "The cited evidence covers less"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The actual check bypasses or omits a required boundary, and no independent matching evidence closes that gap."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "scope-promotion",
+                  "title": "The workflow promotes the limited result"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A policy, tool-result transformation, or recorded acceptance decision equates that limited result with satisfaction of the broader condition, producing ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S011"
+                        },
+                        "content": [
+                          "unsupported verification claims"
+                        ]
+                      },
+                      ". An overclaim with no evidence of this promotion leaves the mechanism unknown."
+                    ]
+                  },
+                  {
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S011"
+                    },
+                    "content": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "exclusions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "matching-evidence"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A separate check covers the required path, revision, and environment, including external evidence the local transcript does not contain."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "scoped-task"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The requested work and the report are explicitly limited to the tested component."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "differential",
+            "attributes": {},
+            "content": [
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "artifact-defect",
+                  "title": "The required path was tested and failed"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Inspect actual inputs and outputs. A real-path defect requires an implementation repair; it does not establish scope collapse unless the workflow substitutes other evidence for the failure."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "stale-result",
+                  "title": "Evidence applies to another artifact"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Match revision and destination. Correct testing of an earlier build can produce false assurance without a component-to-whole substitution."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "reporting-error",
+                  "title": "The acceptance boundary is retained but misreported"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "If the workflow leaves the broader condition open and the final report alone claims it passed, investigate reporting. A shared symptom does not establish the same mechanism."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "investigation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Trace one acceptance condition from its task requirement through the executed check, returned result, and completion decision. Identify exactly where scope was broadened. Look for successful work where the real path was exercised without unnecessary additional testing."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "interventions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "I003"
+                    },
+                    "content": [
+                      "Verify through the required acceptance path"
+                    ]
+                  },
+                  " changes the QA workflow to exercise the missing boundary. Merely softening the final report does not complete an unmet acceptance condition."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This is an unvalidated scaffold with a hypothetical illustration. A gap in shown verification supports a symptom more readily than this causal account; unavailable external evidence remains an uncertainty. No efficacy or prevalence claim is made."
                 ]
               }
             ]
@@ -472,12 +1404,12 @@
     {
       "id": "I001",
       "kind": "intervention",
-      "summary": "Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action.",
+      "summary": "Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.",
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
       "updated": "2026-10-27",
-      "title": "Restore missing evidence to active context",
+      "title": "Preserve task state across context transitions",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html",
       "document": {
@@ -488,14 +1420,14 @@
           "status": "draft",
           "evidence": "unvalidated",
           "updated": "2026-10-27",
-          "title": "Restore missing evidence to active context"
+          "title": "Preserve task state across context transitions"
         },
         "content": [
           {
             "name": "summary",
             "attributes": {},
             "content": [
-              "Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action."
+              "Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs."
             ]
           },
           {
@@ -506,31 +1438,14 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Restore the missing information so the agent can resume the pending task action. Apply this at an affected decision point after compaction, truncation, or a handoff. The same action can test whether evidence loss contributes to ",
-                  {
-                    "name": "ref",
-                    "attributes": {
-                      "target": "S001"
-                    },
-                    "content": [
-                      "repeated retrieval"
-                    ]
-                  },
-                  "; a diagnosis is not required to try it when the preconditions below hold."
+                  "Repair continuity across context transitions so future agents can use established task state. The intervention changes the transition mechanism or reusable handoff instructions, rather than adding a reminder to one completed incident."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Principle:"
-                    ]
-                  },
-                  " information retained in a transcript or memory file is only useful at a decision point if it reaches the model's input. Restore the smallest sufficient source excerpt with its provenance, rather than relying on a new interpretation of what the agent should remember."
+                  "Information stored in a transcript or memory file helps only when the receiving agent can use it. Preserve the smallest sufficient state with its source and scope; an excerpt of untrusted data must not become a new instruction."
                 ]
               }
             ]
@@ -542,14 +1457,14 @@
               {
                 "name": "precondition",
                 "attributes": {
-                  "id": "missing-evidence"
+                  "id": "identified-omission"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "A prior retrieval delivered usable evidence, but it appears absent from the active context after a transition. Identify the recoverable source excerpt and the pending task action that needs it. Repetition alone does not establish that evidence is missing."
+                      "Identify still-needed state that the current transition policy omits, and the class of later decisions it affects. Repetition alone does not establish an omission."
                     ]
                   }
                 ]
@@ -557,29 +1472,14 @@
               {
                 "name": "precondition",
                 "attributes": {
-                  "id": "persistent-record"
+                  "id": "editable-transition"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The operator or harness can include a bounded evidence block in the next model input after the transition, without it immediately being removed by the same context policy."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "precondition",
-                "attributes": {
-                  "id": "freshness-enforced"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "The excerpt's source version remains applicable to the task, and using it respects the task's freshness requirements. If a fresh read is required, perform that read instead. The excerpt can be supplied within the system's existing access boundaries."
+                      "The maintainer can change the compaction, delegation, or context-loading policy and has authority to supply the relevant information to the receiving agent."
                     ]
                   }
                 ]
@@ -593,14 +1493,14 @@
               {
                 "name": "step",
                 "attributes": {
-                  "id": "save-baseline"
+                  "id": "locate-boundary"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Capture the pending action, the transition that lost the evidence, the input before restoration where accessible, and the relevant source version. Record what successful progress and correctness would look like at the next decision point."
+                      "Locate the shared policy that selects and delivers state at the affected transition. Record its current version and the decision-relevant omission."
                     ]
                   }
                 ]
@@ -615,7 +1515,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Copy the smallest sufficient fact or excerpt from the earlier tool result into a labeled evidence block. Include the source path or identifier, version or retrieval time, and the pending action it informs. Keep the source text distinct from the operator's explanation of its relevance."
+                      "Modify that policy to retain pending decisions, still-applicable constraints, authorization with its limits, and the minimum evidence needed for the next work. Keep source identifiers and freshness conditions; omit completed or irrelevant history."
                     ]
                   }
                 ]
@@ -630,7 +1530,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Insert that block into the next model input after the transition, using the harness's task-context or tool-result mechanism. Treat the excerpt as source data under its original trust level. Keep task instructions and tool permissions unchanged, including permission to retrieve information when needed. Record the block's location and size."
+                      "Wire the selected state into the receiving input through the normal handoff or context-loading path. Preserve instruction precedence and source trust. Invalidate evidence when its source changes, and never broaden permissions while summarizing them."
                     ]
                   }
                 ]
@@ -638,14 +1538,14 @@
               {
                 "name": "step",
                 "attributes": {
-                  "id": "verify-input"
+                  "id": "confirm-delivery"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Inspect the assembled model input or delivery trace to confirm the block actually survived truncation and was supplied. Writing it to a memory file alone does not establish delivery. If the effective input is inaccessible, record delivery as unverified and limit conclusions accordingly."
+                      "Inspect a representative subsequent transition to check that the selected state reaches the receiving input without immediate truncation. If effective input is inaccessible, record delivery as unconfirmed."
                     ]
                   }
                 ]
@@ -653,29 +1553,14 @@
               {
                 "name": "step",
                 "attributes": {
-                  "id": "resume-task"
+                  "id": "review-work"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Resume the pending task without adding a separate instruction to stop rereading. At the next decision point, record whether the agent uses the restored evidence, retrieves it again, or takes another action, and whether that action advances the task correctly."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "step",
-                "attributes": {
-                  "id": "review-outcome"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Check the resulting task state against the recorded success conditions. Remove the block when the pending need ends or its source changes. If another context transition loses still-needed evidence, recheck the preconditions before reinserting it; do not accumulate duplicate blocks."
+                      "Observe later tasks with the affected transition. Compare their relevant decisions with the predictions recorded before applying the policy change."
                     ]
                   }
                 ]
@@ -690,42 +1575,14 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "For this episode:"
-                    ]
-                  },
-                  " assess the next decision and the eventual task outcome. The prediction is that the agent can use the restored excerpt to advance the pending action with fewer redundant retrievals. Record correctness, completion, repeated reads of that source, elapsed time, added context tokens, tool cost, and any necessary checks skipped. Fewer reads without correct progress is not a successful remedy."
+                  "Choose a review point with actual opportunities for the omitted state to matter. Track avoidable rediscovery, constraint adherence, and appropriate authorization decisions alongside completion, correctness, and context cost. Compare similar transitions using existing logs; a replay study is optional."
                 ]
               },
               {
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "For a controlled evaluation:"
-                    ]
-                  },
-                  " save a checkpoint immediately before the affected decision and compare continuation with and without the evidence block. Keep the task, source versions, model, instructions, and tool configuration the same where practical; record differences. Repeat matched trials when assessing a general preservation policy. A similarly sized irrelevant block can provide an additional control for generic context changes, but is not required to restore evidence in one episode."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Interpretation:"
-                    ]
-                  },
-                  " failure to deliver the block leaves the intervention untested. If the excerpt is confirmed present but the same retrieval loop persists, that weakens the hypothesis that absence of this evidence is sufficient to explain the loop. Correct progress after restoration is useful case evidence, but a single continuation cannot separate the effect from sampling variation, and even a controlled improvement does not uniquely establish the cause."
+                  "Improvement after confirmed delivery supports the relevant diagnosis-dependent prediction. Persistence despite delivery weakens a simple omission account; missing delivery leaves the change untested. Fewer rereads accompanied by stale decisions or fewer permission questions accompanied by unauthorized actions are harmful outcomes."
                 ]
               }
             ]
@@ -738,14 +1595,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "The excerpt can become stale or displace other needed context. Reinsertion changes placement and attention as well as availability, so a benefit may depend on presentation. Added instructions, a newly written summary, changed source content, and model sampling variation can also explain differences."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Source text may contain instructions that should remain untrusted data. Preserve its provenance and trust boundary; do not promote it into system instructions or treat the agent's claim to remember it as evidence that it was delivered."
+                  "Retained state can become stale, displace useful context, strip permission limits, or promote source text into authority. Changes in task mix, source freshness, and model behavior can also change the symptom rate."
                 ]
               }
             ]
@@ -758,7 +1608,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Stop reinserting the block if its source becomes stale, it displaces necessary context, correctness declines, or required checks are skipped. Remove the block from subsequent inputs and disable any reinsertion hook added for this intervention. Retain the before/after inputs and outcome for review. Removing the block does not undo completed tool actions; inspect any resulting changes before continuing the task."
+                  "Narrow or revert the retention policy if it introduces stale decisions, authorization errors, or excessive context cost. Restore the previous transition configuration and correct affected retained state; reverting cannot undo actions already taken."
                 ]
               }
             ]
@@ -771,14 +1621,841 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
+                  "This is a proposed system change with no efficacy result established here. Successful storage, successful delivery, and improved decisions are separate claims."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "I002",
+      "kind": "intervention",
+      "summary": "Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "title": "Give verification a scope and stopping condition",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html",
+      "document": {
+        "name": "intervention",
+        "attributes": {
+          "id": "I002",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "title": "Give verification a scope and stopping condition"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification."
+            ]
+          },
+          {
+            "name": "purpose",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Reduce redundant checking by fixing the policy that generates it. Verification should answer a task-relevant question; more passing runs do not necessarily add evidence. Retain checks justified by the work's risks and acceptance conditions."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "preconditions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "identified-rule"
+                },
+                "content": [
                   {
-                    "name": "strong",
+                    "name": "p",
                     "attributes": {},
                     "content": [
-                      "Unvalidated."
+                      "A specific instruction or workflow causes extra checks, and the maintainer can identify the class of work for which its scope is excessive."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "authorized-change"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The maintainer has authority to revise that policy and can identify the requirements that must remain enforced. Otherwise seek the policy owner's change rather than bypassing it during execution."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "procedure",
+            "attributes": {},
+            "content": [
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "name-purpose"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Identify the decision or failure risk the rule is intended to address and the checks needed to address it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "rewrite-rule"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Edit the source instruction or workflow to state when it applies, which relevant checks satisfy it, and when checking stops. State the changes or new failures that warrant reopening it. Remove conflicting blanket instructions in the same policy."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "preserve-gates"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Retain mandatory coverage and justified repeated sampling. For example, a targeted check may finish a small local edit while release approval still requires the project's release gate; neither is automatically a substitute for the other."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "apply-and-review"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Deliver the revised policy to future agents and confirm it is active at an affected decision. Review subsequent eligible work for both reduced overrun and preserved defect detection."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Before the change, predict which trigger points should lose redundant work and which checks should remain. At a proportionate review point, compare time spent after requirements were satisfied, checks repeated without new justification, missed defects, and usable task completion in comparable work."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Less checking alone is insufficient. If defects rise, coverage may have been removed. If the revised rule reaches the agent but excess checking persists, inspect other instructions and decision behavior. Work with no relevant check opportunity supplies little evidence."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "risks-and-confounders",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A narrow rule can miss interacting changes or encourage premature completion. A different task mix or faster test infrastructure can also reduce checking time without validating the policy explanation."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stop-and-rollback",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Restore needed coverage if the change skips required gates or misses relevant defects. Revert the rule or narrow its exception; preserve evidence of defects and repair affected artifacts separately."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This intervention is unvalidated. Its usefulness depends on correctly identifying an overbroad rule; it is not a general recommendation to test less."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "I003",
+      "kind": "intervention",
+      "summary": "Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "title": "Verify through the required acceptance path",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html",
+      "document": {
+        "name": "intervention",
+        "attributes": {
+          "id": "I003",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "title": "Verify through the required acceptance path"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope."
+            ]
+          },
+          {
+            "name": "purpose",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Make future verification cover the boundary that matters to the task. A component probe can help locate a defect without proving that a user's input, deployment path, or physical process reaches that component correctly."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "preconditions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "known-boundary"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Identify a required acceptance boundary omitted by the current QA workflow and the relevant artifact or destination."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "feasible-check"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The maintainer can change the QA skill, template, or harness, and the needed check is feasible within the task's access, cost, and authorization limits. Otherwise preserve the unresolved requirement rather than claiming verification."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "procedure",
+            "attributes": {},
+            "content": [
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "define-path"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Update the reusable QA instructions to connect the relevant acceptance condition to its input, artifact version, and observable result. Select the smallest check that covers that path."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "exercise-boundary"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Change the default acceptance procedure to use the required interface. For a user-input requirement, drive that input rather than calling its internal handler; for a delivered artifact, inspect the relevant destination. Wait for asynchronous completion using its observable result and an appropriate timeout."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "retain-scope"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Keep component probes available for diagnosis, but label their results with what they exercised. Do not let a component success close a broader acceptance condition without matching evidence. Use existing check output; a new receipt format is not required."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "review-outcomes"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Confirm subsequent QA work follows the revised path and review both acceptance outcomes and the accuracy of claims based on them."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Predict which previously bypassed failures may become visible and which component-only tasks should remain unchanged. On future applicable work, inspect whether the required path was attempted, whether it worked, and whether the final statement matches the result. Record blocked or unavailable checks as unresolved."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Fewer overclaims with the required path still untested is only a reporting improvement. Newly detected defects may mean the check became more informative, not that implementation quality deteriorated. Persistent real-path failures require their own repair."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "risks-and-confounders",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Full paths can be slow, flaky, or have external effects. Restrict the procedure to the task's actual acceptance boundary and authorized environment; do not require live deployment or physical fabrication for every component change."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stop-and-rollback",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Narrow or revert a check that introduces unauthorized effects, false blocking, or disproportionate delay. Keep the broader condition open when coverage is removed; rollback does not turn missing evidence into a pass."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This is an unvalidated workflow change. Better verification may reveal defects without fixing them, and a more accurate report alone does not establish better task completion."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "I004",
+      "kind": "intervention",
+      "summary": "Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "title": "Keep derived values out of source-only fields",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html",
+      "document": {
+        "name": "intervention",
+        "attributes": {
+          "id": "I004",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "title": "Keep derived values out of source-only fields"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs."
+            ]
+          },
+          {
+            "name": "purpose",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Prevent ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "S014"
+                    },
+                    "content": [
+                      "inferred values presented as observations"
                     ]
                   },
-                  " No inspected outcome or controlled comparison supports this procedure in the repository. It is a proposed action with a testable prediction; its effectiveness across tasks, models, and context policies remains unknown."
+                  " by preserving a field's meaning through collection and serialization. An accurate calculation can still violate a source-only contract."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "preconditions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "field-contract"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The task or output format distinguishes source-reported fields from calculations, and that distinction is being lost or bypassed."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "editable-publisher"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The maintainer can change the collector instructions, serializer, or publication template and its consumers without silently changing the agreed output contract."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "procedure",
+            "attributes": {},
+            "content": [
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "separate-values"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Update the reusable collector and serializer to keep an observed value tied to its source location. Permit calculations only in explicitly authorized derived fields, with their formula and inputs; preserve the contract's missing-value representation."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "block-substitution"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Remove formula fallbacks and guessed defaults from source-only assignments. When the source lacks a value, publish the agreed missing marker rather than a computed substitute. If the current format cannot express the distinction, leave that field missing and report the limitation."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "check-boundary"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Check the final publication path with one observed value, a genuine zero, a missing value, and an authorized calculation. Confirm that serialization and display retain each meaning; use the existing data model where it can express these distinctions."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "review-publications"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Review subsequent comparable outputs against available source evidence, including outputs that look complete and those with missing fields."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Predict fewer unsupported non-missing values in source-only fields, with genuine observations and permitted calculations preserved. Compare published values with accessible sources and inspect whether downstream consumers retain the distinction."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "More missing values may reflect honest uncertainty, lost access, or a broken collector. Check useful data coverage and publication success alongside provenance accuracy. Correct source records with misleading rendered labels point to the publication layer; this change will not repair unrelated date filters or arithmetic errors."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "risks-and-confounders",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Overstrict handling can discard valid observations, convert real zeros to missing values, or break consumers expecting a complete row. Source changes and inaccessible source pages limit retrospective assessment."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stop-and-rollback",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Repair or revert the faulty collector or serializer if valid data is lost or publication breaks. Preserve the observed-versus-derived distinction in a compatible output or an explicit limitation; do not reinstate silent fabrication as the fallback."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This proposed intervention has no established outcome here. It can be appropriate from an observed contract violation without a catalog diagnosis; the underlying cause may lie in instructions, extraction, serialization, or presentation."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "I005",
+      "kind": "intervention",
+      "summary": "Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "title": "Complete the discovery-to-invocation handoff",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html",
+      "document": {
+        "name": "intervention",
+        "attributes": {
+          "id": "I005",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "title": "Complete the discovery-to-invocation handoff"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result."
+            ]
+          },
+          {
+            "name": "purpose",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Repair the interface between tool discovery and use. A capability name is not enough when invocation requires additional schema or runtime registration. Discovery should either complete that handoff or tell the agent what remains blocked."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "preconditions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "delivery-gap"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The adapter promises callable access after discovery, but inspection shows a gap in registration, schema delivery, or the supported invocation route."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "adapter-access"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The maintainer can change and inspect the adapter and receiving tool configuration while preserving existing permissions."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "procedure",
+            "attributes": {},
+            "content": [
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "trace-handoff"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Locate where discovery resolves the capability, where runtime registration occurs, and how the receiving turn gets its invocation contract."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "complete-delivery"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Change that shared path to register and deliver the interface before reporting callable availability. If activation is asynchronous, return its pending state and supported continuation instead of an apparently completed discovery."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "expose-blocks"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Return an explicit unavailable result when activation fails, with the actionable reason and supported recovery if one exists. Repeated discovery should not return the same success-looking reference while the capability remains inaccessible."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "confirm-use"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Inspect a representative receiving input and safe invocation, then observe ordinary subsequent tool-use opportunities. Check an unavailable capability as well so errors remain visible and permission boundaries hold."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record predictions for available and unavailable tools separately. On applicable future turns, compare successful discovery-to-use transitions, repeated searches for the same capability, explicit blocks, and completed required tool work."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Confirmed delivery with continued rediscovery weakens the delivery-gap explanation. Correct invocations that fail at an external service indicate another obstruction. Fewer searches caused by silently skipping required work are not success."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "risks-and-confounders",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Loading unnecessary schemas can consume context; stale registrations can call the wrong interface. Adapter changes must preserve authorization and tool selection. Model or provider changes can independently affect discovery behavior."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stop-and-rollback",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Revert the adapter change if it exposes unauthorized tools, delivers incompatible schemas, or breaks working routes. Report unavailable capabilities explicitly while repairing the handoff; do not mask activation failures as successful access."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evidence-and-uncertainty",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This is an unvalidated proposed adapter repair. No particular harness is asserted to have this defect, and a completed handoff does not guarantee correct tool choice or successful task completion."
                 ]
               }
             ]
@@ -829,7 +2506,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and is not required by an applicable freshness or verification instruction."
+                      "Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and addresses no unmet freshness or verification need; a standing instruction to reread does not by itself establish such a need."
                     ]
                   }
                 ]
@@ -851,7 +2528,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Check the task instructions and intervening edits for a new content need, freshness condition, or required verification. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call."
+                  "Check task requirements, source-change risks, and intervening edits for a new content need, freshness condition, or unresolved verification question. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call. A rule can explain a redundant read without making it useful; record that rule for investigation."
                 ]
               }
             ]
@@ -930,7 +2607,17 @@
                           "multi-read"
                         ]
                       },
-                      " is absent."
+                      " is absent. This excludes this symptom, not a delivery fault or ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S002"
+                        },
+                        "content": [
+                          "doom looping"
+                        ]
+                      },
+                      " if repeated unsuccessful retries meet its definition."
                     ]
                   }
                 ]
@@ -945,7 +2632,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "An applicable instruction requires a fresh reading at a decision boundary, even if the value is unchanged. This is the freshness requirement excluded by ",
+                      "A reading at a decision boundary establishes freshness needed for a decision about mutable state, even if the value is unchanged. It answers an unmet freshness need, unlike ",
                       {
                         "name": "ref",
                         "attributes": {
@@ -955,7 +2642,7 @@
                           "multi-read"
                         ]
                       },
-                      "."
+                      "; a generic reread instruction alone is insufficient."
                     ]
                   }
                 ]
@@ -970,7 +2657,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The task requires an independent second retrieval to verify a value, and the agent performs that check. The applicable verification instruction excludes it from ",
+                      "An independent second retrieval checks a still-unresolved reliability question, and the agent performs that check. It supplies verification evidence missing from ",
                       {
                         "name": "ref",
                         "attributes": {
@@ -980,7 +2667,7 @@
                           "multi-read"
                         ]
                       },
-                      "."
+                      "; equivalent repetitions after the question is settled are not excluded merely because a rule demands them."
                     ]
                   }
                 ]
@@ -1572,7 +3259,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it."
+                      "Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an unmet acceptance need, relevant risk, or investigation question that justifies it; an overbroad standing rule can cause this behavior."
                     ]
                   }
                 ]
@@ -1594,7 +3281,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Requirements, new failures, and planned repeatability studies provide evidence for the benign lookalikes."
+                  "Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Distinguish a rule's existence from the acceptance need or risk it addresses; new failures, unmet coverage, and planned repeatability studies can justify further checking."
                 ]
               }
             ]
@@ -1613,7 +3300,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "A release, security, or project rule still requires the full check before the requested action. This supplies the applicable requirement absent from ",
+                      "A release, security, or project check supplies coverage still needed for the requested action. That unmet acceptance need distinguishes it from ",
                       {
                         "name": "ref",
                         "attributes": {
@@ -1623,7 +3310,7 @@
                           "checking overrun"
                         ]
                       },
-                      ", even when the suite takes longer than the edit."
+                      ", even when the suite takes longer than the edit. A policy requiring equivalent checks after that need is met may itself warrant diagnosis."
                     ]
                   }
                 ]
@@ -3838,176 +5525,865 @@
           }
         ]
       }
+    },
+    {
+      "id": "S014",
+      "kind": "symptom",
+      "summary": "An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-27",
+      "title": "Inferred values presented as observations",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S014",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-27",
+          "title": "Inferred values presented as observations"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "unsupported-value"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "At least one output value is presented as source-reported, through its label or the applicable field contract, but the trace or transformation shows it was calculated, estimated, or defaulted without a matching source observation. The output does not disclose that substitution."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the field's promised meaning with the accessible source, extraction trace, transformation code, and published value. Look for formula fallbacks or defaults in assignments to source-only fields and check whether downstream labels preserve any derivation disclosed upstream."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A plausible number alone is insufficient. If the source is inaccessible and there is no evidence of substitution, record uncertainty rather than assuming fabrication. A matching source value may have been independently observed; inspect its provenance."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "labeled-derivation"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "An authorized calculated field is labeled as derived and identifies its formula or basis. It lacks the undisclosed substitution in ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S014#observations/unsupported-value"
+                        },
+                        "content": [
+                          "unsupported value"
+                        ]
+                      },
+                      "."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "representation-change"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Converting a displayed quantity into the agreed units or numeric representation preserves its meaning and precision. It does not supply an unobserved quantity as required by ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S014#observations/unsupported-value"
+                        },
+                        "content": [
+                          "unsupported value"
+                        ]
+                      },
+                      "."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "explicit-missing"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The output uses the agreed missing marker, distinct from a source-reported zero. No substituted observation is claimed under ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S014#observations/unsupported-value"
+                        },
+                        "content": [
+                          "unsupported value"
+                        ]
+                      },
+                      "."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the field contract, source location and capture time, observed source content, transformation or default, publication format, and final label. Preserve the configuration and artifact versions, source-access limits, and any authorization to calculate. Count affected fields against comparable field decisions, including correct zeros, missing values, and disclosed calculations. Record downstream decisions, correction effort, and useful coverage rather than inferring harm from a discrepancy alone."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "computed-total",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic incident: a collector must copy a supplier's quoted total, leaving it missing when absent. For one quote it multiplies quantity by unit price and fills the source-only total. The transformation exposes the substitution; a reviewer spends six minutes correcting the export because the unobserved total might exclude fees."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "missing-as-zero",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic incident: a survey extractor converts three unanswered counts into zeros with a default-value expression. Comparing the form with the export reveals three unobserved values presented as responses, and the analyst must regenerate the summary before using it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "authorized-estimate",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Synthetic comparison: the user requests an estimated total from observed quantity and unit price. The output labels one calculated estimate and leaves the supplier's quoted-total field missing. The derivation and its source inputs are explicit, so no source observation is substituted."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "objects": {
     "D001": {
       "document": "D001",
       "kind": "diagnosis",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html"
     },
     "D001#relations": {
       "document": "D001",
       "kind": "relations",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#relations"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations"
     },
     "D001#relations/I001": {
       "document": "D001",
       "kind": "intervention-ref",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#relations/I001"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001"
     },
     "D001#relations/I001/when": {
       "document": "D001",
       "kind": "when",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#relations/I001/when"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001/when"
+    },
+    "D001#relations/I001/predictions": {
+      "document": "D001",
+      "kind": "predictions",
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001/predictions"
     },
     "D001#definition": {
       "document": "D001",
       "kind": "definition",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#definition"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#definition"
     },
     "D001#criteria": {
       "document": "D001",
       "kind": "criteria",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#criteria"
     },
-    "D001#criteria/recurrence": {
+    "D001#criteria/prior-state": {
       "document": "D001",
       "kind": "criterion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/recurrence"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#criteria/prior-state"
     },
-    "D001#criteria/low-value": {
+    "D001#criteria/delivery-loss": {
       "document": "D001",
       "kind": "criterion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/low-value"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#criteria/delivery-loss"
     },
-    "D001#criteria/functional-consequence": {
+    "D001#criteria/linked-disruption": {
       "document": "D001",
       "kind": "criterion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/functional-consequence"
-    },
-    "D001#criteria/alternative-assessment": {
-      "document": "D001",
-      "kind": "criterion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#criteria/alternative-assessment"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#criteria/linked-disruption"
     },
     "D001#exclusions": {
       "document": "D001",
       "kind": "exclusions",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#exclusions"
     },
-    "D001#exclusions/useful-retrieval": {
+    "D001#exclusions/expired-state": {
       "document": "D001",
       "kind": "exclusion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions/useful-retrieval"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#exclusions/expired-state"
     },
-    "D001#exclusions/failed-delivery": {
+    "D001#exclusions/equivalent-context": {
       "document": "D001",
       "kind": "exclusion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions/failed-delivery"
-    },
-    "D001#exclusions/required-checks": {
-      "document": "D001",
-      "kind": "exclusion",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#exclusions/required-checks"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#exclusions/equivalent-context"
     },
     "D001#differential": {
       "document": "D001",
       "kind": "differential",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential"
     },
-    "D001#differential/useful-refresh": {
+    "D001#differential/initial-delivery": {
       "document": "D001",
       "kind": "alternative",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/useful-refresh"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential/initial-delivery"
     },
-    "D001#differential/useful-refresh/discriminator": {
+    "D001#differential/initial-delivery/discriminator": {
       "document": "D001",
       "kind": "discriminator",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/useful-refresh/discriminator"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential/initial-delivery/discriminator"
     },
-    "D001#differential/failed-delivery": {
+    "D001#differential/policy-conflict": {
       "document": "D001",
       "kind": "alternative",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/failed-delivery"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential/policy-conflict"
     },
-    "D001#differential/failed-delivery/discriminator": {
+    "D001#differential/policy-conflict/discriminator": {
       "document": "D001",
       "kind": "discriminator",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/failed-delivery/discriminator"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential/policy-conflict/discriminator"
     },
-    "D001#differential/context-loss": {
+    "D001#differential/visible-state": {
       "document": "D001",
       "kind": "alternative",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/context-loss"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential/visible-state"
     },
-    "D001#differential/context-loss/discriminator": {
+    "D001#differential/visible-state/discriminator": {
       "document": "D001",
       "kind": "discriminator",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/context-loss/discriminator"
-    },
-    "D001#differential/required-checks": {
-      "document": "D001",
-      "kind": "alternative",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/required-checks"
-    },
-    "D001#differential/required-checks/discriminator": {
-      "document": "D001",
-      "kind": "discriminator",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/required-checks/discriminator"
-    },
-    "D001#differential/available-evidence": {
-      "document": "D001",
-      "kind": "alternative",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/available-evidence"
-    },
-    "D001#differential/available-evidence/discriminator": {
-      "document": "D001",
-      "kind": "discriminator",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#differential/available-evidence/discriminator"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#differential/visible-state/discriminator"
     },
     "D001#investigation": {
       "document": "D001",
       "kind": "investigation",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#investigation"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#investigation"
     },
     "D001#interventions": {
       "document": "D001",
       "kind": "interventions",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#interventions"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#interventions"
     },
     "D001#evidence-and-uncertainty": {
       "document": "D001",
       "kind": "evidence-and-uncertainty",
-      "source": "entries/diagnoses/unproductive-repeated-retrieval.xml",
-      "url": "diagnoses/unproductive-repeated-retrieval.html#evidence-and-uncertainty"
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#evidence-and-uncertainty"
+    },
+    "D002": {
+      "document": "D002",
+      "kind": "diagnosis",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html"
+    },
+    "D002#relations": {
+      "document": "D002",
+      "kind": "relations",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations"
+    },
+    "D002#relations/I005": {
+      "document": "D002",
+      "kind": "intervention-ref",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005"
+    },
+    "D002#relations/I005/when": {
+      "document": "D002",
+      "kind": "when",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/when"
+    },
+    "D002#relations/I005/predictions": {
+      "document": "D002",
+      "kind": "predictions",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/predictions"
+    },
+    "D002#definition": {
+      "document": "D002",
+      "kind": "definition",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#definition"
+    },
+    "D002#criteria": {
+      "document": "D002",
+      "kind": "criteria",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#criteria"
+    },
+    "D002#criteria/promised-capability": {
+      "document": "D002",
+      "kind": "criterion",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#criteria/promised-capability"
+    },
+    "D002#criteria/missing-interface": {
+      "document": "D002",
+      "kind": "criterion",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#criteria/missing-interface"
+    },
+    "D002#criteria/stalled-use": {
+      "document": "D002",
+      "kind": "criterion",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#criteria/stalled-use"
+    },
+    "D002#exclusions": {
+      "document": "D002",
+      "kind": "exclusions",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#exclusions"
+    },
+    "D002#exclusions/reference-contract": {
+      "document": "D002",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#exclusions/reference-contract"
+    },
+    "D002#exclusions/expected-delay": {
+      "document": "D002",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#exclusions/expected-delay"
+    },
+    "D002#differential": {
+      "document": "D002",
+      "kind": "differential",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential"
+    },
+    "D002#differential/callable-but-unused": {
+      "document": "D002",
+      "kind": "alternative",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential/callable-but-unused"
+    },
+    "D002#differential/callable-but-unused/discriminator": {
+      "document": "D002",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential/callable-but-unused/discriminator"
+    },
+    "D002#differential/runtime-rejection": {
+      "document": "D002",
+      "kind": "alternative",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential/runtime-rejection"
+    },
+    "D002#differential/runtime-rejection/discriminator": {
+      "document": "D002",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential/runtime-rejection/discriminator"
+    },
+    "D002#differential/context-loss": {
+      "document": "D002",
+      "kind": "alternative",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential/context-loss"
+    },
+    "D002#differential/context-loss/discriminator": {
+      "document": "D002",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#differential/context-loss/discriminator"
+    },
+    "D002#investigation": {
+      "document": "D002",
+      "kind": "investigation",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#investigation"
+    },
+    "D002#interventions": {
+      "document": "D002",
+      "kind": "interventions",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#interventions"
+    },
+    "D002#evidence-and-uncertainty": {
+      "document": "D002",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#evidence-and-uncertainty"
+    },
+    "D003": {
+      "document": "D003",
+      "kind": "diagnosis",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html"
+    },
+    "D003#relations": {
+      "document": "D003",
+      "kind": "relations",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations"
+    },
+    "D003#relations/I002": {
+      "document": "D003",
+      "kind": "intervention-ref",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002"
+    },
+    "D003#relations/I002/when": {
+      "document": "D003",
+      "kind": "when",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/when"
+    },
+    "D003#relations/I002/predictions": {
+      "document": "D003",
+      "kind": "predictions",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/predictions"
+    },
+    "D003#definition": {
+      "document": "D003",
+      "kind": "definition",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#definition"
+    },
+    "D003#criteria": {
+      "document": "D003",
+      "kind": "criteria",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#criteria"
+    },
+    "D003#criteria/operative-rule": {
+      "document": "D003",
+      "kind": "criterion",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#criteria/operative-rule"
+    },
+    "D003#criteria/scope-mismatch": {
+      "document": "D003",
+      "kind": "criterion",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#criteria/scope-mismatch"
+    },
+    "D003#criteria/checking-consequence": {
+      "document": "D003",
+      "kind": "criterion",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#criteria/checking-consequence"
+    },
+    "D003#exclusions": {
+      "document": "D003",
+      "kind": "exclusions",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#exclusions"
+    },
+    "D003#exclusions/justified-check": {
+      "document": "D003",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#exclusions/justified-check"
+    },
+    "D003#exclusions/execution-cost": {
+      "document": "D003",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#exclusions/execution-cost"
+    },
+    "D003#differential": {
+      "document": "D003",
+      "kind": "differential",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential"
+    },
+    "D003#differential/state-loss": {
+      "document": "D003",
+      "kind": "alternative",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential/state-loss"
+    },
+    "D003#differential/state-loss/discriminator": {
+      "document": "D003",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential/state-loss/discriminator"
+    },
+    "D003#differential/new-evidence": {
+      "document": "D003",
+      "kind": "alternative",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential/new-evidence"
+    },
+    "D003#differential/new-evidence/discriminator": {
+      "document": "D003",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential/new-evidence/discriminator"
+    },
+    "D003#differential/rule-independent": {
+      "document": "D003",
+      "kind": "alternative",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential/rule-independent"
+    },
+    "D003#differential/rule-independent/discriminator": {
+      "document": "D003",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#differential/rule-independent/discriminator"
+    },
+    "D003#investigation": {
+      "document": "D003",
+      "kind": "investigation",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#investigation"
+    },
+    "D003#interventions": {
+      "document": "D003",
+      "kind": "interventions",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#interventions"
+    },
+    "D003#evidence-and-uncertainty": {
+      "document": "D003",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#evidence-and-uncertainty"
+    },
+    "D004": {
+      "document": "D004",
+      "kind": "diagnosis",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html"
+    },
+    "D004#relations": {
+      "document": "D004",
+      "kind": "relations",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations"
+    },
+    "D004#relations/I003": {
+      "document": "D004",
+      "kind": "intervention-ref",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003"
+    },
+    "D004#relations/I003/when": {
+      "document": "D004",
+      "kind": "when",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003/when"
+    },
+    "D004#relations/I003/predictions": {
+      "document": "D004",
+      "kind": "predictions",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003/predictions"
+    },
+    "D004#definition": {
+      "document": "D004",
+      "kind": "definition",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#definition"
+    },
+    "D004#criteria": {
+      "document": "D004",
+      "kind": "criteria",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#criteria"
+    },
+    "D004#criteria/broader-requirement": {
+      "document": "D004",
+      "kind": "criterion",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#criteria/broader-requirement"
+    },
+    "D004#criteria/limited-probe": {
+      "document": "D004",
+      "kind": "criterion",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#criteria/limited-probe"
+    },
+    "D004#criteria/scope-promotion": {
+      "document": "D004",
+      "kind": "criterion",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#criteria/scope-promotion"
+    },
+    "D004#exclusions": {
+      "document": "D004",
+      "kind": "exclusions",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#exclusions"
+    },
+    "D004#exclusions/matching-evidence": {
+      "document": "D004",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#exclusions/matching-evidence"
+    },
+    "D004#exclusions/scoped-task": {
+      "document": "D004",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#exclusions/scoped-task"
+    },
+    "D004#differential": {
+      "document": "D004",
+      "kind": "differential",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential"
+    },
+    "D004#differential/artifact-defect": {
+      "document": "D004",
+      "kind": "alternative",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential/artifact-defect"
+    },
+    "D004#differential/artifact-defect/discriminator": {
+      "document": "D004",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential/artifact-defect/discriminator"
+    },
+    "D004#differential/stale-result": {
+      "document": "D004",
+      "kind": "alternative",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential/stale-result"
+    },
+    "D004#differential/stale-result/discriminator": {
+      "document": "D004",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential/stale-result/discriminator"
+    },
+    "D004#differential/reporting-error": {
+      "document": "D004",
+      "kind": "alternative",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential/reporting-error"
+    },
+    "D004#differential/reporting-error/discriminator": {
+      "document": "D004",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#differential/reporting-error/discriminator"
+    },
+    "D004#investigation": {
+      "document": "D004",
+      "kind": "investigation",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#investigation"
+    },
+    "D004#interventions": {
+      "document": "D004",
+      "kind": "interventions",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#interventions"
+    },
+    "D004#evidence-and-uncertainty": {
+      "document": "D004",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#evidence-and-uncertainty"
+    },
+    "I005": {
+      "document": "I005",
+      "kind": "intervention",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html"
+    },
+    "I005#purpose": {
+      "document": "I005",
+      "kind": "purpose",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#purpose"
+    },
+    "I005#preconditions": {
+      "document": "I005",
+      "kind": "preconditions",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#preconditions"
+    },
+    "I005#preconditions/delivery-gap": {
+      "document": "I005",
+      "kind": "precondition",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#preconditions/delivery-gap"
+    },
+    "I005#preconditions/adapter-access": {
+      "document": "I005",
+      "kind": "precondition",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#preconditions/adapter-access"
+    },
+    "I005#procedure": {
+      "document": "I005",
+      "kind": "procedure",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#procedure"
+    },
+    "I005#procedure/trace-handoff": {
+      "document": "I005",
+      "kind": "step",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#procedure/trace-handoff"
+    },
+    "I005#procedure/complete-delivery": {
+      "document": "I005",
+      "kind": "step",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#procedure/complete-delivery"
+    },
+    "I005#procedure/expose-blocks": {
+      "document": "I005",
+      "kind": "step",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#procedure/expose-blocks"
+    },
+    "I005#procedure/confirm-use": {
+      "document": "I005",
+      "kind": "step",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#procedure/confirm-use"
+    },
+    "I005#evaluation": {
+      "document": "I005",
+      "kind": "evaluation",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#evaluation"
+    },
+    "I005#risks-and-confounders": {
+      "document": "I005",
+      "kind": "risks-and-confounders",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#risks-and-confounders"
+    },
+    "I005#stop-and-rollback": {
+      "document": "I005",
+      "kind": "stop-and-rollback",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#stop-and-rollback"
+    },
+    "I005#evidence-and-uncertainty": {
+      "document": "I005",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/interventions/complete-tool-discovery-handoff.xml",
+      "url": "interventions/complete-tool-discovery-handoff.html#evidence-and-uncertainty"
     },
     "I001": {
       "document": "I001",
@@ -4027,23 +6403,17 @@
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#preconditions"
     },
-    "I001#preconditions/missing-evidence": {
+    "I001#preconditions/identified-omission": {
       "document": "I001",
       "kind": "precondition",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/missing-evidence"
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/identified-omission"
     },
-    "I001#preconditions/persistent-record": {
+    "I001#preconditions/editable-transition": {
       "document": "I001",
       "kind": "precondition",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/persistent-record"
-    },
-    "I001#preconditions/freshness-enforced": {
-      "document": "I001",
-      "kind": "precondition",
-      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/freshness-enforced"
+      "url": "interventions/preserve-task-relevant-evidence.html#preconditions/editable-transition"
     },
     "I001#procedure": {
       "document": "I001",
@@ -4051,11 +6421,11 @@
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#procedure"
     },
-    "I001#procedure/save-baseline": {
+    "I001#procedure/locate-boundary": {
       "document": "I001",
       "kind": "step",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#procedure/save-baseline"
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/locate-boundary"
     },
     "I001#procedure/create-record": {
       "document": "I001",
@@ -4069,23 +6439,17 @@
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#procedure/preserve-record"
     },
-    "I001#procedure/verify-input": {
+    "I001#procedure/confirm-delivery": {
       "document": "I001",
       "kind": "step",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#procedure/verify-input"
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/confirm-delivery"
     },
-    "I001#procedure/resume-task": {
+    "I001#procedure/review-work": {
       "document": "I001",
       "kind": "step",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#procedure/resume-task"
-    },
-    "I001#procedure/review-outcome": {
-      "document": "I001",
-      "kind": "step",
-      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
-      "url": "interventions/preserve-task-relevant-evidence.html#procedure/review-outcome"
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/review-work"
     },
     "I001#evaluation": {
       "document": "I001",
@@ -4110,6 +6474,258 @@
       "kind": "evidence-and-uncertainty",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#evidence-and-uncertainty"
+    },
+    "I002": {
+      "document": "I002",
+      "kind": "intervention",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html"
+    },
+    "I002#purpose": {
+      "document": "I002",
+      "kind": "purpose",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#purpose"
+    },
+    "I002#preconditions": {
+      "document": "I002",
+      "kind": "preconditions",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#preconditions"
+    },
+    "I002#preconditions/identified-rule": {
+      "document": "I002",
+      "kind": "precondition",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#preconditions/identified-rule"
+    },
+    "I002#preconditions/authorized-change": {
+      "document": "I002",
+      "kind": "precondition",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#preconditions/authorized-change"
+    },
+    "I002#procedure": {
+      "document": "I002",
+      "kind": "procedure",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#procedure"
+    },
+    "I002#procedure/name-purpose": {
+      "document": "I002",
+      "kind": "step",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#procedure/name-purpose"
+    },
+    "I002#procedure/rewrite-rule": {
+      "document": "I002",
+      "kind": "step",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#procedure/rewrite-rule"
+    },
+    "I002#procedure/preserve-gates": {
+      "document": "I002",
+      "kind": "step",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#procedure/preserve-gates"
+    },
+    "I002#procedure/apply-and-review": {
+      "document": "I002",
+      "kind": "step",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#procedure/apply-and-review"
+    },
+    "I002#evaluation": {
+      "document": "I002",
+      "kind": "evaluation",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#evaluation"
+    },
+    "I002#risks-and-confounders": {
+      "document": "I002",
+      "kind": "risks-and-confounders",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#risks-and-confounders"
+    },
+    "I002#stop-and-rollback": {
+      "document": "I002",
+      "kind": "stop-and-rollback",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#stop-and-rollback"
+    },
+    "I002#evidence-and-uncertainty": {
+      "document": "I002",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/interventions/scope-verification-policy.xml",
+      "url": "interventions/scope-verification-policy.html#evidence-and-uncertainty"
+    },
+    "I004": {
+      "document": "I004",
+      "kind": "intervention",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html"
+    },
+    "I004#purpose": {
+      "document": "I004",
+      "kind": "purpose",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#purpose"
+    },
+    "I004#preconditions": {
+      "document": "I004",
+      "kind": "preconditions",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#preconditions"
+    },
+    "I004#preconditions/field-contract": {
+      "document": "I004",
+      "kind": "precondition",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#preconditions/field-contract"
+    },
+    "I004#preconditions/editable-publisher": {
+      "document": "I004",
+      "kind": "precondition",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#preconditions/editable-publisher"
+    },
+    "I004#procedure": {
+      "document": "I004",
+      "kind": "procedure",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#procedure"
+    },
+    "I004#procedure/separate-values": {
+      "document": "I004",
+      "kind": "step",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#procedure/separate-values"
+    },
+    "I004#procedure/block-substitution": {
+      "document": "I004",
+      "kind": "step",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#procedure/block-substitution"
+    },
+    "I004#procedure/check-boundary": {
+      "document": "I004",
+      "kind": "step",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#procedure/check-boundary"
+    },
+    "I004#procedure/review-publications": {
+      "document": "I004",
+      "kind": "step",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#procedure/review-publications"
+    },
+    "I004#evaluation": {
+      "document": "I004",
+      "kind": "evaluation",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#evaluation"
+    },
+    "I004#risks-and-confounders": {
+      "document": "I004",
+      "kind": "risks-and-confounders",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#risks-and-confounders"
+    },
+    "I004#stop-and-rollback": {
+      "document": "I004",
+      "kind": "stop-and-rollback",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#stop-and-rollback"
+    },
+    "I004#evidence-and-uncertainty": {
+      "document": "I004",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/interventions/separate-observed-derived-values.xml",
+      "url": "interventions/separate-observed-derived-values.html#evidence-and-uncertainty"
+    },
+    "I003": {
+      "document": "I003",
+      "kind": "intervention",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html"
+    },
+    "I003#purpose": {
+      "document": "I003",
+      "kind": "purpose",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#purpose"
+    },
+    "I003#preconditions": {
+      "document": "I003",
+      "kind": "preconditions",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#preconditions"
+    },
+    "I003#preconditions/known-boundary": {
+      "document": "I003",
+      "kind": "precondition",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#preconditions/known-boundary"
+    },
+    "I003#preconditions/feasible-check": {
+      "document": "I003",
+      "kind": "precondition",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#preconditions/feasible-check"
+    },
+    "I003#procedure": {
+      "document": "I003",
+      "kind": "procedure",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#procedure"
+    },
+    "I003#procedure/define-path": {
+      "document": "I003",
+      "kind": "step",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#procedure/define-path"
+    },
+    "I003#procedure/exercise-boundary": {
+      "document": "I003",
+      "kind": "step",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#procedure/exercise-boundary"
+    },
+    "I003#procedure/retain-scope": {
+      "document": "I003",
+      "kind": "step",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#procedure/retain-scope"
+    },
+    "I003#procedure/review-outcomes": {
+      "document": "I003",
+      "kind": "step",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#procedure/review-outcomes"
+    },
+    "I003#evaluation": {
+      "document": "I003",
+      "kind": "evaluation",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#evaluation"
+    },
+    "I003#risks-and-confounders": {
+      "document": "I003",
+      "kind": "risks-and-confounders",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#risks-and-confounders"
+    },
+    "I003#stop-and-rollback": {
+      "document": "I003",
+      "kind": "stop-and-rollback",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#stop-and-rollback"
+    },
+    "I003#evidence-and-uncertainty": {
+      "document": "I003",
+      "kind": "evidence-and-uncertainty",
+      "source": "entries/interventions/verify-acceptance-path.xml",
+      "url": "interventions/verify-acceptance-path.html#evidence-and-uncertainty"
     },
     "S013": {
       "document": "S013",
@@ -4500,6 +7116,84 @@
       "kind": "example",
       "source": "entries/symptoms/excessive-verification.xml",
       "url": "symptoms/excessive-verification.html#examples/release-check"
+    },
+    "S014": {
+      "document": "S014",
+      "kind": "symptom",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html"
+    },
+    "S014#observations": {
+      "document": "S014",
+      "kind": "observations",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#observations"
+    },
+    "S014#observations/unsupported-value": {
+      "document": "S014",
+      "kind": "observation",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#observations/unsupported-value"
+    },
+    "S014#how-to-recognize-it": {
+      "document": "S014",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#how-to-recognize-it"
+    },
+    "S014#benign-lookalikes": {
+      "document": "S014",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#benign-lookalikes"
+    },
+    "S014#benign-lookalikes/labeled-derivation": {
+      "document": "S014",
+      "kind": "lookalike",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#benign-lookalikes/labeled-derivation"
+    },
+    "S014#benign-lookalikes/representation-change": {
+      "document": "S014",
+      "kind": "lookalike",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#benign-lookalikes/representation-change"
+    },
+    "S014#benign-lookalikes/explicit-missing": {
+      "document": "S014",
+      "kind": "lookalike",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#benign-lookalikes/explicit-missing"
+    },
+    "S014#what-to-record": {
+      "document": "S014",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#what-to-record"
+    },
+    "S014#examples": {
+      "document": "S014",
+      "kind": "examples",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#examples"
+    },
+    "S014#examples/computed-total": {
+      "document": "S014",
+      "kind": "example",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#examples/computed-total"
+    },
+    "S014#examples/missing-as-zero": {
+      "document": "S014",
+      "kind": "example",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#examples/missing-as-zero"
+    },
+    "S014#examples/authorized-estimate": {
+      "document": "S014",
+      "kind": "example",
+      "source": "entries/symptoms/inferred-values-as-observations.xml",
+      "url": "symptoms/inferred-values-as-observations.html#examples/authorized-estimate"
     },
     "S006": {
       "document": "S006",
@@ -5146,10 +7840,40 @@
     },
     {
       "from": "D001#relations",
+      "to": "S006",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D001#relations",
+      "to": "S008",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D001#relations",
       "to": "I001",
       "relation": "intervention-ref",
       "address": "D001#relations/I001",
-      "when": "Necessary evidence appears to be lost after a context transition; a still-current source excerpt can be restored to the next model input without changing source freshness requirements."
+      "when": "Task state was available before a context transition and omitted from the continuation that needed it; the maintainer can change the transition policy.",
+      "predictions": {
+        "name": "predictions",
+        "attributes": {},
+        "content": [
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "On future continuations that receive the preserved state, redundant retrieval, constraint violations, and repeated authorization requests attributable to that omission should decline. Legitimate source refreshes and requests for expanded authority should remain."
+            ]
+          },
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "Failures before any transition should not improve through this mechanism. Persistence despite confirmed delivery weakens the omission explanation; acting beyond preserved permission suggests that the intervention lost its scope restrictions."
+            ]
+          }
+        ]
+      }
     },
     {
       "from": "D001#definition",
@@ -5157,13 +7881,23 @@
       "relation": "ref"
     },
     {
-      "from": "D001#criteria/recurrence",
+      "from": "D001#criteria/linked-disruption",
       "to": "S001",
       "relation": "symptom-ref"
     },
     {
-      "from": "D001#investigation",
-      "to": "I001",
+      "from": "D001#criteria/linked-disruption",
+      "to": "S006",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D001#criteria/linked-disruption",
+      "to": "S008",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D001#differential/policy-conflict/discriminator",
+      "to": "D003",
       "relation": "ref"
     },
     {
@@ -5172,8 +7906,169 @@
       "relation": "ref"
     },
     {
-      "from": "I001#purpose",
+      "from": "D002#relations",
+      "to": "S002",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D002#relations",
+      "to": "I005",
+      "relation": "intervention-ref",
+      "address": "D002#relations/I005",
+      "when": "Discovery is expected to make a tool callable, but registration or delivery to the receiving turn is missing or inconsistent.",
+      "predictions": {
+        "name": "predictions",
+        "attributes": {},
+        "content": [
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "After the adapter delivers a usable tool or an explicit unavailable result, repeated discovery for that same capability should decline. Available tools should be invoked when the task calls for them; unavailable tools should lead to a supported alternative or a specific blocker."
+            ]
+          },
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "Invocation errors from invalid credentials, bad arguments, or external services may persist. Repeated search despite a confirmed callable interface weakens this diagnosis. Fewer searches accompanied by missing required tool work is not improvement."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "from": "D002#criteria/stalled-use",
+      "to": "S002",
+      "relation": "ref"
+    },
+    {
+      "from": "D002#criteria/stalled-use",
+      "to": "S002",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D002#differential/context-loss/discriminator",
+      "to": "D001",
+      "relation": "ref"
+    },
+    {
+      "from": "D002#interventions",
+      "to": "I005",
+      "relation": "ref"
+    },
+    {
+      "from": "D003#relations",
       "to": "S001",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D003#relations",
+      "to": "S004",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D003#relations",
+      "to": "I002",
+      "relation": "intervention-ref",
+      "address": "D003#relations/I002",
+      "when": "A specific editable instruction or workflow triggers checks without a relevant changed state, unresolved question, or still-unmet acceptance need.",
+      "predictions": {
+        "name": "predictions",
+        "attributes": {},
+        "content": [
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "After narrowing that rule, verification overrun should decline for the affected class of work while required checks and defect detection remain intact. The reduction should occur at the rule's trigger points, not uniformly across unrelated tasks."
+            ]
+          },
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "Continued extra checks after the revised rule reaches the agent favor another cause. Fewer checks with more missed defects suggest the scope was narrowed too far; slower delivery from another bottleneck may remain."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "from": "D003#criteria/checking-consequence",
+      "to": "S004",
+      "relation": "ref"
+    },
+    {
+      "from": "D003#criteria/checking-consequence",
+      "to": "S001",
+      "relation": "ref"
+    },
+    {
+      "from": "D003#criteria/checking-consequence",
+      "to": "S004",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D003#differential/state-loss/discriminator",
+      "to": "D001",
+      "relation": "ref"
+    },
+    {
+      "from": "D003#interventions",
+      "to": "I002",
+      "relation": "ref"
+    },
+    {
+      "from": "D004#relations",
+      "to": "S011",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D004#relations",
+      "to": "I003",
+      "relation": "intervention-ref",
+      "address": "D004#relations/I003",
+      "when": "The QA skill, tool result, or completion policy treats a component or simulated check as sufficient for a broader required behavior.",
+      "predictions": {
+        "name": "predictions",
+        "attributes": {},
+        "content": [
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "Future tasks requiring the broader behavior should exercise its actual acceptance path and produce fewer unsupported verification claims. Failures at previously bypassed boundaries may become visible even before underlying implementation quality improves."
+            ]
+          },
+          {
+            "name": "p",
+            "attributes": {},
+            "content": [
+              "Component-only tasks should retain their lightweight checks. If claims become narrower but required paths remain untested, the intervention changed reporting without completing the repair. Persistent overclaims despite clear path evidence favor a separate interpretation or reporting failure."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "from": "D004#criteria/scope-promotion",
+      "to": "S011",
+      "relation": "ref"
+    },
+    {
+      "from": "D004#criteria/scope-promotion",
+      "to": "S011",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D004#interventions",
+      "to": "I003",
+      "relation": "ref"
+    },
+    {
+      "from": "I004#purpose",
+      "to": "S014",
       "relation": "ref"
     },
     {
@@ -5252,6 +8147,21 @@
       "relation": "ref"
     },
     {
+      "from": "S014#benign-lookalikes/labeled-derivation",
+      "to": "S014#observations/unsupported-value",
+      "relation": "ref"
+    },
+    {
+      "from": "S014#benign-lookalikes/representation-change",
+      "to": "S014#observations/unsupported-value",
+      "relation": "ref"
+    },
+    {
+      "from": "S014#benign-lookalikes/explicit-missing",
+      "to": "S014#observations/unsupported-value",
+      "relation": "ref"
+    },
+    {
       "from": "S006#benign-lookalikes/revised-request",
       "to": "S006#observations/constraint-loss",
       "relation": "ref"
@@ -5309,6 +8219,11 @@
     {
       "from": "S001#benign-lookalikes/failed-delivery",
       "to": "S001#observations/multi-read",
+      "relation": "ref"
+    },
+    {
+      "from": "S001#benign-lookalikes/failed-delivery",
+      "to": "S002",
       "relation": "ref"
     },
     {

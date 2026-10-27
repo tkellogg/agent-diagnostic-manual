@@ -23,7 +23,7 @@ An agent continues or expands verification beyond the task’s justified checkin
 
 ### Checking overrun
 
-Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an identified requirement that justifies it.
+Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an unmet acceptance need, relevant risk, or investigation question that justifies it; an overbroad standing rule can cause this behavior.
 
 <a id="how-to-recognize-it"></a>
 
@@ -31,7 +31,7 @@ Verification continues or additional checking work is created after an applicabl
 
 Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.
 
-Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Requirements, new failures, and planned repeatability studies provide evidence for the benign lookalikes.
+Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Distinguish a rule's existence from the acceptance need or risk it addresses; new failures, unmet coverage, and planned repeatability studies can justify further checking.
 
 <a id="benign-lookalikes"></a>
 
@@ -41,7 +41,7 @@ Compare later checks against code and environment changes, unresolved failures, 
 
 ### Required gate
 
-A release, security, or project rule still requires the full check before the requested action. This supplies the applicable requirement absent from [checking overrun](excessive-verification.md#observations/checking-overrun), even when the suite takes longer than the edit.
+A release, security, or project check supplies coverage still needed for the requested action. That unmet acceptance need distinguishes it from [checking overrun](excessive-verification.md#observations/checking-overrun), even when the suite takes longer than the edit. A policy requiring equivalent checks after that need is met may itself warrant diagnosis.
 
 <a id="benign-lookalikes/new-risk"></a>
 

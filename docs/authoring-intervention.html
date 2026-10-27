@@ -108,6 +108,10 @@
 <li>
     <a href="../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="authoring-intervention.html" class="dropdown-item active" aria-current="page">Authoring intervention XML files</a>
@@ -275,7 +311,7 @@
   <article data-pagefind-body>
 
 <h1 id="authoring-intervention-xml-files">Authoring intervention XML files<a class="headerlink" href="#authoring-intervention-xml-files" title="Permanent link">&para;</a></h1>
-<p>An intervention describes a concrete change someone can make to an agent or its environment. Lead with that change, then explain the relevant principles and how to evaluate it. The same action may help a task recover, test an explanation, or do both.</p>
+<p>An intervention describes a concrete, lasting change to the configured agent system. Lead with the skill, prompt, tool, or harness behavior to change, then explain the relevant principles and how to evaluate future work. A useful repair can also test an explanation.</p>
 <p>Use this discriminator throughout: after reading the procedure, does the reader know what to change, or do they still have to design an intervention themselves?</p>
 <h2 id="principle-fix-the-system">Principle: Fix the system<a class="headerlink" href="#principle-fix-the-system" title="Permanent link">&para;</a></h2>
 <p>The goal of this entire diagnostic process isn't to unstick a single agent session, it's to fix the system in which that agent session runs.</p>
@@ -284,27 +320,27 @@
 <p>Write these interventions with this in mind.</p>
 <p>See <a href="diagnostic-process.html">Diagnosing and improving an agent system</a> for the full flow from past incidents through competing explanations, a system change, predictions, and observations of future work. The method applies to human maintainers and independent tools as well as the diagnostic skill.</p>
 <h2 id="title-and-summary">Title and summary<a class="headerlink" href="#title-and-summary" title="Permanent link">&para;</a></h2>
-<p>Name the action and its target. The summary should say what changes, where, and under what circumstances. "Restore missing evidence to active context" identifies an action; "maintain good memory" leaves the action to the reader.</p>
+<p>Name the action and its target. The summary should say what changes, where, and under what circumstances. "Preserve task state across context transitions" identifies a recurring boundary to repair; "maintain good memory" leaves the action to the reader.</p>
 <h2 id="purpose-and-principles">Purpose and principles<a class="headerlink" href="#purpose-and-principles" title="Permanent link">&para;</a></h2>
 <p>Explain the intended effect and the working model that makes the action plausible. Include principles that help a reader apply this particular intervention correctly. For evidence restoration, the distinction between information stored somewhere and information actually supplied to the model matters.</p>
 <p>Keep principles in the <code>purpose</code> section. They support the procedure; they should not substitute for it or imply that a proposed mechanism is established. A formal diagnosis need not be a prerequisite when the relevant conditions can be observed directly.</p>
 <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
-<p>State the circumstances, access, and capabilities required to carry out the action. Distinguish these from requirements for a stronger experiment. A replayable task may be necessary for a matched comparison without being necessary for a one-off repair.</p>
+<p>State the circumstances, access, and capabilities required to change the system. Do not require a replayable task or a controlled study merely to apply a plausible repair.</p>
 <p>Do not hide additional applicability requirements later in the evaluation section.</p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
 <p>Write ordered, executable steps. Identify the actor or system component, the object changed, and when the change takes effect. Be independent of a particular harness where possible, but specify the behavior an implementation must achieve.</p>
 <p>Include how to verify that the change reached its intended target. A saved memory file is not evidence that the model received its contents. If verification is unavailable, say what remains unknown and how that limits the assessment.</p>
-<p>Keep experimental comparisons and repeated trials in <code>evaluation</code>, so someone applying the intervention once does not have to conduct a study first. Keep preparation proportional to the action. Specify when a temporary change should be removed or reconsidered.</p>
+<p>Make the repair concrete before adding instrumentation. Reuse existing logs, test output, and configuration where they suffice. A new receipt format, review gate, or measurement system must earn its implementation and runtime cost. Specify how future agents receive the change and when it should be reconsidered.</p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
 <p>State the predicted observable effect, when to assess it, and what counts as useful progress. Measure correctness and task outcomes alongside the symptom; suppressing visible behavior can make the underlying problem worse.</p>
-<p>Include an evaluation protocol specific to the intervention: what to compare, what needs to stay comparable, and which additional controls or repetitions would answer an unresolved question. Distinguish evaluation of one episode from evidence for a general policy.</p>
-<p>Explain positive, negative, and inconclusive results. Separate failure to deliver the intervention from failure after confirmed delivery. A successful remedy need not uniquely identify the cause. Keep general experimental guidance here; each entry should supply the details needed for its own prediction and comparison.</p>
+<p>Include a proportionate way to observe ordinary future work: relevant opportunities, useful outcomes, and a review point. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.</p>
+<p>Explain positive, negative, and inconclusive results. Separate failure to deliver the intervention from failure after confirmed delivery. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's <code>intervention-ref/predictions</code>; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.</p>
 <h2 id="risks-rollback-and-evidence">Risks, rollback, and evidence<a class="headerlink" href="#risks-rollback-and-evidence" title="Permanent link">&para;</a></h2>
 <p>Describe concrete ways the change could cause harm or confound interpretation. Specify when to stop, what to remove or restore, and which effects rollback cannot undo.</p>
 <p>Keep <code>evidence-and-uncertainty</code> about inspected support for this intervention and its limits. Plausible principles and detailed protocols do not establish effectiveness. Clearly label invented examples and do not use them to promote evidence status.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../interventions/preserve-task-relevant-evidence.html"><span>← Previous</span>I001 — Restore missing evidence to active context</a>
+    <a rel="prev" href="authoring-diagnosis.html"><span>← Previous</span>Authoring diagnosis XML files</a>
     <a rel="next" href="authoring-symptom.html"><span>Next →</span>Authoring symptoms XML files</a>
   </nav>
   

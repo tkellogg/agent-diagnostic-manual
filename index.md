@@ -60,19 +60,51 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
     An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.
 
+- [S014 — Inferred values presented as observations](symptoms/inferred-values-as-observations.md)
+
+    An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source.
+
 
 ## Diagnoses
 
-- [D001 — Unproductive repeated retrieval](diagnoses/unproductive-repeated-retrieval.md)
+- [D001 — Context handoff loss](diagnoses/context-handoff-loss.md)
 
-    Repeated retrieval adds little relevant information while interfering with task progress or consuming resources without a justified verification purpose.
+    A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.
+
+- [D002 — Tool discovery delivery gap](diagnoses/tool-discovery-delivery-gap.md)
+
+    The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use.
+
+- [D003 — Verification policy overgeneralization](diagnoses/verification-policy-overgeneralization.md)
+
+    A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.
+
+- [D004 — Verification scope collapse](diagnoses/verification-scope-collapse.md)
+
+    The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.
 
 
 ## Interventions
 
-- [I001 — Restore missing evidence to active context](interventions/preserve-task-relevant-evidence.md)
+- [I001 — Preserve task state across context transitions](interventions/preserve-task-relevant-evidence.md)
 
-    Reinsert a previously delivered, still-current source excerpt into the next model input when a context transition has removed information needed for the pending action.
+    Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.
+
+- [I002 — Give verification a scope and stopping condition](interventions/scope-verification-policy.md)
+
+    Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.
+
+- [I003 — Verify through the required acceptance path](interventions/verify-acceptance-path.md)
+
+    Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope.
+
+- [I004 — Keep derived values out of source-only fields](interventions/separate-observed-derived-values.md)
+
+    Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.
+
+- [I005 — Complete the discovery-to-invocation handoff](interventions/complete-tool-discovery-handoff.md)
+
+    Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.
 
 
 Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.
@@ -104,7 +136,7 @@ Open `http://127.0.0.1:8000`. MkDocs builds the site and Pagefind adds local, st
 
 `entries/` contains canonical symptoms, diagnoses, and interventions. [XSD](schema/adm-v1.xsd) validates document structure; the [format reference](skills/agent-diagnostics/references/format.md) defines cross-document rules. The builder is a reference implementation.
 
-Read the guides for [authoring symptoms](docs/authoring-symptom.md) and [authoring interventions](docs/authoring-intervention.md). `docs/` holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent `.html` and `.md` files.
+Read the guides for [authoring symptoms](docs/authoring-symptom.md), [authoring diagnoses](docs/authoring-diagnosis.md), and [authoring interventions](docs/authoring-intervention.md). `docs/` holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent `.html` and `.md` files.
 
 Singleton sections use tag names; list members use short, locally unique IDs:
 

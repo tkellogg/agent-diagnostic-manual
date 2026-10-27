@@ -108,6 +108,10 @@
 <li>
     <a href="../../../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
 </li>
+                                    
+<li>
+    <a href="../../../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -115,7 +119,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../../diagnoses/unproductive-repeated-retrieval.html" class="dropdown-item">D001 — Unproductive repeated retrieval</a>
+    <a href="../../../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+</li>
+                                    
+<li>
+    <a href="../../../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+</li>
+                                    
+<li>
+    <a href="../../../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+</li>
+                                    
+<li>
+    <a href="../../../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
 </li>
                                 </ul>
                             </li>
@@ -124,13 +140,33 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Restore missing evidence to active context</a>
+    <a href="../../../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+</li>
+                                    
+<li>
+    <a href="../../../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+</li>
+                                    
+<li>
+    <a href="../../../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+</li>
+                                    
+<li>
+    <a href="../../../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../../../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
                                     
 <li>
     <a href="../../../docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
@@ -296,7 +332,7 @@
 </tr>
 </tbody>
 </table>
-<p>Require corpus-wide, case-sensitive document IDs. Documents carry title, summary, editorial status, update date, and evidence status. Titles are plain-text attributes on documents, criteria, and differential alternatives. Summary is a child element. Diagnosis unit and level describe the assessed system and whether the category is descriptive or mechanistic.</p>
+<p>Require corpus-wide, case-sensitive document IDs. Documents carry title, summary, editorial status, update date, and evidence status. Titles are plain-text attributes on documents, criteria, and differential alternatives. Summary is a child element. Diagnoses use <code>unit="configured-agent-system"</code>: episodes supply evidence about that system. A diagnosis contains a working explanation in <code>definition</code>; there is no separate descriptive-diagnosis level.</p>
 <p>Use one to three lowercase kebab-case words for list-member IDs, matching <code>[a-z][a-z0-9]*(-[a-z][a-z0-9]*){0,2}</code>. Require uniqueness only within the containing list. The same local ID can occur in another list or document. Preserve identity when rearranging items; do not reuse an ID for a different meaning.</p>
 <p>Give singleton sections and containers no ID: their tag names identify them. Keep structured lists free of introductory or trailing prose.</p>
 <h2 id="addresses-and-relationships">Addresses and relationships<a class="headerlink" href="#addresses-and-relationships" title="Permanent link">&para;</a></h2>
@@ -322,11 +358,11 @@
 <td>Singleton prose section</td>
 </tr>
 <tr>
-<td>D001#criteria/recurrence</td>
+<td>D001#criteria/delivery-loss</td>
 <td>One criterion</td>
 </tr>
 <tr>
-<td>D001#differential/context-loss/discriminator</td>
+<td>D001#differential/policy-conflict/discriminator</td>
 <td>One alternative's discriminator</td>
 </tr>
 <tr>
@@ -334,17 +370,29 @@
 <td>Applicability condition</td>
 </tr>
 <tr>
-<td>I001#procedure/save-baseline</td>
+<td>D001#relations/I001/predictions</td>
+<td>Predictions for this pairing</td>
+</tr>
+<tr>
+<td>I001#procedure/locate-boundary</td>
 <td>One ordered step</td>
 </tr>
 </tbody>
 </table>
 <p>Use <code>&lt;ref target="S001#observations/multi-read"&gt;label&lt;/ref&gt;</code> for corpus links. Require fully qualified addresses, even inside the same document. Resolve IDs from the corpus rather than guessing filenames.</p>
-<p>Use <code>&lt;symptom-ref ref="S001"/&gt;</code> and <code>&lt;intervention-ref ref="I001"&gt;&lt;when&gt;Condition&lt;/when&gt;&lt;/intervention-ref&gt;</code> for typed relationships. Require a whole-document target of the matching kind. An intervention reference needs only its target and condition; its target identifies it within the diagnosis's relations list. Reject duplicate entry-level relationships to the same target. A criterion can also reference symptoms; those references identify relevant symptoms, while the criterion's prose specifies the requirement.</p>
+<p>Use <code>&lt;symptom-ref ref="S001"/&gt;</code> for a symptom relationship. An intervention relationship has a plain-text condition and a required prose predictions block:</p>
+<pre><code class="language-xml">&lt;intervention-ref ref=&quot;I001&quot;&gt;
+  &lt;when&gt;Needed state is lost at a context transition.&lt;/when&gt;
+  &lt;predictions&gt;
+    &lt;p&gt;Relevant failures should decline after confirmed delivery; persistence weakens the omission explanation.&lt;/p&gt;
+  &lt;/predictions&gt;
+&lt;/intervention-ref&gt;
+</code></pre>
+<p>Require a whole-document target of the matching kind. The target identifies an intervention reference within the diagnosis's relations list; no separate ID or evidence attribute is needed. Predictions describe the diagnosis–intervention combination and are adapted to the configuration before use. They are prose, not executable tests. Reject duplicate entry-level relationships to the same target. A criterion can also reference symptoms; those references identify relevant symptoms, while the criterion's prose specifies the requirement.</p>
 <h2 id="entry-structure">Entry structure<a class="headerlink" href="#entry-structure" title="Permanent link">&para;</a></h2>
 <p>For symptoms, read observations, how-to-recognize-it, benign-lookalikes, what-to-record, and examples. Observations, lookalikes, and examples are individually addressable items. Examples declare <code>kind="synthetic"</code> or <code>kind="observed"</code>.</p>
 <p>For diagnoses, read relations, definition, criteria, exclusions, differential, investigation, interventions, and evidence-and-uncertainty. Criteria, exclusions, and alternatives have local IDs. Each alternative contains a singleton discriminator. Interpret <code>criteria operator="all"</code> as requiring support for every criterion; missing information remains unknown. This combines judgments about prose, not executable predicates.</p>
-<p>For interventions, read purpose, preconditions, procedure, evaluation, risks-and-confounders, stop-and-rollback, and evidence-and-uncertainty. Preconditions and steps have local IDs; procedure order follows document order. The same intervention can support an experiment or a remedy.</p>
+<p>For interventions, read purpose, preconditions, procedure, evaluation, risks-and-confounders, stop-and-rollback, and evidence-and-uncertainty. Preconditions and steps have local IDs; procedure order follows document order. Interventions describe lasting system changes whose outcomes can also test an explanation.</p>
 <h2 id="prose-and-validation">Prose and validation<a class="headerlink" href="#prose-and-validation" title="Permanent link">&para;</a></h2>
 <p>Preserve inline text order and spaces. Prose supports p, ul/ol with li, strong, em, code, ref, and external links using a. Use a only for HTTP(S) or mailto links; use ref for corpus navigation. Escape text when rendering. Generic prose lists do not create independently addressable items.</p>
 <p>Validate against <code>schema/adm-v1.xsd</code> in the checkout, then check directory/ID agreement, document uniqueness, local list uniqueness, and reference resolution and kinds. Reject unsupported versions and unknown elements or attributes. Disable DTDs, entities, XInclude, network schema fetching, and executable content. Format conformance does not establish empirical validity.</p>
@@ -356,7 +404,7 @@ python examples/query_manual.py
 <p>The example uses Python's standard library and imports no ADM code. Independent consumers need neither the reference builder nor an LLM.</p>
 <h2 id="generated-views">Generated views<a class="headerlink" href="#generated-views" title="Permanent link">&para;</a></h2>
 <p>Run <code>python tools/build.py</code> to produce a linked HTML site, Markdown and XML alongside each HTML entry in <code>dist/</code>, and <code>dist/catalog.json</code>. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.</p>
-<p>The catalog exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address and condition.</p>
+<p>The catalog uses <code>schema_version: 4</code> and exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address, plain-text <code>when</code>, and <code>predictions</code> as an XML-derived tree so inline links and formatting remain available to scripts.</p>
 <p>Keep a corpus revision with assessment citations. Update schema, this reference, examples, and tests together when changing the draft format. There is no defined compatibility promise, executable diagnosis language, case-record schema, or severity scale yet.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>

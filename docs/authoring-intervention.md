@@ -1,6 +1,6 @@
 # Authoring intervention XML files
 
-An intervention describes a concrete change someone can make to an agent or its environment. Lead with that change, then explain the relevant principles and how to evaluate it. The same action may help a task recover, test an explanation, or do both.
+An intervention describes a concrete, lasting change to the configured agent system. Lead with the skill, prompt, tool, or harness behavior to change, then explain the relevant principles and how to evaluate future work. A useful repair can also test an explanation.
 
 Use this discriminator throughout: after reading the procedure, does the reader know what to change, or do they still have to design an intervention themselves?
 
@@ -17,7 +17,7 @@ See [Diagnosing and improving an agent system](diagnostic-process.md) for the fu
 
 ## Title and summary
 
-Name the action and its target. The summary should say what changes, where, and under what circumstances. "Restore missing evidence to active context" identifies an action; "maintain good memory" leaves the action to the reader.
+Name the action and its target. The summary should say what changes, where, and under what circumstances. "Preserve task state across context transitions" identifies a recurring boundary to repair; "maintain good memory" leaves the action to the reader.
 
 ## Purpose and principles
 
@@ -27,7 +27,7 @@ Keep principles in the `purpose` section. They support the procedure; they shoul
 
 ## Preconditions
 
-State the circumstances, access, and capabilities required to carry out the action. Distinguish these from requirements for a stronger experiment. A replayable task may be necessary for a matched comparison without being necessary for a one-off repair.
+State the circumstances, access, and capabilities required to change the system. Do not require a replayable task or a controlled study merely to apply a plausible repair.
 
 Do not hide additional applicability requirements later in the evaluation section.
 
@@ -37,15 +37,15 @@ Write ordered, executable steps. Identify the actor or system component, the obj
 
 Include how to verify that the change reached its intended target. A saved memory file is not evidence that the model received its contents. If verification is unavailable, say what remains unknown and how that limits the assessment.
 
-Keep experimental comparisons and repeated trials in `evaluation`, so someone applying the intervention once does not have to conduct a study first. Keep preparation proportional to the action. Specify when a temporary change should be removed or reconsidered.
+Make the repair concrete before adding instrumentation. Reuse existing logs, test output, and configuration where they suffice. A new receipt format, review gate, or measurement system must earn its implementation and runtime cost. Specify how future agents receive the change and when it should be reconsidered.
 
 ## Evaluation
 
 State the predicted observable effect, when to assess it, and what counts as useful progress. Measure correctness and task outcomes alongside the symptom; suppressing visible behavior can make the underlying problem worse.
 
-Include an evaluation protocol specific to the intervention: what to compare, what needs to stay comparable, and which additional controls or repetitions would answer an unresolved question. Distinguish evaluation of one episode from evidence for a general policy.
+Include a proportionate way to observe ordinary future work: relevant opportunities, useful outcomes, and a review point. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.
 
-Explain positive, negative, and inconclusive results. Separate failure to deliver the intervention from failure after confirmed delivery. A successful remedy need not uniquely identify the cause. Keep general experimental guidance here; each entry should supply the details needed for its own prediction and comparison.
+Explain positive, negative, and inconclusive results. Separate failure to deliver the intervention from failure after confirmed delivery. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's `intervention-ref/predictions`; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.
 
 ## Risks, rollback, and evidence
 
