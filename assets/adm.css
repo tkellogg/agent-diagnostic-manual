@@ -52,7 +52,16 @@ body > .container { margin-top: 3rem; }
 .formats { display: flex; align-items: center; gap: .25rem; }
 .formats a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--adm-muted); text-decoration: none; border: 1px solid transparent; border-radius: 3px; font-size: 1.2rem; }
 .formats a:hover, .formats a:focus-visible { color: var(--adm-accent); background: var(--adm-hover); border-color: var(--adm-line); }
-.adm-search { margin: .75rem 0 2.5rem; }
+.adm-toolbar { margin-bottom: 1.5rem; }
+.adm-search-trigger { display: flex; align-items: center; gap: .65rem; margin-left: 1rem; padding: .55rem .7rem; border: 1px solid var(--adm-line); border-radius: 3px; background: var(--adm-surface); color: var(--adm-muted); font-size: .8rem; white-space: nowrap; }
+.adm-search-trigger:hover { color: var(--adm-accent); border-color: var(--adm-accent); }
+.adm-search-trigger kbd { background: transparent; color: var(--adm-muted); box-shadow: none; border: 1px solid var(--adm-line); }
+.adm-search .modal-content { background: var(--adm-paper); border-color: var(--adm-line); }
+.adm-search .modal-header { border-bottom: 0; padding: 1.25rem 1.5rem .5rem; }
+.adm-search .modal-title { font-family: Georgia, serif; font-size: 1.6rem; }
+.adm-search .modal-body { padding: .5rem 1.5rem 1.5rem; }
+.adm-search-scope { color: var(--adm-muted); font-size: .85rem; margin-bottom: 1rem; }
+.adm-result-meta { display: block; margin: .2rem 0 .65rem; color: var(--adm-accent); font-size: .75rem; font-weight: 600; letter-spacing: .04em; }
 .adm-intro { margin: 0 0 1rem; color: var(--adm-accent); }
 article { max-width: 78ch; overflow-wrap: anywhere; }
 article h1, article h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
@@ -118,7 +127,7 @@ footer { margin: 5rem 0 0; font-weight: 400; text-align: left; }
   .bs-sidebar .navbar-toggler { width: 100%; display: flex; align-items: center; gap: .5rem; font-size: .8rem; padding: .6rem .8rem; }
   .bs-sidebar .navbar-toggler::after { content: "On this page"; }
   .adm-main { padding-left: 12px; }
-  .adm-search { margin-bottom: 2rem; }
+
   .homepage article h1 { font-size: 3rem; }
   article h1 + p { font-size: 1.05rem; }
   .homepage article :is(#symptoms, #diagnoses, #interventions) + ul > li { grid-template-columns: 1fr; gap: .45rem; padding: 1.1rem 0; }
@@ -132,3 +141,6 @@ footer { margin: 5rem 0 0; font-weight: 400; text-align: left; }
   .adm-main { width: 100%; padding: 0; }
   article { max-width: none; }
 }
+
+@media (max-width: 991px) { .adm-search-trigger { margin-left: auto; margin-right: 1rem; } }
+@media (max-width: 575px) { .adm-wordmark { display: none; } .navbar-brand { margin-right: .5rem; } .adm-search-trigger { gap: .4rem; margin-right: .5rem; } .adm-search-trigger kbd { display: none; } .adm-search .modal-body { padding: .5rem 1rem 1rem; } }

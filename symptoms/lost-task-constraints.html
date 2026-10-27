@@ -18,11 +18,16 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=6a1eb3345a7e" rel="stylesheet">
+        <link href="../assets/adm.css?v=69cb9aa7b4bf" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
+        <script>hljs.highlightAll();</script>
+
+<meta data-pagefind-meta="kind[content]" content="Symptom">
+<meta data-pagefind-meta="entry_id[content]" content="S006">
+
+
     </head>
 
     <body>
@@ -32,6 +37,9 @@
   <span class="adm-monogram" aria-hidden="true">ADM</span>
   <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
 </a>
+<button class="adm-search-trigger order-lg-last" type="button" data-bs-toggle="modal" data-bs-target="#adm-search-dialog" aria-haspopup="dialog">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span>Search all ADM</span><kbd aria-hidden="true">/</kbd>
+</button>
 
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -176,6 +184,21 @@
 
         <div class="container">
             <div class="row">
+<div class="modal adm-search" id="adm-search-dialog" tabindex="-1" aria-labelledby="adm-search-title" aria-hidden="true" data-pagefind-ignore>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="adm-search-title">Search all ADM</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close search"></button>
+      </div>
+      <div class="modal-body">
+        <p class="adm-search-scope">Symptoms, diagnoses, interventions, and guides</p>
+        <div id="search"></div>
+        <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+      </div>
+    </div>
+  </div>
+</div>
 <a class="adm-skip" href="#manual-content">Skip to content</a>
 <aside class="col-md-3 adm-sidebar" aria-label="On this page">
   <p class="adm-eyebrow">On this page</p>
@@ -229,10 +252,6 @@
     
   </nav>
   
-  </div>
-  <div class="adm-search" data-pagefind-ignore>
-    <div id="search"></div>
-    <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
   </div>
   
   <p class="entry-status"><span class="entry-id">S006</span><span>draft</span><span>unvalidated</span></p>
@@ -297,7 +316,7 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=6a1eb3345a7e" data-base-url="../"></script>
+<script src="../assets/adm.js?v=69cb9aa7b4bf" data-base-url="../"></script>
 
 
         <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
