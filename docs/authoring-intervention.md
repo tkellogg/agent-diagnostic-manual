@@ -13,6 +13,8 @@ This intervention should be phrased in such a way that *future* incidents can be
 
 Write these interventions with this in mind.
 
+See [Diagnosing and improving an agent system](diagnostic-process.md) for the full flow from past incidents through competing explanations, a system change, predictions, and observations of future work. The method applies to human maintainers and independent tools as well as the diagnostic skill.
+
 ## Title and summary
 
 Name the action and its target. The summary should say what changes, where, and under what circumstances. "Restore missing evidence to active context" identifies an action; "maintain good memory" leaves the action to the reader.

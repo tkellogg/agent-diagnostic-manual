@@ -93,7 +93,15 @@ def build(root=ROOT,check=False,search=False):
     for kind,label in ENTRY_KINDS:
         nav.append({label:[{d['meta']['id']+' — '+d['meta']['title']:str(Path(d['path']).with_suffix('.md'))}
                            for d in docs if d['meta']['kind']==kind]})
-    nav.append({'Using ADM':[
+    guide_nav=[]
+    for source in sorted((root/'docs').rglob('*.md')):
+        relative=source.relative_to(root)
+        target=staging/relative
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(source,target)
+        title=re.search(r'^#\s+(.+?)\s*#*\s*$',source.read_text(encoding='utf-8'),re.MULTILINE)
+        guide_nav.append({title.group(1) if title else source.stem.replace('-',' ').capitalize():relative.as_posix()})
+    nav.append({'Using ADM':guide_nav+[
         {'Diagnostic skill':'skills/agent-diagnostics/SKILL.md'},
         {'File format':'skills/agent-diagnostics/references/format.md'}]})
     for doc in docs:

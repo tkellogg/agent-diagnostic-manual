@@ -2,7 +2,7 @@
 
 A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.
 
-Start with [how to use the files](skills/agent-diagnostics/SKILL.md) and the [format reference](skills/agent-diagnostics/references/format.md).
+Start with [the diagnostic process](docs/diagnostic-process.md): learn from past incidents, change the agent system, and use predictions about future behavior to refine the diagnosis. The [diagnostic skill](skills/agent-diagnostics/SKILL.md) and [format reference](skills/agent-diagnostics/references/format.md) explain how to work with the files.
 
 Browse the XML entries for [symptoms](entries/symptoms/), [diagnoses](entries/diagnoses/), and [interventions](entries/interventions/). The website lists all entries automatically.
 
@@ -36,6 +36,8 @@ Open `http://127.0.0.1:8000`. MkDocs builds the site and Pagefind adds local, st
 ## Authoring
 
 `entries/` contains canonical symptoms, diagnoses, and interventions. [XSD](schema/adm-v1.xsd) validates document structure; the [format reference](skills/agent-diagnostics/references/format.md) defines cross-document rules. The builder is a reference implementation.
+
+Read the guides for [authoring symptoms](docs/authoring-symptom.md) and [authoring interventions](docs/authoring-intervention.md). `docs/` holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent `.html` and `.md` files.
 
 Singleton sections use tag names; list members use short, locally unique IDs:
 

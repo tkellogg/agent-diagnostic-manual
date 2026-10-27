@@ -18,7 +18,7 @@ I='entries/interventions/preserve-task-relevant-evidence.xml'
 class FormatTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
-        for folder in ('entries','schema','skills','website'):shutil.copytree(ROOT/folder,self.root/folder)
+        for folder in ('entries','schema','skills','website','docs'):shutil.copytree(ROOT/folder,self.root/folder)
         for file in ('README.md','mkdocs.yml'):shutil.copyfile(ROOT/file,self.root/file)
     def tearDown(self):self.temp.cleanup()
     def change(self,path,old,new):
@@ -70,6 +70,22 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(links['symptoms/new-symptom.html'],'S900 — A new symptom')
         self.assertIn('A new summary for the index.',' '.join(article.itertext()))
         self.assertIn('[S900 — A new symptom](symptoms/new-symptom.md)',(self.root/'dist/index.md').read_text())
+    def test_public_docs_are_discovered_and_exposed_as_markdown(self):
+        source=self.root/'docs/methods/new-guide.md'
+        source.parent.mkdir()
+        source.write_text('# A new public guide\n\nGuidance for human maintainers and tools.\n')
+        build(self.root)
+        out=self.root/'dist'
+        home=ET.HTML((out/'index.html').read_text())
+        nav_links={a.get('href'):''.join(a.itertext()) for a in home.xpath('//div[contains(@class,"navbar")]//a[@href]')}
+        self.assertEqual(nav_links['docs/methods/new-guide.html'],'A new public guide')
+        for path in (self.root/'docs').rglob('*.md'):
+            relative=path.relative_to(self.root)
+            self.assertEqual((out/relative).read_bytes(),path.read_bytes())
+            page=ET.HTML((out/relative.with_suffix('.html')).read_text())
+            self.assertTrue(page.xpath('//article[@data-pagefind-body]'))
+            self.assertEqual(page.xpath('//meta[@data-pagefind-meta="kind[content]"]/@content'),['Guide'])
+            self.assertEqual(page.xpath('//a[@aria-label="Download Markdown"]/@href'),[path.name])
     def test_homepage_and_navigation_sort_entries_by_numeric_id(self):
         for entry_id,filename in [('S999','a-new.xml'),('S1000','z-new.xml')]:
             tree=ET.parse(str(self.root/S))

@@ -14,7 +14,7 @@ class ReleaseTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory()
         self.root=Path(self.temp.name)
-        for folder in ('entries','schema','skills','website'):
+        for folder in ('entries','schema','skills','website','docs'):
             shutil.copytree(ROOT/folder,self.root/folder)
         for file in ('README.md','mkdocs.yml'):
             shutil.copyfile(ROOT/file,self.root/file)
@@ -44,6 +44,10 @@ class ReleaseTests(unittest.TestCase):
             self.assertIn(prefix+'markdown/'+stem+'.md',archive.namelist())
             self.assertEqual(archive.read(prefix+'xml/entries/'+stem+'.xml'),(self.root/'entries'/Path(stem+'.xml')).read_bytes())
             self.assertIn(prefix+'skills/agent-diagnostics/SKILL.md',archive.namelist())
+            for source in (self.root/'docs').rglob('*.md'):
+                relative=source.relative_to(self.root)
+                self.assertIn(prefix+'html/'+relative.with_suffix('.html').as_posix(),archive.namelist())
+                self.assertEqual(archive.read(prefix+'markdown/'+relative.as_posix()),source.read_bytes())
         self.assertEqual(package(self.root,'0.1.0','a'*40).read_bytes(),original)
         checksum=path.with_suffix('.zip.sha256').read_text().split()[0]
         self.assertEqual(hashlib.sha256(original).hexdigest(),checksum)
