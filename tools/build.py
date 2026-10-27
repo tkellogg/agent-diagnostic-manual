@@ -80,6 +80,7 @@ class Renderer:
 def build(root=ROOT,check=False,search=False):
     root=Path(root).resolve()
     docs,objects,addresses,refs=load(root)
+    docs.sort(key=lambda d:(d['meta']['id'][0],int(d['meta']['id'][1:]),d['meta']['id']))
     if check:
         print(f'Validated {len(docs)} XML documents and {len(objects)} scoped addresses')
         return docs,objects,refs

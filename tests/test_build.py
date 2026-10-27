@@ -70,6 +70,19 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(links['symptoms/new-symptom.html'],'S900 — A new symptom')
         self.assertIn('A new summary for the index.',' '.join(article.itertext()))
         self.assertIn('[S900 — A new symptom](symptoms/new-symptom.md)',(self.root/'dist/index.md').read_text())
+    def test_homepage_and_navigation_sort_entries_by_numeric_id(self):
+        for entry_id,filename in [('S999','a-new.xml'),('S1000','z-new.xml')]:
+            tree=ET.parse(str(self.root/S))
+            tree.getroot().set('id',entry_id)
+            tree.write(str(self.root/'entries/symptoms'/filename),encoding='UTF-8',xml_declaration=True)
+        docs,_,_=build(self.root)
+        expected=[d['meta']['id'] for d in docs if d['meta']['kind']=='symptom']
+        home=ET.HTML((self.root/'dist/index.html').read_text())
+        for xpath in ('//article//a[@href]', '//div[contains(@class,"navbar")]//a[@href]'):
+            labels=[''.join(a.itertext()).split(' — ')[0] for a in home.xpath(xpath)]
+            ids=[label for label in labels if label in expected]
+            self.assertEqual(ids,expected)
+        self.assertEqual(expected[-2:],['S999','S1000'])
     def test_structured_lists_reject_stray_prose(self):
         containers={S:['observations','benign-lookalikes','examples'],
                     D:['criteria','exclusions','differential'],
