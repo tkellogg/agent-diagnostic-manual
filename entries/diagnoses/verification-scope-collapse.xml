@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<diagnosis xmlns="urn:adm:1" id="D004" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" unit="configured-agent-system" title="Verification scope collapse">
+  <summary>The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.</summary>
+  <relations>
+    <symptom-ref ref="S011"/>
+    <intervention-ref ref="I003">
+      <when>The QA skill, tool result, or completion policy treats a component or simulated check as sufficient for a broader required behavior.</when>
+      <predictions>
+        <p>Future tasks requiring the broader behavior should exercise its actual acceptance path and produce fewer unsupported verification claims. Failures at previously bypassed boundaries may become visible even before underlying implementation quality improves.</p>
+        <p>Component-only tasks should retain their lightweight checks. If claims become narrower but required paths remain untested, the intervention changed reporting without completing the repair. Persistent overclaims despite clear path evidence favor a separate interpretation or reporting failure.</p>
+      </predictions>
+    </intervention-ref>
+  </relations>
+  <definition>
+    <p>Verification evidence has a scope: a component, input path, artifact revision, environment, or physical stage. The system should preserve that scope when deciding whether acceptance has been demonstrated. Instead, its workflow equates a narrower success with the broader requirement and closes the requirement without evidence for the missing boundary.</p>
+    <p>A hypothetical example is treating a successful internal handler call as proof that the user-facing input reaches that handler. The handler may work perfectly while the input path remains unknown.</p>
+  </definition>
+  <criteria operator="all">
+    <criterion id="broader-requirement" title="A broader acceptance condition applies">
+      <p>Identify the requested behavior and the boundaries its verification must cover.</p>
+    </criterion>
+    <criterion id="limited-probe" title="The cited evidence covers less">
+      <p>The actual check bypasses or omits a required boundary, and no independent matching evidence closes that gap.</p>
+    </criterion>
+    <criterion id="scope-promotion" title="The workflow promotes the limited result">
+      <p>A policy, tool-result transformation, or recorded acceptance decision equates that limited result with satisfaction of the broader condition, producing <ref target="S011">unsupported verification claims</ref>. An overclaim with no evidence of this promotion leaves the mechanism unknown.</p>
+      <symptom-ref ref="S011"/>
+    </criterion>
+  </criteria>
+  <exclusions>
+    <exclusion id="matching-evidence">
+      <p>A separate check covers the required path, revision, and environment, including external evidence the local transcript does not contain.</p>
+    </exclusion>
+    <exclusion id="scoped-task">
+      <p>The requested work and the report are explicitly limited to the tested component.</p>
+    </exclusion>
+  </exclusions>
+  <differential>
+    <alternative id="artifact-defect" title="The required path was tested and failed">
+      <discriminator>
+        <p>Inspect actual inputs and outputs. A real-path defect requires an implementation repair; it does not establish scope collapse unless the workflow substitutes other evidence for the failure.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="stale-result" title="Evidence applies to another artifact">
+      <discriminator>
+        <p>Match revision and destination. Correct testing of an earlier build can produce false assurance without a component-to-whole substitution.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="reporting-error" title="The acceptance boundary is retained but misreported">
+      <discriminator>
+        <p>If the workflow leaves the broader condition open and the final report alone claims it passed, investigate reporting. A shared symptom does not establish the same mechanism.</p>
+      </discriminator>
+    </alternative>
+  </differential>
+  <investigation>
+    <p>Trace one acceptance condition from its task requirement through the executed check, returned result, and completion decision. Identify exactly where scope was broadened. Look for successful work where the real path was exercised without unnecessary additional testing.</p>
+  </investigation>
+  <interventions>
+    <p><ref target="I003">Verify through the required acceptance path</ref> changes the QA workflow to exercise the missing boundary. Merely softening the final report does not complete an unmet acceptance condition.</p>
+  </interventions>
+  <evidence-and-uncertainty>
+    <p>This is an unvalidated scaffold with a hypothetical illustration. A gap in shown verification supports a symptom more readily than this causal account; unavailable external evidence remains an uncertainty. No efficacy or prevalence claim is made.</p>
+  </evidence-and-uncertainty>
+</diagnosis>

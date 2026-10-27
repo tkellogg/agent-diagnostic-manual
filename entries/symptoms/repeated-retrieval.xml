@@ -3,12 +3,12 @@
   <summary>An agent retrieves already-delivered information again without a new content, freshness, or verification need.</summary>
   <observations>
     <observation id="multi-read">
-      <p>Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and is not required by an applicable freshness or verification instruction.</p>
+      <p>Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and addresses no unmet freshness or verification need; a standing instruction to reread does not by itself establish such a need.</p>
     </observation>
   </observations>
   <how-to-recognize-it>
     <p>In the session transcript or tool audit log, group retrievals by the question answered, source, and returned passage or field. Compare result bodies or hashes, delivery status, and file versions or timestamps; identical commands can return changed content, while different commands can return the same content.</p>
-    <p>Check the task instructions and intervening edits for a new content need, freshness condition, or required verification. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call.</p>
+    <p>Check task requirements, source-change risks, and intervening edits for a new content need, freshness condition, or unresolved verification question. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call. A rule can explain a redundant read without making it useful; record that rule for investigation.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="changed-source">
@@ -18,13 +18,13 @@
       <p>A second call obtains a different passage or field needed for the task. It does not retrieve substantially the same information as <ref target="S001#observations/multi-read">multi-read</ref>.</p>
     </lookalike>
     <lookalike id="failed-delivery">
-      <p>A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by <ref target="S001#observations/multi-read">multi-read</ref> is absent.</p>
+      <p>A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by <ref target="S001#observations/multi-read">multi-read</ref> is absent. This excludes this symptom, not a delivery fault or <ref target="S002">doom looping</ref> if repeated unsuccessful retries meet its definition.</p>
     </lookalike>
     <lookalike id="freshness-check">
-      <p>An applicable instruction requires a fresh reading at a decision boundary, even if the value is unchanged. This is the freshness requirement excluded by <ref target="S001#observations/multi-read">multi-read</ref>.</p>
+      <p>A reading at a decision boundary establishes freshness needed for a decision about mutable state, even if the value is unchanged. It answers an unmet freshness need, unlike <ref target="S001#observations/multi-read">multi-read</ref>; a generic reread instruction alone is insufficient.</p>
     </lookalike>
     <lookalike id="required-verification">
-      <p>The task requires an independent second retrieval to verify a value, and the agent performs that check. The applicable verification instruction excludes it from <ref target="S001#observations/multi-read">multi-read</ref>.</p>
+      <p>An independent second retrieval checks a still-unresolved reliability question, and the agent performs that check. It supplies verification evidence missing from <ref target="S001#observations/multi-read">multi-read</ref>; equivalent repetitions after the question is settled are not excluded merely because a rule demands them.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>

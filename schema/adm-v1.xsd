@@ -92,6 +92,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="when" type="a:text"/>
+        <xs:element name="predictions" type="a:section"/>
       </xs:sequence>
       <xs:attribute name="ref" type="xs:NCName" use="required"/>
     </xs:complexType>
@@ -174,15 +175,7 @@
         <xs:element name="evidence-and-uncertainty" type="a:section"/>
       </xs:sequence>
       <xs:attributeGroup ref="a:entry"/>
-      <xs:attribute name="unit" use="required" fixed="configured-agent-episode"/>
-      <xs:attribute name="level" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="descriptive"/>
-            <xs:enumeration value="mechanistic"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
+      <xs:attribute name="unit" use="required" fixed="configured-agent-system"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="intervention">

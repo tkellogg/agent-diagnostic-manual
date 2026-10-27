@@ -12,7 +12,7 @@ from tools.build import build
 from tools.xml_entries import load, ast, N
 ROOT=Path(__file__).resolve().parents[1]
 S='entries/symptoms/repeated-retrieval.xml'
-D='entries/diagnoses/unproductive-repeated-retrieval.xml'
+D='entries/diagnoses/context-handoff-loss.xml'
 I='entries/interventions/preserve-task-relevant-evidence.xml'
 
 class FormatTests(unittest.TestCase):
@@ -27,11 +27,11 @@ class FormatTests(unittest.TestCase):
         docs,objects,refs=build(self.root)
         expected_ids={ET.parse(str(path)).getroot().get('id') for path in (self.root/'entries').rglob('*.xml')}
         self.assertEqual({d['meta']['id'] for d in docs},expected_ids)
-        for key in ['S001#observations/multi-read','S001#benign-lookalikes/changed-source','S001#examples/stalled-edit','S001#what-to-record','D001#criteria/recurrence']:
+        for key in ['S001#observations/multi-read','S001#benign-lookalikes/changed-source','S001#examples/stalled-edit','S001#what-to-record','D001#criteria/linked-disruption']:
             self.assertIn(key,objects)
         catalog=json.loads((self.root/'dist/catalog.json').read_text())
         self.assertEqual(catalog['objects']['S001#observations/multi-read']['kind'],'observation')
-        self.assertTrue(any(r['from']=='D001#criteria/recurrence' and r['to']=='S001' for r in refs))
+        self.assertTrue(any(r['from']=='D001#criteria/linked-disruption' and r['to']=='S001' for r in refs))
         self.assertTrue(any(r.get('address')=='D001#relations/I001' for r in refs))
     def test_site_navigation_resolves_without_handwritten_indexes(self):
         from urllib.parse import urlsplit, unquote
@@ -52,7 +52,7 @@ class FormatTests(unittest.TestCase):
                     self.assertIn(unquote(url.fragment),dest.xpath('//*[@id]/@id'))
         md=(out/'index.md').read_text()
         self.assertIn('symptoms/repeated-retrieval.md',md)
-        self.assertIn('diagnoses/unproductive-repeated-retrieval.md',md)
+        self.assertIn('diagnoses/context-handoff-loss.md',md)
         self.assertIn('interventions/preserve-task-relevant-evidence.md',md)
     def test_homepage_lists_new_entries_from_the_corpus(self):
         tree=ET.parse(str(self.root/S))
@@ -145,13 +145,57 @@ class FormatTests(unittest.TestCase):
                     with self.assertRaises(ValueError):load(self.root)
                     node.set('title',title)
             (self.root/path).write_bytes(original)
-    def test_intervention_reference_has_only_target_and_condition(self):
+    def test_intervention_reference_has_condition_and_predictions(self):
         _,_,_,refs=load(self.root)
         relation=next(r for r in refs if r['relation']=='intervention-ref')
-        self.assertEqual(set(relation),{'from','to','relation','address','when'})
+        self.assertEqual(set(relation),{'from','to','relation','address','when','predictions'})
         node=ET.parse(str(self.root/D)).find('a:relations/a:intervention-ref',N)
         self.assertEqual(dict(node.attrib),{'ref':'I001'})
         self.assertTrue(node.findtext('a:when',namespaces=N))
+        self.assertEqual(relation['predictions'],ast(node.find('a:predictions',N)))
+    def test_predictions_required_and_addressed_without_id(self):
+        original=(self.root/D).read_bytes()
+        for mutation in ('missing','empty','id'):
+            with self.subTest(mutation=mutation):
+                node=ET.fromstring(original)
+                predictions=node.find('a:relations/a:intervention-ref/a:predictions',N)
+                if mutation=='missing':predictions.getparent().remove(predictions)
+                elif mutation=='empty':predictions.clear()
+                else:predictions.set('id','outcome')
+                (self.root/D).write_bytes(ET.tostring(node))
+                with self.assertRaises(ValueError):load(self.root)
+        (self.root/D).write_bytes(original)
+        _,objects,_,_=load(self.root)
+        self.assertIn('D001#relations/I001/predictions',objects)
+    def test_predictions_preserve_prose_links_in_every_view(self):
+        tree=ET.parse(str(self.root/D))
+        predictions=tree.find('a:relations/a:intervention-ref/a:predictions',N)
+        predictions.clear()
+        predictions.append(ET.fromstring(b'<p xmlns="urn:adm:1"><strong>Less</strong> <ref target="S001">retrieval</ref>, with correct results.</p>'))
+        tree.write(str(self.root/D),encoding='UTF-8')
+        build(self.root)
+        catalog=json.loads((self.root/'dist/catalog.json').read_text())
+        self.assertEqual(catalog['schema_version'],4)
+        relation=next(r for r in catalog['relationships'] if r.get('address')=='D001#relations/I001')
+        self.assertEqual(relation['predictions'],ast(predictions))
+        h=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())
+        self.assertTrue(h.xpath('//*[@id="relations/I001/predictions"]'))
+        self.assertTrue(h.xpath('//p[strong="Less"]/a[@href="../symptoms/repeated-retrieval.html"]'))
+        md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
+        self.assertIn('**Less** [retrieval](../symptoms/repeated-retrieval.md), with correct results.',md)
+        result=subprocess.run([sys.executable,'-I',str(ROOT/'examples/query_manual.py'),'--entries',str(self.root/'entries')],check=True,capture_output=True,text=True)
+        diagnosis=next(r for r in json.loads(result.stdout) if r.get('diagnosis')=='D001')
+        self.assertEqual(diagnosis['interventions'][0]['predictions'],'Less retrieval, with correct results.')
+    def test_diagnosis_assesses_configured_system(self):
+        original=(self.root/D).read_bytes()
+        for unit in ('configured-agent-episode','model',None):
+            with self.subTest(unit=unit):
+                node=ET.fromstring(original)
+                if unit is None:node.attrib.pop('unit')
+                else:node.set('unit',unit)
+                (self.root/D).write_bytes(ET.tostring(node))
+                with self.assertRaises(ValueError):load(self.root)
+        (self.root/D).write_bytes(original)
     def test_intervention_reference_rejects_extra_attributes(self):
         original=(self.root/D).read_text()
         for attribute in ['role="both"','evidence="unvalidated"','id="preserve-evidence"']:
@@ -161,18 +205,18 @@ class FormatTests(unittest.TestCase):
         (self.root/D).write_text(original)
     def test_multiple_intervention_targets_have_distinct_addresses(self):
         original=(self.root/I).read_text()
-        (self.root/'entries/interventions/comparison.xml').write_text(original.replace('id="I001"','id="I002"',1))
-        self.change(D,'</relations>','<intervention-ref ref="I002"><when>A different condition.</when></intervention-ref></relations>')
+        (self.root/'entries/interventions/comparison.xml').write_text(original.replace('id="I001"','id="I999"',1))
+        self.change(D,'</relations>','<intervention-ref ref="I999"><when>A different condition.</when><predictions><p>A different outcome.</p></predictions></intervention-ref></relations>')
         _,objects,_,_=load(self.root)
         self.assertIn('D001#relations/I001',objects)
-        self.assertIn('D001#relations/I002',objects)
+        self.assertIn('D001#relations/I999',objects)
     def test_same_id_in_different_lists_allowed(self):
         self.change(S,'id="stalled-edit"','id="multi-read"')
         _,objects,_,_=load(self.root)
         self.assertIn('S001#observations/multi-read',objects)
         self.assertIn('S001#examples/multi-read',objects)
     def test_same_id_in_different_documents_allowed(self):
-        self.change(D,'id="recurrence"','id="multi-read"')
+        self.change(D,'id="linked-disruption"','id="multi-read"')
         _,objects,_,_=load(self.root)
         self.assertIn('D001#criteria/multi-read',objects)
         self.assertIn('S001#observations/multi-read',objects)
@@ -197,8 +241,8 @@ class FormatTests(unittest.TestCase):
     def test_scoped_link_renders_in_both_outputs(self):
         self.change(D,'target="S001"','target="S001#observations/multi-read"')
         build(self.root)
-        h=(self.root/'dist/diagnoses/unproductive-repeated-retrieval.html').read_text()
-        m=(self.root/'dist/diagnoses/unproductive-repeated-retrieval.md').read_text()
+        h=(self.root/'dist/diagnoses/context-handoff-loss.html').read_text()
+        m=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
         self.assertIn('../symptoms/repeated-retrieval.html#observations/multi-read',h)
         self.assertIn('../symptoms/repeated-retrieval.md#observations/multi-read',m)
         self.assertIn('id="observations/multi-read"',(self.root/'dist/symptoms/repeated-retrieval.html').read_text())

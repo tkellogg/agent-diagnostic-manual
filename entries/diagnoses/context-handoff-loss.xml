@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" unit="configured-agent-system" title="Context handoff loss">
+  <summary>A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.</summary>
+  <relations>
+    <symptom-ref ref="S001"/>
+    <symptom-ref ref="S006"/>
+    <symptom-ref ref="S008"/>
+    <intervention-ref ref="I001">
+      <when>Task state was available before a context transition and omitted from the continuation that needed it; the maintainer can change the transition policy.</when>
+      <predictions>
+        <p>On future continuations that receive the preserved state, redundant retrieval, constraint violations, and repeated authorization requests attributable to that omission should decline. Legitimate source refreshes and requests for expanded authority should remain.</p>
+        <p>Failures before any transition should not improve through this mechanism. Persistence despite confirmed delivery weakens the omission explanation; acting beyond preserved permission suggests that the intervention lost its scope restrictions.</p>
+      </predictions>
+    </intervention-ref>
+  </relations>
+  <definition>
+    <p>The context-management system should carry forward the information needed for unfinished work. Its selection or delivery policy instead omits still-applicable evidence, constraints, or authorization at compaction or delegation. A later decision must reconstruct that state or proceeds without it.</p>
+    <p>This is a proposed explanation of the configured system. <ref target="S001">Repeated retrieval</ref> alone does not establish it, and a transcript retaining information does not establish that the receiving model had it.</p>
+  </definition>
+  <criteria operator="all">
+    <criterion id="prior-state" title="Previously available task state">
+      <p>Identify a specific fact, constraint, or authorization that was available before the transition and remained applicable to the later decision.</p>
+    </criterion>
+    <criterion id="delivery-loss" title="Loss at the transition">
+      <p>The transition output and effective receiving input show the needed state omitted or materially altered, with no equivalent representation available at that decision. Inaccessible model inputs leave this criterion unknown.</p>
+    </criterion>
+    <criterion id="linked-disruption" title="A disruption the missing state explains">
+      <p>The continuation unnecessarily retrieves the same evidence, violates the omitted constraint, or requests authorization already granted. Identify the connection to the particular missing state rather than relying on timing alone.</p>
+      <symptom-ref ref="S001"/>
+      <symptom-ref ref="S006"/>
+      <symptom-ref ref="S008"/>
+    </criterion>
+  </criteria>
+  <exclusions>
+    <exclusion id="expired-state">
+      <p>Information legitimately expired or the user changed the requirement or authorization before continuation.</p>
+    </exclusion>
+    <exclusion id="equivalent-context">
+      <p>The receiving input contains an adequate equivalent of the necessary state. Poor use of visible information requires another explanation.</p>
+    </exclusion>
+  </exclusions>
+  <differential>
+    <alternative id="initial-delivery" title="Information was never delivered">
+      <discriminator>
+        <p>Compare the original usable result with actual model input before the transition. Backend success or a saved file alone cannot establish prior delivery.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="policy-conflict" title="A standing rule demands the behavior">
+      <discriminator>
+        <p>Check whether a fresh-consent or repeated-check rule still requires the action when the state is visible. For excessive checking, consider <ref target="D003">verification policy overgeneralization</ref>.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="visible-state" title="The agent acts against visible state">
+      <discriminator>
+        <p>If the relevant state is present and clear at the decision, investigate competing instructions and action selection. Do not infer internal forgetting from incompatible behavior.</p>
+      </discriminator>
+    </alternative>
+  </differential>
+  <investigation>
+    <p>Inspect the affected transition and the next decision using existing input captures where available. Compare which state survived with what the pending work needed. Look for ordinary continuations under the same policy that preserved the state and proceeded correctly; no replay of the incident is required.</p>
+  </investigation>
+  <interventions>
+    <p><ref target="I001">Preserve task state across context transitions</ref> changes future handoffs and compactions. A one-time reminder may rescue an episode but does not repair the transition policy.</p>
+  </interventions>
+  <evidence-and-uncertainty>
+    <p>This is an unvalidated working model. The entry supplies neither an adjudicated public case establishing the mechanism nor evidence that the intervention is effective. Evidence for an omission, its contribution to behavior, and benefit from changing the policy are separate claims.</p>
+  </evidence-and-uncertainty>
+</diagnosis>

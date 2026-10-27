@@ -72,7 +72,9 @@ class Renderer:
         if tag=='intervention-ref':
             value=self.link(n.get('ref'),self.esc(n.get('ref')))
             condition=self.esc(n.findtext('a:when',namespaces=N))
-            return self.anchor(n)+self.anchor(n.find('a:when',N))+(f'<p>{value}</p><p><strong>When:</strong> {condition}</p>\n' if self.mode=='html' else value+'\n\n**When:** '+condition+'\n\n')
+            return (self.anchor(n)+self.anchor(n.find('a:when',N))+
+                    (f'<p>{value}</p><p><strong>When:</strong> {condition}</p>\n' if self.mode=='html' else value+'\n\n**When:** '+condition+'\n\n')+
+                    self.block(n.find('a:predictions',N),depth+1))
         title=n.get('title') or TITLES.get(tag) or (n.get('id') or tag).replace('-',' ').capitalize()
         return self.anchor(n)+self.heading(title,depth)+''.join(self.block(c,depth+1) for c in n)
     def body(self):
@@ -137,7 +139,7 @@ def build(root=ROOT,check=False,search=False):
     shutil.copytree(root/'skills',staging/'skills')
     shutil.copytree(root/'schema',staging/'schema')
     shutil.copytree(root/'website/assets',staging/'assets')
-    catalog={'schema_version':3,'xml_namespace':'urn:adm:1',
+    catalog={'schema_version':4,'xml_namespace':'urn:adm:1',
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
     (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')

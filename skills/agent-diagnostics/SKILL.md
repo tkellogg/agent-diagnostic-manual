@@ -5,7 +5,7 @@ description: Investigate failures in configured AI agents using the Agent Diagno
 
 # Agent diagnostics
 
-Use ADM to organize evidence and decide what to investigate next. Treat a symptom as an observation, a diagnosis as a defined pattern, a mechanism as a causal hypothesis, and an intervention as a change to the system. Do not infer one merely from another.
+Use ADM to improve the configured agent system: its models, skills, prompts, tools, memory, and orchestration. Treat completed incidents as evidence, symptoms as observations, diagnoses as provisional explanations, and interventions as lasting changes for future work. Do not infer a mechanism merely from a symptom or an artifact defect.
 
 ## Locate the corpus
 
@@ -15,26 +15,26 @@ Read XML directly; no build or LLM-specific service is required. Read [the forma
 
 Record the corpus revision used for an assessment. Use entry IDs and scoped addresses to cite definitions; keep trace citations separate.
 
-## Investigate an episode
+## Investigate the system through incidents
 
-1. Establish the task and success criteria. Record the model, harness, tools, instructions, context policy, environment, and relevant versions. Assess the configured system and this episode, not the model in isolation.
-2. Read relevant symptom entries. Compare actual calls, returned content, source versions, and model-visible inputs against the observations and benign lookalikes. Use each symptom's `what-to-record` section to identify missing evidence. Treat agent self-explanations as claims to check.
+1. Establish the incident's task and success criteria. Record the model, harness, tools, instructions, context policy, environment, and relevant versions. The incident may be over; do not assume its task must be replayed or finished.
+2. Read relevant symptom entries. Compare actual calls, returned content, source versions, and model-visible inputs against the observations and benign lookalikes. An explanation is not automatically benign: a faulty instruction can cause a system-level symptom. Use `what-to-record` to identify missing evidence. Treat agent self-explanations as claims to check.
 3. Find diagnoses whose `relations/symptom-ref` references those symptoms. Read the whole candidate entry, including exclusions and differential alternatives. Do not force a catalog match if no entry fits.
 4. Assess each criterion as supported, contradicted, or unknown, with trace citations. For `operator="all"`, all criteria must be supported to assign the candidate label. A contradicted required criterion means the definition does not fit; an unknown one leaves insufficient evidence. Symptom references alone do not establish a criterion.
-5. Compare plausible alternatives using their discriminators. Prefer the next observation or experiment that separates explanations. Allow interacting causes. A descriptive diagnosis does not establish a mechanism.
+5. Compare plausible alternatives using their discriminators. Describe how the system should work, what fails, and how that would produce the symptoms. Prefer existing evidence that separates explanations; allow interacting causes and keep unavailable input evidence unknown.
 6. Report the observed pattern, criterion assessments, exclusions and alternatives, missing evidence, and the next useful action. Separate confidence in this case from the entry's evidence status. Describe concrete consequences; do not invent severity grades.
 
-Keep the report proportionate to the evidence. Cite addresses such as `D001#criteria/recurrence` alongside trace event numbers or timestamps so another reviewer can reproduce the assessment.
+Keep the report proportionate to the evidence. Cite addresses such as `D001#criteria/delivery-loss` alongside trace event numbers or timestamps so another reviewer can reproduce the assessment.
 
 ## Use an intervention
 
-Read the diagnosis's `intervention-ref/when` condition, then the referenced intervention's purpose, preconditions, ordered procedure, evaluation, confounders, and rollback instructions.
+Read the diagnosis's `intervention-ref/when` and `predictions`, then the intervention's purpose, preconditions, ordered procedure, evaluation, confounders, and rollback. An observed problem may justify an intervention without an established catalog diagnosis.
 
-Distinguish observation, experiment, and remediation. Inspecting a trace can test an explanation without changing the agent. An intervention changes the system and may serve either investigation or remediation, or both.
+Choose a concrete change to the recurring system behavior. A one-time reminder or a more cautious report does not by itself repair the factory. Keep the change and its evaluation proportional to the problem; do not add instrumentation or repeated trials by default.
 
-For an experiment, state the suspected cause, change, predicted result, assessment point, comparison conditions, and what would weaken the hypothesis before running it. Check that the intended manipulation actually occurred. Evaluate task correctness and completion alongside cost and repeated behavior. Report negative results and confounders.
+Before applying the change, adapt the predictions to this configuration: what should improve, what should remain intact, what could newly appear, and what would weaken the explanation. Choose a review point with relevant opportunities. Confirm the changed behavior reaches future agents and observe ordinary work; use replay or ablation only when its expected value justifies its cost.
 
-For example, if evidence loss is suspected, compare otherwise similar runs with and without preserved evidence. Predict fewer redundant retrievals after the relevant context transition without losing correctness. If evidence remains visible but repetition persists, weaken the simple evidence-loss hypothesis. If performance improves, report the benefit without claiming that the mechanism is uniquely established.
+Evaluate correctness and completion alongside symptom frequency and cost. Distinguish a newly exposed defect from harm introduced by the intervention. Separately decide whether the change helps and whether its predicted pattern supports the diagnosis; improvement alone does not uniquely establish the mechanism.
 
 Execute changes only within the user's authorized scope. Apply the protocol's stop and rollback conditions. Do not interpret a request for diagnosis as authorization to alter a production agent.
 
@@ -50,4 +50,4 @@ Keep synthetic examples separate from observed cases. Interpret evidence labels 
 
 Do not promote evidence labels based on plausible examples, successful parsing, or reviewer agreement alone. Distinguish reliability (reviewers agree), validity (the distinction is supported), and utility (it helps decisions).
 
-When asked to contribute, improve existing entries using actual evidence before expanding the taxonomy. Edit canonical XML, preserve stable IDs, and validate the schema and cross-references. Keep shared usage instructions here rather than repeating them inside every entry. Do not introduce a case schema or severity scale without a concrete need.
+When asked to contribute, distinguish a provisional scaffold from an evidence-supported entry. Edit canonical XML, preserve stable IDs, and validate the schema and cross-references. Keep private incidents out of public entries unless their publication is authorized. Use the checkout's `docs/` authoring guides and shared diagnostic process when available; do not introduce a case schema or severity scale without a concrete need.

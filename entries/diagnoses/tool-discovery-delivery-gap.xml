@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<diagnosis xmlns="urn:adm:1" id="D002" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" unit="configured-agent-system" title="Tool discovery delivery gap">
+  <summary>The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use.</summary>
+  <relations>
+    <symptom-ref ref="S002"/>
+    <intervention-ref ref="I005">
+      <when>Discovery is expected to make a tool callable, but registration or delivery to the receiving turn is missing or inconsistent.</when>
+      <predictions>
+        <p>After the adapter delivers a usable tool or an explicit unavailable result, repeated discovery for that same capability should decline. Available tools should be invoked when the task calls for them; unavailable tools should lead to a supported alternative or a specific blocker.</p>
+        <p>Invocation errors from invalid credentials, bad arguments, or external services may persist. Repeated search despite a confirmed callable interface weakens this diagnosis. Fewer searches accompanied by missing required tool work is not improvement.</p>
+      </predictions>
+    </intervention-ref>
+  </relations>
+  <definition>
+    <p>In a deferred-tool system, discovery must connect a capability name to an invocation contract available to the receiving model and runtime. A partial handoff can advertise success while omitting the schema, registration, or supported invocation route. Rediscovery then returns the same reference without repairing the gap.</p>
+    <p>The problem is the discovery-to-invocation boundary. Repeated search is a clue, not proof that this boundary failed.</p>
+  </definition>
+  <criteria operator="all">
+    <criterion id="promised-capability" title="Discovery promises usable access">
+      <p>The adapter's contract says a successful discovery response makes the identified capability callable for the relevant turn.</p>
+    </criterion>
+    <criterion id="missing-interface" title="The invocation interface is missing">
+      <p>Inspection of registration and effective model input establishes that the required callable interface or supported route was not delivered despite a successful discovery response.</p>
+    </criterion>
+    <criterion id="stalled-use" title="The gap obstructs tool use">
+      <p>The agent needs that capability and enters repeated unsuccessful discovery cycles matching <ref target="S002">doom looping</ref>, while those cycles leave the invocation gap unchanged.</p>
+      <symptom-ref ref="S002"/>
+    </criterion>
+  </criteria>
+  <exclusions>
+    <exclusion id="reference-contract">
+      <p>The service promises only a directory reference and supplies a working, documented next step to activate it.</p>
+    </exclusion>
+    <exclusion id="expected-delay">
+      <p>Activation is asynchronous, still within its stated completion window, and the agent is following the supported wait or retry path.</p>
+    </exclusion>
+  </exclusions>
+  <differential>
+    <alternative id="callable-but-unused" title="A callable tool is present but unused">
+      <discriminator>
+        <p>Inspect the effective tool set for the actual decision turn. A transcript showing only a tool name cannot distinguish this explanation from a delivery gap.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="runtime-rejection" title="Invocation reaches a runtime block">
+      <discriminator>
+        <p>Look for an actual invocation and its authentication, permission, argument, or service error. Fixing discovery will not necessarily remove that block.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="context-loss" title="A later transition removes a delivered interface">
+      <discriminator>
+        <p>Establish whether the interface was initially usable and then lost at a transition; that timing distinguishes initial delivery failure from <ref target="D001">context handoff loss</ref>.</p>
+      </discriminator>
+    </alternative>
+  </differential>
+  <investigation>
+    <p>Compare one failed discovery-to-use sequence with a successful sequence under the same adapter. Inspect the discovery result, registration state, receiving tool definitions, and invocation route. If those inputs are unavailable, retain this as an unconfirmed differential instead of diagnosing from repeated searches.</p>
+  </investigation>
+  <interventions>
+    <p><ref target="I005">Complete the discovery-to-invocation handoff</ref> repairs the interface used on future turns. A blanket search limit may hide the loop while leaving needed capabilities inaccessible.</p>
+  </interventions>
+  <evidence-and-uncertainty>
+    <p>This is an unvalidated scaffold. No public case in this entry establishes missing registration or model-visible delivery, and no intervention benefit is claimed. It makes no claim about a particular tool provider or harness.</p>
+  </evidence-and-uncertainty>
+</diagnosis>

@@ -79,7 +79,9 @@ def load(root):
             parent=node.getparent()
             while parent not in node_addresses:parent=parent.getparent()
             ref={'from':node_addresses[parent],'to':target,'relation':tag}
-            if tag=='intervention-ref':ref.update(address=node_addresses[node],when=node.findtext('a:when',namespaces=N))
+            if tag=='intervention-ref':
+                ref.update(address=node_addresses[node],when=node.findtext('a:when',namespaces=N),
+                           predictions=ast(node.find('a:predictions',N)))
             refs.append(ref)
         relations=doc['node'].find('a:relations',N)
         if relations is not None:
