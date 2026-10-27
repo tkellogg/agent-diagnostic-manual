@@ -17,18 +17,17 @@
     <span class="adm-eyebrow">{% if page and page.meta.kind %}{{ page.meta.kind }}{% else %}The manual{% endif %}</span>
   {% if page %}
   <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
-    <a href="{{ page.file.src_uri | url }}" download>Markdown</a>
+    <a href="{{ page.file.src_uri | url }}" download title="Download Markdown" aria-label="Download Markdown"><i class="fa-brands fa-markdown" aria-hidden="true"></i></a>
     {% if page.meta.xml_source %}
-    <a href="{{ page.meta.xml_source | url }}">XML</a>
+    <a href="{{ page.meta.xml_source | url }}" title="View XML" aria-label="View XML"><i class="fa-solid fa-code" aria-hidden="true"></i></a>
     {% endif %}
   </nav>
   {% endif %}
   </div>
-  <details class="adm-search" data-pagefind-ignore>
-    <summary>Search the manual</summary>
+  <div class="adm-search" data-pagefind-ignore>
     <div id="search"></div>
     <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
-  </details>
+  </div>
   {% if page and page.meta.id %}
   <p class="entry-status"><span class="entry-id">{{ page.meta.id }}</span><span>{{ page.meta.status }}</span><span>{{ page.meta.evidence }}</span></p>
   {% elif page and page.is_homepage %}

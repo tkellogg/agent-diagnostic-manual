@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "search": "pagefind --site dist --exclude-selectors '.formats, .pagefind-ui'"
+    "search": "pagefind --site dist --exclude-selectors '.formats, .pagefind-ui, .headerlink'"
   },
   "devDependencies": {
     "pagefind": "1.5.2"
