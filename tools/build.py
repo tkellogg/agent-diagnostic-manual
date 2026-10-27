@@ -116,7 +116,7 @@ def build(root=ROOT,check=False,search=False):
             render=Renderer(doc,objects,addresses,'md')
             label_text=render.esc(doc['meta']['id']+' — '+doc['meta']['title'])
             path=Path(doc['path']).with_suffix('.md').as_posix()
-            lines.append('- ['+label_text+']('+path+'): '+render.esc(doc['meta']['summary']))
+            lines.append('- ['+label_text+']('+path+')\n\n    '+render.esc(doc['meta']['summary'])+'\n')
         sections.append('\n'.join(lines))
     readme=readme.replace(INDEX_MARKER,'\n\n'.join(sections))
     # Directory links in the repository README lead to generated section anchors.

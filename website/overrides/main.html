@@ -1,7 +1,20 @@
 {% extends "base.html" %}
+{% block site_name %}
+<a class="navbar-brand" href="{{ nav.homepage.url | url }}" aria-label="Agent Diagnostic Manual home">
+  <span class="adm-monogram" aria-hidden="true">ADM</span>
+  <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
+</a>
+{% endblock %}
+{% block next_prev %}{% endblock %}
 {% block content %}
-<div class="col-md-3">{% include "toc.html" %}</div>
-<div class="col-md-9" role="main">
+<a class="adm-skip" href="#manual-content">Skip to content</a>
+<aside class="col-md-3 adm-sidebar" aria-label="On this page">
+  <p class="adm-eyebrow">On this page</p>
+  {% include "toc.html" %}
+</aside>
+<main class="col-md-9 adm-main" id="manual-content" tabindex="-1">
+  <div class="adm-toolbar" data-pagefind-ignore>
+    <span class="adm-eyebrow">{% if page and page.meta.kind %}{{ page.meta.kind }}{% else %}The manual{% endif %}</span>
   {% if page %}
   <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
     <a href="{{ page.file.src_uri | url }}" download>Markdown</a>
@@ -10,15 +23,30 @@
     {% endif %}
   </nav>
   {% endif %}
+  </div>
   <details class="adm-search" data-pagefind-ignore>
     <summary>Search the manual</summary>
     <div id="search"></div>
     <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
   </details>
   {% if page and page.meta.id %}
-  <p class="entry-status">{{ page.meta.id }} · {{ page.meta.status }} · {{ page.meta.evidence }}</p>
+  <p class="entry-status"><span class="entry-id">{{ page.meta.id }}</span><span>{{ page.meta.status }}</span><span>{{ page.meta.evidence }}</span></p>
+  {% elif page and page.is_homepage %}
+  <p class="adm-eyebrow adm-intro">Observe · Investigate · Understand</p>
   {% endif %}
   <article data-pagefind-body>{% include "content.html" %}</article>
+  {% if page and not page.is_homepage and (page.previous_page or page.next_page) %}
+  <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
+    {% if page.previous_page %}<a rel="prev" href="{{ page.previous_page.url | url }}"><span>← Previous</span>{{ page.previous_page.title }}</a>{% endif %}
+    {% if page.next_page %}<a rel="next" href="{{ page.next_page.url | url }}"><span>Next →</span>{{ page.next_page.title }}</a>{% endif %}
+  </nav>
+  {% endif %}
+</main>
+{% endblock %}
+{% block footer %}
+<div class="adm-footer">
+  <span>ADM <span class="footer-separator">/</span> Agent Diagnostic Manual</span>
+  <span>Built with <a href="https://www.mkdocs.org/">MkDocs</a> · <a href="{{ config.repo_url }}">Source on GitHub</a></span>
 </div>
 {% endblock %}
 {% block styles %}

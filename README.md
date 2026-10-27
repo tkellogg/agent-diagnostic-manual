@@ -1,4 +1,4 @@
-# Agent Diagnostic Manual (ADM)
+# Agent Diagnostic Manual
 
 A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.
 
