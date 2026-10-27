@@ -18,7 +18,7 @@
         <link href="css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="assets/adm.css?v=f3252ce9f223" rel="stylesheet">
+        <link href="assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -279,6 +279,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#review-the-manual" class="nav-link">Review the manual</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#build-and-read" class="nav-link">Build and read</a>
               <ul class="nav flex-column">
               </ul>
@@ -315,6 +319,16 @@
   </nav>
   
   </div>
+  
+  <div class="adm-review" data-pagefind-ignore>
+    <div class="adm-review-actions">
+      <button type="button" id="adm-review-open" disabled><i class="fa-regular fa-comment" aria-hidden="true"></i> Review this page</button>
+      <button type="button" id="adm-review-export" disabled><i class="fa-solid fa-download" aria-hidden="true"></i> Export all comments</button>
+    </div>
+    <p id="adm-review-status" role="status">Private to this browser. One export includes every ADM page.</p>
+    <noscript>Review tools require JavaScript.</noscript>
+  </div>
+  
   
   <p class="adm-eyebrow adm-intro">Observe · Investigate · Understand</p>
   
@@ -430,6 +444,11 @@
 <h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">&para;</a></h2>
 <p>Distribute <code>skills/agent-diagnostics/</code> as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ADM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.</p>
 <p>XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.</p>
+<h2 id="review-the-manual">Review the manual<a class="headerlink" href="#review-the-manual" title="Permanent link">&para;</a></h2>
+<p>On any website page, choose <strong>Review this page</strong> to open annotate.js. Highlight text, add a section note, or pin a comment, then post it. Move between entries and guides normally; comments stay attached to their pages.</p>
+<p>Choose <strong>Export all comments</strong> above any article to download one <code>adm-review-YYYY-MM-DD.json</code> containing posted comments from every ADM page in this browser, including replies and resolved comments. Send that file for review. Exporting leaves your saved comments intact. Unposted drafts are not included. Annotate.js's own panel Download and Import buttons operate on one page; use ADM's button for the complete review.</p>
+<p>Comments are private to this browser profile and site address. They do not sync between devices or go to a server. Use the same browser for a review pass and export a backup before clearing site data; private browsing or storage restrictions can prevent persistence.</p>
+<p>The site bundles <a href="https://github.com/reviewjs/annotate">annotate.js</a> 1.5.3 and its MIT license locally. ADM's small export adapter reads that pinned version's project store. The JSON groups native page exports under <code>pages</code>, retaining entry IDs or guide paths, original URLs, quoted text, anchors, and threads.</p>
 <h2 id="build-and-read">Build and read<a class="headerlink" href="#build-and-read" title="Permanent link">&para;</a></h2>
 <p>Python 3.11+ and Node.js 22+:</p>
 <pre><code class="language-sh">python -m venv .venv
@@ -485,7 +504,11 @@ python examples/query_manual.py
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="pagefind/pagefind-ui.js"></script>
-<script src="assets/adm.js?v=f3252ce9f223" data-base-url="./"></script>
+<script src="assets/adm.js?v=aa91e03f9d6c" data-base-url="./"></script>
+
+<script src="assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="index.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
+<script src="assets/adm-review.js?v=aa91e03f9d6c"></script>
+
 
 
         <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
@@ -534,5 +557,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-27 20:07:07.177368+00:00
+Build Date UTC : 2026-10-27 20:27:08.196206+00:00
 -->
