@@ -18,6 +18,8 @@ except ImportError:
     from xml_entries import load, name, text, ast, N, METADATA, ITEMS
 ROOT=Path(__file__).resolve().parents[1]
 TITLES={'criteria':'Candidate criteria','differential':'Differential diagnosis','relations':'Relationships'}
+ENTRY_KINDS=[('symptom','Symptoms'),('diagnosis','Diagnoses'),('intervention','Interventions')]
+INDEX_MARKER='<!-- ADM:ENTRY-INDEX -->'
 
 class Renderer:
     def __init__(self,doc,objects,addresses,mode):
@@ -86,7 +88,7 @@ def build(root=ROOT,check=False,search=False):
     staging.mkdir(parents=True)
     out=root/'dist'
     nav=[{'Home':'index.md'}]
-    for kind,label in [('symptom','Symptoms'),('diagnosis','Diagnoses'),('intervention','Interventions')]:
+    for kind,label in ENTRY_KINDS:
         nav.append({label:[{d['meta']['id']+' — '+d['meta']['title']:str(Path(d['path']).with_suffix('.md'))}
                            for d in docs if d['meta']['kind']==kind]})
     nav.append({'Using ADM':[
@@ -100,8 +102,25 @@ def build(root=ROOT,check=False,search=False):
         md.write_text('---\n'+yaml.safe_dump(metadata,sort_keys=False)+'---\n\n'+
                       Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
         shutil.copyfile(root/doc['source'],staging/path.with_suffix('.xml'))
-    # README is the homepage source. Map repository entry links to reading pages.
+    # README provides the homepage prose; the corpus supplies its entry index.
     readme=(root/'README.md').read_text()
+    if readme.count(INDEX_MARKER)!=1:
+        raise ValueError('README must contain exactly one ADM entry index marker')
+    sections=[]
+    for kind,label in ENTRY_KINDS:
+        entries=[doc for doc in docs if doc['meta']['kind']==kind]
+        lines=['## '+label, '']
+        if not entries:lines.append('No entries yet.')
+        for doc in entries:
+            render=Renderer(doc,objects,addresses,'md')
+            label_text=render.esc(doc['meta']['id']+' — '+doc['meta']['title'])
+            path=Path(doc['path']).with_suffix('.md').as_posix()
+            lines.append('- ['+label_text+']('+path+'): '+render.esc(doc['meta']['summary']))
+        sections.append('\n'.join(lines))
+    readme=readme.replace(INDEX_MARKER,'\n\n'.join(sections))
+    # Directory links in the repository README lead to generated section anchors.
+    for kind,label in ENTRY_KINDS:
+        readme=readme.replace('](entries/'+label.lower()+'/)','](#'+label.lower()+')')
     for doc in docs:
         readme=readme.replace(']('+doc['source']+')',']('+str(Path(doc['path']).with_suffix('.md'))+')')
     (staging/'index.md').write_text(readme,encoding='utf-8')

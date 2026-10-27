@@ -4,28 +4,9 @@ A small XML corpus of agent symptoms, candidate diagnoses, and interventions, de
 
 Start with [how to use the files](skills/agent-diagnostics/SKILL.md) and the [format reference](skills/agent-diagnostics/references/format.md).
 
-The first worked example:
+Browse the XML entries for [symptoms](entries/symptoms/), [diagnoses](entries/diagnoses/), and [interventions](entries/interventions/). The website lists all entries automatically.
 
-- [S001 — Repeated retrieval](entries/symptoms/repeated-retrieval.xml)
-- [D001 — Unproductive repeated retrieval](entries/diagnoses/unproductive-repeated-retrieval.xml)
-- [I001 — Preserve task-relevant evidence](entries/interventions/preserve-task-relevant-evidence.xml)
-
-## Symptoms
-
-The symptom directory includes the original repeated-retrieval entry and twelve additional working definitions:
-
-- [S002 — Doom looping](entries/symptoms/doom-looping.xml)
-- [S003 — Sudden performance degradation](entries/symptoms/sudden-performance-degradation.xml)
-- [S004 — Excessive verification](entries/symptoms/excessive-verification.xml)
-- [S005 — Correction without behavioral change](entries/symptoms/correction-without-behavioral-change.xml)
-- [S006 — Lost task constraints](entries/symptoms/lost-task-constraints.xml)
-- [S007 — Premature stopping](entries/symptoms/premature-stopping.xml)
-- [S008 — Repeated reauthorization](entries/symptoms/repeated-reauthorization.xml)
-- [S009 — Unrequested changes](entries/symptoms/unrequested-changes.xml)
-- [S010 — Completion–artifact mismatch](entries/symptoms/completion-artifact-mismatch.xml)
-- [S011 — Unsupported verification claims](entries/symptoms/unsupported-verification-claims.xml)
-- [S012 — Weakening the checks](entries/symptoms/weakening-the-checks.xml)
-- [S013 — Agreement-driven reversal](entries/symptoms/agreement-driven-reversal.xml)
+<!-- ADM:ENTRY-INDEX -->
 
 Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.
 

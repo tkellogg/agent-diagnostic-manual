@@ -54,6 +54,22 @@ class FormatTests(unittest.TestCase):
         self.assertIn('symptoms/repeated-retrieval.md',md)
         self.assertIn('diagnoses/unproductive-repeated-retrieval.md',md)
         self.assertIn('interventions/preserve-task-relevant-evidence.md',md)
+    def test_homepage_lists_new_entries_from_the_corpus(self):
+        tree=ET.parse(str(self.root/S))
+        tree.getroot().set('id','S900')
+        tree.getroot().set('title','A new symptom')
+        tree.find('a:summary',N).text='A new summary for the index.'
+        tree.write(str(self.root/'entries/symptoms/new-symptom.xml'),encoding='UTF-8',xml_declaration=True)
+        docs,_,_=build(self.root)
+        home=ET.HTML((self.root/'dist/index.html').read_text())
+        article=home.xpath('//article')[0]
+        links={a.get('href'):''.join(a.itertext()) for a in article.xpath('.//a[@href]')}
+        for doc in docs:
+            self.assertIn(doc['path'],links)
+            self.assertIn(doc['meta']['title'],links[doc['path']])
+        self.assertEqual(links['symptoms/new-symptom.html'],'S900 — A new symptom')
+        self.assertIn('A new summary for the index.',' '.join(article.itertext()))
+        self.assertIn('[S900 — A new symptom](symptoms/new-symptom.md)',(self.root/'dist/index.md').read_text())
     def test_structured_lists_reject_stray_prose(self):
         containers={S:['observations','benign-lookalikes','examples'],
                     D:['criteria','exclusions','differential'],
