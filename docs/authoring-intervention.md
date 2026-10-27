@@ -4,6 +4,15 @@ An intervention describes a concrete change someone can make to an agent or its 
 
 Use this discriminator throughout: after reading the procedure, does the reader know what to change, or do they still have to design an intervention themselves?
 
+## Principle: Fix the system
+The goal of this entire diagnostic process isn't to unstick a single agent session, it's to fix the system in which that agent session runs.
+
+When a human is operating an agent, they have a task to be done. This isn't like an RL environment where you can sit there and do ablations until you see all angles of a symptom. No, the environment isn't deterministic at all. Once you perform an intervention, there's no easy control group or baseline to compare it against. It's the real world, things are constantly changing and messy.
+
+This intervention should be phrased in such a way that *future* incidents can be observed, and the impacts of the intervention can be discussed. Typically, we'll make a prediction about how this intervention will be used to support a differential diagnosis.
+
+Write these interventions with this in mind.
+
 ## Title and summary
 
 Name the action and its target. The summary should say what changes, where, and under what circumstances. "Restore missing evidence to active context" identifies an action; "maintain good memory" leaves the action to the reader.
