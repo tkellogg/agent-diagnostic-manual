@@ -358,6 +358,12 @@ flowchart TD
         d2[diagnosis]
     end
 
+    subgraph Applied
+        i1[intervention]
+        i2[intervention]
+        i3[intervention]
+    end
+
     s1 --&gt; Considered --&gt; Applied
     s2 --&gt; Considered
     s3 --&gt; Considered
@@ -611,5 +617,5 @@ uv run --script examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-28 21:11:07.130512+00:00
+Build Date UTC : 2026-10-28 21:21:38.764311+00:00
 -->
