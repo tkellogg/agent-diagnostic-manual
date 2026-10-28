@@ -1,42 +1,51 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I002" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Give verification a scope and stopping condition">
-  <summary>Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.</summary>
+<intervention xmlns="urn:adm:1" id="I002" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Consolidate verification instructions with the user">
+  <summary>Find the instructions that demand extra checking, remove duplicates and contradictions, and agree with the user on one simple account of what verification each kind of work needs.</summary>
   <purpose>
-    <p>Reduce redundant checking by fixing the policy that generates it. Verification should answer a task-relevant question; more passing runs do not necessarily add evidence. Retain checks justified by the work's risks and acceptance conditions.</p>
+    <p>Reduce <ref target="S004">excessive verification</ref> by simplifying the instructions that cause it. A pile of testing rules can make the agent lose sight of whether the user wants a quick demonstration, a maintained feature, or a production release.</p>
   </purpose>
   <preconditions>
-    <precondition id="identified-rule">
-      <p>A specific instruction or workflow causes extra checks, and the maintainer can identify the class of work for which its scope is excessive.</p>
+    <precondition id="identified-rule" title="Instructions contribute to the problem">
+      <p>Active skills, prompts, project files, or workflows contain broad or conflicting checking instructions. This is a plausible repair for <ref target="D003">overbroad verification instructions</ref>; if the instructions are already clear, investigate the agent’s understanding of the task.</p>
     </precondition>
-    <precondition id="authorized-change">
-      <p>The maintainer has authority to revise that policy and can identify the requirements that must remain enforced. Otherwise seek the policy owner's change rather than bypassing it during execution.</p>
+    <precondition id="authorized-change" title="User or workflow owner involvement">
+      <p>The user or workflow owner can review the proposed simplification and identify checks that must remain. The maintainer can edit the relevant instruction sources.</p>
     </precondition>
   </preconditions>
   <procedure>
-    <step id="name-purpose">
-      <p>Identify the decision or failure risk the rule is intended to address and the checks needed to address it.</p>
+    <step id="find-instructions" title="Find the active instructions">
+      <p>Search the instructions actually loaded by the agent: system and project guidance, nested instruction files, skills, command templates, and CI rules. List each verification demand with its source; identify duplicates, contradictions, and rules that restart checks after every small edit.</p>
     </step>
-    <step id="rewrite-rule">
-      <p>Edit the source instruction or workflow to state when it applies, which relevant checks satisfy it, and when checking stops. State the changes or new failures that warrant reopening it. Remove conflicting blanket instructions in the same policy.</p>
+    <step id="agree-needs" title="Agree on what checking is useful">
+      <p>Review that list with the user. Establish what they are trying to learn or ship, what they plan to verify themselves, which failures matter, and what time or cost they consider reasonable. Use familiar task examples to resolve differences.</p>
     </step>
-    <step id="preserve-gates">
-      <p>Retain mandatory coverage and justified repeated sampling. For example, a targeted check may finish a small local edit while release approval still requires the project's release gate; neither is automatically a substitute for the other.</p>
+    <step id="consolidate-rules" title="Remove duplication and contradictions">
+      <p>Delete redundant and obsolete instructions, reconcile contradictions, and keep the remaining guidance in the fewest useful places. Make other files point there instead of copying it. Preserve necessary safety and release checks; do not delete a quota of rules blindly.</p>
     </step>
-    <step id="apply-and-review">
-      <p>Deliver the revised policy to future agents and confirm it is active at an affected decision. Review subsequent eligible work for both reduced overrun and preserved defect detection.</p>
+    <step id="make-it-simple" title="Write one short rule">
+      <p>Write a short rule for choosing enough verification for the task. For example: check the changed behavior, stop once that question is answered, and run broader checks when the change or release requires them. Show where a prototype and a release differ; avoid replacing the old pile with a larger checklist.</p>
+    </step>
+    <step id="review-work" title="Review future tasks">
+      <p>Confirm future sessions load the consolidated guidance. Agree on a check-in after a few normal tasks, then review unwanted checks, time to a usable result, and missed defects with the user.</p>
     </step>
   </procedure>
   <evaluation>
-    <p>Before the change, predict which trigger points should lose redundant work and which checks should remain. At a proportionate review point, compare time spent after requirements were satisfied, checks repeated without new justification, missed defects, and usable task completion in comparable work.</p>
-    <p>Less checking alone is insufficient. If defects rise, coverage may have been removed. If the revised rule reaches the agent but excess checking persists, inspect other instructions and decision behavior. Work with no relevant check opportunity supplies little evidence.</p>
+    <ul>
+      <li>Predict which duplicate or unnecessary checks should disappear and which important checks should remain. Compare similar tasks before and after consolidation.</li>
+      <li>Ask whether the remaining verification fits the user’s intent and planned review. Shorter runs are helpful only if the requested result remains useful and credible.</li>
+      <li>If the revised instructions are active but excess checking continues, inspect task misunderstandings or mistaken assumptions about the application.</li>
+    </ul>
   </evaluation>
   <risks-and-confounders>
-    <p>A narrow rule can miss interacting changes or encourage premature completion. A different task mix or faster test infrastructure can also reduce checking time without validating the policy explanation.</p>
+    <ul>
+      <li>Simplification can accidentally remove a necessary check or hide a difference between prototype and production work.</li>
+      <li>A faster test runner or easier task mix can reduce time independently of the instruction change.</li>
+    </ul>
   </risks-and-confounders>
   <stop-and-rollback>
-    <p>Restore needed coverage if the change skips required gates or misses relevant defects. Revert the rule or narrow its exception; preserve evidence of defects and repair affected artifacts separately.</p>
+    <ul>
+      <li>Restore a removed requirement if relevant defects are missed or a required gate is skipped.</li>
+      <li>Correct the smallest harmful change instead of automatically restoring every duplicate instruction.</li>
+    </ul>
   </stop-and-rollback>
-  <evidence-and-uncertainty>
-    <p>This intervention is unvalidated. Its usefulness depends on correctly identifying an overbroad rule; it is not a general recommendation to test less.</p>
-  </evidence-and-uncertainty>
 </intervention>

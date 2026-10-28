@@ -1,46 +1,55 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Preserve task state across context transitions">
-  <summary>Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.</summary>
+<intervention xmlns="urn:adm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Fix compaction so important information survives">
+  <summary>Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.</summary>
   <purpose>
-    <p>Repair continuity across context transitions so future agents can use established task state. The intervention changes the transition mechanism or reusable handoff instructions, rather than adding a reminder to one completed incident.</p>
-    <p>Information stored in a transcript or memory file helps only when the receiving agent can use it. Preserve the smallest sufficient state with its source and scope; an excerpt of untrusted data must not become a new instruction.</p>
+    <p>Improve what the compactor keeps and discards so critical information is not forgotten. Keep what unfinished work is likely to need; remove irrelevant history so the summary still saves space.</p>
   </purpose>
   <preconditions>
-    <precondition id="identified-omission">
-      <p>Identify still-needed state that the current transition policy omits, and the class of later decisions it affects. Repetition alone does not establish an omission.</p>
+    <precondition id="identified-omission" title="Important information was lost">
+      <p>Important information disappears during compaction, as proposed in <ref target="D001">compaction loss</ref>. <ref target="S001">Repeated retrieval</ref>, <ref target="S006">lost constraints</ref>, or <ref target="S008">repeated permission requests</ref> can point you toward an incident to inspect.</p>
     </precondition>
-    <precondition id="editable-transition">
-      <p>The maintainer can change the compaction, delegation, or context-loading policy and has authority to supply the relevant information to the receiving agent.</p>
+    <precondition id="editable-transition" title="Access to compaction">
+      <p>You can edit the compaction prompt or algorithm and inspect its summaries. If compaction is controlled by a provider, identify the configurable part before promising a repair.</p>
     </precondition>
   </preconditions>
   <procedure>
-    <step id="locate-boundary">
-      <p>Locate the shared policy that selects and delivers state at the affected transition. Record its current version and the decision-relevant omission.</p>
+    <step id="locate-boundary" title="Inspect the compaction prompt">
+      <p>Find the compaction prompt or algorithm and save its current version. Compare a recent summary with the conversation before it; identify useful facts it lost and irrelevant details it retained.</p>
     </step>
-    <step id="create-record">
-      <p>Modify that policy to retain pending decisions, still-applicable constraints, authorization with its limits, and the minimum evidence needed for the next work. Keep source identifiers and freshness conditions; omit completed or irrelevant history.</p>
+    <step id="preserve-evidence" title="Save before-and-after conversations">
+      <p>Check whether the harness already saves the conversation before compaction and the resulting summary. If it does not, add a pre-compaction hook to save them privately; agree with the user where they go, who can access them, and how long to keep them.</p>
     </step>
-    <step id="preserve-record">
-      <p>Wire the selected state into the receiving input through the normal handoff or context-loading path. Preserve instruction precedence and source trust. Invalidate evidence when its source changes, and never broaden permissions while summarizing them.</p>
+    <step id="create-record" title="Change what compaction keeps">
+      <p>Edit the compaction prompt or algorithm to keep unfinished goals, decisions, current constraints, permission limits, and findings needed for the next likely steps. Tell it to discard completed detours and repetitive output. Include one short example of an important fact the old version lost.</p>
     </step>
-    <step id="confirm-delivery">
-      <p>Inspect a representative subsequent transition to check that the selected state reaches the receiving input without immediate truncation. If effective input is inaccessible, record delivery as unconfirmed.</p>
+    <step id="confirm-delivery" title="Check what survived">
+      <p>Inspect the next summary and, where accessible, the context used after compaction. Confirm the important facts survived in usable form; a saved full transcript alone does not show what the agent retained.</p>
     </step>
-    <step id="review-work">
-      <p>Observe later tasks with the affected transition. Compare their relevant decisions with the predictions recorded before applying the policy change.</p>
+    <step id="review-work" title="Review occasional samples">
+      <p>Set up an occasional background review of saved before/after conversations and subsequent work. Reuse an existing job or add an async hook that samples compactions; do not add another model call to every working turn.</p>
+    </step>
+    <step id="agree-followup" title="Agree on a check-in date">
+      <p>Agree with the user on a check-in date, who will review the samples, and a reminder or scheduled job. For example, review in three workdays if normal use should produce several compactions; if too few occur, report that and choose another date.</p>
     </step>
   </procedure>
   <evaluation>
-    <p>Choose a review point with actual opportunities for the omitted state to matter. Track avoidable rediscovery, constraint adherence, and appropriate authorization decisions alongside completion, correctness, and context cost. Compare similar transitions using existing logs; a replay study is optional.</p>
-    <p>Improvement after confirmed delivery supports the relevant diagnosis-dependent prediction. Persistence despite delivery weakens a simple omission account; missing delivery leaves the change untested. Fewer rereads accompanied by stale decisions or fewer permission questions accompanied by unauthorized actions are harmful outcomes.</p>
+    <ul>
+      <li>Before applying the change, record which lost facts should now survive and which later mistakes should decline. Use the predictions in <ref target="D001#relations/I001/predictions">D001</ref> when that explanation fits.</li>
+      <li>At the agreed check-in, compare saved summaries with the next work. Did requirements survive? Did the agent repeat less work? Did the summary still omit irrelevant material?</li>
+      <li>If the facts survive but mistakes continue, reconsider the explanation. If summaries were not captured or no relevant compaction occurred, say that the review is inconclusive.</li>
+    </ul>
   </evaluation>
   <risks-and-confounders>
-    <p>Retained state can become stale, displace useful context, strip permission limits, or promote source text into authority. Changes in task mix, source freshness, and model behavior can also change the symptom rate.</p>
+    <ul>
+      <li>Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits.</li>
+      <li>Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model or task change can make comparisons harder.</li>
+    </ul>
   </risks-and-confounders>
   <stop-and-rollback>
-    <p>Narrow or revert the retention policy if it introduces stale decisions, authorization errors, or excessive context cost. Restore the previous transition configuration and correct affected retained state; reverting cannot undo actions already taken.</p>
+    <ul>
+      <li>Restore the previous compaction prompt or algorithm if the change causes stale decisions, lost permission limits, or excessive context use.</li>
+      <li>Correct affected summaries and repair any resulting work. Reverting the prompt does not undo actions already taken.</li>
+      <li>Remove temporary capture or review hooks when the agreed review ends, unless the user chooses to keep them.</li>
+    </ul>
   </stop-and-rollback>
-  <evidence-and-uncertainty>
-    <p>This is a proposed system change with no efficacy result established here. Successful storage, successful delivery, and improved decisions are separate claims.</p>
-  </evidence-and-uncertainty>
 </intervention>

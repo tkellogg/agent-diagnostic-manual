@@ -133,12 +133,13 @@ class FormatTests(unittest.TestCase):
             m=(self.root/'dist'/Path(doc['path']).with_suffix('.md')).read_text()
             headings=ET.HTML(h).xpath('//article//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]')
             self.assertEqual(sum(''.join(e.itertext()).removesuffix('¶')==title for e in headings),count)
-            self.assertEqual(m.count(r'A &amp; "B" &lt;C&gt; \*D\*'),count)
+            self.assertEqual(sum(line.lstrip('# ').strip() == r'A &amp; "B" &lt;C&gt; \*D\*' for line in m.splitlines() if line.startswith('#')),count)
     def test_title_attributes_required(self):
         for path in (S,D,I):
             original=(self.root/path).read_bytes()
             tree=ET.fromstring(original)
             for node in tree.iter():
+                if ET.QName(node).localname not in ('symptom','diagnosis','intervention','criterion','alternative'):continue
                 if 'title' not in node.attrib:continue
                 with self.subTest(path=path,tag=node.tag):
                     title=node.attrib.pop('title')
@@ -146,6 +147,38 @@ class FormatTests(unittest.TestCase):
                     with self.assertRaises(ValueError):load(self.root)
                     node.set('title',title)
             (self.root/path).write_bytes(original)
+    def test_optional_recognition_hint_and_item_titles(self):
+        tree=ET.parse(str(self.root/S))
+        root=tree.getroot()
+        root.remove(root.find('a:how-to-recognize-it',N))
+        item=root.find('a:observations/a:observation',N)
+        item.set('title','The same information is read again')
+        tree.write(str(self.root/S),encoding='UTF-8')
+        _,objects,_,_=load(self.root)
+        self.assertIn('S001#observations/multi-read',objects)
+        self.assertNotIn('S001#how-to-recognize-it',objects)
+        item.attrib.pop('title')
+        tree.write(str(self.root/S),encoding='UTF-8')
+        load(self.root)
+    def test_relationships_and_examples_are_readable_in_generated_views(self):
+        build(self.root)
+        page=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())
+        article=page.xpath('//article')[0]
+        symptom_links=article.xpath('.//ul/li/a[@href="../symptoms/repeated-retrieval.html"]')
+        self.assertTrue(any('S001 — Repeated retrieval'==''.join(a.itertext()) for a in symptom_links))
+        intervention=article.xpath('.//h3/a[@href="../interventions/preserve-task-relevant-evidence.html"]')
+        self.assertTrue(any('I001 — Fix compaction' in ''.join(a.itertext()) for a in intervention))
+        predictions=article.xpath('.//h4[starts-with(@id,"what-to-expect")]/following-sibling::ul[1]/li')
+        self.assertEqual(len(predictions),4)
+        self.assertTrue(all(li.xpath('./strong') for li in predictions))
+        self.assertFalse(any(li.xpath('.//pre') for li in predictions))
+        symptom=ET.HTML((self.root/'dist/symptoms/opaque-jargon.html').read_text())
+        badges=symptom.xpath('//span[@class="adm-example-kind"]/text()')
+        self.assertIn('Synthetic example',badges)
+        self.assertIn('Reported example',badges)
+        md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
+        self.assertIn('- **Expected improvement:**',md)
+        self.assertNotIn('Related symptom:',md)
     def test_intervention_reference_has_condition_and_predictions(self):
         _,_,_,refs=load(self.root)
         relation=next(r for r in refs if r['relation']=='intervention-ref')
@@ -176,7 +209,7 @@ class FormatTests(unittest.TestCase):
         tree.write(str(self.root/D),encoding='UTF-8')
         build(self.root)
         catalog=json.loads((self.root/'dist/catalog.json').read_text())
-        self.assertEqual(catalog['schema_version'],4)
+        self.assertEqual(catalog['schema_version'],5)
         relation=next(r for r in catalog['relationships'] if r.get('address')=='D001#relations/I001')
         self.assertEqual(relation['predictions'],ast(predictions))
         h=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())

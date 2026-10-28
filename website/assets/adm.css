@@ -83,6 +83,8 @@ article [id] { scroll-margin-top: 7rem; }
 article strong { font-weight: 650; }
 article li { padding-left: .2rem; margin-bottom: .45rem; }
 article .headerlink { color: var(--adm-accent); }
+.adm-example-kind { display: inline-block; margin-bottom: .8rem; padding: .15rem .55rem; border: 1px solid var(--adm-line); border-radius: 3px; color: var(--adm-muted); font-size: .7rem; letter-spacing: .03em; }
+article h4 + ul { padding: 1rem 1.25rem 1rem 2.25rem; border-left: 2px solid var(--adm-accent); background: var(--adm-surface); }
 /* The catalog remains portable Markdown, styled as rows on the homepage. */
 .homepage article :is(#symptoms, #diagnoses, #interventions) + ul { list-style: none; padding: 0; margin: 0; }
 .homepage article :is(#symptoms, #diagnoses, #interventions) + ul > li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 1.75rem; padding: 1.3rem 0; margin: 0; border-bottom: 1px solid var(--adm-line); }

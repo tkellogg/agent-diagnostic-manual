@@ -120,6 +120,7 @@
   <xs:complexType name="item">
     <xs:group ref="a:blocks" maxOccurs="unbounded"/>
     <xs:attributeGroup ref="a:identified"/>
+    <xs:attribute name="title" type="a:text"/>
   </xs:complexType>
   <xs:complexType name="exclusions">
     <xs:sequence>
@@ -153,7 +154,7 @@
       <xs:sequence>
         <xs:group ref="a:metadata"/>
         <xs:element name="observations" type="a:observations"/>
-        <xs:element name="how-to-recognize-it" type="a:section"/>
+        <xs:element name="how-to-recognize-it" type="a:section" minOccurs="0"/>
         <xs:element name="benign-lookalikes" type="a:lookalikes"/>
         <xs:element name="what-to-record" type="a:section"/>
         <xs:element name="examples" type="a:examples"/>
@@ -165,14 +166,12 @@
     <xs:complexType>
       <xs:sequence>
         <xs:group ref="a:metadata"/>
-        <xs:element name="relations" type="a:relations"/>
         <xs:element name="definition" type="a:section"/>
+        <xs:element name="relations" type="a:relations"/>
         <xs:element name="criteria" type="a:criteria"/>
         <xs:element name="exclusions" type="a:exclusions"/>
         <xs:element name="differential" type="a:differential"/>
         <xs:element name="investigation" type="a:section"/>
-        <xs:element name="interventions" type="a:section"/>
-        <xs:element name="evidence-and-uncertainty" type="a:section"/>
       </xs:sequence>
       <xs:attributeGroup ref="a:entry"/>
       <xs:attribute name="unit" use="required" fixed="configured-agent-system"/>
@@ -188,7 +187,6 @@
         <xs:element name="evaluation" type="a:section"/>
         <xs:element name="risks-and-confounders" type="a:section"/>
         <xs:element name="stop-and-rollback" type="a:section"/>
-        <xs:element name="evidence-and-uncertainty" type="a:section"/>
       </xs:sequence>
       <xs:attributeGroup ref="a:entry"/>
     </xs:complexType>

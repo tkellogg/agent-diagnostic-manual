@@ -18,7 +18,13 @@ try:
 except ImportError:
     from xml_entries import load, name, text, ast, N, METADATA, ITEMS
 ROOT=Path(__file__).resolve().parents[1]
-TITLES={'criteria':'Candidate criteria','differential':'Differential diagnosis','relations':'Relationships'}
+TITLES={'definition':'How this could happen',
+        'criteria':'What would support this explanation',
+        'exclusions':'When this explanation may not fit',
+        'differential':'Other explanations to consider',
+        'relations':'Symptoms and predicted effects',
+        'predictions':'What to expect if this explanation is right',
+        'investigation':'Where to look next'}
 ENTRY_KINDS=[('symptom','Symptoms'),('diagnosis','Diagnoses'),('intervention','Interventions')]
 INDEX_MARKER='<!-- ADM:ENTRY-INDEX -->'
 
@@ -35,6 +41,22 @@ class Renderer:
         if '#' in target:href+='#'+target.split('#',1)[1]
         if self.mode=='html':return f'<a href="{html.escape(href,quote=True)}">{label}</a>'
         return f'[{label}]({href})'
+    def entry_link(self,target):
+        doc=self.objects[target]['document']
+        return self.link(target,self.esc(target+' — '+doc['meta']['title']))
+    def children(self,n,depth):
+        result='';links=[]
+        def symptom_list():
+            return ('<ul>'+''.join('<li>'+link+'</li>' for link in links)+'</ul>\n'
+                    if self.mode=='html' else '\n'.join('- '+link for link in links)+'\n\n')
+        for child in n:
+            if name(child)=='symptom-ref':
+                links.append(self.entry_link(child.get('ref')))
+            else:
+                if links:result+=symptom_list();links=[]
+                result+=self.block(child,depth)
+        if links:result+=symptom_list()
+        return result
     def mixed(self,n):
         return self.esc(n.text)+''.join(self.inline(c)+self.esc(c.tail) for c in n)
     def inline(self,n):
@@ -62,21 +84,26 @@ class Renderer:
     def block(self,n,depth=2):
         tag=name(n)
         if tag in METADATA:return ''
+        if tag=='discriminator':return self.anchor(n)+self.children(n,depth)
         if tag=='p':return '<p>'+self.mixed(n)+'</p>\n' if self.mode=='html' else self.mixed(n)+'\n\n'
         if tag in ('ul','ol'):
             if self.mode=='html':return f'<{tag}>'+''.join('<li>'+self.mixed(c)+'</li>' for c in n)+f'</{tag}>\n'
             return '\n'.join((f'{i}. ' if tag=='ol' else '- ')+self.mixed(c) for i,c in enumerate(n,1))+'\n\n'
         if tag=='symptom-ref':
-            value=self.link(n.get('ref'),self.esc(n.get('ref')))
-            return '<p>Related symptom: '+value+'</p>\n' if self.mode=='html' else 'Related symptom: '+value+'\n\n'
+            value=self.entry_link(n.get('ref'))
+            return '<p>'+value+'</p>\n' if self.mode=='html' else value+'\n\n'
         if tag=='intervention-ref':
-            value=self.link(n.get('ref'),self.esc(n.get('ref')))
+            value=self.entry_link(n.get('ref'))
             condition=self.esc(n.findtext('a:when',namespaces=N))
             return (self.anchor(n)+self.anchor(n.find('a:when',N))+
-                    (f'<p>{value}</p><p><strong>When:</strong> {condition}</p>\n' if self.mode=='html' else value+'\n\n**When:** '+condition+'\n\n')+
+                    (f'<h{depth}>Intervention: {value}</h{depth}><p><strong>Use this when:</strong> {condition}</p>\n' if self.mode=='html' else '\n'+'#'*depth+' Intervention: '+value+'\n\n**Use this when:** '+condition+'\n\n')+
                     self.block(n.find('a:predictions',N),depth+1))
         title=n.get('title') or TITLES.get(tag) or (n.get('id') or tag).replace('-',' ').capitalize()
-        return self.anchor(n)+self.heading(title,depth)+''.join(self.block(c,depth+1) for c in n)
+        badge=''
+        if tag=='example':
+            label='Synthetic example' if n.get('kind')=='synthetic' else 'Reported example'
+            badge='<span class="adm-example-kind">'+label+'</span>\n\n'
+        return self.anchor(n)+self.heading(title,depth)+badge+self.children(n,depth+1)
     def body(self):
         return self.heading(self.doc['meta']['title'],1)+self.esc(self.doc['meta']['summary'])+'\n\n'+''.join(self.block(c) for c in self.doc['node'])
 
@@ -149,7 +176,7 @@ def build(root=ROOT,check=False,search=False):
     vendor.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(annotate/'annotate.js',vendor/'annotate-1.5.3.js')
     shutil.copyfile(annotate/'LICENSE',vendor/'annotate-LICENSE.txt')
-    catalog={'schema_version':4,'xml_namespace':'urn:adm:1',
+    catalog={'schema_version':5,'xml_namespace':'urn:adm:1',
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
     (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')

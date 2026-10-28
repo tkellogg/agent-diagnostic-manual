@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I004" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Keep derived values out of source-only fields">
+<intervention xmlns="urn:adm:1" id="I004" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Keep derived values out of source-only fields">
   <summary>Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.</summary>
   <purpose>
     <p>Prevent <ref target="S014">inferred values presented as observations</ref> by preserving a field's meaning through collection and serialization. An accurate calculation can still violate a source-only contract.</p>
@@ -36,7 +36,4 @@
   <stop-and-rollback>
     <p>Repair or revert the faulty collector or serializer if valid data is lost or publication breaks. Preserve the observed-versus-derived distinction in a compatible output or an explicit limitation; do not reinstate silent fabrication as the fallback.</p>
   </stop-and-rollback>
-  <evidence-and-uncertainty>
-    <p>This proposed intervention has no established outcome here. It can be appropriate from an observed contract violation without a catalog diagnosis; the underlying cause may lie in instructions, extraction, serialization, or presentation.</p>
-  </evidence-and-uncertainty>
 </intervention>

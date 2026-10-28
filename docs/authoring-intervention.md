@@ -17,11 +17,11 @@ See [Diagnosing and improving an agent system](diagnostic-process.md) for the fu
 
 ## Title and summary
 
-Name the action and its target. The summary should say what changes, where, and under what circumstances. "Preserve task state across context transitions" identifies a recurring boundary to repair; "maintain good memory" leaves the action to the reader.
+Name the action and its target. The summary should say what changes, where, and under what circumstances. "Fix compaction so important information survives" names the mechanism to change; "maintain good memory" leaves the action to the reader.
 
 ## Purpose and principles
 
-Explain the intended effect and the working model that makes the action plausible. Include principles that help a reader apply this particular intervention correctly. For evidence restoration, the distinction between information stored somewhere and information actually supplied to the model matters.
+Explain the intended effect and the working model that makes the action plausible. Include principles that help a reader apply this particular intervention correctly. For compaction, distinguish a full transcript saved for review from the information the working agent retains.
 
 Keep principles in the `purpose` section. They support the procedure; they should not substitute for it or imply that a proposed mechanism is established. A formal diagnosis need not be a prerequisite when the relevant conditions can be observed directly.
 
@@ -29,7 +29,7 @@ Keep principles in the `purpose` section. They support the procedure; they shoul
 
 State the circumstances, access, and capabilities required to change the system. Do not require a replayable task or a controlled study merely to apply a plausible repair.
 
-Do not hide additional applicability requirements later in the evaluation section.
+Link relevant symptoms or diagnoses when they help the reader recognize a suitable situation; a confirmed diagnosis need not be required. Do not hide additional applicability requirements later in the evaluation section.
 
 ## Procedure
 
@@ -37,18 +37,22 @@ Write ordered, executable steps. Identify the actor or system component, the obj
 
 Include how to verify that the change reached its intended target. A saved memory file is not evidence that the model received its contents. If verification is unavailable, say what remains unknown and how that limits the assessment.
 
-Make the repair concrete before adding instrumentation. Reuse existing logs, test output, and configuration where they suffice. A new receipt format, review gate, or measurement system must earn its implementation and runtime cost. Specify how future agents receive the change and when it should be reconsidered.
+Start by inspecting the system that already exists. Repair may mean deleting and consolidating instructions with the user, or fixing how existing tests cover real use. Do not assume every problem needs another rule or test.
+
+Make the repair and its observation practical. Reuse existing logs; if needed evidence would otherwise disappear, specify a small capture hook, where its output goes, and the user’s agreement. Prefer occasional background checks to extra work on every agent turn.
 
 ## Evaluation
 
 State the predicted observable effect, when to assess it, and what counts as useful progress. Measure correctness and task outcomes alongside the symptom; suppressing visible behavior can make the underlying problem worse.
 
-Include a proportionate way to observe ordinary future work: relevant opportunities, useful outcomes, and a review point. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.
+Agree with the user on how ordinary future work will be observed, who will review it, and a check-in date. Arrange a reminder or scheduled job so follow-up actually happens. A target number of tasks can guide the date; explain what to do if too few relevant tasks occur. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.
 
-Explain positive, negative, and inconclusive results. Separate failure to deliver the intervention from failure after confirmed delivery. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's `intervention-ref/predictions`; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.
+Explain positive, negative, and inconclusive results. Distinguish a change that was never active from one that was active but did not help. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's `intervention-ref/predictions`; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.
 
 ## Risks, rollback, and evidence
 
 Describe concrete ways the change could cause harm or confound interpretation. Specify when to stop, what to remove or restore, and which effects rollback cannot undo.
 
-Keep `evidence-and-uncertainty` about inspected support for this intervention and its limits. Plausible principles and detailed protocols do not establish effectiveness. Clearly label invented examples and do not use them to promote evidence status.
+Use lists for concrete risks and rollback actions. Put sources and important limitations beside the claims they qualify; the root evidence label already identifies an unvalidated proposal. A detailed procedure does not establish that the remedy works.
+
+Write the procedure so the reader knows what to edit, delete, preserve, or inspect. Replace invented abstractions with the actual object, such as “the compaction prompt,” “the loaded tool definition,” or “the CI job.”
