@@ -12,12 +12,18 @@
     <intervention-ref ref="I001">
       <when>A compaction summary has lost important information, and you can change the compaction prompt or algorithm.</when>
       <predictions>
-        <ul>
-          <li><strong>Expected improvement:</strong> After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.</li>
-          <li><strong>Still necessary:</strong> It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.</li>
-          <li><strong>A reason to reconsider:</strong> If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.</li>
-          <li><strong>Possible harm:</strong> Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</li>
-        </ul>
+        <expected-improvement>
+          <p>After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.</p>
+        </expected-improvement>
+        <still-necessary>
+          <p>It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.</p>
+        </still-necessary>
+        <reason-to-reconsider>
+          <p>If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.</p>
+        </reason-to-reconsider>
+        <possible-harm>
+          <p>Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</p>
+        </possible-harm>
       </predictions>
     </intervention-ref>
   </relations>

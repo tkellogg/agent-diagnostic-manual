@@ -28,7 +28,9 @@ def query(entries):
                 'criteria':[{'address':did+'#criteria/'+c.get('id'),'title':c.get('title')} for c in node.findall('a:criteria/a:criterion',NS)],
                 'interventions':[{'address':did+'#relations/'+i.get('ref'),'target':i.get('ref'),
                     'when':i.findtext('a:when',namespaces=NS),
-                    'predictions':' '.join(''.join(p.itertext()).strip() for p in i.find('a:predictions',NS))}
+                    'predictions':{field.tag.removeprefix('{urn:adm:1}'):
+                        ' '.join(''.join(p.itertext()).strip() for p in field)
+                        for field in i.find('a:predictions',NS)}}
                     for i in node.findall('a:relations/a:intervention-ref',NS)]})
     return result
 

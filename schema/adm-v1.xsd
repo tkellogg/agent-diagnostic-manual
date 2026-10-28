@@ -92,11 +92,19 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="when" type="a:text"/>
-        <xs:element name="predictions" type="a:section"/>
+        <xs:element name="predictions" type="a:predictions"/>
       </xs:sequence>
       <xs:attribute name="ref" type="xs:NCName" use="required"/>
     </xs:complexType>
   </xs:element>
+  <xs:complexType name="predictions">
+    <xs:sequence>
+      <xs:element name="expected-improvement" type="a:section"/>
+      <xs:element name="still-necessary" type="a:section"/>
+      <xs:element name="reason-to-reconsider" type="a:section"/>
+      <xs:element name="possible-harm" type="a:section"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="relations">
     <xs:sequence>
       <xs:element ref="a:symptom-ref" maxOccurs="unbounded"/>

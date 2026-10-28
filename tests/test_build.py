@@ -2,13 +2,14 @@
 from pathlib import Path
 from copy import deepcopy
 import json
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
 from lxml import etree as ET
-from tools.build import build
+from tools.build import build, Renderer
 from tools.xml_entries import load, ast, N
 ROOT=Path(__file__).resolve().parents[1]
 S='entries/symptoms/repeated-retrieval.xml'
@@ -132,8 +133,9 @@ class FormatTests(unittest.TestCase):
             h=(self.root/'dist'/doc['path']).read_text()
             m=(self.root/'dist'/Path(doc['path']).with_suffix('.md')).read_text()
             headings=ET.HTML(h).xpath('//article//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]')
-            self.assertEqual(sum(''.join(e.itertext()).removesuffix('¶')==title for e in headings),count)
-            self.assertEqual(sum(line.lstrip('# ').strip() == r'A &amp; "B" &lt;C&gt; \*D\*' for line in m.splitlines() if line.startswith('#')),count)
+            def unnumber(value):return re.sub(r'^\d+\. ', '',value)
+            self.assertEqual(sum(unnumber(''.join(e.itertext()).removesuffix('¶'))==title for e in headings),count)
+            self.assertEqual(sum(unnumber(re.sub(r' \{#[^}]*\}$','',line.lstrip('# ').strip())) == r'A &amp; "B" &lt;C&gt; \*D\*' for line in m.splitlines() if line.startswith('#')),count)
     def test_title_attributes_required(self):
         for path in (S,D,I):
             original=(self.root/path).read_bytes()
@@ -170,15 +172,32 @@ class FormatTests(unittest.TestCase):
         self.assertTrue(any('I001 — Fix compaction' in ''.join(a.itertext()) for a in intervention))
         predictions=article.xpath('.//h4[starts-with(@id,"what-to-expect")]/following-sibling::ul[1]/li')
         self.assertEqual(len(predictions),4)
-        self.assertTrue(all(li.xpath('./strong') for li in predictions))
+        self.assertTrue(all(li.xpath('./p/strong') for li in predictions))
         self.assertFalse(any(li.xpath('.//pre') for li in predictions))
         symptom=ET.HTML((self.root/'dist/symptoms/opaque-jargon.html').read_text())
         badges=symptom.xpath('//span[@class="adm-example-kind"]/text()')
         self.assertIn('Synthetic example',badges)
         self.assertIn('Reported example',badges)
         md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
-        self.assertIn('- **Expected improvement:**',md)
+        self.assertIn('**Expected improvement:**',md)
         self.assertNotIn('Related symptom:',md)
+        for doc in (self.root/'entries/diagnoses').glob('*.xml'):
+            source=ET.parse(str(doc))
+            h=ET.HTML((self.root/'dist/diagnoses'/doc.with_suffix('.html').name).read_text())
+            for number,criterion in enumerate(source.findall('a:criteria/a:criterion',N),1):
+                heading=h.xpath('//*[@id="criteria/'+criterion.get('id')+'"]/following::h3[1]')[0]
+                self.assertTrue(''.join(heading.itertext()).startswith(f'{number}. '+criterion.get('title')))
+        self.assertTrue(article.xpath('.//h3[@id="the-information-mattered"]'))
+    def test_criteria_renumber_without_changing_identity(self):
+        tree=ET.parse(str(self.root/D))
+        criteria=tree.find('a:criteria',N)
+        criteria.insert(0,criteria[-1])
+        tree.write(str(self.root/D),encoding='UTF-8')
+        docs,objects,addresses,_=load(self.root)
+        doc=next(d for d in docs if d['meta']['id']=='D001')
+        h=ET.HTML(Renderer(doc,objects,addresses,'html').body())
+        self.assertEqual(h.xpath('//h3[@id="the-omission-explains-the-mistake"]/text()'),['1. The omission explains the mistake'])
+        self.assertTrue(h.xpath('//*[@id="criteria/linked-disruption"]'))
     def test_intervention_reference_has_condition_and_predictions(self):
         _,_,_,refs=load(self.root)
         relation=next(r for r in refs if r['relation']=='intervention-ref')
@@ -201,25 +220,55 @@ class FormatTests(unittest.TestCase):
         (self.root/D).write_bytes(original)
         _,objects,_,_=load(self.root)
         self.assertIn('D001#relations/I001/predictions',objects)
+    def test_prediction_fields_are_required_singletons(self):
+        original=(self.root/D).read_bytes()
+        fields=('expected-improvement','still-necessary','reason-to-reconsider','possible-harm')
+        for field in fields:
+            for mutation in ('missing','empty','duplicate','id','unknown'):
+                with self.subTest(field=field,mutation=mutation):
+                    node=ET.fromstring(original)
+                    predictions=node.find('a:relations/a:intervention-ref/a:predictions',N)
+                    child=predictions.find('a:'+field,N)
+                    if mutation=='missing':predictions.remove(child)
+                    elif mutation=='empty':child.clear()
+                    elif mutation=='duplicate':predictions.insert(predictions.index(child),deepcopy(child))
+                    elif mutation=='id':child.set('id','outcome')
+                    else:child.tag='{urn:adm:1}unknown'
+                    (self.root/D).write_bytes(ET.tostring(node))
+                    with self.assertRaises(ValueError):load(self.root)
+        node=ET.fromstring(original)
+        predictions=node.find('a:relations/a:intervention-ref/a:predictions',N)
+        predictions.clear()
+        predictions.append(ET.fromstring(b'<p xmlns="urn:adm:1">Unstructured predictions.</p>'))
+        (self.root/D).write_bytes(ET.tostring(node))
+        with self.assertRaises(ValueError):load(self.root)
+        (self.root/D).write_bytes(original)
+        _,objects,_,_=load(self.root)
+        for field in fields:self.assertIn('D001#relations/I001/predictions/'+field,objects)
     def test_predictions_preserve_prose_links_in_every_view(self):
         tree=ET.parse(str(self.root/D))
         predictions=tree.find('a:relations/a:intervention-ref/a:predictions',N)
-        predictions.clear()
-        predictions.append(ET.fromstring(b'<p xmlns="urn:adm:1"><strong>Less</strong> <ref target="S001">retrieval</ref>, with correct results.</p>'))
+        improvement=predictions.find('a:expected-improvement',N)
+        improvement.clear()
+        improvement.append(ET.fromstring(b'<p xmlns="urn:adm:1"><strong>Less</strong> <ref target="S001">retrieval</ref>, with correct results.</p>'))
+        improvement.append(ET.fromstring(b'<ul xmlns="urn:adm:1"><li>Preserve <em>inline</em> formatting.</li></ul>'))
         tree.write(str(self.root/D),encoding='UTF-8')
         build(self.root)
         catalog=json.loads((self.root/'dist/catalog.json').read_text())
-        self.assertEqual(catalog['schema_version'],5)
+        self.assertEqual(catalog['schema_version'],6)
         relation=next(r for r in catalog['relationships'] if r.get('address')=='D001#relations/I001')
         self.assertEqual(relation['predictions'],ast(predictions))
         h=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())
         self.assertTrue(h.xpath('//*[@id="relations/I001/predictions"]'))
-        self.assertTrue(h.xpath('//p[strong="Less"]/a[@href="../symptoms/repeated-retrieval.html"]'))
+        self.assertTrue(h.xpath('//li/p[strong="Less"]/a[@href="../symptoms/repeated-retrieval.html"]'))
+        self.assertTrue(h.xpath('//li/ul/li/em[text()="inline"]'))
+        for field in predictions:
+            self.assertTrue(h.xpath('//*[@id="relations/I001/predictions/'+ET.QName(field).localname+'"]'))
         md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
         self.assertIn('**Less** [retrieval](../symptoms/repeated-retrieval.md), with correct results.',md)
         result=subprocess.run([sys.executable,'-I',str(ROOT/'examples/query_manual.py'),'--entries',str(self.root/'entries')],check=True,capture_output=True,text=True)
         diagnosis=next(r for r in json.loads(result.stdout) if r.get('diagnosis')=='D001')
-        self.assertEqual(diagnosis['interventions'][0]['predictions'],'Less retrieval, with correct results.')
+        self.assertEqual(diagnosis['interventions'][0]['predictions']['expected-improvement'],'Less retrieval, with correct results. Preserve inline formatting.')
     def test_diagnosis_assesses_configured_system(self):
         original=(self.root/D).read_bytes()
         for unit in ('configured-agent-episode','model',None):
@@ -240,7 +289,11 @@ class FormatTests(unittest.TestCase):
     def test_multiple_intervention_targets_have_distinct_addresses(self):
         original=(self.root/I).read_text()
         (self.root/'entries/interventions/comparison.xml').write_text(original.replace('id="I001"','id="I999"',1))
-        self.change(D,'</relations>','<intervention-ref ref="I999"><when>A different condition.</when><predictions><p>A different outcome.</p></predictions></intervention-ref></relations>')
+        tree=ET.parse(str(self.root/D))
+        relations=tree.find('a:relations',N)
+        other=deepcopy(relations.find('a:intervention-ref',N));other.set('ref','I999')
+        relations.append(other)
+        tree.write(str(self.root/D),encoding='UTF-8')
         _,objects,_,_=load(self.root)
         self.assertIn('D001#relations/I001',objects)
         self.assertIn('D001#relations/I999',objects)

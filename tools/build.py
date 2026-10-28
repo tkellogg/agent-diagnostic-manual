@@ -13,6 +13,7 @@ import sys
 import yaml
 from mkdocs.config import load_config
 from mkdocs.commands.build import build as mkdocs_build
+from markdown.extensions.toc import slugify
 try:
     from .xml_entries import load, name, text, ast, N, METADATA, ITEMS
 except ImportError:
@@ -27,6 +28,10 @@ TITLES={'definition':'How this could happen',
         'investigation':'Where to look next'}
 ENTRY_KINDS=[('symptom','Symptoms'),('diagnosis','Diagnoses'),('intervention','Interventions')]
 INDEX_MARKER='<!-- ADM:ENTRY-INDEX -->'
+PREDICTION_LABELS={'expected-improvement':'Expected improvement',
+                   'still-necessary':'Still necessary',
+                   'reason-to-reconsider':'A reason to reconsider',
+                   'possible-harm':'Possible harm'}
 
 class Renderer:
     def __init__(self,doc,objects,addresses,mode):
@@ -78,13 +83,33 @@ class Renderer:
         address=self.addresses.get(n,'')
         if '#' not in address:return ''
         return '<a id="'+html.escape(address.split('#',1)[1],quote=True)+'"></a>\n'
-    def heading(self,label,depth):
+    def heading(self,label,depth,anchor_id=None):
         depth=min(depth,6)
-        return f'<h{depth}>{self.esc(label)}</h{depth}>\n' if self.mode=='html' else '\n'+'#'*depth+' '+self.esc(label)+'\n\n'
+        if self.mode=='html':
+            attr=' id="'+html.escape(anchor_id,quote=True)+'"' if anchor_id else ''
+            return f'<h{depth}{attr}>{self.esc(label)}</h{depth}>\n'
+        attr=' {#'+anchor_id+'}' if anchor_id else ''
+        return '\n'+'#'*depth+' '+self.esc(label)+attr+'\n\n'
     def block(self,n,depth=2):
         tag=name(n)
         if tag in METADATA:return ''
         if tag=='discriminator':return self.anchor(n)+self.children(n,depth)
+        if tag=='predictions':
+            items=[]
+            for field in n:
+                label=self.esc(PREDICTION_LABELS[name(field)])+':'
+                content=self.children(field,depth).strip()
+                anchor=self.anchor(field).strip()
+                if self.mode=='html':
+                    prefix='<strong>'+label+'</strong> '
+                    content=('<p>'+prefix+content[3:] if content.startswith('<p>') else '<p>'+prefix+'</p>'+content)
+                    items.append('<li>'+anchor+content+'</li>')
+                else:
+                    separator=' ' if name(field[0])=='p' else '\n\n'
+                    content='**'+label+'**'+separator+content
+                    items.append('- '+anchor+content.replace('\n','\n    '))
+            listing='<ul>'+''.join(items)+'</ul>\n' if self.mode=='html' else '\n\n'.join(items)+'\n\n'
+            return self.anchor(n)+self.heading(TITLES[tag],depth)+listing
         if tag=='p':return '<p>'+self.mixed(n)+'</p>\n' if self.mode=='html' else self.mixed(n)+'\n\n'
         if tag in ('ul','ol'):
             if self.mode=='html':return f'<{tag}>'+''.join('<li>'+self.mixed(c)+'</li>' for c in n)+f'</{tag}>\n'
@@ -99,11 +124,16 @@ class Renderer:
                     (f'<h{depth}>Intervention: {value}</h{depth}><p><strong>Use this when:</strong> {condition}</p>\n' if self.mode=='html' else '\n'+'#'*depth+' Intervention: '+value+'\n\n**Use this when:** '+condition+'\n\n')+
                     self.block(n.find('a:predictions',N),depth+1))
         title=n.get('title') or TITLES.get(tag) or (n.get('id') or tag).replace('-',' ').capitalize()
+        anchor_id=None
+        if tag=='criterion':
+            # Keep existing heading links and annotation selectors as numbers change.
+            anchor_id=slugify(title,'-')
+            title=str(n.getparent().index(n)+1)+'. '+title
         badge=''
         if tag=='example':
             label='Synthetic example' if n.get('kind')=='synthetic' else 'Reported example'
             badge='<span class="adm-example-kind">'+label+'</span>\n\n'
-        return self.anchor(n)+self.heading(title,depth)+badge+self.children(n,depth+1)
+        return self.anchor(n)+self.heading(title,depth,anchor_id)+badge+self.children(n,depth+1)
     def body(self):
         return self.heading(self.doc['meta']['title'],1)+self.esc(self.doc['meta']['summary'])+'\n\n'+''.join(self.block(c) for c in self.doc['node'])
 
@@ -176,7 +206,7 @@ def build(root=ROOT,check=False,search=False):
     vendor.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(annotate/'annotate.js',vendor/'annotate-1.5.3.js')
     shutil.copyfile(annotate/'LICENSE',vendor/'annotate-LICENSE.txt')
-    catalog={'schema_version':5,'xml_namespace':'urn:adm:1',
+    catalog={'schema_version':6,'xml_namespace':'urn:adm:1',
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
     (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
