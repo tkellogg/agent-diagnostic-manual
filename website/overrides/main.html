@@ -9,6 +9,21 @@
 </button>
 {% endblock %}
 {% block extrahead %}
+{% set social_title = (page.title ~ ' — ' ~ config.site_name) if page and not page.is_homepage else config.site_name %}
+{% set social_description = page.meta.description if page and page.meta.description else config.site_description %}
+{% set social_image = config.site_url ~ 'assets/social-preview.png' %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ config.site_name | e }}">
+<meta property="og:title" content="{{ social_title | e }}">
+<meta property="og:description" content="{{ social_description | e }}">
+{% if page and page.canonical_url %}<meta property="og:url" content="{{ page.canonical_url | e }}">{% endif %}
+<meta property="og:image" content="{{ social_image | e }}">
+<meta property="og:image:alt" content="Agent Diagnostic Manual: three signal traces with one deviation highlighted in copper.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ social_title | e }}">
+<meta name="twitter:description" content="{{ social_description | e }}">
+<meta name="twitter:image" content="{{ social_image | e }}">
+<meta name="twitter:image:alt" content="Agent Diagnostic Manual: three signal traces with one deviation highlighted in copper.">
 {% if page %}
 <meta data-pagefind-meta="kind[content]" content="{% if page.meta.kind %}{{ page.meta.kind | capitalize }}{% elif page.is_homepage %}Overview{% else %}Guide{% endif %}">
 {% if page.meta.id %}<meta data-pagefind-meta="entry_id[content]" content="{{ page.meta.id }}">{% endif %}
