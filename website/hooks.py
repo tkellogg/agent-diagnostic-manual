@@ -33,16 +33,21 @@ def on_page_content(content, page, **kwargs):
 
     headings=root.xpath('.//h3[@data-adm-harness]')
     if headings:
-        controls=ET.Element('div',{'class':'adm-harness-controls','hidden':'','data-pagefind-ignore':''})
-        ET.SubElement(controls,'label',{'for':'adm-harness-select'}).text='Harness'
-        select=ET.SubElement(controls,'select',{'id':'adm-harness-select','aria-describedby':'adm-harness-status'})
-        ET.SubElement(select,'option',{'value':'all'}).text='All harnesses'
+        controls=ET.Element('fieldset',{'class':'adm-harness-controls','hidden':'','data-pagefind-ignore':'','aria-describedby':'adm-harness-status'})
+        ET.SubElement(controls,'legend').text='Harness'
+        options=ET.SubElement(controls,'div',{'class':'adm-harness-options'})
+        def add_option(key,title):
+            label=ET.SubElement(options,'label',{'class':'adm-harness-option'})
+            radio=ET.SubElement(label,'input',{'type':'radio','name':'adm-harness','value':key,'class':'visually-hidden'})
+            if key=='all':radio.set('checked','')
+            ET.SubElement(label,'span').text=title
+        add_option('all','All harnesses')
         status=ET.SubElement(controls,'p',{'id':'adm-harness-status','role':'status'})
         status.text='Shared instructions above apply to every harness. Your choice is remembered in this browser.'
         for heading in headings:
             key=heading.attrib.pop('data-adm-harness')
             title=(heading.text or '').strip()
-            ET.SubElement(select,'option',{'value':key}).text=title
+            add_option(key,title)
             wrapper=ET.Element('section',{'class':'adm-harness-note','data-harness':key,'aria-labelledby':heading.get('id')})
             start=heading
             previous=heading.getprevious()

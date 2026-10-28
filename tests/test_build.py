@@ -173,10 +173,14 @@ class FormatTests(unittest.TestCase):
         self.assertTrue(any('S001 — Repeated retrieval'==''.join(a.itertext()) for a in symptom_links))
         intervention=article.xpath('.//h3/a[@href="../interventions/preserve-task-relevant-evidence.html"]')
         self.assertTrue(any('I001 — Fix compaction' in ''.join(a.itertext()) for a in intervention))
-        predictions=article.xpath('.//h4[starts-with(@id,"what-to-expect")]/following-sibling::ul[1]/li')
-        self.assertEqual(len(predictions),4)
-        self.assertTrue(all(li.xpath('./p/strong') for li in predictions))
-        self.assertFalse(any(li.xpath('.//pre') for li in predictions))
+        prediction_headings=article.xpath('.//h4[starts-with(@id,"what-to-expect")]')
+        source=ET.parse(str(self.root/D))
+        self.assertEqual(len(prediction_headings),len(source.findall('a:relations/a:intervention-ref',N)))
+        for heading in prediction_headings:
+            predictions=heading.xpath('following-sibling::ul[1]/li')
+            self.assertEqual(len(predictions),4)
+            self.assertTrue(all(li.xpath('./p/strong') for li in predictions))
+            self.assertFalse(any(li.xpath('.//pre') for li in predictions))
         symptom=ET.HTML((self.root/'dist/symptoms/opaque-jargon.html').read_text())
         badges=symptom.xpath('//h3/span[@class="adm-example-kind"]/text()')
         self.assertIn('Synthetic example',badges)
@@ -203,8 +207,11 @@ class FormatTests(unittest.TestCase):
         keys=[h.get('id') for h in source.findall('a:harness-notes/a:harness',N)]
         out=self.root/'dist/interventions/preserve-task-relevant-evidence'
         page=ET.HTML(out.with_suffix('.html').read_text())
-        self.assertTrue(page.xpath('//div[@class="adm-harness-controls"][@hidden]'))
-        self.assertEqual(page.xpath('//select[@id="adm-harness-select"]/option/@value'),['all']+keys)
+        controls=page.xpath('//fieldset[@class="adm-harness-controls"][@hidden]')[0]
+        self.assertEqual(controls.xpath('./legend/text()'),['Harness'])
+        self.assertEqual(controls.xpath('.//input[@type="radio"][@name="adm-harness"]/@value'),['all']+keys)
+        self.assertEqual(controls.xpath('.//input[@checked]/@value'),['all'])
+        self.assertEqual(len(controls.xpath('.//label/input')),len(keys)+1)
         self.assertEqual(page.xpath('//section[@class="adm-harness-note"]/@data-harness'),keys)
         self.assertFalse(page.xpath('//section[@class="adm-harness-note"]/@hidden'))
         self.assertFalse(page.xpath('//section[@class="adm-harness-note"]//h2'))

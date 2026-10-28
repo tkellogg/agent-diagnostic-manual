@@ -10,7 +10,7 @@ Browse the XML entries for [symptoms](entries/symptoms/), [diagnoses](entries/di
 
 Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared [observation methods](docs/observation-methods.md) describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.
 
-These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.
+Entries have separate review and evidence statuses: `reviewed` records editorial approval, not validation of a definition, diagnosis, or remedy. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.
 
 ## Use the skill
 
