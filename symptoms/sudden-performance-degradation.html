@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
+        <link href="../assets/adm.css?v=c4a8337be3ad" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -310,18 +310,6 @@
   
   </div>
   
-  <div class="adm-review" data-pagefind-ignore>
-    <div class="adm-review-actions">
-      <button type="button" id="adm-review-open" disabled><i class="fa-regular fa-comment" aria-hidden="true"></i> Review this page</button>
-      <button type="button" id="adm-review-export" disabled><i class="fa-solid fa-download" aria-hidden="true"></i> Export all comments</button>
-      <button type="button" id="adm-review-clear" disabled><i class="fa-regular fa-trash-can" aria-hidden="true"></i> Clear all comments</button>
-      <button type="button" id="adm-review-undo" hidden>Undo clear</button>
-    </div>
-    <p id="adm-review-status" role="status">Private to this browser. One export includes every ADM page.</p>
-    <noscript>Review tools require JavaScript.</noscript>
-  </div>
-  
-  
   <p class="entry-status"><span class="entry-id">S003</span><span>draft</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
@@ -382,11 +370,28 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
-<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
+<script src="../assets/adm.js?v=c4a8337be3ad" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=c4a8337be3ad" defer></script>
 
-<script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S003" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
+<template id="adm-review-controls">
+  <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
+    <h3 id="adm-review-title">All ADM pages</h3>
+    <div class="adm-review-actions">
+      <button type="button" id="adm-review-export" aria-label="Export all comments" title="Export comments from every ADM page">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg>
+        Export all
+      </button>
+      <button type="button" id="adm-review-clear" aria-label="Clear all comments" title="Clear comments from every ADM page">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M5 6v14h14V6"/></svg>
+        Clear all
+      </button>
+      <button type="button" id="adm-review-undo" hidden>Undo clear</button>
+    </div>
+    <p id="adm-review-status" role="status">One export includes posted comments from every ADM page in this browser.</p>
+  </section>
+</template>
+<script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S003" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
+<script src="../assets/adm-review.js?v=c4a8337be3ad"></script>
 
 
 

@@ -115,28 +115,46 @@
 
   function mount(win) {
     const doc = win.document;
-    const open = doc.getElementById('adm-review-open');
-    const download = doc.getElementById('adm-review-export');
-    const clear = doc.getElementById('adm-review-clear');
-    const undo = doc.getElementById('adm-review-undo');
-    const status = doc.getElementById('adm-review-status');
-    if (!open || !download || !clear || !undo || !status) return;
-    if (!win.Annotate) {
-      status.textContent = 'Review tools could not load. Reload to try again.';
-      return;
-    }
-    open.disabled = false;
-    download.disabled = false;
-    clear.disabled = false;
+    const template = doc.getElementById('adm-review-controls');
+    if (!template || !win.Annotate) return;
+    const controls = template.content.firstElementChild.cloneNode(true);
+    const download = controls.querySelector('#adm-review-export');
+    const clear = controls.querySelector('#adm-review-clear');
+    const undo = controls.querySelector('#adm-review-undo');
+    const status = controls.querySelector('#adm-review-status');
+    const attachControls = () => {
+      const footer = doc.getElementById('__an_foot');
+      if (!footer) return;
+      // The pinned annotate.js rebuilds the footer on every comment edit.
+      // A sibling stays intact, including its listeners, focus and status.
+      footer.before(controls);
+      footer.setAttribute('role', 'group');
+      footer.setAttribute('aria-label', 'This page');
+      footer.classList.add('adm-review-page');
+      for (const [oldLabel, label] of [
+        ['Download comments as JSON', 'Download comments from this page as JSON'],
+        ['Import comments from a JSON file', 'Import comments into this page from JSON'],
+      ]) {
+        const button = doc.querySelector(`#__an_panel .an-ph button[aria-label="${oldLabel}"]`);
+        if (button) { button.setAttribute('aria-label', label); button.title = label; }
+      }
+    };
+    attachControls();
     const updateUndo = () => {
       try { undo.hidden = !lastClear(win.localStorage); }
       catch (error) { undo.hidden = true; }
     };
     const resetLayer = () => {
+      const wasOpen = doc.getElementById('__an_panel')?.classList.contains('an-open');
+      const hadFocus = controls.contains(doc.activeElement);
       // Destroying also drops unsaved drafts and stale comment-edit forms.
       win.Annotate.destroy();
       win.Annotate.init();
+      attachControls();
       updateUndo();
+      // Keep the result and Undo in view after clearing from this panel.
+      if (wasOpen) win.Annotate.open();
+      if (hadFocus) (undo.hidden ? download : undo).focus();
     };
     const resetId = () => win.crypto.randomUUID();
     updateUndo();
@@ -181,7 +199,6 @@
         status.textContent = 'Could not restore comments. The recovery copy remains in this browser; free some storage and try again.';
       }
     });
-    open.addEventListener('click', () => win.Annotate.open());
     download.addEventListener('click', () => {
       try {
         const payload = collect(win.localStorage, win.Annotate.comments(), win.Annotate.version, win.location.origin);

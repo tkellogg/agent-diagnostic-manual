@@ -53,13 +53,20 @@ body > .container { margin-top: 3rem; }
 .formats a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--adm-muted); text-decoration: none; border: 1px solid transparent; border-radius: 3px; font-size: 1.2rem; }
 .formats a:hover, .formats a:focus-visible { color: var(--adm-accent); background: var(--adm-hover); border-color: var(--adm-line); }
 .adm-toolbar { margin-bottom: 1.5rem; }
-.adm-review { margin: 0 0 1.75rem; padding: .85rem 1rem; border: 1px solid var(--adm-line); border-radius: 3px; background: var(--adm-surface); }
-.adm-review-actions { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
-.adm-review button { min-height: 40px; padding: .4rem .6rem; border: 1px solid var(--adm-line); border-radius: 3px; background: transparent; color: var(--adm-accent); font-size: .8rem; }
-.adm-review button:hover { background: var(--adm-hover); }
-.adm-review button:disabled { opacity: .5; cursor: wait; }
-.adm-review button i { margin-right: .35rem; }
-.adm-review p { margin: .5rem 0 0; color: var(--adm-muted); font-size: .75rem; line-height: 1.5; }
+/* Site-wide review actions live beside annotate.js's page-only footer. */
+#__an_panel .adm-review { flex-shrink: 0; padding: 12px 16px; border-top: 1px solid var(--an-border); background: var(--an-surface); }
+#__an_panel .adm-review h3, #__an_foot.adm-review-page::before { margin: 0 0 8px; color: var(--an-muted); font: 600 10.5px var(--an-font); letter-spacing: .06em; text-transform: uppercase; }
+#__an_foot.adm-review-page { flex-shrink: 0; }
+#__an_foot.adm-review-page::before { content: attr(aria-label); margin-bottom: 0; }
+#__an_panel .adm-review-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#__an_panel .adm-review button { display: inline-flex; flex: 1; align-items: center; justify-content: center; gap: 7px; min-height: 40px; padding: 9px; border: 1px solid var(--an-border-strong); border-radius: 10px; background: var(--an-surface); color: var(--an-fg); font: 600 12.5px var(--an-font); cursor: pointer; }
+#__an_panel .adm-review button[hidden] { display: none; }
+#__an_panel .adm-review button:hover { background: var(--an-surface-2); border-color: var(--an-btn-bg); }
+#__an_panel .adm-review button:focus-visible { outline: 2px solid var(--an-fg); outline-offset: 2px; }
+#__an_panel .adm-review button svg { width: 15px; height: 15px; flex-shrink: 0; }
+#__an_panel #adm-review-export { background: var(--an-btn-bg); color: var(--an-btn-fg); }
+#__an_panel #adm-review-undo { flex-basis: 100%; }
+#__an_panel .adm-review p { margin: 8px 0 0; color: var(--an-muted); font: 11.5px/1.45 var(--an-font); }
 .adm-search-trigger { display: flex; align-items: center; gap: .65rem; margin-left: 1rem; padding: .55rem .7rem; border: 1px solid var(--adm-line); border-radius: 3px; background: var(--adm-surface); color: var(--adm-muted); font-size: .8rem; white-space: nowrap; }
 .adm-search-trigger:hover { color: var(--adm-accent); border-color: var(--adm-accent); }
 .adm-search-trigger kbd { background: transparent; color: var(--adm-muted); box-shadow: none; border: 1px solid var(--adm-line); }
