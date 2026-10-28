@@ -19,7 +19,8 @@ I='entries/interventions/preserve-task-relevant-evidence.xml'
 class FormatTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
-        for folder in ('entries','schema','skills','website','docs'):shutil.copytree(ROOT/folder,self.root/folder)
+        for folder in ('entries','schema','skills','website','docs'):
+            shutil.copytree(ROOT/folder,self.root/folder,ignore=shutil.ignore_patterns('__pycache__'))
         for file in ('README.md','mkdocs.yml'):shutil.copyfile(ROOT/file,self.root/file)
         shutil.copytree(ROOT/'node_modules/@reviewjs/annotate',self.root/'node_modules/@reviewjs/annotate')
     def tearDown(self):self.temp.cleanup()

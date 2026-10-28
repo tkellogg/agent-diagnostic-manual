@@ -221,10 +221,16 @@ def build(root=ROOT,check=False,search=False):
                                  (root/'website/assets/adm.js').read_bytes()+
                                  (root/'website/assets/adm-harness.js').read_bytes()+
                                  (root/'website/assets/adm-review.js').read_bytes()).hexdigest()[:12]
-    config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True,
-                       extra_css=['assets/adm.css?v='+asset_version],
-                       extra={'asset_version':asset_version})
-    mkdocs_build(config)
+    # Loading repository hooks must not create cache files among the sources.
+    previous_bytecode=sys.dont_write_bytecode
+    try:
+        sys.dont_write_bytecode=True
+        config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True,
+                           extra_css=['assets/adm.css?v='+asset_version],
+                           extra={'asset_version':asset_version})
+        mkdocs_build(config)
+    finally:
+        sys.dont_write_bytecode=previous_bytecode
     # MkDocs consumes Markdown; expose exact source variants alongside HTML.
     for md in staging.rglob('*.md'):
         target=out/md.relative_to(staging)
