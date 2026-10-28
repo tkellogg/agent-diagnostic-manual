@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=c4a8337be3ad" rel="stylesheet">
+        <link href="../assets/adm.css?v=7042505bfc75" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -144,7 +144,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction</a>
 </li>
                                     
 <li>
@@ -161,6 +161,10 @@
                                     
 <li>
     <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
 </li>
                                 </ul>
                             </li>
@@ -332,7 +336,7 @@
 <p>Write these interventions with this in mind.</p>
 <p>See <a href="diagnostic-process.html">Diagnosing and improving an agent system</a> for the full flow from past incidents through competing explanations, a system change, predictions, and observations of future work. The method applies to human maintainers and independent tools as well as the diagnostic skill.</p>
 <h2 id="title-and-summary">Title and summary<a class="headerlink" href="#title-and-summary" title="Permanent link">¶</a></h2>
-<p>Name the action and its target. The summary should say what changes, where, and under what circumstances. "Fix compaction so important information survives" names the mechanism to change; "maintain good memory" leaves the action to the reader.</p>
+<p>Name the action and its target. Keep the title short: "Fix compaction" names the mechanism to change. Use the summary to say what changes, where, and under what circumstances; "maintain good memory" leaves the action to the reader.</p>
 <h2 id="purpose-and-principles">Purpose and principles<a class="headerlink" href="#purpose-and-principles" title="Permanent link">¶</a></h2>
 <p>Explain the intended effect and the working model that makes the action plausible. Include principles that help a reader apply this particular intervention correctly. For compaction, distinguish a full transcript saved for review from the information the working agent retains.</p>
 <p>Keep principles in the <code>purpose</code> section. They support the procedure; they should not substitute for it or imply that a proposed mechanism is established. A formal diagnosis need not be a prerequisite when the relevant conditions can be observed directly.</p>
@@ -351,7 +355,7 @@
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
 <p>State the predicted observable effect, when to assess it, and what counts as useful progress. Measure correctness and task outcomes alongside the symptom; suppressing visible behavior can make the underlying problem worse.</p>
 <p>Agree with the user on how ordinary future work will be observed, who will review it, and a check-in date. Arrange a reminder or scheduled job so follow-up actually happens. A target number of tasks can guide the date; explain what to do if too few relevant tasks occur. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.</p>
-<p>A frozen-input comparison can be useful when the component can be run separately, as with some compactors. Preserve the original input, change one relevant instruction, and compare a few candidates without replaying the task's external actions. A fixed transcript does not make model output deterministic. Check the chosen change on separate examples and future work; do not turn this optional shortcut into a mandatory ablation study.</p>
+<p>A frozen-input comparison can be useful when the component can be run separately, as with some compactors. Preserve the original input, change one relevant instruction, and compare a few candidates without replaying the task's external actions. A fixed transcript does not make model output deterministic. Avoid overfitting: a rule that memorizes one incident can leave the general failure untouched or damage other work. Check the chosen change on separate examples and future work; do not turn this optional shortcut into a mandatory ablation study.</p>
 <p>Explain positive, negative, and inconclusive results. Distinguish a change that was never active from one that was active but did not help. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's <code>intervention-ref/predictions</code>; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.</p>
 <h2 id="risks-rollback-and-evidence">Risks, rollback, and evidence<a class="headerlink" href="#risks-rollback-and-evidence" title="Permanent link">¶</a></h2>
 <p>Describe concrete ways the change could cause harm or confound interpretation. Specify when to stop, what to remove or restore, and which effects rollback cannot undo.</p>
@@ -378,8 +382,8 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=c4a8337be3ad" data-base-url="../"></script>
-<script src="../assets/adm-harness.js?v=c4a8337be3ad" defer></script>
+<script src="../assets/adm.js?v=7042505bfc75" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=7042505bfc75" defer></script>
 
 <template id="adm-review-controls">
   <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
@@ -399,7 +403,7 @@
   </section>
 </template>
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/authoring-intervention.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
-<script src="../assets/adm-review.js?v=c4a8337be3ad"></script>
+<script src="../assets/adm-review.js?v=7042505bfc75"></script>
 
 
 

@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=c4a8337be3ad" rel="stylesheet">
+        <link href="../assets/adm.css?v=7042505bfc75" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -144,7 +144,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction</a>
 </li>
                                     
 <li>
@@ -161,6 +161,10 @@
                                     
 <li>
     <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
 </li>
                                 </ul>
                             </li>
@@ -314,7 +318,7 @@
   
   </div>
   
-  <p class="entry-status"><span class="entry-id">D001</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">D001</span><span>reviewed</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
@@ -333,7 +337,7 @@
 </ul>
 <p><a id="relations/I001"></a>
 <a id="relations/I001/when"></a></p>
-<h3 id="intervention-i001-fix-compaction-so-important-information-survives">Intervention: <a href="../interventions/preserve-task-relevant-evidence.html" class="adm-entry-ref"><span class="adm-ref-id">I001</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Fix compaction so important information survives</span></a><a class="headerlink" href="#intervention-i001-fix-compaction-so-important-information-survives" title="Permanent link">¶</a></h3>
+<h3 id="intervention-i001-fix-compaction">Intervention: <a href="../interventions/preserve-task-relevant-evidence.html" class="adm-entry-ref"><span class="adm-ref-id">I001</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Fix compaction</span></a><a class="headerlink" href="#intervention-i001-fix-compaction" title="Permanent link">¶</a></h3>
 <p><strong>Use this when:</strong> A compaction summary has lost important information, and you can change the compaction prompt or algorithm.</p>
 <p><a id="relations/I001/predictions"></a></p>
 <h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">¶</a></h4>
@@ -349,6 +353,26 @@
 </li>
 <li>
 <p><a id="relations/I001/predictions/possible-harm"></a><strong>Possible harm:</strong> Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</p>
+</li>
+</ul>
+<p><a id="relations/I006"></a>
+<a id="relations/I006/when"></a></p>
+<h3 id="intervention-i006-save-information-for-future-work">Intervention: <a href="../interventions/save-information-for-future-work.html" class="adm-entry-ref"><span class="adm-ref-id">I006</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Save information for future work</span></a><a class="headerlink" href="#intervention-i006-save-information-for-future-work" title="Permanent link">¶</a></h3>
+<p><strong>Use this when:</strong> Important information is available before compaction, and you can change the working agent's instructions for saving it outside the conversation and finding it later.</p>
+<p><a id="relations/I006/predictions"></a></p>
+<h4 id="what-to-expect-if-this-explanation-is-right_1">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right_1" title="Permanent link">¶</a></h4>
+<ul>
+<li>
+<p><a id="relations/I006/predictions/expected-improvement"></a><strong>Expected improvement:</strong> After compaction, the agent should recover the saved decisions, requirements, and permission limits from their records. It should repeat less investigation, miss fewer constraints, and ask less often for permission already given, even if the compactor still drops those details.</p>
+</li>
+<li>
+<p><a id="relations/I006/predictions/still-necessary"></a><strong>Still necessary:</strong> The agent should still recheck facts that may have changed and seek permission for new scope. Reading a relevant saved note is useful retrieval, not a recurrence of the redundant work this change aims to reduce.</p>
+</li>
+<li>
+<p><a id="relations/I006/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If the right information is saved and present in the resumed agent's context but the mistakes continue, investigate conflicting instructions or failures to follow it. If the record is never read, repair that route before judging the explanation. Improvement alone does not establish incorrect compaction: saved records can also help with omissions unrelated to compaction.</p>
+</li>
+<li>
+<p><a id="relations/I006/predictions/possible-harm"></a><strong>Possible harm:</strong> Stale or overly broad records can spread a mistake across future sessions. Excessive note-taking and rereading can replace the original repeated work with a new source of overhead.</p>
 </li>
 </ul>
 <p><a id="criteria"></a></p>
@@ -413,8 +437,8 @@ If the needed fact is clear in the current context, look for conflicting instruc
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=c4a8337be3ad" data-base-url="../"></script>
-<script src="../assets/adm-harness.js?v=c4a8337be3ad" defer></script>
+<script src="../assets/adm.js?v=7042505bfc75" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=7042505bfc75" defer></script>
 
 <template id="adm-review-controls">
   <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
@@ -434,7 +458,7 @@ If the needed fact is clear in the current context, look for conflicting instruc
   </section>
 </template>
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="D001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
-<script src="../assets/adm-review.js?v=c4a8337be3ad"></script>
+<script src="../assets/adm-review.js?v=7042505bfc75"></script>
 
 
 

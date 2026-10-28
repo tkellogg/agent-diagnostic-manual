@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/interventions/preserve-task-relevant-evidence.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>I001 — Fix compaction so important information survives - Agent Diagnostic Manual</title>
+        <title>I001 — Fix compaction - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=c4a8337be3ad" rel="stylesheet">
+        <link href="../assets/adm.css?v=7042505bfc75" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -144,7 +144,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="preserve-task-relevant-evidence.html" class="dropdown-item active" aria-current="page">I001 — Fix compaction so important information survives</a>
+    <a href="preserve-task-relevant-evidence.html" class="dropdown-item active" aria-current="page">I001 — Fix compaction</a>
 </li>
                                     
 <li>
@@ -161,6 +161,10 @@
                                     
 <li>
     <a href="complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
+</li>
+                                    
+<li>
+    <a href="save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
 </li>
                                 </ul>
                             </li>
@@ -269,7 +273,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#fix-compaction-so-important-information-survives" class="nav-link">Fix compaction so important information survives</a>
+            <li class="nav-item" data-bs-level="1"><a href="#fix-compaction" class="nav-link">Fix compaction</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -318,11 +322,11 @@
   
   </div>
   
-  <p class="entry-status"><span class="entry-id">I001</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">I001</span><span>reviewed</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
-<h1 id="fix-compaction-so-important-information-survives">Fix compaction so important information survives<a class="headerlink" href="#fix-compaction-so-important-information-survives" title="Permanent link">¶</a></h1>
+<h1 id="fix-compaction">Fix compaction<a class="headerlink" href="#fix-compaction" title="Permanent link">¶</a></h1>
 <p>Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.</p>
 <p><a id="purpose"></a></p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
@@ -345,7 +349,8 @@
 <p>Reuse existing session records. If an upcoming compaction would lose needed evidence, capture it with a supported hook or export. Keep an unchanged copy for comparison and save the resulting summary when it is readable. Agree with the user where these private records go and how long to keep them.</p>
 <p><a id="procedure/create-record"></a></p>
 <h3 id="change-what-compaction-preserves">Change what compaction preserves<a class="headerlink" href="#change-what-compaction-preserves" title="Permanent link">¶</a></h3>
-<p>Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately or hard-code the answer from one incident into the prompt.</p>
+<p>Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately.</p>
+<p>Avoid overfitting: hard-coding the answer from one incident can make that example look fixed while leaving the general failure untouched or making other tasks worse. Write a rule that applies to the kind of information lost, then check it on conversations you did not use to tune the prompt.</p>
 <p><a id="procedure/compare-snapshot"></a></p>
 <h3 id="compare-on-a-frozen-conversation-when-practical">Compare on a frozen conversation when practical<a class="headerlink" href="#compare-on-a-frozen-conversation-when-practical" title="Permanent link">¶</a></h3>
 <p>If the harness can fork or replay the saved conversation from before compaction, give the original and revised compactor the same input. Start each candidate from that unchanged input, not from the previous candidate's summary. Keep the model, settings, and relevant instruction files fixed apart from the intended change.</p>
@@ -361,7 +366,7 @@
 <p>Agree with the user on a check-in date, who will review the samples, and a reminder or scheduled job. For example, review in three workdays if normal use should produce several compactions; if too few occur, report that and choose another date.</p>
 <p><a id="harness-notes"></a></p>
 <h2 id="in-your-harness">In your harness<a class="headerlink" href="#in-your-harness" title="Permanent link">¶</a></h2>
-<div class="adm-harness-controls" hidden="" data-pagefind-ignore=""><label for="adm-harness-select">Harness</label><select id="adm-harness-select" aria-describedby="adm-harness-status"><option value="all">All harnesses</option><option value="claude-code">Claude Code</option><option value="codex">Codex CLI</option><option value="opencode">OpenCode</option><option value="custom">Custom harness</option></select><p id="adm-harness-status" role="status">Shared instructions above apply to every harness. Your choice is remembered in this browser.</p></div><section class="adm-harness-note" data-harness="claude-code" aria-labelledby="claude-code"><p><a id="harness-notes/claude-code"></a></p>
+<fieldset class="adm-harness-controls" hidden="" data-pagefind-ignore="" aria-describedby="adm-harness-status"><legend>Harness</legend><div class="adm-harness-options"><label class="adm-harness-option"><input type="radio" name="adm-harness" value="all" class="visually-hidden" checked><span>All harnesses</span></label><label class="adm-harness-option"><input type="radio" name="adm-harness" value="claude-code" class="visually-hidden"><span>Claude Code</span></label><label class="adm-harness-option"><input type="radio" name="adm-harness" value="codex" class="visually-hidden"><span>Codex CLI</span></label><label class="adm-harness-option"><input type="radio" name="adm-harness" value="opencode" class="visually-hidden"><span>OpenCode</span></label><label class="adm-harness-option"><input type="radio" name="adm-harness" value="custom" class="visually-hidden"><span>Custom harness</span></label></div><p id="adm-harness-status" role="status">Shared instructions above apply to every harness. Your choice is remembered in this browser.</p></fieldset><section class="adm-harness-note" data-harness="claude-code" aria-labelledby="claude-code"><p><a id="harness-notes/claude-code"></a></p>
 <h3 id="claude-code">Claude Code<a class="headerlink" href="#claude-code" title="Permanent link">¶</a></h3>
 <p><strong>Customize:</strong> Claude Code documents a <code>Compact Instructions</code> section in <code>CLAUDE.md</code> for persistent compaction guidance. Use <code>/compact</code> with a focus instruction for a single comparison. This is the documented route; there is no need to invent a separate compaction <code>AGENTS.md</code>. See <a href="https://code.claude.com/docs/en/how-claude-code-works#when-context-fills-up">context management</a>.</p>
 <p><strong>Capture:</strong> The <a href="https://code.claude.com/docs/en/hooks#precompact">PreCompact hook</a> receives <code>transcript_path</code>; <a href="https://code.claude.com/docs/en/hooks#postcompact">PostCompact</a> receives <code>compact_summary</code>. Use these to save the before-and-after evidence. PostCompact cannot rewrite the result; logging a summary and changing compaction are separate operations. Check hook support in the installed version.</p>
@@ -423,8 +428,8 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=c4a8337be3ad" data-base-url="../"></script>
-<script src="../assets/adm-harness.js?v=c4a8337be3ad" defer></script>
+<script src="../assets/adm.js?v=7042505bfc75" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=7042505bfc75" defer></script>
 
 <template id="adm-review-controls">
   <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
@@ -444,7 +449,7 @@
   </section>
 </template>
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
-<script src="../assets/adm-review.js?v=c4a8337be3ad"></script>
+<script src="../assets/adm-review.js?v=7042505bfc75"></script>
 
 
 

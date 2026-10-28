@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Fix compaction so important information survives">
+<intervention xmlns="urn:adm:1" id="I001" version="1" status="reviewed" evidence="unvalidated" updated="2026-10-28" title="Fix compaction">
   <summary>Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.</summary>
   <purpose>
     <p>Improve what the compactor keeps so critical information is not forgotten. A completed action may still carry a decision, a failed approach, or a permission limit that future work needs. Choose what to preserve by its likely use, not just by whether the action is finished.</p>
@@ -20,7 +20,8 @@
       <p>Reuse existing session records. If an upcoming compaction would lose needed evidence, capture it with a supported hook or export. Keep an unchanged copy for comparison and save the resulting summary when it is readable. Agree with the user where these private records go and how long to keep them.</p>
     </step>
     <step id="create-record" title="Change what compaction preserves">
-      <p>Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately or hard-code the answer from one incident into the prompt.</p>
+      <p>Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately.</p>
+      <p>Avoid overfitting: hard-coding the answer from one incident can make that example look fixed while leaving the general failure untouched or making other tasks worse. Write a rule that applies to the kind of information lost, then check it on conversations you did not use to tune the prompt.</p>
     </step>
     <step id="compare-snapshot" title="Compare on a frozen conversation when practical">
       <p>If the harness can fork or replay the saved conversation from before compaction, give the original and revised compactor the same input. Start each candidate from that unchanged input, not from the previous candidate's summary. Keep the model, settings, and relevant instruction files fixed apart from the intended change.</p>

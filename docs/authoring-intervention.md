@@ -17,7 +17,7 @@ See [Diagnosing and improving an agent system](diagnostic-process.md) for the fu
 
 ## Title and summary
 
-Name the action and its target. The summary should say what changes, where, and under what circumstances. "Fix compaction so important information survives" names the mechanism to change; "maintain good memory" leaves the action to the reader.
+Name the action and its target. Keep the title short: "Fix compaction" names the mechanism to change. Use the summary to say what changes, where, and under what circumstances; "maintain good memory" leaves the action to the reader.
 
 ## Purpose and principles
 
@@ -55,7 +55,7 @@ State the predicted observable effect, when to assess it, and what counts as use
 
 Agree with the user on how ordinary future work will be observed, who will review it, and a check-in date. Arrange a reminder or scheduled job so follow-up actually happens. A target number of tasks can guide the date; explain what to do if too few relevant tasks occur. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.
 
-A frozen-input comparison can be useful when the component can be run separately, as with some compactors. Preserve the original input, change one relevant instruction, and compare a few candidates without replaying the task's external actions. A fixed transcript does not make model output deterministic. Check the chosen change on separate examples and future work; do not turn this optional shortcut into a mandatory ablation study.
+A frozen-input comparison can be useful when the component can be run separately, as with some compactors. Preserve the original input, change one relevant instruction, and compare a few candidates without replaying the task's external actions. A fixed transcript does not make model output deterministic. Avoid overfitting: a rule that memorizes one incident can leave the general failure untouched or damage other work. Check the chosen change on separate examples and future work; do not turn this optional shortcut into a mandatory ablation study.
 
 Explain positive, negative, and inconclusive results. Distinguish a change that was never active from one that was active but did not help. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's `intervention-ref/predictions`; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.
 

@@ -18,7 +18,7 @@
         <link href="css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="assets/adm.css?v=c4a8337be3ad" rel="stylesheet">
+        <link href="assets/adm.css?v=7042505bfc75" rel="stylesheet">
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -144,7 +144,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
+    <a href="interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction</a>
 </li>
                                     
 <li>
@@ -161,6 +161,10 @@
                                     
 <li>
     <a href="interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
+</li>
+                                    
+<li>
+    <a href="interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
 </li>
                                 </ul>
                             </li>
@@ -421,7 +425,7 @@
 <h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">¶</a></h2>
 <ul>
 <li>
-<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Fix compaction so important information survives</a></p>
+<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Fix compaction</a></p>
 <p>Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.</p>
 </li>
 <li>
@@ -440,9 +444,13 @@
 <p><a href="interventions/complete-tool-discovery-handoff.html">I005 — Make discovered tools callable</a></p>
 <p>Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.</p>
 </li>
+<li>
+<p><a href="interventions/save-information-for-future-work.html">I006 — Save information for future work</a></p>
+<p>Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.</p>
+</li>
 </ul>
 <p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared <a href="docs/observation-methods.html">observation methods</a> describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.</p>
-<p>These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
+<p>Entries have separate review and evidence statuses: <code>reviewed</code> records editorial approval, not validation of a definition, diagnosis, or remedy. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
 <h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">¶</a></h2>
 <p>Distribute <code>skills/agent-diagnostics/</code> as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ADM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.</p>
 <p>XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.</p>
@@ -507,8 +515,8 @@ python examples/query_manual.py
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="pagefind/pagefind-ui.js"></script>
-<script src="assets/adm.js?v=c4a8337be3ad" data-base-url="./"></script>
-<script src="assets/adm-harness.js?v=c4a8337be3ad" defer></script>
+<script src="assets/adm.js?v=7042505bfc75" data-base-url="./"></script>
+<script src="assets/adm-harness.js?v=7042505bfc75" defer></script>
 
 <template id="adm-review-controls">
   <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
@@ -528,7 +536,7 @@ python examples/query_manual.py
   </section>
 </template>
 <script src="assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="index.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
-<script src="assets/adm-review.js?v=c4a8337be3ad"></script>
+<script src="assets/adm-review.js?v=7042505bfc75"></script>
 
 
 
@@ -578,5 +586,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-28 17:04:49.561577+00:00
+Build Date UTC : 2026-10-28 17:24:06.440353+00:00
 -->

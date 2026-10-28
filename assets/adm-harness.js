@@ -1,14 +1,16 @@
 // Filter only implementation notes; the shared intervention remains visible.
 (() => {
-  const select = document.getElementById('adm-harness-select');
-  if (!select) return;
+  const controls = document.querySelector('.adm-harness-controls');
+  if (!controls) return;
+  const choices = [...controls.querySelectorAll('input[name="adm-harness"]')];
   const notes = [...document.querySelectorAll('.adm-harness-note')];
   const status = document.getElementById('adm-harness-status');
   const key = 'adm:harness';
   const available = value => value === 'all' || notes.some(note => note.dataset.harness === value);
   function apply(value, unavailable = false) {
-    select.value = available(value) ? value : 'all';
-    notes.forEach(note => { note.hidden = select.value !== 'all' && note.dataset.harness !== select.value; });
+    const selected = available(value) ? value : 'all';
+    choices.forEach(choice => { choice.checked = choice.value === selected; });
+    notes.forEach(note => { note.hidden = selected !== 'all' && note.dataset.harness !== selected; });
     status.textContent = unavailable
       ? 'Your saved harness has no specific notes here. Showing all harnesses.'
       : 'Shared instructions above apply to every harness. Your choice is remembered in this browser.';
@@ -17,10 +19,11 @@
   let saved = 'all';
   try { saved = localStorage.getItem(key) || 'all'; } catch (_) { /* Selection still works without storage. */ }
   apply(saved, !available(saved));
-  select.closest('.adm-harness-controls').hidden = false;
-  select.addEventListener('change', () => {
-    apply(select.value);
-    try { localStorage.setItem(key, select.value); } catch (_) {
+  controls.hidden = false;
+  controls.addEventListener('change', event => {
+    if (!choices.includes(event.target) || !event.target.checked) return;
+    apply(event.target.value);
+    try { localStorage.setItem(key, event.target.value); } catch (_) {
       status.textContent = 'Showing your selection. This browser could not remember it.';
     }
   });

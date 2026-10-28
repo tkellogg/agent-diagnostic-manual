@@ -5,14 +5,14 @@ summary: Change the compaction instructions or implementation to preserve inform
   that later work needs. Where the harness allows it, compare changes on a saved conversation
   before evaluating ordinary future work.
 version: '1'
-status: draft
+status: reviewed
 evidence: unvalidated
 updated: '2026-10-28'
-title: Fix compaction so important information survives
+title: Fix compaction
 xml_source: interventions/preserve-task-relevant-evidence.xml
 ---
 
-# Fix compaction so important information survives
+# Fix compaction
 
 Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.
 
@@ -58,7 +58,9 @@ Reuse existing session records. If an upcoming compaction would lose needed evid
 
 ### Change what compaction preserves
 
-Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately or hard-code the answer from one incident into the prompt.
+Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately.
+
+Avoid overfitting: hard-coding the answer from one incident can make that example look fixed while leaving the general failure untouched or making other tasks worse. Write a rule that applies to the kind of information lost, then check it on conversations you did not use to tune the prompt.
 
 <a id="procedure/compare-snapshot"></a>
 

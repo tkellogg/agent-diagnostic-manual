@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://diag.timkellogg.me/interventions/save-information-for-future-work.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>I006 — Save information for future work - Agent Diagnostic Manual</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../assets/adm.css?v=7042505bfc75" rel="stylesheet">
+<link href="../pagefind/pagefind-ui.css" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+
+<meta data-pagefind-meta="kind[content]" content="Intervention">
+<meta data-pagefind-meta="entry_id[content]" content="I006">
+
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+<a class="navbar-brand" href="../index.html" aria-label="Agent Diagnostic Manual home">
+  <span class="adm-monogram" aria-hidden="true">ADM</span>
+  <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
+</a>
+<button class="adm-search-trigger order-lg-last" type="button" data-bs-toggle="modal" data-bs-target="#adm-search-dialog" aria-haspopup="dialog">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span>Search all ADM</span><kbd aria-hidden="true">/</kbd>
+</button>
+
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Symptoms</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../symptoms/repeated-retrieval.html" class="dropdown-item">S001 — Repeated retrieval</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/doom-looping.html" class="dropdown-item">S002 — Doom looping</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/sudden-performance-degradation.html" class="dropdown-item">S003 — Sudden performance degradation</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/excessive-verification.html" class="dropdown-item">S004 — Excessive verification</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/correction-without-behavioral-change.html" class="dropdown-item">S005 — Correction without behavioral change</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/lost-task-constraints.html" class="dropdown-item">S006 — Lost task constraints</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/premature-stopping.html" class="dropdown-item">S007 — Premature stopping</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/repeated-reauthorization.html" class="dropdown-item">S008 — Repeated reauthorization</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/unrequested-changes.html" class="dropdown-item">S009 — Unrequested changes</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/unsupported-verification-claims.html" class="dropdown-item">S011 — Unsupported verification claims</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/weakening-the-checks.html" class="dropdown-item">S012 — Weakening the checks</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Diagnoses</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Interventions</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction</a>
+</li>
+                                    
+<li>
+    <a href="scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
+</li>
+                                    
+<li>
+    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
+</li>
+                                    
+<li>
+    <a href="separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
+</li>
+                                    
+<li>
+    <a href="save-information-for-future-work.html" class="dropdown-item active" aria-current="page">I006 — Save information for future work</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/authoring-symptom.html" class="dropdown-item">Authoring symptoms XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/SKILL.html" class="dropdown-item">Diagnostic skill</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/references/format.html" class="dropdown-item">File format</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <button id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" class="nav-link dropdown-toggle">
+                                <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                <span class="d-lg-none ms-2">Toggle theme</span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="true">
+                                    <i class="fa-solid fa-sun fa-fw"></i>
+                                    <span class="ms-2">Light</span>
+                                    <i class="fa-solid fa-check ms-auto"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                                    <i class="fa-solid fa-moon fa-fw"></i>
+                                    <span class="ms-2">Dark</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                                    <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                    <span class="ms-2">Auto</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../js/darkmode.js"></script>
+
+        <div class="container">
+            <div class="row">
+<div class="modal adm-search" id="adm-search-dialog" tabindex="-1" aria-labelledby="adm-search-title" aria-hidden="true" data-pagefind-ignore>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="adm-search-title">Search all ADM</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close search"></button>
+      </div>
+      <div class="modal-body">
+        <p class="adm-search-scope">Symptoms, diagnoses, interventions, and guides</p>
+        <div id="search"></div>
+        <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+      </div>
+    </div>
+  </div>
+</div>
+<a class="adm-skip" href="#manual-content">Skip to content</a>
+<aside class="col-md-3 adm-sidebar" aria-label="On this page">
+  <p class="adm-eyebrow">On this page</p>
+  <div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#save-information-for-future-work" class="nav-link">Save information for future work</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#preconditions" class="nav-link">Preconditions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#procedure" class="nav-link">Procedure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#evaluation" class="nav-link">Evaluation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#risks-and-confounders" class="nav-link">Risks and confounders</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#stop-and-rollback" class="nav-link">Stop and rollback</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</aside>
+<main class="col-md-9 adm-main" id="manual-content" tabindex="-1">
+  <div class="adm-toolbar" data-pagefind-ignore>
+    <span class="adm-eyebrow">intervention</span>
+  
+  <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
+    <a href="save-information-for-future-work.md" download title="Download Markdown" aria-label="Download Markdown"><i class="fa-brands fa-markdown" aria-hidden="true"></i></a>
+    
+    <a href="save-information-for-future-work.xml" title="View XML" aria-label="View XML"><i class="fa-solid fa-code" aria-hidden="true"></i></a>
+    
+  </nav>
+  
+  </div>
+  
+  <p class="entry-status"><span class="entry-id">I006</span><span>draft</span><span>unvalidated</span></p>
+  
+  <article data-pagefind-body>
+
+<h1 id="save-information-for-future-work">Save information for future work<a class="headerlink" href="#save-information-for-future-work" title="Permanent link">¶</a></h1>
+<p>Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.</p>
+<p><a id="purpose"></a></p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
+<p>Make useful information survive through deliberate recording during ordinary work. <a href="preserve-task-relevant-evidence.html">Fix compaction</a> changes what a summarizer keeps; this intervention changes what the working agent writes down before the conversation is lost. The two can complement each other.</p>
+<p>A file that nobody finds does not provide memory. The repair needs both a rule for saving information and a reliable way for future work to find and read it. Preserve information because it will help later decisions, not because it appeared in the conversation.</p>
+<p><a id="preconditions"></a></p>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
+<p><a id="preconditions/reuse-needed"></a></p>
+<h3 id="later-work-needs-information-from-earlier-work">Later work needs information from earlier work<a class="headerlink" href="#later-work-needs-information-from-earlier-work" title="Permanent link">¶</a></h3>
+<p>Past incidents show useful information being lost, rediscovered, or repeatedly requested. <a href="../diagnoses/context-handoff-loss.html">Incorrect compaction</a> is one possible explanation, but information may also be missing when a new session or another agent takes over.</p>
+<p><a id="preconditions/accessible-records"></a></p>
+<h3 id="instructions-and-persistent-records-can-be-changed">Instructions and persistent records can be changed<a class="headerlink" href="#instructions-and-persistent-records-can-be-changed" title="Permanent link">¶</a></h3>
+<p>The maintainer can edit the working agent's prompts or skills. The relevant agents can write and read records in a location appropriate for that project's data. Identify what those agents actually load; do not assume a folder or memory feature is automatically consulted.</p>
+<p><a id="procedure"></a></p>
+<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
+<p><a id="procedure/find-loss"></a></p>
+<h3 id="identify-what-was-worth-saving">Identify what was worth saving<a class="headerlink" href="#identify-what-was-worth-saving" title="Permanent link">¶</a></h3>
+<p>Inspect a past incident and the existing instructions. Find the decision, constraint, or finding later work needed, and whether it was never saved, saved somewhere inaccessible, or saved but not read. Fix the missing part of the existing arrangement before adding another store.</p>
+<p><a id="procedure/choose-home"></a></p>
+<h3 id="choose-where-the-information-belongs">Choose where the information belongs<a class="headerlink" href="#choose-where-the-information-belongs" title="Permanent link">¶</a></h3>
+<p>Use the place future work already consults. A design decision may belong in a design document; a reason for surprising code may belong beside that code; an unfinished task may belong in its ticket. Research notes, project docs, and an agent's persistent memory are other options. Choose a home for the information rather than copying it into every location.</p>
+<p>Keep the source or reason, the scope where it applies, and any condition that makes it stale. A permission record must retain its limits and expiry; it does not authorize unrelated future work. Keep temporary task state separate from lasting project guidance.</p>
+<p><a id="procedure/change-writing"></a></p>
+<h3 id="change-when-and-what-the-agent-saves">Change when and what the agent saves<a class="headerlink" href="#change-when-and-what-the-agent-saves" title="Permanent link">¶</a></h3>
+<p>Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Do not require a note for every tool call.</p>
+<p><strong>Example instruction:</strong> When you settle a decision that later work will depend on, update the project's existing design note with the decision, its reason, and when to revisit it. Keep task-specific constraints and permission limits in the task's ticket. Update the existing record if the decision changes; do not create a second competing copy.</p>
+<p><a id="procedure/change-reading"></a></p>
+<h3 id="make-later-work-find-the-record">Make later work find the record<a class="headerlink" href="#make-later-work-find-the-record" title="Permanent link">¶</a></h3>
+<p>Put the route to the records in instructions that future sessions receive, such as the project's startup instructions or the relevant skill. Link each task to its own records. Tell the agent when to read them: when resuming that task or starting work affected by the recorded decision. Do not rely on a pointer that exists only in the conversation that may be lost, or load every saved note on every turn.</p>
+<p>Instruct the reader to check the record's scope and recheck facts whose freshness matters. A research observation should remain an observation; saving it must not turn it into an instruction or an established fact.</p>
+<p><a id="procedure/check-route"></a></p>
+<h3 id="check-the-route-from-saving-to-use">Check the route from saving to use<a class="headerlink" href="#check-the-route-from-saving-to-use" title="Permanent link">¶</a></h3>
+<p>Confirm the revised instructions reach both the writer and the later reader. Follow one relevant record through a subsequent session or resumption: was it saved, could the agent find it, did it read the needed content, and did its work use it correctly? Reuse existing traces. A file's existence alone does not show that this route works.</p>
+<p><a id="procedure/arrange-review"></a></p>
+<h3 id="review-future-use-at-an-agreed-date">Review future use at an agreed date<a class="headerlink" href="#review-future-use-at-an-agreed-date" title="Permanent link">¶</a></h3>
+<p>Agree with the user which repeated work or lost constraints should decline, who will review a few ordinary subsequent tasks, and a check-in date. Arrange a reminder or existing background review. Include work different from the incident that motivated the change. If no task needed the saved information, report that the result is still unknown and choose another date.</p>
+<p><a id="evaluation"></a></p>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
+<ul>
+<li>Look for fewer repeated investigations, missed constraints, and unnecessary requests for information already provided. Use the predictions in <a href="../diagnoses/context-handoff-loss.html#relations/I006/predictions">D001</a> when compaction loss is the proposed cause.</li>
+<li>Check whether the agent applies current records within their scope, still verifies changeable facts, and completes useful work. Count time spent writing and reading notes as a cost; more saved text is not itself an improvement.</li>
+<li>If information was not saved or read, revise that part of the procedure. If the right information was read but the same mistakes continue, reconsider the explanation instead of adding more reminders to save it.</li>
+<li>Improvement can justify keeping the change without proving why the information was previously missing. Distinguish the benefit of a reusable record from memorizing the answer to the incident used to design the rule.</li>
+</ul>
+<p><a id="risks-and-confounders"></a></p>
+<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">¶</a></h2>
+<ul>
+<li>Incorrect or obsolete notes can mislead many future sessions. Duplicate records can disagree, and general memory can accidentally spread task-specific assumptions or permissions.</li>
+<li>Saving too much creates writing overhead, harder searches, and extra context consumption. Requiring a note before every action can stall useful work.</li>
+<li>Moving conversation content into shared docs or tickets can expose private information. Use the agreed audience and location; do not copy entire transcripts merely to avoid choosing what matters.</li>
+</ul>
+<p><a id="stop-and-rollback"></a></p>
+<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">¶</a></h2>
+<ul>
+<li>Revise or restore the previous instructions if recordkeeping costs exceed the benefit, or if future agents repeatedly act on stale or out-of-scope information.</li>
+<li>Correct or retire misleading records and their links. Reverting a prompt does not remove records already written or undo work based on them; keep accurate records that remain useful.</li>
+<li>Remove temporary observation hooks after the agreed review unless the user chooses to keep them.</li>
+</ul></article>
+  
+  <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
+    <a rel="prev" href="complete-tool-discovery-handoff.html"><span>← Previous</span>I005 — Make discovered tools callable</a>
+    <a rel="next" href="../docs/authoring-diagnosis.html"><span>Next →</span>Authoring diagnosis XML files</a>
+  </nav>
+  
+</main>
+
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+<div class="adm-footer">
+  <span>ADM <span class="footer-separator">/</span> Agent Diagnostic Manual</span>
+  <span>Built with <a href="https://www.mkdocs.org/">MkDocs</a> · <a href="https://github.com/tkellogg/agent-diagnostic-manual">Source on GitHub</a></span>
+</div>
+
+        </footer>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../pagefind/pagefind-ui.js"></script>
+<script src="../assets/adm.js?v=7042505bfc75" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=7042505bfc75" defer></script>
+
+<template id="adm-review-controls">
+  <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
+    <h3 id="adm-review-title">All ADM pages</h3>
+    <div class="adm-review-actions">
+      <button type="button" id="adm-review-export" aria-label="Export all comments" title="Export comments from every ADM page">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg>
+        Export all
+      </button>
+      <button type="button" id="adm-review-clear" aria-label="Clear all comments" title="Clear comments from every ADM page">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M5 6v14h14V6"/></svg>
+        Clear all
+      </button>
+      <button type="button" id="adm-review-undo" hidden>Undo clear</button>
+    </div>
+    <p id="adm-review-status" role="status">One export includes posted comments from every ADM page in this browser.</p>
+  </section>
+</template>
+<script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I006" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
+<script src="../assets/adm-review.js?v=7042505bfc75"></script>
+
+
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

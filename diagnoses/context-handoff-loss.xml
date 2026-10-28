@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" unit="configured-agent-system" title="Incorrect compaction">
+<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="reviewed" evidence="unvalidated" updated="2026-10-28" unit="configured-agent-system" title="Incorrect compaction">
   <summary>The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.</summary>
   <definition>
     <p>Compaction makes room by forgetting most of a conversation. It has to predict what will matter next: keep the decisions, constraints, permissions, and findings needed for unfinished work, and discard irrelevant history. This diagnosis proposes that the compactor is making that choice badly.</p>
@@ -23,6 +23,23 @@
         </reason-to-reconsider>
         <possible-harm>
           <p>Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</p>
+        </possible-harm>
+      </predictions>
+    </intervention-ref>
+    <intervention-ref ref="I006">
+      <when>Important information is available before compaction, and you can change the working agent's instructions for saving it outside the conversation and finding it later.</when>
+      <predictions>
+        <expected-improvement>
+          <p>After compaction, the agent should recover the saved decisions, requirements, and permission limits from their records. It should repeat less investigation, miss fewer constraints, and ask less often for permission already given, even if the compactor still drops those details.</p>
+        </expected-improvement>
+        <still-necessary>
+          <p>The agent should still recheck facts that may have changed and seek permission for new scope. Reading a relevant saved note is useful retrieval, not a recurrence of the redundant work this change aims to reduce.</p>
+        </still-necessary>
+        <reason-to-reconsider>
+          <p>If the right information is saved and present in the resumed agent's context but the mistakes continue, investigate conflicting instructions or failures to follow it. If the record is never read, repair that route before judging the explanation. Improvement alone does not establish incorrect compaction: saved records can also help with omissions unrelated to compaction.</p>
+        </reason-to-reconsider>
+        <possible-harm>
+          <p>Stale or overly broad records can spread a mistake across future sessions. Excessive note-taking and rereading can replace the original repeated work with a new source of overhead.</p>
         </possible-harm>
       </predictions>
     </intervention-ref>
