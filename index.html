@@ -452,7 +452,10 @@
 <p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared <a href="docs/observation-methods.html">observation methods</a> describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.</p>
 <p>Entries have separate review and evidence statuses: <code>reviewed</code> records editorial approval, not validation of a definition, diagnosis, or remedy. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
 <h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">¶</a></h2>
-<p>Distribute <code>skills/agent-diagnostics/</code> as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ADM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.</p>
+<p>Install the portable <code>skills/agent-diagnostics/</code> folder with the <a href="https://github.com/vercel-labs/skills">Skills CLI</a>:</p>
+<pre><code class="language-sh">npx skills add tkellogg/agent-diagnostic-manual --skill agent-diagnostics
+</code></pre>
+<p>Or copy that folder into a skill directory supported by your agent. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. The skill reads the current <a href="https://diag.timkellogg.me/catalog.json">online catalog</a>, or a supplied checkout or entry files. The corpus stays separate from the installed skill. Keep one downloaded catalog snapshot for each assessment so updates do not change definitions halfway through. Reading the skill directly also works without a skill-aware harness.</p>
 <p>XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.</p>
 <h2 id="review-the-manual">Review the manual<a class="headerlink" href="#review-the-manual" title="Permanent link">¶</a></h2>
 <p>On any website page, choose the floating <strong>Review</strong> button to open annotate.js. Highlight text, add a section note, or pin a comment, then post it. Move between entries and guides normally; comments stay attached to their pages. Open <strong>Comments</strong> in the review toolbar (or press <strong>A</strong>) to see your notes and review actions.</p>
@@ -461,14 +464,12 @@
 <p>After exporting a review round, choose <strong>Clear all</strong> in the same <strong>All ADM pages</strong> section to start fresh across every ADM page in this browser. Confirm the count in the dialog. <strong>Undo clear</strong> appears there after clearing and restores the last cleared round, including replies and resolved notes, while keeping new comments; it remains available after navigation or reload, until the next clear. Clearing also discards unposted drafts in open ADM tabs. Exported files and other browsers are unaffected. A single recovery copy stays in local browser storage, so this is a review reset, not a secure erase.</p>
 <p>The site bundles <a href="https://github.com/reviewjs/annotate">annotate.js</a> 1.5.3 and its MIT license locally. ADM's small export adapter reads that pinned version's project store. The JSON groups native page exports under <code>pages</code>, retaining entry IDs or guide paths, original URLs, quoted text, anchors, and threads.</p>
 <h2 id="build-and-read">Build and read<a class="headerlink" href="#build-and-read" title="Permanent link">¶</a></h2>
-<p>Python 3.11+ and Node.js 22+:</p>
-<pre><code class="language-sh">python -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements.txt
-npm ci
-python tools/build.py
-python -m http.server 8000 --directory dist --bind 127.0.0.1
+<p><a href="https://docs.astral.sh/uv/">uv</a> and Node.js 22+:</p>
+<pre><code class="language-sh">npm ci
+uv run --script tools/build.py
+uv run --no-project python -m http.server 8000 --directory dist --bind 127.0.0.1
 </code></pre>
+<p>Each runnable Python file declares its Python version and dependencies using inline script metadata. <code>uv</code> manages the environment; no manual virtualenv setup is needed. The executable files also support direct invocation, such as <code>./tools/build.py --check</code>. Shared modules get their dependencies from the calling script.</p>
 <p>Open <code>http://127.0.0.1:8000</code>. MkDocs builds the site and Pagefind adds local, static search. Each entry has adjacent <code>.html</code>, <code>.md</code>, and <code>.xml</code> files, with format links on the HTML page. For example, replace <code>symptoms/repeated-retrieval.html</code> with <code>symptoms/repeated-retrieval.md</code> or <code>symptoms/repeated-retrieval.xml</code>. The build also writes <code>dist/catalog.json</code>. All output is disposable and ignored by Git. Edit XML and rebuild.</p>
 <h2 id="authoring">Authoring<a class="headerlink" href="#authoring" title="Permanent link">¶</a></h2>
 <p><code>entries/</code> contains canonical symptoms, diagnoses, and interventions. <a href="schema/adm-v1.xsd">XSD</a> validates document structure; the <a href="skills/agent-diagnostics/references/format.html">format reference</a> defines cross-document rules. The builder is a reference implementation.</p>
@@ -482,22 +483,22 @@ python -m http.server 8000 --directory dist --bind 127.0.0.1
 </code></pre>
 <p>Reference that item as <code>S001#observations/multi-read</code>. Reference a singleton as <code>S001#what-to-record</code>. Local IDs may repeat in different lists or documents.</p>
 <h2 id="validate-and-consume">Validate and consume<a class="headerlink" href="#validate-and-consume" title="Permanent link">¶</a></h2>
-<pre><code class="language-sh">python tools/build.py --check
-python -m unittest discover -s tests
-python examples/query_manual.py
+<pre><code class="language-sh">uv run --script tools/build.py --check
+uv run --script tools/test.py
+uv run --script examples/query_manual.py
 </code></pre>
 <p>The independent example uses only Python's standard library and imports no ADM code. Consumers do not need an LLM, the reference builder, or a hosted service.</p>
 <h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">¶</a></h2>
 <p>Run <strong>Actions → Release ADM → Run workflow</strong>, select <code>main</code>, and enter a version without the <code>v</code> prefix. Start with <code>0.1.0</code>. The workflow captures HEAD of main at checkout, validates XML and references, runs tests, builds all formats and search, and publishes tag <code>v0.1.0</code> and release assets. An existing tag is rejected rather than moved.</p>
 <p>The ZIP contains <code>html/</code> (the complete searchable site with adjacent source variants), <code>markdown/</code>, <code>xml/entries/</code>, <code>xml/schema/</code>, the distributable <code>skills/</code> folder, and <code>manifest.json</code> with the source commit and per-file SHA-256 hashes. A separate checksum covers the ZIP. Serve <code>html/</code> over HTTP to use search.</p>
 <p>To build the same package locally after building the site:</p>
-<pre><code class="language-sh">python tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
+<pre><code class="language-sh">uv run --script tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
 </code></pre>
 <h2 id="github-pages">GitHub Pages<a class="headerlink" href="#github-pages" title="Permanent link">¶</a></h2>
 <p>Every push to main validates and builds the site, stores a complete generated copy on <code>gh-pages</code>, and deploys it through GitHub Actions. No repository variables are required. Generated branch commits do not trigger the main-branch workflows.</p>
 <p>In <strong>Settings → Pages</strong>, select <strong>GitHub Actions</strong> as the source and save <strong>diag.timkellogg.me</strong> as the custom domain. At the DNS provider, set <code>diag</code> to a CNAME targeting <code>tkellogg.github.io.</code> (without a repository path). Enable <strong>Enforce HTTPS</strong> once GitHub has issued the certificate. DNS and certificate provisioning may take time; saving the custom domain in the repository is required in addition to DNS.</p>
 <p>The Pages workflow builds with MkDocs and Pagefind; no separate Jekyll workflow is needed. With Actions-based publishing, GitHub uses the custom domain saved in repository settings, not a CNAME file in the artifact.</p>
-<p><code>mkdocs.yml</code> sets <code>https://diag.timkellogg.me/</code> as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use <code>python tools/build.py --no-search</code>.</p>
+<p><code>mkdocs.yml</code> sets <code>https://diag.timkellogg.me/</code> as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use <code>uv run --script tools/build.py --no-search</code>.</p>
 <p>The CI, release, and Pages workflows all validate against <code>schema/adm-v1.xsd</code> and check document IDs, local IDs, and typed references before building.</p></article>
   
 </main>
@@ -586,5 +587,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-28 17:24:06.440353+00:00
+Build Date UTC : 2026-10-28 20:15:44.942011+00:00
 -->
