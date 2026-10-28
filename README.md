@@ -25,6 +25,12 @@ flowchart TD
         d2[diagnosis]
     end
 
+    subgraph Applied
+        i1[intervention]
+        i2[intervention]
+        i3[intervention]
+    end
+
     s1 --> Considered --> Applied
     s2 --> Considered
     s3 --> Considered
