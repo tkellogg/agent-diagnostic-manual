@@ -275,6 +275,14 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#agent-diagnostic-manual" class="nav-link">Agent Diagnostic Manual</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#use-the-skill" class="nav-link">Use the skill</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#report-an-issue" class="nav-link">Report an issue</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#symptoms" class="nav-link">Symptoms</a>
               <ul class="nav flex-column">
               </ul>
@@ -284,14 +292,6 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#interventions" class="nav-link">Interventions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#use-the-skill" class="nav-link">Use the skill</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#review-the-manual" class="nav-link">Review the manual</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -337,9 +337,46 @@
   <article data-pagefind-body>
 
 <h1 id="agent-diagnostic-manual">Agent Diagnostic Manual<a class="headerlink" href="#agent-diagnostic-manual" title="Permanent link">¶</a></h1>
-<p>A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.</p>
-<p>Start with <a href="docs/diagnostic-process.html">the diagnostic process</a>: learn from past incidents, change the agent system, and use predictions about future behavior to refine the diagnosis. The <a href="skills/agent-diagnostics/SKILL.html">diagnostic skill</a> and <a href="skills/agent-diagnostics/references/format.html">format reference</a> explain how to work with the files.</p>
-<p>Browse the XML entries for <a href="#symptoms">symptoms</a>, <a href="#diagnoses">diagnoses</a>, and <a href="#interventions">interventions</a>. The website lists all entries automatically.</p>
+<p>A database of symptoms, diagnoses and interventions for agents. Intended for discovering and addressing common problems with all types of AI agents.</p>
+<p>The ADM is loosely modeled after the <a href="https://www.psychiatry.org/psychiatrists/practice/dsm/">DSM (Diagnostic and Statistical Manual of Mental Disorders)</a>, which is the standard resource for diagnosing patients in psychotherapy and mental health. </p>
+<p>The ADM documents a broad array of symptoms with definitions and clear instructions for discovering if an agent is exhibiting a symptom. From there, multiple diagnoses are considered, and interventions are iteratively applied until one diagnosis remains and the symptoms have cleared.</p>
+<pre><code class="language-mermaid">---
+config:
+  layout: elk
+  elk:
+    preset: modelOrder
+---
+flowchart TD
+    subgraph Observed
+        s1[symptom]
+        s2[symptom]
+        s3[symptom]
+    end
+
+    subgraph Considered
+        d1[diagnosis]
+        d2[diagnosis]
+    end
+
+    s1 --&gt; Considered --&gt; Applied
+    s2 --&gt; Considered
+    s3 --&gt; Considered
+
+
+    Applied --&gt; Observed
+</code></pre>
+<h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">¶</a></h2>
+<p>Install the portable <code>skills/agent-diagnostics/</code> folder with the <a href="https://github.com/vercel-labs/skills">Skills CLI</a>:</p>
+<pre><code class="language-sh">npx skills add tkellogg/agent-diagnostic-manual --skill agent-diagnostics
+</code></pre>
+<p>Or copy that folder into a skill directory supported by your agent. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. The skill reads the current <a href="https://diag.timkellogg.me/catalog.json">online catalog</a>, or a supplied checkout or entry files. The corpus stays separate from the installed skill. Keep one downloaded catalog snapshot for each assessment so updates do not change definitions halfway through. Reading the skill directly also works without a skill-aware harness.</p>
+<p>XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.</p>
+<h2 id="report-an-issue">Report an issue<a class="headerlink" href="#report-an-issue" title="Permanent link">¶</a></h2>
+<p>The HTML version of the ADM is wired with <a href="https://reviewjs.github.io/annotate/">annotate.js</a>, which we use for commenting. It's very easy with rich commenting support. But the comments have to be exported from your browser and submitted to Github manually.</p>
+<p>On any website page, choose the floating <strong>Review</strong> button to open annotate.js. Highlight text, add a section note, or pin a comment, then post it. Move between entries and guides normally; comments stay attached to their pages. Open <strong>Comments</strong> in the review toolbar (or press <strong>A</strong>) to see your notes and review actions.</p>
+<p>In the comments panel, choose <strong>Export all</strong> under <strong>All ADM pages</strong> to download one <code>adm-review-YYYY-MM-DD.json</code> containing posted comments from every ADM page in this browser, including replies and resolved comments. Send that file for review. Exporting leaves your saved comments intact. Unposted drafts are not included. The <strong>This page</strong> section's Download, Copy, and Import buttons operate on one page; use <strong>Export all</strong> for the complete review.</p>
+<p>After exporting a review round, choose <strong>Clear all</strong> in the same <strong>All ADM pages</strong> section to start fresh across every ADM page in this browser. Confirm the count in the dialog. <strong>Undo clear</strong> appears there after clearing and restores the last cleared round, including replies and resolved notes, while keeping new comments; it remains available after navigation or reload, until the next clear. Clearing also discards unposted drafts in open ADM tabs. Exported files and other browsers are unaffected. A single recovery copy stays in local browser storage, so this is a review reset, not a secure erase.</p>
+<p>This is probably the best way to help out the project.</p>
 <h2 id="symptoms">Symptoms<a class="headerlink" href="#symptoms" title="Permanent link">¶</a></h2>
 <ul>
 <li>
@@ -449,20 +486,6 @@
 <p>Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.</p>
 </li>
 </ul>
-<p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared <a href="docs/observation-methods.html">observation methods</a> describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.</p>
-<p>Entries have separate review and evidence statuses: <code>reviewed</code> records editorial approval, not validation of a definition, diagnosis, or remedy. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
-<h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">¶</a></h2>
-<p>Install the portable <code>skills/agent-diagnostics/</code> folder with the <a href="https://github.com/vercel-labs/skills">Skills CLI</a>:</p>
-<pre><code class="language-sh">npx skills add tkellogg/agent-diagnostic-manual --skill agent-diagnostics
-</code></pre>
-<p>Or copy that folder into a skill directory supported by your agent. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. The skill reads the current <a href="https://diag.timkellogg.me/catalog.json">online catalog</a>, or a supplied checkout or entry files. The corpus stays separate from the installed skill. Keep one downloaded catalog snapshot for each assessment so updates do not change definitions halfway through. Reading the skill directly also works without a skill-aware harness.</p>
-<p>XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.</p>
-<h2 id="review-the-manual">Review the manual<a class="headerlink" href="#review-the-manual" title="Permanent link">¶</a></h2>
-<p>On any website page, choose the floating <strong>Review</strong> button to open annotate.js. Highlight text, add a section note, or pin a comment, then post it. Move between entries and guides normally; comments stay attached to their pages. Open <strong>Comments</strong> in the review toolbar (or press <strong>A</strong>) to see your notes and review actions.</p>
-<p>In the comments panel, choose <strong>Export all</strong> under <strong>All ADM pages</strong> to download one <code>adm-review-YYYY-MM-DD.json</code> containing posted comments from every ADM page in this browser, including replies and resolved comments. Send that file for review. Exporting leaves your saved comments intact. Unposted drafts are not included. The <strong>This page</strong> section's Download, Copy, and Import buttons operate on one page; use <strong>Export all</strong> for the complete review.</p>
-<p>Comments are private to this browser profile and site address. They do not sync between devices or go to a server. Use the same browser for a review pass and export a backup before clearing site data; private browsing or storage restrictions can prevent persistence.</p>
-<p>After exporting a review round, choose <strong>Clear all</strong> in the same <strong>All ADM pages</strong> section to start fresh across every ADM page in this browser. Confirm the count in the dialog. <strong>Undo clear</strong> appears there after clearing and restores the last cleared round, including replies and resolved notes, while keeping new comments; it remains available after navigation or reload, until the next clear. Clearing also discards unposted drafts in open ADM tabs. Exported files and other browsers are unaffected. A single recovery copy stays in local browser storage, so this is a review reset, not a secure erase.</p>
-<p>The site bundles <a href="https://github.com/reviewjs/annotate">annotate.js</a> 1.5.3 and its MIT license locally. ADM's small export adapter reads that pinned version's project store. The JSON groups native page exports under <code>pages</code>, retaining entry IDs or guide paths, original URLs, quoted text, anchors, and threads.</p>
 <h2 id="build-and-read">Build and read<a class="headerlink" href="#build-and-read" title="Permanent link">¶</a></h2>
 <p><a href="https://docs.astral.sh/uv/">uv</a> and Node.js 22+:</p>
 <pre><code class="language-sh">npm ci
@@ -587,5 +610,5 @@ uv run --script examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-28 20:15:44.942011+00:00
+Build Date UTC : 2026-10-28 20:26:01.669101+00:00
 -->
