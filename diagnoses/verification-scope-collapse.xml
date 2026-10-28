@@ -10,11 +10,18 @@
     <intervention-ref ref="I003">
       <when>The usual tests skip a connection required by the task, yet the workflow treats their success as verification of the whole behavior.</when>
       <predictions>
-        <ul>
-          <li><strong>Expected change:</strong> Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.</li>
-          <li><strong>Preserve:</strong> Small component changes should still use small tests when the broader workflow is outside the task’s scope.</li>
-          <li><strong>A reason to reconsider:</strong> If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.</li>
-        </ul>
+        <expected-improvement>
+          <p>Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.</p>
+        </expected-improvement>
+        <still-necessary>
+          <p>Small component changes should still use small tests when the broader workflow is outside the task’s scope.</p>
+        </still-necessary>
+        <reason-to-reconsider>
+          <p>If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.</p>
+        </reason-to-reconsider>
+        <possible-harm>
+          <p>Requiring a full workflow test for every small edit can slow routine work and introduce failures from unrelated services. Limit broader checks to the behavior and connections the task depends on.</p>
+        </possible-harm>
       </predictions>
     </intervention-ref>
   </relations>

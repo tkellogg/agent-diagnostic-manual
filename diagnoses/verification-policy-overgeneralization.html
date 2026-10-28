@@ -349,20 +349,29 @@
 <p><a id="relations/I002/predictions"></a></p>
 <h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Expected improvement:</strong> After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.</li>
-<li><strong>Preserve:</strong> Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.</li>
-<li><strong>A reason to reconsider:</strong> If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage.</li>
+<li>
+<p><a id="relations/I002/predictions/expected-improvement"></a><strong>Expected improvement:</strong> After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.</p>
+</li>
+<li>
+<p><a id="relations/I002/predictions/still-necessary"></a><strong>Still necessary:</strong> Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.</p>
+</li>
+<li>
+<p><a id="relations/I002/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If excess checking continues under the simplified instructions, examine whether the agent understands the task and application.</p>
+</li>
+<li>
+<p><a id="relations/I002/predictions/possible-harm"></a><strong>Possible harm:</strong> Removing too much verification can let defects reach the user. If defects increase, restore the missing coverage without reinstating unrelated checks.</p>
+</li>
 </ul>
 <p><a id="criteria"></a></p>
 <h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
 <p><a id="criteria/operative-rule"></a></p>
-<h3 id="the-agent-is-using-the-instruction">The agent is using the instruction<a class="headerlink" href="#the-agent-is-using-the-instruction" title="Permanent link">&para;</a></h3>
+<h3 id="the-agent-is-using-the-instruction">1. The agent is using the instruction<a class="headerlink" href="#the-agent-is-using-the-instruction" title="Permanent link">&para;</a></h3>
 <p>Find the actual instruction that leads to the extra checks, in the loaded skill, project guidance, or workflow. An unused file is not enough.</p>
 <p><a id="criteria/scope-mismatch"></a></p>
-<h3 id="the-instruction-asks-for-too-much">The instruction asks for too much<a class="headerlink" href="#the-instruction-asks-for-too-much" title="Permanent link">&para;</a></h3>
+<h3 id="the-instruction-asks-for-too-much">2. The instruction asks for too much<a class="headerlink" href="#the-instruction-asks-for-too-much" title="Permanent link">&para;</a></h3>
 <p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.</p>
 <p><a id="criteria/checking-consequence"></a></p>
-<h3 id="following-it-creates-extra-work">Following it creates extra work<a class="headerlink" href="#following-it-creates-extra-work" title="Permanent link">&para;</a></h3>
+<h3 id="following-it-creates-extra-work">3. Following it creates extra work<a class="headerlink" href="#following-it-creates-extra-work" title="Permanent link">&para;</a></h3>
 <p>The instruction produces <a href="../symptoms/excessive-verification.html">excessive verification</a>. Repeated reads may also match <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>.</p>
 <ul>
 <li><a href="../symptoms/excessive-verification.html">S004 — Excessive verification</a></li>

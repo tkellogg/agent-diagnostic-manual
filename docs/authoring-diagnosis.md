@@ -14,7 +14,16 @@ Use a title specific enough to identify the proposed failure. “Tool discovery 
 
 In `relations`, link the symptoms the model could explain and the interventions that plausibly address it. Each `intervention-ref` contains `when` and `predictions`. The predictions belong to the diagnosis **and** the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.
 
-Use a short list of concrete outcomes: what should improve, what should stay intact, what would favor another explanation, and any harm the change could cause. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.
+`predictions` requires these four singleton sections, in order. Each contains prose blocks and needs no ID:
+
+| XML field | Question it answers |
+| --- | --- |
+| `expected-improvement` | What should improve if this explanation and repair are right? |
+| `still-necessary` | What useful behavior or constraint must survive the change? |
+| `reason-to-reconsider` | What result would weaken this explanation or favor another one? |
+| `possible-harm` | What new problem might the change cause? |
+
+The renderer supplies the labels; do not repeat them in the prose. Name a plausible harm rather than inventing one to fill the field. If none is identified, say so and explain the limit of that judgment. Keep predictions concrete. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.
 
 ## Evidence for this explanation
 
@@ -22,7 +31,7 @@ Use a short list of concrete outcomes: what should improve, what should stay int
 
 `operator="all"` means every listed criterion must have support before assigning the diagnosis. Missing evidence leaves a working hypothesis, not a reason to force the label or dismiss the complaint. A reviewer’s reasoned judgment can count as evidence; a numerical benchmark is not required.
 
-Keep criteria few and specific to the explanation. Do not copy the symptom definition or prescribe a large investigation in every criterion.
+Keep criteria few and specific to the explanation. Arrange them so the reader can follow the proposed cause through to its consequence. The generated headings are numbered in document order; the numbers guide reading, not a scoring system or a requirement to investigate in that order. Keep numbers out of XML titles and IDs. Do not copy the symptom definition or prescribe a large investigation in every criterion.
 
 ## Boundaries and other explanations
 

@@ -1,5 +1,5 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "xml_namespace": "urn:adm:1",
   "documents": [
     {
@@ -96,63 +96,53 @@
                     "attributes": {},
                     "content": [
                       {
-                        "name": "ul",
+                        "name": "expected-improvement",
                         "attributes": {},
                         "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Expected improvement:"
-                                ]
-                              },
-                              " After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given."
+                              "After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "still-necessary",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Still necessary:"
-                                ]
-                              },
-                              " It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history."
+                              "It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "reason-to-reconsider",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "A reason to reconsider:"
-                                ]
-                              },
-                              " If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation."
+                              "If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "possible-harm",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Possible harm:"
-                                ]
-                              },
-                              " Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work."
+                              "Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work."
                             ]
                           }
                         ]
@@ -466,49 +456,53 @@
                     "attributes": {},
                     "content": [
                       {
-                        "name": "ul",
+                        "name": "expected-improvement",
                         "attributes": {},
                         "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Expected improvement:"
-                                ]
-                              },
-                              " Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker."
+                              "Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "still-necessary",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Still possible:"
-                                ]
-                              },
-                              " A call may fail because of bad arguments, expired credentials, or a service outage. Making the tool callable does not fix those problems."
+                              "The agent should still respect tool permissions and report failed calls accurately. A callable tool may still fail because of bad arguments, expired credentials, or a service outage."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "reason-to-reconsider",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "A reason to reconsider:"
-                                ]
-                              },
-                              " If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done."
+                              "If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "possible-harm",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "Making more tools callable without preserving their permission checks could enable actions the user did not authorize. Keep those checks in place when repairing delivery."
                             ]
                           }
                         ]
@@ -805,49 +799,53 @@
                     "attributes": {},
                     "content": [
                       {
-                        "name": "ul",
+                        "name": "expected-improvement",
                         "attributes": {},
                         "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Expected improvement:"
-                                ]
-                              },
-                              " After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner."
+                              "After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "still-necessary",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Preserve:"
-                                ]
-                              },
-                              " Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review."
+                              "Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "reason-to-reconsider",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "A reason to reconsider:"
-                                ]
-                              },
-                              " If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage."
+                              "If excess checking continues under the simplified instructions, examine whether the agent understands the task and application."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "possible-harm",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "Removing too much verification can let defects reach the user. If defects increase, restore the missing coverage without reinstating unrelated checks."
                             ]
                           }
                         ]
@@ -1157,49 +1155,53 @@
                     "attributes": {},
                     "content": [
                       {
-                        "name": "ul",
+                        "name": "expected-improvement",
                         "attributes": {},
                         "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Expected change:"
-                                ]
-                              },
-                              " Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support."
+                              "Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "still-necessary",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "Preserve:"
-                                ]
-                              },
-                              " Small component changes should still use small tests when the broader workflow is outside the task\u2019s scope."
+                              "Small component changes should still use small tests when the broader workflow is outside the task\u2019s scope."
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "name": "reason-to-reconsider",
+                        "attributes": {},
+                        "content": [
                           {
-                            "name": "li",
+                            "name": "p",
                             "attributes": {},
                             "content": [
-                              {
-                                "name": "strong",
-                                "attributes": {},
-                                "content": [
-                                  "A reason to reconsider:"
-                                ]
-                              },
-                              " If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test."
+                              "If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "possible-harm",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "Requiring a full workflow test for every small edit can slow routine work and introduce failures from unrelated services. Limit broader checks to the behavior and connections the task depends on."
                             ]
                           }
                         ]
@@ -6156,6 +6158,30 @@
       "source": "entries/diagnoses/context-handoff-loss.xml",
       "url": "diagnoses/context-handoff-loss.html#relations/I001/predictions"
     },
+    "D001#relations/I001/predictions/expected-improvement": {
+      "document": "D001",
+      "kind": "expected-improvement",
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001/predictions/expected-improvement"
+    },
+    "D001#relations/I001/predictions/still-necessary": {
+      "document": "D001",
+      "kind": "still-necessary",
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001/predictions/still-necessary"
+    },
+    "D001#relations/I001/predictions/reason-to-reconsider": {
+      "document": "D001",
+      "kind": "reason-to-reconsider",
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001/predictions/reason-to-reconsider"
+    },
+    "D001#relations/I001/predictions/possible-harm": {
+      "document": "D001",
+      "kind": "possible-harm",
+      "source": "entries/diagnoses/context-handoff-loss.xml",
+      "url": "diagnoses/context-handoff-loss.html#relations/I001/predictions/possible-harm"
+    },
     "D001#criteria": {
       "document": "D001",
       "kind": "criteria",
@@ -6281,6 +6307,30 @@
       "kind": "predictions",
       "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
       "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/predictions"
+    },
+    "D002#relations/I005/predictions/expected-improvement": {
+      "document": "D002",
+      "kind": "expected-improvement",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/predictions/expected-improvement"
+    },
+    "D002#relations/I005/predictions/still-necessary": {
+      "document": "D002",
+      "kind": "still-necessary",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/predictions/still-necessary"
+    },
+    "D002#relations/I005/predictions/reason-to-reconsider": {
+      "document": "D002",
+      "kind": "reason-to-reconsider",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/predictions/reason-to-reconsider"
+    },
+    "D002#relations/I005/predictions/possible-harm": {
+      "document": "D002",
+      "kind": "possible-harm",
+      "source": "entries/diagnoses/tool-discovery-delivery-gap.xml",
+      "url": "diagnoses/tool-discovery-delivery-gap.html#relations/I005/predictions/possible-harm"
     },
     "D002#criteria": {
       "document": "D002",
@@ -6408,6 +6458,30 @@
       "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
       "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/predictions"
     },
+    "D003#relations/I002/predictions/expected-improvement": {
+      "document": "D003",
+      "kind": "expected-improvement",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/predictions/expected-improvement"
+    },
+    "D003#relations/I002/predictions/still-necessary": {
+      "document": "D003",
+      "kind": "still-necessary",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/predictions/still-necessary"
+    },
+    "D003#relations/I002/predictions/reason-to-reconsider": {
+      "document": "D003",
+      "kind": "reason-to-reconsider",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/predictions/reason-to-reconsider"
+    },
+    "D003#relations/I002/predictions/possible-harm": {
+      "document": "D003",
+      "kind": "possible-harm",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#relations/I002/predictions/possible-harm"
+    },
     "D003#criteria": {
       "document": "D003",
       "kind": "criteria",
@@ -6533,6 +6607,30 @@
       "kind": "predictions",
       "source": "entries/diagnoses/verification-scope-collapse.xml",
       "url": "diagnoses/verification-scope-collapse.html#relations/I003/predictions"
+    },
+    "D004#relations/I003/predictions/expected-improvement": {
+      "document": "D004",
+      "kind": "expected-improvement",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003/predictions/expected-improvement"
+    },
+    "D004#relations/I003/predictions/still-necessary": {
+      "document": "D004",
+      "kind": "still-necessary",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003/predictions/still-necessary"
+    },
+    "D004#relations/I003/predictions/reason-to-reconsider": {
+      "document": "D004",
+      "kind": "reason-to-reconsider",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003/predictions/reason-to-reconsider"
+    },
+    "D004#relations/I003/predictions/possible-harm": {
+      "document": "D004",
+      "kind": "possible-harm",
+      "source": "entries/diagnoses/verification-scope-collapse.xml",
+      "url": "diagnoses/verification-scope-collapse.html#relations/I003/predictions/possible-harm"
     },
     "D004#criteria": {
       "document": "D004",
@@ -8296,63 +8394,53 @@
         "attributes": {},
         "content": [
           {
-            "name": "ul",
+            "name": "expected-improvement",
             "attributes": {},
             "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Expected improvement:"
-                    ]
-                  },
-                  " After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given."
+                  "After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "still-necessary",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Still necessary:"
-                    ]
-                  },
-                  " It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history."
+                  "It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "reason-to-reconsider",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "A reason to reconsider:"
-                    ]
-                  },
-                  " If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation."
+                  "If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "possible-harm",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Possible harm:"
-                    ]
-                  },
-                  " Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work."
+                  "Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work."
                 ]
               }
             ]
@@ -8401,49 +8489,53 @@
         "attributes": {},
         "content": [
           {
-            "name": "ul",
+            "name": "expected-improvement",
             "attributes": {},
             "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Expected improvement:"
-                    ]
-                  },
-                  " Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker."
+                  "Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "still-necessary",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Still possible:"
-                    ]
-                  },
-                  " A call may fail because of bad arguments, expired credentials, or a service outage. Making the tool callable does not fix those problems."
+                  "The agent should still respect tool permissions and report failed calls accurately. A callable tool may still fail because of bad arguments, expired credentials, or a service outage."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "reason-to-reconsider",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "A reason to reconsider:"
-                    ]
-                  },
-                  " If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done."
+                  "If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "possible-harm",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Making more tools callable without preserving their permission checks could enable actions the user did not authorize. Keep those checks in place when repairing delivery."
                 ]
               }
             ]
@@ -8482,49 +8574,53 @@
         "attributes": {},
         "content": [
           {
-            "name": "ul",
+            "name": "expected-improvement",
             "attributes": {},
             "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Expected improvement:"
-                    ]
-                  },
-                  " After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner."
+                  "After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "still-necessary",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Preserve:"
-                    ]
-                  },
-                  " Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review."
+                  "Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "reason-to-reconsider",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "A reason to reconsider:"
-                    ]
-                  },
-                  " If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage."
+                  "If excess checking continues under the simplified instructions, examine whether the agent understands the task and application."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "possible-harm",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Removing too much verification can let defects reach the user. If defects increase, restore the missing coverage without reinstating unrelated checks."
                 ]
               }
             ]
@@ -8568,49 +8664,53 @@
         "attributes": {},
         "content": [
           {
-            "name": "ul",
+            "name": "expected-improvement",
             "attributes": {},
             "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Expected change:"
-                    ]
-                  },
-                  " Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support."
+                  "Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "still-necessary",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "Preserve:"
-                    ]
-                  },
-                  " Small component changes should still use small tests when the broader workflow is outside the task\u2019s scope."
+                  "Small component changes should still use small tests when the broader workflow is outside the task\u2019s scope."
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "reason-to-reconsider",
+            "attributes": {},
+            "content": [
               {
-                "name": "li",
+                "name": "p",
                 "attributes": {},
                 "content": [
-                  {
-                    "name": "strong",
-                    "attributes": {},
-                    "content": [
-                      "A reason to reconsider:"
-                    ]
-                  },
-                  " If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test."
+                  "If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "possible-harm",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Requiring a full workflow test for every small edit can slow routine work and introduce failures from unrelated services. Limit broader checks to the behavior and connections the task depends on."
                 ]
               }
             ]

@@ -10,11 +10,18 @@
     <intervention-ref ref="I005">
       <when>Tool search claims a tool is ready, but its definition or registration is missing.</when>
       <predictions>
-        <ul>
-          <li><strong>Expected improvement:</strong> Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.</li>
-          <li><strong>Still possible:</strong> A call may fail because of bad arguments, expired credentials, or a service outage. Making the tool callable does not fix those problems.</li>
-          <li><strong>A reason to reconsider:</strong> If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done.</li>
-        </ul>
+        <expected-improvement>
+          <p>Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.</p>
+        </expected-improvement>
+        <still-necessary>
+          <p>The agent should still respect tool permissions and report failed calls accurately. A callable tool may still fail because of bad arguments, expired credentials, or a service outage.</p>
+        </still-necessary>
+        <reason-to-reconsider>
+          <p>If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done.</p>
+        </reason-to-reconsider>
+        <possible-harm>
+          <p>Making more tools callable without preserving their permission checks could enable actions the user did not authorize. Keep those checks in place when repairing delivery.</p>
+        </possible-harm>
       </predictions>
     </intervention-ref>
   </relations>

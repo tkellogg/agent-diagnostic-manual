@@ -41,9 +41,13 @@ This is a possible harness fault. It belongs here because ADM examines the confi
 
 #### What to expect if this explanation is right
 
-- **Expected improvement:** Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.
-- **Still possible:** A call may fail because of bad arguments, expired credentials, or a service outage. Making the tool callable does not fix those problems.
-- **A reason to reconsider:** If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done.
+- <a id="relations/I005/predictions/expected-improvement"></a>**Expected improvement:** Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.
+
+- <a id="relations/I005/predictions/still-necessary"></a>**Still necessary:** The agent should still respect tool permissions and report failed calls accurately. A callable tool may still fail because of bad arguments, expired credentials, or a service outage.
+
+- <a id="relations/I005/predictions/reason-to-reconsider"></a>**A reason to reconsider:** If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done.
+
+- <a id="relations/I005/predictions/possible-harm"></a>**Possible harm:** Making more tools callable without preserving their permission checks could enable actions the user did not authorize. Keep those checks in place when repairing delivery.
 
 <a id="criteria"></a>
 
@@ -51,19 +55,19 @@ This is a possible harness fault. It belongs here because ADM examines the confi
 
 <a id="criteria/promised-capability"></a>
 
-### Search promises a ready tool
+### 1. Search promises a ready tool {#search-promises-a-ready-tool}
 
 The harness documents or reports that a successful search makes this tool ready to call.
 
 <a id="criteria/missing-interface"></a>
 
-### The tool cannot be called
+### 2. The tool cannot be called {#the-tool-cannot-be-called}
 
 The tool’s arguments are missing from the model’s input, or the runtime has not registered the tool. Distinguish this from a tool call that reaches the service and returns an error.
 
 <a id="criteria/stalled-use"></a>
 
-### The agent keeps searching for it
+### 3. The agent keeps searching for it {#the-agent-keeps-searching-for-it}
 
 The agent needs the tool and repeats the same unsuccessful search cycle, matching [doom looping](../symptoms/doom-looping.md). Searching again does not fix the missing definition or registration.
 

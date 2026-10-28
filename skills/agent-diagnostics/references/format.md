@@ -31,28 +31,40 @@ Form an address from a document ID, optionally followed by `#` and a slash-separ
 | D001#differential/policy-conflict/discriminator | One alternative's discriminator |
 | D001#relations/I001/when | Applicability condition |
 | D001#relations/I001/predictions | Predictions for this pairing |
+| D001#relations/I001/predictions/possible-harm | Possible harm from this change |
 | I001#procedure/locate-boundary | One ordered step |
 
 Use `<ref target="S001#observations/multi-read">label</ref>` for corpus links. Require fully qualified addresses, even inside the same document. Resolve IDs from the corpus rather than guessing filenames.
 
-Use `<symptom-ref ref="S001"/>` for a symptom relationship. An intervention relationship has a plain-text condition and a required prose predictions block:
+Use `<symptom-ref ref="S001"/>` for a symptom relationship. An intervention relationship has a plain-text condition and a required predictions container with four singleton prose sections:
 
 ```xml
 <intervention-ref ref="I001">
   <when>Compaction drops information needed for later work.</when>
   <predictions>
-    <p>After compaction, repeated permission requests should decline when the summary keeps the original permission and its limits.</p>
+    <expected-improvement>
+      <p>After compaction, repeated permission requests should decline when the summary keeps the original permission and its limits.</p>
+    </expected-improvement>
+    <still-necessary>
+      <p>The agent should still ask permission for work outside the saved scope.</p>
+    </still-necessary>
+    <reason-to-reconsider>
+      <p>If permission survives but the agent asks again, investigate how it uses that information.</p>
+    </reason-to-reconsider>
+    <possible-harm>
+      <p>Keeping permission without its limits could lead to unauthorized work.</p>
+    </possible-harm>
   </predictions>
 </intervention-ref>
 ```
 
-Require a whole-document target of the matching kind. The target identifies an intervention reference within the diagnosis's relations list; no separate ID or evidence attribute is needed. Predictions describe the diagnosis–intervention combination and are adapted to the configuration before use. They are prose, not executable tests. Reject duplicate entry-level relationships to the same target. A criterion can also reference symptoms; those references identify relevant symptoms, while the criterion's prose specifies the requirement.
+Require a whole-document target of the matching kind. The target identifies an intervention reference within the diagnosis's relations list; no separate ID or evidence attribute is needed. Predictions describe the diagnosis–intervention combination and are adapted to the configuration before use. Require exactly one `expected-improvement`, `still-necessary`, `reason-to-reconsider`, and `possible-harm`, in that order. Each supports the usual prose blocks and is addressable by tag name, without an ID. The renderer supplies their visible labels. Their contents are prose, not executable tests. Reject duplicate entry-level relationships to the same target. A criterion can also reference symptoms; those references identify relevant symptoms, while the criterion's prose specifies the requirement.
 
 ## Entry structure
 
 For symptoms, read observations, optional how-to-recognize-it, benign-lookalikes, what-to-record, and examples. Recognition hints should be brief; shared methods belong in the public docs. Observations, lookalikes, and examples are individually addressable items. Examples declare `kind="synthetic"` or `kind="observed"`; render that as a visible marker rather than repeating it in the source prose.
 
-For diagnoses, read definition, relations, criteria, exclusions, differential, and investigation. The definition explains the model; criteria describe evidence that would support it. The site labels exclusions as situations where the explanation may not fit, and differential as other explanations to consider. Criteria, exclusions, and alternatives have local IDs. Each alternative contains a singleton discriminator. Interpret `criteria operator="all"` as requiring support for every criterion; missing information remains unknown. This combines judgments about prose, not executable predicates.
+For diagnoses, read definition, relations, criteria, exclusions, differential, and investigation. The definition explains the model; criteria describe evidence that would support it. The site labels exclusions as situations where the explanation may not fit, and differential as other explanations to consider. Criteria, exclusions, and alternatives have local IDs. Criterion headings are numbered in document order in generated views; do not store numbers in titles or IDs. The order presents the reasoning, while `operator` determines how criteria combine. Each alternative contains a singleton discriminator. Interpret `criteria operator="all"` as requiring support for every criterion; missing information remains unknown. This combines judgments about prose, not executable predicates.
 
 For interventions, read purpose, preconditions, procedure, evaluation, risks-and-confounders, and stop-and-rollback. Preconditions and steps have local IDs; procedure order follows document order. Interventions describe lasting system changes whose outcomes can also test an explanation.
 
@@ -76,6 +88,6 @@ The example uses Python's standard library and imports no ADM code. Independent 
 
 Run `python tools/build.py` to produce a linked HTML site, Markdown and XML alongside each HTML entry in `dist/`, and `dist/catalog.json`. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.
 
-The catalog uses `schema_version: 5` and exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address, plain-text `when`, and `predictions` as an XML-derived tree so inline links and formatting remain available to scripts.
+The catalog uses `schema_version: 6` and exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address, plain-text `when`, and `predictions` as an XML-derived tree so inline links and formatting remain available to scripts.
 
 Keep a corpus revision with assessment citations. Update schema, this reference, examples, and tests together when changing the draft format. There is no defined compatibility promise, executable diagnosis language, case-record schema, or severity scale yet.

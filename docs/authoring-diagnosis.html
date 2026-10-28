@@ -330,11 +330,38 @@
 <p>Use a title specific enough to identify the proposed failure. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.</p>
 <h2 id="put-predictions-near-the-explanation">Put predictions near the explanation<a class="headerlink" href="#put-predictions-near-the-explanation" title="Permanent link">&para;</a></h2>
 <p>In <code>relations</code>, link the symptoms the model could explain and the interventions that plausibly address it. Each <code>intervention-ref</code> contains <code>when</code> and <code>predictions</code>. The predictions belong to the diagnosis <strong>and</strong> the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.</p>
-<p>Use a short list of concrete outcomes: what should improve, what should stay intact, what would favor another explanation, and any harm the change could cause. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.</p>
+<p><code>predictions</code> requires these four singleton sections, in order. Each contains prose blocks and needs no ID:</p>
+<table>
+<thead>
+<tr>
+<th>XML field</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>expected-improvement</code></td>
+<td>What should improve if this explanation and repair are right?</td>
+</tr>
+<tr>
+<td><code>still-necessary</code></td>
+<td>What useful behavior or constraint must survive the change?</td>
+</tr>
+<tr>
+<td><code>reason-to-reconsider</code></td>
+<td>What result would weaken this explanation or favor another one?</td>
+</tr>
+<tr>
+<td><code>possible-harm</code></td>
+<td>What new problem might the change cause?</td>
+</tr>
+</tbody>
+</table>
+<p>The renderer supplies the labels; do not repeat them in the prose. Name a plausible harm rather than inventing one to fill the field. If none is identified, say so and explain the limit of that judgment. Keep predictions concrete. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.</p>
 <h2 id="evidence-for-this-explanation">Evidence for this explanation<a class="headerlink" href="#evidence-for-this-explanation" title="Permanent link">&para;</a></h2>
 <p><code>criteria</code> states what would support the proposed cause in a particular case. It is separate from <code>definition</code>: the model explains; the criteria help decide whether it fits. For compaction loss, a useful chain is “the information mattered, compaction dropped it, and the omission explains the later mistake.” A repeated-read symptom alone does not establish that chain.</p>
 <p><code>operator="all"</code> means every listed criterion must have support before assigning the diagnosis. Missing evidence leaves a working hypothesis, not a reason to force the label or dismiss the complaint. A reviewer’s reasoned judgment can count as evidence; a numerical benchmark is not required.</p>
-<p>Keep criteria few and specific to the explanation. Do not copy the symptom definition or prescribe a large investigation in every criterion.</p>
+<p>Keep criteria few and specific to the explanation. Arrange them so the reader can follow the proposed cause through to its consequence. The generated headings are numbered in document order; the numbers guide reading, not a scoring system or a requirement to investigate in that order. Keep numbers out of XML titles and IDs. Do not copy the symptom definition or prescribe a large investigation in every criterion.</p>
 <h2 id="boundaries-and-other-explanations">Boundaries and other explanations<a class="headerlink" href="#boundaries-and-other-explanations" title="Permanent link">&para;</a></h2>
 <p>Use <code>exclusions</code> to describe situations where the explanation may not fit, including normal behavior that resembles the failure. Explain the boundary in ordinary language: compaction should forget obsolete information. Avoid treating every uncertainty as a firm exclusion.</p>
 <p>Use <code>differential</code> for alternative causes that would lead to a different repair. Each <code>alternative</code> has a <code>discriminator</code>: what should the maintainer look at to tell them apart? For example, “the summary dropped permission” suggests fixing compaction; “the summary kept it but another rule demands fresh consent” suggests reviewing that rule. Omit alternatives that merely repeat a caveat without changing the next action.</p>

@@ -42,9 +42,13 @@ The agent may be following those instructions correctly. This diagnosis concerns
 
 #### What to expect if this explanation is right
 
-- **Expected improvement:** After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.
-- **Preserve:** Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.
-- **A reason to reconsider:** If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage.
+- <a id="relations/I002/predictions/expected-improvement"></a>**Expected improvement:** After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.
+
+- <a id="relations/I002/predictions/still-necessary"></a>**Still necessary:** Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.
+
+- <a id="relations/I002/predictions/reason-to-reconsider"></a>**A reason to reconsider:** If excess checking continues under the simplified instructions, examine whether the agent understands the task and application.
+
+- <a id="relations/I002/predictions/possible-harm"></a>**Possible harm:** Removing too much verification can let defects reach the user. If defects increase, restore the missing coverage without reinstating unrelated checks.
 
 <a id="criteria"></a>
 
@@ -52,19 +56,19 @@ The agent may be following those instructions correctly. This diagnosis concerns
 
 <a id="criteria/operative-rule"></a>
 
-### The agent is using the instruction
+### 1. The agent is using the instruction {#the-agent-is-using-the-instruction}
 
 Find the actual instruction that leads to the extra checks, in the loaded skill, project guidance, or workflow. An unused file is not enough.
 
 <a id="criteria/scope-mismatch"></a>
 
-### The instruction asks for too much
+### 2. The instruction asks for too much {#the-instruction-asks-for-too-much}
 
 Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.
 
 <a id="criteria/checking-consequence"></a>
 
-### Following it creates extra work
+### 3. Following it creates extra work {#following-it-creates-extra-work}
 
 The instruction produces [excessive verification](../symptoms/excessive-verification.md). Repeated reads may also match [repeated retrieval](../symptoms/repeated-retrieval.md).
 

@@ -348,20 +348,29 @@
 <p><a id="relations/I003/predictions"></a></p>
 <h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Expected change:</strong> Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.</li>
-<li><strong>Preserve:</strong> Small component changes should still use small tests when the broader workflow is outside the task’s scope.</li>
-<li><strong>A reason to reconsider:</strong> If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.</li>
+<li>
+<p><a id="relations/I003/predictions/expected-improvement"></a><strong>Expected improvement:</strong> Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.</p>
+</li>
+<li>
+<p><a id="relations/I003/predictions/still-necessary"></a><strong>Still necessary:</strong> Small component changes should still use small tests when the broader workflow is outside the task’s scope.</p>
+</li>
+<li>
+<p><a id="relations/I003/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.</p>
+</li>
+<li>
+<p><a id="relations/I003/predictions/possible-harm"></a><strong>Possible harm:</strong> Requiring a full workflow test for every small edit can slow routine work and introduce failures from unrelated services. Limit broader checks to the behavior and connections the task depends on.</p>
+</li>
 </ul>
 <p><a id="criteria"></a></p>
 <h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
 <p><a id="criteria/broader-requirement"></a></p>
-<h3 id="the-task-needs-more-than-the-tested-component">The task needs more than the tested component<a class="headerlink" href="#the-task-needs-more-than-the-tested-component" title="Permanent link">&para;</a></h3>
+<h3 id="the-task-needs-more-than-the-tested-component">1. The task needs more than the tested component<a class="headerlink" href="#the-task-needs-more-than-the-tested-component" title="Permanent link">&para;</a></h3>
 <p>Name the requested behavior, such as a user pressing a key and seeing a result.</p>
 <p><a id="criteria/limited-probe"></a></p>
-<h3 id="the-check-skips-a-needed-connection">The check skips a needed connection<a class="headerlink" href="#the-check-skips-a-needed-connection" title="Permanent link">&para;</a></h3>
+<h3 id="the-check-skips-a-needed-connection">2. The check skips a needed connection<a class="headerlink" href="#the-check-skips-a-needed-connection" title="Permanent link">&para;</a></h3>
 <p>The test calls or mocks an internal part instead of exercising that connection, and no other check covers it.</p>
 <p><a id="criteria/scope-promotion"></a></p>
-<h3 id="the-workflow-treats-the-limited-test-as-enough">The workflow treats the limited test as enough<a class="headerlink" href="#the-workflow-treats-the-limited-test-as-enough" title="Permanent link">&para;</a></h3>
+<h3 id="the-workflow-treats-the-limited-test-as-enough">3. The workflow treats the limited test as enough<a class="headerlink" href="#the-workflow-treats-the-limited-test-as-enough" title="Permanent link">&para;</a></h3>
 <p>A test rule, result summary, or completion decision treats the component’s pass as proof of the whole behavior, producing <a href="../symptoms/unsupported-verification-claims.html">unsupported verification claims</a>. If only the final claim is visible, the cause remains uncertain.</p>
 <ul>
 <li><a href="../symptoms/unsupported-verification-claims.html">S011 — Unsupported verification claims</a></li>

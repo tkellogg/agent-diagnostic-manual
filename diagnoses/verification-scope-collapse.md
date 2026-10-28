@@ -41,9 +41,13 @@ The failure is in how the system decides that verification is complete. A broad 
 
 #### What to expect if this explanation is right
 
-- **Expected change:** Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.
-- **Preserve:** Small component changes should still use small tests when the broader workflow is outside the task’s scope.
-- **A reason to reconsider:** If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.
+- <a id="relations/I003/predictions/expected-improvement"></a>**Expected improvement:** Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.
+
+- <a id="relations/I003/predictions/still-necessary"></a>**Still necessary:** Small component changes should still use small tests when the broader workflow is outside the task’s scope.
+
+- <a id="relations/I003/predictions/reason-to-reconsider"></a>**A reason to reconsider:** If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.
+
+- <a id="relations/I003/predictions/possible-harm"></a>**Possible harm:** Requiring a full workflow test for every small edit can slow routine work and introduce failures from unrelated services. Limit broader checks to the behavior and connections the task depends on.
 
 <a id="criteria"></a>
 
@@ -51,19 +55,19 @@ The failure is in how the system decides that verification is complete. A broad 
 
 <a id="criteria/broader-requirement"></a>
 
-### The task needs more than the tested component
+### 1. The task needs more than the tested component {#the-task-needs-more-than-the-tested-component}
 
 Name the requested behavior, such as a user pressing a key and seeing a result.
 
 <a id="criteria/limited-probe"></a>
 
-### The check skips a needed connection
+### 2. The check skips a needed connection {#the-check-skips-a-needed-connection}
 
 The test calls or mocks an internal part instead of exercising that connection, and no other check covers it.
 
 <a id="criteria/scope-promotion"></a>
 
-### The workflow treats the limited test as enough
+### 3. The workflow treats the limited test as enough {#the-workflow-treats-the-limited-test-as-enough}
 
 A test rule, result summary, or completion decision treats the component’s pass as proof of the whole behavior, producing [unsupported verification claims](../symptoms/unsupported-verification-claims.md). If only the final claim is visible, the cause remains uncertain.
 

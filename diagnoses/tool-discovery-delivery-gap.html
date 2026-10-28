@@ -348,20 +348,29 @@
 <p><a id="relations/I005/predictions"></a></p>
 <h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Expected improvement:</strong> Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.</li>
-<li><strong>Still possible:</strong> A call may fail because of bad arguments, expired credentials, or a service outage. Making the tool callable does not fix those problems.</li>
-<li><strong>A reason to reconsider:</strong> If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done.</li>
+<li>
+<p><a id="relations/I005/predictions/expected-improvement"></a><strong>Expected improvement:</strong> Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.</p>
+</li>
+<li>
+<p><a id="relations/I005/predictions/still-necessary"></a><strong>Still necessary:</strong> The agent should still respect tool permissions and report failed calls accurately. A callable tool may still fail because of bad arguments, expired credentials, or a service outage.</p>
+</li>
+<li>
+<p><a id="relations/I005/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If the tool is callable and the agent keeps searching, investigate its tool choice or instructions. Fewer searches count as improvement only if required work still gets done.</p>
+</li>
+<li>
+<p><a id="relations/I005/predictions/possible-harm"></a><strong>Possible harm:</strong> Making more tools callable without preserving their permission checks could enable actions the user did not authorize. Keep those checks in place when repairing delivery.</p>
+</li>
 </ul>
 <p><a id="criteria"></a></p>
 <h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
 <p><a id="criteria/promised-capability"></a></p>
-<h3 id="search-promises-a-ready-tool">Search promises a ready tool<a class="headerlink" href="#search-promises-a-ready-tool" title="Permanent link">&para;</a></h3>
+<h3 id="search-promises-a-ready-tool">1. Search promises a ready tool<a class="headerlink" href="#search-promises-a-ready-tool" title="Permanent link">&para;</a></h3>
 <p>The harness documents or reports that a successful search makes this tool ready to call.</p>
 <p><a id="criteria/missing-interface"></a></p>
-<h3 id="the-tool-cannot-be-called">The tool cannot be called<a class="headerlink" href="#the-tool-cannot-be-called" title="Permanent link">&para;</a></h3>
+<h3 id="the-tool-cannot-be-called">2. The tool cannot be called<a class="headerlink" href="#the-tool-cannot-be-called" title="Permanent link">&para;</a></h3>
 <p>The tool’s arguments are missing from the model’s input, or the runtime has not registered the tool. Distinguish this from a tool call that reaches the service and returns an error.</p>
 <p><a id="criteria/stalled-use"></a></p>
-<h3 id="the-agent-keeps-searching-for-it">The agent keeps searching for it<a class="headerlink" href="#the-agent-keeps-searching-for-it" title="Permanent link">&para;</a></h3>
+<h3 id="the-agent-keeps-searching-for-it">3. The agent keeps searching for it<a class="headerlink" href="#the-agent-keeps-searching-for-it" title="Permanent link">&para;</a></h3>
 <p>The agent needs the tool and repeats the same unsuccessful search cycle, matching <a href="../symptoms/doom-looping.html">doom looping</a>. Searching again does not fix the missing definition or registration.</p>
 <ul>
 <li><a href="../symptoms/doom-looping.html">S002 — Doom looping</a></li>

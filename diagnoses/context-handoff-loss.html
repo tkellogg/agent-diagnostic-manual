@@ -350,21 +350,29 @@
 <p><a id="relations/I001/predictions"></a></p>
 <h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>Expected improvement:</strong> After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.</li>
-<li><strong>Still necessary:</strong> It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.</li>
-<li><strong>A reason to reconsider:</strong> If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.</li>
-<li><strong>Possible harm:</strong> Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</li>
+<li>
+<p><a id="relations/I001/predictions/expected-improvement"></a><strong>Expected improvement:</strong> After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.</p>
+</li>
+<li>
+<p><a id="relations/I001/predictions/still-necessary"></a><strong>Still necessary:</strong> It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.</p>
+</li>
+<li>
+<p><a id="relations/I001/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.</p>
+</li>
+<li>
+<p><a id="relations/I001/predictions/possible-harm"></a><strong>Possible harm:</strong> Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</p>
+</li>
 </ul>
 <p><a id="criteria"></a></p>
 <h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
 <p><a id="criteria/prior-state"></a></p>
-<h3 id="the-information-mattered">The information mattered<a class="headerlink" href="#the-information-mattered" title="Permanent link">&para;</a></h3>
+<h3 id="the-information-mattered">1. The information mattered<a class="headerlink" href="#the-information-mattered" title="Permanent link">&para;</a></h3>
 <p>Identify a fact, requirement, or permission that was in the conversation before compaction and was needed afterward.</p>
 <p><a id="criteria/delivery-loss"></a></p>
-<h3 id="compaction-dropped-it">Compaction dropped it<a class="headerlink" href="#compaction-dropped-it" title="Permanent link">&para;</a></h3>
+<h3 id="compaction-dropped-it">2. Compaction dropped it<a class="headerlink" href="#compaction-dropped-it" title="Permanent link">&para;</a></h3>
 <p>The summary or the model’s context after compaction omits or changes that information. If you cannot inspect either, keep information loss as a hypothesis.</p>
 <p><a id="criteria/linked-disruption"></a></p>
-<h3 id="the-omission-explains-the-mistake">The omission explains the mistake<a class="headerlink" href="#the-omission-explains-the-mistake" title="Permanent link">&para;</a></h3>
+<h3 id="the-omission-explains-the-mistake">3. The omission explains the mistake<a class="headerlink" href="#the-omission-explains-the-mistake" title="Permanent link">&para;</a></h3>
 <p>The next work shows <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>, breaks the missing requirement, or asks for the lost permission. Show which missing fact would have helped; timing alone is not enough.</p>
 <ul>
 <li><a href="../symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></li>

@@ -11,11 +11,18 @@
     <intervention-ref ref="I002">
       <when>The agent’s active instructions demand checks that do not fit the task, or several instructions keep restarting the same checks.</when>
       <predictions>
-        <ul>
-          <li><strong>Expected improvement:</strong> After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.</li>
-          <li><strong>Preserve:</strong> Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.</li>
-          <li><strong>A reason to reconsider:</strong> If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage.</li>
-        </ul>
+        <expected-improvement>
+          <p>After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.</p>
+        </expected-improvement>
+        <still-necessary>
+          <p>Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.</p>
+        </still-necessary>
+        <reason-to-reconsider>
+          <p>If excess checking continues under the simplified instructions, examine whether the agent understands the task and application.</p>
+        </reason-to-reconsider>
+        <possible-harm>
+          <p>Removing too much verification can let defects reach the user. If defects increase, restore the missing coverage without reinstating unrelated checks.</p>
+        </possible-harm>
       </predictions>
     </intervention-ref>
   </relations>

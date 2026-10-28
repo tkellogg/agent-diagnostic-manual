@@ -43,10 +43,13 @@ For example, it may preserve a long account of completed edits but drop the user
 
 #### What to expect if this explanation is right
 
-- **Expected improvement:** After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.
-- **Still necessary:** It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.
-- **A reason to reconsider:** If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.
-- **Possible harm:** Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.
+- <a id="relations/I001/predictions/expected-improvement"></a>**Expected improvement:** After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.
+
+- <a id="relations/I001/predictions/still-necessary"></a>**Still necessary:** It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.
+
+- <a id="relations/I001/predictions/reason-to-reconsider"></a>**A reason to reconsider:** If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.
+
+- <a id="relations/I001/predictions/possible-harm"></a>**Possible harm:** Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.
 
 <a id="criteria"></a>
 
@@ -54,19 +57,19 @@ For example, it may preserve a long account of completed edits but drop the user
 
 <a id="criteria/prior-state"></a>
 
-### The information mattered
+### 1. The information mattered {#the-information-mattered}
 
 Identify a fact, requirement, or permission that was in the conversation before compaction and was needed afterward.
 
 <a id="criteria/delivery-loss"></a>
 
-### Compaction dropped it
+### 2. Compaction dropped it {#compaction-dropped-it}
 
 The summary or the model’s context after compaction omits or changes that information. If you cannot inspect either, keep information loss as a hypothesis.
 
 <a id="criteria/linked-disruption"></a>
 
-### The omission explains the mistake
+### 3. The omission explains the mistake {#the-omission-explains-the-mistake}
 
 The next work shows [repeated retrieval](../symptoms/repeated-retrieval.md), breaks the missing requirement, or asks for the lost permission. Show which missing fact would have helped; timing alone is not enough.
 
