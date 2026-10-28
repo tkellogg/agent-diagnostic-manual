@@ -4,7 +4,7 @@ kind: symptom
 summary: An agent repeats an unsuccessful action cycle without relevant changes that
   would reasonably support expecting a different outcome.
 version: '1'
-status: draft
+status: reviewed
 evidence: unvalidated
 updated: '2026-10-28'
 title: Doom looping

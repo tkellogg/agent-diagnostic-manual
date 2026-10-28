@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -322,62 +322,58 @@
   </div>
   
   
-  <p class="entry-status"><span class="entry-id">S015</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">S015</span><span>reviewed</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
-<h1 id="opaque-jargon-neuralese">Opaque jargon (neuralese)<a class="headerlink" href="#opaque-jargon-neuralese" title="Permanent link">&para;</a></h1>
+<h1 id="opaque-jargon-neuralese">Opaque jargon (neuralese)<a class="headerlink" href="#opaque-jargon-neuralese" title="Permanent link">¶</a></h1>
 <p>The agent’s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/unexplained-labels"></a></p>
-<h3 id="unexplained-labels">Unexplained labels<a class="headerlink" href="#unexplained-labels" title="Permanent link">&para;</a></h3>
+<h3 id="unexplained-labels">Unexplained labels<a class="headerlink" href="#unexplained-labels" title="Permanent link">¶</a></h3>
 <p>The agent replaces familiar actions or objects with unexplained jargon, invented labels, or stacks of abstract nouns. In context, the intended reader has to translate those phrases before they can identify the claim or act on it.</p>
 <p><a id="observations/missing-connections"></a></p>
-<h3 id="missing-connections">Missing connections<a class="headerlink" href="#missing-connections" title="Permanent link">&para;</a></h3>
+<h3 id="missing-connections">Missing connections<a class="headerlink" href="#missing-connections" title="Permanent link">¶</a></h3>
 <p>The agent compresses an explanation into fragments or lists that omit who does what, when, or how the facts connect. The reader has to supply those missing relationships, ask for clarification, or rewrite the answer to use it.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Read the answer beside the user’s question and mark the phrases that obscure a concrete action or relationship. A plain-language rewrite that preserves the meaning can expose the problem; a word blacklist alone cannot establish it.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/shared-terminology"></a></p>
-<h3 id="shared-terminology">Shared terminology<a class="headerlink" href="#shared-terminology" title="Permanent link">&para;</a></h3>
+<h3 id="shared-terminology">Shared terminology<a class="headerlink" href="#shared-terminology" title="Permanent link">¶</a></h3>
 <p>Technical terms such as “transaction isolation” can be the clearest words for an audience that knows them. A term’s complexity or unfamiliarity to a different reader does not by itself make the explanation opaque.</p>
 <p><a id="benign-lookalikes/defined-shorthand"></a></p>
-<h3 id="defined-shorthand">Defined shorthand<a class="headerlink" href="#defined-shorthand" title="Permanent link">&para;</a></h3>
+<h3 id="defined-shorthand">Defined shorthand<a class="headerlink" href="#defined-shorthand" title="Permanent link">¶</a></h3>
 <p>A newly defined term can shorten a discussion when its meaning stays clear. A compact table or list can also be easier to use when the headings supply the relationships.</p>
 <p><a id="benign-lookalikes/machine-format"></a></p>
-<h3 id="machine-format">Machine format<a class="headerlink" href="#machine-format" title="Permanent link">&para;</a></h3>
+<h3 id="machine-format">Machine format<a class="headerlink" href="#machine-format" title="Permanent link">¶</a></h3>
 <p>Code, formulas, or a requested machine-readable format need not read like ordinary prose. The symptom concerns communication intended for a person; the format’s suitability depends on that request.</p>
 <p><a id="benign-lookalikes/latent-language"></a></p>
-<h3 id="latent-language">Latent language<a class="headerlink" href="#latent-language" title="Permanent link">&para;</a></h3>
+<h3 id="latent-language">Latent language<a class="headerlink" href="#latent-language" title="Permanent link">¶</a></h3>
 <p>Research uses “neuralese” for learned internal or inter-agent representations, including vector messages in <a href="https://nlp.cs.berkeley.edu/pubs/Andreas-Dragan-Klein_2017_Neuralese_paper.pdf">Translating Neuralese</a>. That is a different subject: difficult prose does not show how a model reasons internally.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader’s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding. Separate a dislike of the style from difficulty extracting its meaning; record model and configuration details without assuming they caused it.</p>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
+<p>Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader’s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/noun-heavy-prose"></a></p>
-<h3 id="noun-heavy-prose">Noun heavy prose<a class="headerlink" href="#noun-heavy-prose" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="noun-heavy-prose">Noun heavy prose<a class="headerlink" href="#noun-heavy-prose" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p>In <a href="https://www.reddit.com/r/ClaudeCode/comments/1wk0s2i/opus_5_has_a_noun_problem/">“Opus 5 has a noun problem,”</a> a user describes actions turned into nouns and sentences with missing subjects or verbs. One quoted output, “The runner, built,” becomes “We built the runner” after correction. The change restores the actor and action; commenters describe extensive editing and difficulty reading technical documentation. These are user reports, not controlled comparisons.</p>
 <p><a id="examples/repeated-translation"></a></p>
-<h3 id="repeated-translation">Repeated translation<a class="headerlink" href="#repeated-translation" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="repeated-translation">Repeated translation<a class="headerlink" href="#repeated-translation" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p>The reporter of <a href="https://github.com/anthropics/claude-code/issues/77136">Claude Code issue #77136</a> describes jargon and repetitive phrasing as disruptive enough to consider switching providers. The report also gathers accounts of users rereading answers or asking another model to translate them into plain language. That extra interpretation work is the practical cost; the reports do not establish its prevalence.</p>
 <p><a id="examples/lost-relationships"></a></p>
-<h3 id="lost-relationships">Lost relationships<a class="headerlink" href="#lost-relationships" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="lost-relationships">Lost relationships<a class="headerlink" href="#lost-relationships" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p><a href="https://actualization.ai/blog/the-weird-way-claude-speaks-has-a-name/index.html">John Licato describes AI answers that flatten distinct facts into a list</a>, leaving the reader to infer which fact describes the sample, method, or result. His criticism focuses on missing connections between facts, while acknowledging that many disputed terms are normal engineering vocabulary. His suggested prompting changes are an experience report, not an established remedy.</p>
 <p><a id="examples/obscured-action"></a></p>
-<h3 id="obscured-action">Obscured action<a class="headerlink" href="#obscured-action" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="obscured-action">Obscured action<a class="headerlink" href="#obscured-action" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>A maintainer asks how to stop an agent forgetting permission after compaction. The answer says to “repair authority retention at the continuation boundary.” The maintainer asks what file to edit. Rewriting it as “change the compaction prompt so the summary keeps the user’s permission and its limits” makes the proposed action clear.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="inferred-values-as-observations.html"><span>← Previous</span>S014 — Inferred values presented as observations</a>
-    <a rel="next" href="../diagnoses/context-handoff-loss.html"><span>Next →</span>D001 — Compaction loses important information</a>
+    <a rel="next" href="../diagnoses/context-handoff-loss.html"><span>Next →</span>D001 — Incorrect compaction</a>
   </nav>
   
 </main>
@@ -395,10 +391,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S015" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

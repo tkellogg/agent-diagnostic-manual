@@ -8,11 +8,11 @@ status: draft
 evidence: unvalidated
 updated: '2026-10-28'
 unit: configured-agent-system
-title: Compaction loses important information
+title: Incorrect compaction
 xml_source: diagnoses/context-handoff-loss.xml
 ---
 
-# Compaction loses important information
+# Incorrect compaction
 
 The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.
 

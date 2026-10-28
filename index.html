@@ -18,7 +18,7 @@
         <link href="css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -344,11 +344,11 @@
   
   <article data-pagefind-body>
 
-<h1 id="agent-diagnostic-manual">Agent Diagnostic Manual<a class="headerlink" href="#agent-diagnostic-manual" title="Permanent link">&para;</a></h1>
+<h1 id="agent-diagnostic-manual">Agent Diagnostic Manual<a class="headerlink" href="#agent-diagnostic-manual" title="Permanent link">¶</a></h1>
 <p>A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.</p>
 <p>Start with <a href="docs/diagnostic-process.html">the diagnostic process</a>: learn from past incidents, change the agent system, and use predictions about future behavior to refine the diagnosis. The <a href="skills/agent-diagnostics/SKILL.html">diagnostic skill</a> and <a href="skills/agent-diagnostics/references/format.html">format reference</a> explain how to work with the files.</p>
 <p>Browse the XML entries for <a href="#symptoms">symptoms</a>, <a href="#diagnoses">diagnoses</a>, and <a href="#interventions">interventions</a>. The website lists all entries automatically.</p>
-<h2 id="symptoms">Symptoms<a class="headerlink" href="#symptoms" title="Permanent link">&para;</a></h2>
+<h2 id="symptoms">Symptoms<a class="headerlink" href="#symptoms" title="Permanent link">¶</a></h2>
 <ul>
 <li>
 <p><a href="symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></p>
@@ -411,10 +411,10 @@
 <p>The agent’s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.</p>
 </li>
 </ul>
-<h2 id="diagnoses">Diagnoses<a class="headerlink" href="#diagnoses" title="Permanent link">&para;</a></h2>
+<h2 id="diagnoses">Diagnoses<a class="headerlink" href="#diagnoses" title="Permanent link">¶</a></h2>
 <ul>
 <li>
-<p><a href="diagnoses/context-handoff-loss.html">D001 — Compaction loses important information</a></p>
+<p><a href="diagnoses/context-handoff-loss.html">D001 — Incorrect compaction</a></p>
 <p>The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.</p>
 </li>
 <li>
@@ -430,11 +430,11 @@
 <p>The workflow treats a passing component test as proof that the whole requested behavior works, even though the connections between components were never exercised.</p>
 </li>
 </ul>
-<h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
+<h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">¶</a></h2>
 <ul>
 <li>
 <p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Fix compaction so important information survives</a></p>
-<p>Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.</p>
+<p>Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.</p>
 </li>
 <li>
 <p><a href="interventions/scope-verification-policy.html">I002 — Consolidate verification instructions with the user</a></p>
@@ -455,16 +455,16 @@
 </ul>
 <p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared <a href="docs/observation-methods.html">observation methods</a> describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.</p>
 <p>These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
-<h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">&para;</a></h2>
+<h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">¶</a></h2>
 <p>Distribute <code>skills/agent-diagnostics/</code> as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ADM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.</p>
 <p>XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.</p>
-<h2 id="review-the-manual">Review the manual<a class="headerlink" href="#review-the-manual" title="Permanent link">&para;</a></h2>
+<h2 id="review-the-manual">Review the manual<a class="headerlink" href="#review-the-manual" title="Permanent link">¶</a></h2>
 <p>On any website page, choose <strong>Review this page</strong> to open annotate.js. Highlight text, add a section note, or pin a comment, then post it. Move between entries and guides normally; comments stay attached to their pages.</p>
 <p>Choose <strong>Export all comments</strong> above any article to download one <code>adm-review-YYYY-MM-DD.json</code> containing posted comments from every ADM page in this browser, including replies and resolved comments. Send that file for review. Exporting leaves your saved comments intact. Unposted drafts are not included. Annotate.js's own panel Download and Import buttons operate on one page; use ADM's button for the complete review.</p>
 <p>Comments are private to this browser profile and site address. They do not sync between devices or go to a server. Use the same browser for a review pass and export a backup before clearing site data; private browsing or storage restrictions can prevent persistence.</p>
 <p>After exporting a review round, choose <strong>Clear all comments</strong> to start fresh across every ADM page in this browser. Confirm the count in the dialog. <strong>Undo clear</strong> restores the last cleared round, including replies and resolved notes, while keeping new comments; it remains available after navigation or reload, until the next clear. Clearing also discards unposted drafts in open ADM tabs. Exported files and other browsers are unaffected. A single recovery copy stays in local browser storage, so this is a review reset, not a secure erase.</p>
 <p>The site bundles <a href="https://github.com/reviewjs/annotate">annotate.js</a> 1.5.3 and its MIT license locally. ADM's small export adapter reads that pinned version's project store. The JSON groups native page exports under <code>pages</code>, retaining entry IDs or guide paths, original URLs, quoted text, anchors, and threads.</p>
-<h2 id="build-and-read">Build and read<a class="headerlink" href="#build-and-read" title="Permanent link">&para;</a></h2>
+<h2 id="build-and-read">Build and read<a class="headerlink" href="#build-and-read" title="Permanent link">¶</a></h2>
 <p>Python 3.11+ and Node.js 22+:</p>
 <pre><code class="language-sh">python -m venv .venv
 . .venv/bin/activate
@@ -474,30 +474,30 @@ python tools/build.py
 python -m http.server 8000 --directory dist --bind 127.0.0.1
 </code></pre>
 <p>Open <code>http://127.0.0.1:8000</code>. MkDocs builds the site and Pagefind adds local, static search. Each entry has adjacent <code>.html</code>, <code>.md</code>, and <code>.xml</code> files, with format links on the HTML page. For example, replace <code>symptoms/repeated-retrieval.html</code> with <code>symptoms/repeated-retrieval.md</code> or <code>symptoms/repeated-retrieval.xml</code>. The build also writes <code>dist/catalog.json</code>. All output is disposable and ignored by Git. Edit XML and rebuild.</p>
-<h2 id="authoring">Authoring<a class="headerlink" href="#authoring" title="Permanent link">&para;</a></h2>
+<h2 id="authoring">Authoring<a class="headerlink" href="#authoring" title="Permanent link">¶</a></h2>
 <p><code>entries/</code> contains canonical symptoms, diagnoses, and interventions. <a href="schema/adm-v1.xsd">XSD</a> validates document structure; the <a href="skills/agent-diagnostics/references/format.html">format reference</a> defines cross-document rules. The builder is a reference implementation.</p>
 <p>Read the guides for <a href="docs/authoring-symptom.html">authoring symptoms</a>, <a href="docs/authoring-diagnosis.html">authoring diagnoses</a>, and <a href="docs/authoring-intervention.html">authoring interventions</a>. <code>docs/</code> holds public methodology and authoring guidance, independent of the distributable skill. Its Markdown pages are automatically published under “Using ADM” on the website, included in search, and available as adjacent <code>.html</code> and <code>.md</code> files.</p>
 <p>Singleton sections use tag names; list members use short, locally unique IDs:</p>
 <pre><code class="language-xml">&lt;observations&gt;
-  &lt;observation id=&quot;multi-read&quot;&gt;
+  &lt;observation id="multi-read"&gt;
     &lt;p&gt;The agent retrieves substantially the same information repeatedly.&lt;/p&gt;
   &lt;/observation&gt;
 &lt;/observations&gt;
 </code></pre>
 <p>Reference that item as <code>S001#observations/multi-read</code>. Reference a singleton as <code>S001#what-to-record</code>. Local IDs may repeat in different lists or documents.</p>
-<h2 id="validate-and-consume">Validate and consume<a class="headerlink" href="#validate-and-consume" title="Permanent link">&para;</a></h2>
+<h2 id="validate-and-consume">Validate and consume<a class="headerlink" href="#validate-and-consume" title="Permanent link">¶</a></h2>
 <pre><code class="language-sh">python tools/build.py --check
 python -m unittest discover -s tests
 python examples/query_manual.py
 </code></pre>
 <p>The independent example uses only Python's standard library and imports no ADM code. Consumers do not need an LLM, the reference builder, or a hosted service.</p>
-<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
+<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">¶</a></h2>
 <p>Run <strong>Actions → Release ADM → Run workflow</strong>, select <code>main</code>, and enter a version without the <code>v</code> prefix. Start with <code>0.1.0</code>. The workflow captures HEAD of main at checkout, validates XML and references, runs tests, builds all formats and search, and publishes tag <code>v0.1.0</code> and release assets. An existing tag is rejected rather than moved.</p>
 <p>The ZIP contains <code>html/</code> (the complete searchable site with adjacent source variants), <code>markdown/</code>, <code>xml/entries/</code>, <code>xml/schema/</code>, the distributable <code>skills/</code> folder, and <code>manifest.json</code> with the source commit and per-file SHA-256 hashes. A separate checksum covers the ZIP. Serve <code>html/</code> over HTTP to use search.</p>
 <p>To build the same package locally after building the site:</p>
-<pre><code class="language-sh">python tools/package_release.py --version 0.1.0 --commit &quot;$(git rev-parse HEAD)&quot;
+<pre><code class="language-sh">python tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
 </code></pre>
-<h2 id="github-pages">GitHub Pages<a class="headerlink" href="#github-pages" title="Permanent link">&para;</a></h2>
+<h2 id="github-pages">GitHub Pages<a class="headerlink" href="#github-pages" title="Permanent link">¶</a></h2>
 <p>Every push to main validates and builds the site, stores a complete generated copy on <code>gh-pages</code>, and deploys it through GitHub Actions. No repository variables are required. Generated branch commits do not trigger the main-branch workflows.</p>
 <p>In <strong>Settings → Pages</strong>, select <strong>GitHub Actions</strong> as the source and save <strong>diag.timkellogg.me</strong> as the custom domain. At the DNS provider, set <code>diag</code> to a CNAME targeting <code>tkellogg.github.io.</code> (without a repository path). Enable <strong>Enforce HTTPS</strong> once GitHub has issued the certificate. DNS and certificate provisioning may take time; saving the custom domain in the repository is required in addition to DNS.</p>
 <p>The Pages workflow builds with MkDocs and Pagefind; no separate Jekyll workflow is needed. With Actions-based publishing, GitHub uses the custom domain saved in repository settings, not a CNAME file in the artifact.</p>
@@ -519,10 +519,11 @@ python examples/query_manual.py
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="pagefind/pagefind-ui.js"></script>
-<script src="assets/adm.js?v=b746f20de713" data-base-url="./"></script>
+<script src="assets/adm.js?v=51c7f3ba75aa" data-base-url="./"></script>
+<script src="assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="index.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="assets/adm-review.js?v=b746f20de713"></script>
+<script src="assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 
@@ -572,5 +573,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-28 14:40:00.707919+00:00
+Build Date UTC : 2026-10-28 16:52:34.394441+00:00
 -->

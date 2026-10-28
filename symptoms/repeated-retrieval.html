@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -322,53 +322,50 @@
   </div>
   
   
-  <p class="entry-status"><span class="entry-id">S001</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">S001</span><span>reviewed</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
-<h1 id="repeated-retrieval">Repeated retrieval<a class="headerlink" href="#repeated-retrieval" title="Permanent link">&para;</a></h1>
+<h1 id="repeated-retrieval">Repeated retrieval<a class="headerlink" href="#repeated-retrieval" title="Permanent link">¶</a></h1>
 <p>An agent retrieves already-delivered information again without a new content, freshness, or verification need.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/multi-read"></a></p>
-<h3 id="multi-read">Multi read<a class="headerlink" href="#multi-read" title="Permanent link">&para;</a></h3>
+<h3 id="multi-read">Multi read<a class="headerlink" href="#multi-read" title="Permanent link">¶</a></h3>
 <p>Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and addresses no unmet freshness or verification need; a standing instruction to reread does not by itself establish such a need.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Group reads of the same source in the tool log and compare what they returned. Check whether a change, freshness need, or unresolved question explains each reread.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/changed-source"></a></p>
-<h3 id="changed-source">Changed source<a class="headerlink" href="#changed-source" title="Permanent link">&para;</a></h3>
+<h3 id="changed-source">Changed source<a class="headerlink" href="#changed-source" title="Permanent link">¶</a></h3>
 <p>A reread after an edit obtains a changed setting needed for the next decision. The new information makes this useful work.</p>
 <p><a id="benign-lookalikes/different-content"></a></p>
-<h3 id="different-content">Different content<a class="headerlink" href="#different-content" title="Permanent link">&para;</a></h3>
+<h3 id="different-content">Different content<a class="headerlink" href="#different-content" title="Permanent link">¶</a></h3>
 <p>A second read obtains a different passage or field needed for the task. It is not a repeat of information already obtained.</p>
 <p><a id="benign-lookalikes/failed-delivery"></a></p>
-<h3 id="failed-delivery">Failed delivery<a class="headerlink" href="#failed-delivery" title="Permanent link">&para;</a></h3>
+<h3 id="failed-delivery">Failed delivery<a class="headerlink" href="#failed-delivery" title="Permanent link">¶</a></h3>
 <p>The earlier result was empty, wrong, or cut off before the needed content. A retry can obtain missing information; repeated unsuccessful retries may still become <a href="doom-looping.html">doom looping</a>.</p>
 <p><a id="benign-lookalikes/freshness-check"></a></p>
-<h3 id="freshness-check">Freshness check<a class="headerlink" href="#freshness-check" title="Permanent link">&para;</a></h3>
+<h3 id="freshness-check">Freshness check<a class="headerlink" href="#freshness-check" title="Permanent link">¶</a></h3>
 <p>A file or service may have changed since the last read. Checking a version number, timestamp, diff, or other reliable change signal can establish whether a full reread is needed; an unchanged result can still answer a real freshness question.</p>
 <p><a id="benign-lookalikes/required-verification"></a></p>
-<h3 id="required-verification">Required verification<a class="headerlink" href="#required-verification" title="Permanent link">&para;</a></h3>
+<h3 id="required-verification">Required verification<a class="headerlink" href="#required-verification" title="Permanent link">¶</a></h3>
 <p>An independent second source can answer an unresolved reliability question. Repeating equivalent checks after that question is settled does not add the same value.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the episode identifier and date, task type, model and harness versions, retrieval tools, and relevant instructions. Preserve call timestamps, arguments, source versions, returned passages or permitted hashes, delivery status, and the earlier result associated with each repeat. Include total retrievals and repeat counts, output volume, elapsed time, tokens or cost where available, context transitions, intervening edits, and the eventual task outcome. Record user interruptions and recovery work so incident frequency and impact can be compared across runs.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/stalled-edit"></a></p>
-<h3 id="stalled-edit">Stalled edit<a class="headerlink" href="#stalled-edit" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="stalled-edit">Stalled edit<a class="headerlink" href="#stalled-edit" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>An agent reads a 200-line configuration file, extracts the requested setting, and rereads the unchanged file twice without making the edit or encountering a new requirement. The tool log and file hash identify two redundant retrievals: 400 additional lines enter the transcript while the edit remains unstarted.</p>
 <p><a id="examples/verified-edit"></a></p>
-<h3 id="verified-edit">Verified edit<a class="headerlink" href="#verified-edit" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="verified-edit">Verified edit<a class="headerlink" href="#verified-edit" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>An agent reads a configuration file, edits one setting, and rereads it once. The diff and returned value show that the second read verifies the changed state; two reads support one completed edit and reveal no redundant retrieval under this definition.</p>
 <p><a id="examples/repeated-grep"></a></p>
-<h3 id="repeated-grep">Repeated grep<a class="headerlink" href="#repeated-grep" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="repeated-grep">Repeated grep<a class="headerlink" href="#repeated-grep" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p><a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes recognizing 30–50+ consecutive grep calls with identical arguments and output during codebase research. The reporter says tasks expected to take 2–3 minutes instead occupied 1–2 hours and required manual interruption. The account supplies repetition and impact estimates, but not a complete trace separating model requests from runtime replays.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -391,10 +388,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

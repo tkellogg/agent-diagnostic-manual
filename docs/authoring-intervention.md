@@ -41,11 +41,21 @@ Start by inspecting the system that already exists. Repair may mean deleting and
 
 Make the repair and its observation practical. Reuse existing logs; if needed evidence would otherwise disappear, specify a small capture hook, where its output goes, and the user’s agreement. Prefer occasional background checks to extra work on every agent turn.
 
+## Harness-specific instructions
+
+Use optional `harness-notes` after `procedure` for the actual settings, files, hooks, and commands a reader can use. Each `harness` has a short stable `id` and a plain-text `title`, followed by prose blocks. Reuse the same ID across entries (`claude-code`, `codex`, `opencode`, or `custom`) so the site's remembered selector works across the manual. Other harness IDs are allowed.
+
+Keep the shared procedure useful on its own. Harness notes explain how to carry it out; they must not hide a precondition, risk, or required step that applies to everyone. Cite official documentation beside product claims, state version boundaries, and verify the relevant route rather than assuming a general instruction file controls compaction. The entry's update date records when its guidance was last revised. Distinguish documented controls from an ADM proposal for using them.
+
+The HTML selector filters only these notes. Markdown, XML, search indexing, printing, and the page without JavaScript retain all variants. Do not duplicate whole interventions for each harness or promise a customization point you have not verified.
+
 ## Evaluation
 
 State the predicted observable effect, when to assess it, and what counts as useful progress. Measure correctness and task outcomes alongside the symptom; suppressing visible behavior can make the underlying problem worse.
 
 Agree with the user on how ordinary future work will be observed, who will review it, and a check-in date. Arrange a reminder or scheduled job so follow-up actually happens. A target number of tasks can guide the date; explain what to do if too few relevant tasks occur. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.
+
+A frozen-input comparison can be useful when the component can be run separately, as with some compactors. Preserve the original input, change one relevant instruction, and compare a few candidates without replaying the task's external actions. A fixed transcript does not make model output deterministic. Check the chosen change on separate examples and future work; do not turn this optional shortcut into a mandatory ablation study.
 
 Explain positive, negative, and inconclusive results. Distinguish a change that was never active from one that was active but did not help. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's `intervention-ref/predictions`; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.
 

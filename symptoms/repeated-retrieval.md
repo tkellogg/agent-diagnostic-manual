@@ -4,7 +4,7 @@ kind: symptom
 summary: An agent retrieves already-delivered information again without a new content,
   freshness, or verification need.
 version: '1'
-status: draft
+status: reviewed
 evidence: unvalidated
 updated: '2026-10-28'
 title: Repeated retrieval

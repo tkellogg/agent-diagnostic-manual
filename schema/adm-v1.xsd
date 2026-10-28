@@ -157,6 +157,16 @@
       <xs:element name="step" type="a:item" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="harness">
+    <xs:group ref="a:blocks" maxOccurs="unbounded"/>
+    <xs:attributeGroup ref="a:identified"/>
+    <xs:attribute name="title" type="a:text" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="harness-notes">
+    <xs:sequence>
+      <xs:element name="harness" type="a:harness" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:element name="symptom">
     <xs:complexType>
       <xs:sequence>
@@ -192,6 +202,7 @@
         <xs:element name="purpose" type="a:section"/>
         <xs:element name="preconditions" type="a:preconditions"/>
         <xs:element name="procedure" type="a:procedure"/>
+        <xs:element name="harness-notes" type="a:harness-notes" minOccurs="0"/>
         <xs:element name="evaluation" type="a:section"/>
         <xs:element name="risks-and-confounders" type="a:section"/>
         <xs:element name="stop-and-rollback" type="a:section"/>

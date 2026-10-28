@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,43 +326,40 @@
   
   <article data-pagefind-body>
 
-<h1 id="inferred-values-presented-as-observations">Inferred values presented as observations<a class="headerlink" href="#inferred-values-presented-as-observations" title="Permanent link">&para;</a></h1>
+<h1 id="inferred-values-presented-as-observations">Inferred values presented as observations<a class="headerlink" href="#inferred-values-presented-as-observations" title="Permanent link">¶</a></h1>
 <p>An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/unsupported-value"></a></p>
-<h3 id="unsupported-value">Unsupported value<a class="headerlink" href="#unsupported-value" title="Permanent link">&para;</a></h3>
+<h3 id="unsupported-value">Unsupported value<a class="headerlink" href="#unsupported-value" title="Permanent link">¶</a></h3>
 <p>At least one output value is presented as source-reported, through its label or the applicable field contract, but the trace or transformation shows it was calculated, estimated, or defaulted without a matching source observation. The output does not disclose that substitution.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Trace a published source-only value back through the source, extraction result, and any calculation or default. If the source cannot be inspected and there is no evidence of substitution, leave the case uncertain.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/labeled-derivation"></a></p>
-<h3 id="labeled-derivation">Labeled derivation<a class="headerlink" href="#labeled-derivation" title="Permanent link">&para;</a></h3>
+<h3 id="labeled-derivation">Labeled derivation<a class="headerlink" href="#labeled-derivation" title="Permanent link">¶</a></h3>
 <p>An authorized calculated field is labeled as derived and identifies its formula or basis. It lacks the undisclosed substitution in <a href="inferred-values-as-observations.html#observations/unsupported-value">unsupported value</a>.</p>
 <p><a id="benign-lookalikes/representation-change"></a></p>
-<h3 id="representation-change">Representation change<a class="headerlink" href="#representation-change" title="Permanent link">&para;</a></h3>
+<h3 id="representation-change">Representation change<a class="headerlink" href="#representation-change" title="Permanent link">¶</a></h3>
 <p>Converting a displayed quantity into the agreed units or numeric representation preserves its meaning and precision. It does not supply an unobserved quantity as required by <a href="inferred-values-as-observations.html#observations/unsupported-value">unsupported value</a>.</p>
 <p><a id="benign-lookalikes/explicit-missing"></a></p>
-<h3 id="explicit-missing">Explicit missing<a class="headerlink" href="#explicit-missing" title="Permanent link">&para;</a></h3>
+<h3 id="explicit-missing">Explicit missing<a class="headerlink" href="#explicit-missing" title="Permanent link">¶</a></h3>
 <p>The output uses the agreed missing marker, distinct from a source-reported zero. No substituted observation is claimed under <a href="inferred-values-as-observations.html#observations/unsupported-value">unsupported value</a>.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the field contract, source location and capture time, observed source content, transformation or default, publication format, and final label. Preserve the configuration and artifact versions, source-access limits, and any authorization to calculate. Count affected fields against comparable field decisions, including correct zeros, missing values, and disclosed calculations. Record downstream decisions, correction effort, and useful coverage rather than inferring harm from a discrepancy alone.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/computed-total"></a></p>
-<h3 id="computed-total">Computed total<a class="headerlink" href="#computed-total" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="computed-total">Computed total<a class="headerlink" href="#computed-total" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>A collector must copy a supplier's quoted total, leaving it missing when absent. For one quote it multiplies quantity by unit price and fills the source-only total. The transformation exposes the substitution; a reviewer spends six minutes correcting the export because the unobserved total might exclude fees.</p>
 <p><a id="examples/missing-as-zero"></a></p>
-<h3 id="missing-as-zero">Missing as zero<a class="headerlink" href="#missing-as-zero" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="missing-as-zero">Missing as zero<a class="headerlink" href="#missing-as-zero" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>A survey extractor converts three unanswered counts into zeros with a default-value expression. Comparing the form with the export reveals three unobserved values presented as responses, and the analyst must regenerate the summary before using it.</p>
 <p><a id="examples/authorized-estimate"></a></p>
-<h3 id="authorized-estimate">Authorized estimate<a class="headerlink" href="#authorized-estimate" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="authorized-estimate">Authorized estimate<a class="headerlink" href="#authorized-estimate" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>The user requests an estimated total from observed quantity and unit price. The output labels one calculated estimate and leaves the supplier's quoted-total field missing. The derivation and its source inputs are explicit, so no source observation is substituted.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -385,10 +382,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S014" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

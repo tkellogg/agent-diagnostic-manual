@@ -18,7 +18,7 @@
         <link href="../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -318,13 +318,13 @@
   
   <article data-pagefind-body>
 
-<h1 id="agent-diagnostics">Agent diagnostics<a class="headerlink" href="#agent-diagnostics" title="Permanent link">&para;</a></h1>
+<h1 id="agent-diagnostics">Agent diagnostics<a class="headerlink" href="#agent-diagnostics" title="Permanent link">¶</a></h1>
 <p>Use ADM to improve the configured agent system: its models, skills, prompts, tools, memory, and orchestration. Treat completed incidents as evidence, symptoms as observations, diagnoses as provisional explanations, and interventions as lasting changes for future work. Do not infer a mechanism merely from a symptom or an artifact defect.</p>
-<h2 id="locate-the-corpus">Locate the corpus<a class="headerlink" href="#locate-the-corpus" title="Permanent link">&para;</a></h2>
+<h2 id="locate-the-corpus">Locate the corpus<a class="headerlink" href="#locate-the-corpus" title="Permanent link">¶</a></h2>
 <p>Use the user's ADM checkout or supplied entry files. When this skill lives in the ADM repository, find the corpus at <code>../../entries/</code> relative to this file. When installed separately, locate the checkout in the workspace or use a location supplied by the user. If none is available, ask for the corpus location; do not invent entries or assume access to the private repository.</p>
 <p>Read XML directly; no build or LLM-specific service is required. Read <a href="references/format.html">the format reference</a> for parsing, addressing, or authoring rules. In a checkout, use <code>examples/query_manual.py</code> to enumerate entries with standard-library Python, and <code>tools/build.py</code> to generate HTML, Markdown reading copies, and a JSON catalog. Run these commands from the checkout root. Treat generated copies as views, not editing sources.</p>
 <p>Record the corpus revision used for an assessment. Use entry IDs and scoped addresses to cite definitions; keep trace citations separate.</p>
-<h2 id="investigate-the-system-through-incidents">Investigate the system through incidents<a class="headerlink" href="#investigate-the-system-through-incidents" title="Permanent link">&para;</a></h2>
+<h2 id="investigate-the-system-through-incidents">Investigate the system through incidents<a class="headerlink" href="#investigate-the-system-through-incidents" title="Permanent link">¶</a></h2>
 <ol>
 <li>Establish the incident's task and success criteria. Record the model, harness, tools, instructions, context policy, environment, and relevant versions. The incident may be over; do not assume its task must be replayed or finished.</li>
 <li>Read relevant symptom entries. Compare actual calls, returned content, source versions, and model-visible inputs against the observations and benign lookalikes. An explanation is not automatically benign: a faulty instruction can cause a system-level symptom. Accept reasoned qualitative comparisons when the definition allows them; do not demand a benchmark or fixed sample size. Use <code>what-to-record</code> to identify useful evidence, not a mandatory intake checklist. Treat agent self-explanations as claims to check.</li>
@@ -334,13 +334,13 @@
 <li>Report the observed pattern, criterion assessments, exclusions and alternatives, missing evidence, and the next useful action. Separate confidence in this case from the entry's evidence status. Describe concrete consequences; do not invent severity grades.</li>
 </ol>
 <p>Keep the report proportionate to the evidence. Cite addresses such as <code>D001#criteria/delivery-loss</code> alongside trace event numbers or timestamps so another reviewer can reproduce the assessment.</p>
-<h2 id="use-an-intervention">Use an intervention<a class="headerlink" href="#use-an-intervention" title="Permanent link">&para;</a></h2>
+<h2 id="use-an-intervention">Use an intervention<a class="headerlink" href="#use-an-intervention" title="Permanent link">¶</a></h2>
 <p>Read the diagnosis's <code>intervention-ref/when</code> and <code>predictions</code>, then the intervention's purpose, preconditions, ordered procedure, evaluation, confounders, and rollback. An observed problem may justify an intervention without an established catalog diagnosis.</p>
 <p>Choose a concrete change to the recurring system behavior. A one-time reminder or a more cautious report does not by itself repair the factory. Keep the change and its evaluation proportional to the problem; do not add instrumentation or repeated trials by default.</p>
 <p>Before applying the change, adapt the predictions to this configuration: what should improve, what should remain intact, what could newly appear, and what would weaken the explanation. Agree with the user on a dated check-in, who will review the evidence, and a reminder or job. Use existing records or agreed occasional capture rather than checking every turn. Confirm the changed behavior reaches future agents and observe ordinary work; use replay or ablation only when its expected value justifies its cost.</p>
 <p>Evaluate correctness and completion alongside symptom frequency and cost. Distinguish a newly exposed defect from harm introduced by the intervention. Separately decide whether the change helps and whether its predicted pattern supports the diagnosis; improvement alone does not uniquely establish the mechanism.</p>
 <p>Execute changes only within the user's authorized scope. Apply the protocol's stop and rollback conditions. Do not interpret a request for diagnosis as authorization to alter a production agent.</p>
-<h2 id="record-evidence-and-improve-entries">Record evidence and improve entries<a class="headerlink" href="#record-evidence-and-improve-entries" title="Permanent link">&para;</a></h2>
+<h2 id="record-evidence-and-improve-entries">Record evidence and improve entries<a class="headerlink" href="#record-evidence-and-improve-entries" title="Permanent link">¶</a></h2>
 <p>Preserve task/configuration details, trace references and access limits, criterion assessments, competing explanations, and any intervention's baseline, prediction, actual outcome, and confounders. Include a healthy comparison and reviewer disagreements when available. Keep sensitive raw traces in an appropriate access-controlled location.</p>
 <p>Keep synthetic examples separate from observed cases. Interpret evidence labels as follows:</p>
 <ul>
@@ -371,10 +371,11 @@
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 <script src="../../pagefind/pagefind-ui.js"></script>
-<script src="../../assets/adm.js?v=b746f20de713" data-base-url="../../"></script>
+<script src="../../assets/adm.js?v=51c7f3ba75aa" data-base-url="../../"></script>
+<script src="../../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="skills/agent-diagnostics/SKILL.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

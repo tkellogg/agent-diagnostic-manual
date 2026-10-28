@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -291,6 +291,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#harness-specific-instructions" class="nav-link">Harness-specific instructions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#evaluation" class="nav-link">Evaluation</a>
               <ul class="nav flex-column">
               </ul>
@@ -330,33 +334,38 @@
   
   <article data-pagefind-body>
 
-<h1 id="authoring-intervention-xml-files">Authoring intervention XML files<a class="headerlink" href="#authoring-intervention-xml-files" title="Permanent link">&para;</a></h1>
+<h1 id="authoring-intervention-xml-files">Authoring intervention XML files<a class="headerlink" href="#authoring-intervention-xml-files" title="Permanent link">¶</a></h1>
 <p>An intervention describes a concrete, lasting change to the configured agent system. Lead with the skill, prompt, tool, or harness behavior to change, then explain the relevant principles and how to evaluate future work. A useful repair can also test an explanation.</p>
 <p>Use this discriminator throughout: after reading the procedure, does the reader know what to change, or do they still have to design an intervention themselves?</p>
-<h2 id="principle-fix-the-system">Principle: Fix the system<a class="headerlink" href="#principle-fix-the-system" title="Permanent link">&para;</a></h2>
+<h2 id="principle-fix-the-system">Principle: Fix the system<a class="headerlink" href="#principle-fix-the-system" title="Permanent link">¶</a></h2>
 <p>The goal of this entire diagnostic process isn't to unstick a single agent session, it's to fix the system in which that agent session runs.</p>
 <p>When a human is operating an agent, they have a task to be done. This isn't like an RL environment where you can sit there and do ablations until you see all angles of a symptom. No, the environment isn't deterministic at all. Once you perform an intervention, there's no easy control group or baseline to compare it against. It's the real world, things are constantly changing and messy.</p>
 <p>This intervention should be phrased in such a way that <em>future</em> incidents can be observed, and the impacts of the intervention can be discussed. Typically, we'll make a prediction about how this intervention will be used to support a differential diagnosis.</p>
 <p>Write these interventions with this in mind.</p>
 <p>See <a href="diagnostic-process.html">Diagnosing and improving an agent system</a> for the full flow from past incidents through competing explanations, a system change, predictions, and observations of future work. The method applies to human maintainers and independent tools as well as the diagnostic skill.</p>
-<h2 id="title-and-summary">Title and summary<a class="headerlink" href="#title-and-summary" title="Permanent link">&para;</a></h2>
+<h2 id="title-and-summary">Title and summary<a class="headerlink" href="#title-and-summary" title="Permanent link">¶</a></h2>
 <p>Name the action and its target. The summary should say what changes, where, and under what circumstances. "Fix compaction so important information survives" names the mechanism to change; "maintain good memory" leaves the action to the reader.</p>
-<h2 id="purpose-and-principles">Purpose and principles<a class="headerlink" href="#purpose-and-principles" title="Permanent link">&para;</a></h2>
+<h2 id="purpose-and-principles">Purpose and principles<a class="headerlink" href="#purpose-and-principles" title="Permanent link">¶</a></h2>
 <p>Explain the intended effect and the working model that makes the action plausible. Include principles that help a reader apply this particular intervention correctly. For compaction, distinguish a full transcript saved for review from the information the working agent retains.</p>
 <p>Keep principles in the <code>purpose</code> section. They support the procedure; they should not substitute for it or imply that a proposed mechanism is established. A formal diagnosis need not be a prerequisite when the relevant conditions can be observed directly.</p>
-<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
 <p>State the circumstances, access, and capabilities required to change the system. Do not require a replayable task or a controlled study merely to apply a plausible repair.</p>
 <p>Link relevant symptoms or diagnoses when they help the reader recognize a suitable situation; a confirmed diagnosis need not be required. Do not hide additional applicability requirements later in the evaluation section.</p>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
+<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
 <p>Write ordered, executable steps. Identify the actor or system component, the object changed, and when the change takes effect. Be independent of a particular harness where possible, but specify the behavior an implementation must achieve.</p>
 <p>Include how to verify that the change reached its intended target. A saved memory file is not evidence that the model received its contents. If verification is unavailable, say what remains unknown and how that limits the assessment.</p>
 <p>Start by inspecting the system that already exists. Repair may mean deleting and consolidating instructions with the user, or fixing how existing tests cover real use. Do not assume every problem needs another rule or test.</p>
 <p>Make the repair and its observation practical. Reuse existing logs; if needed evidence would otherwise disappear, specify a small capture hook, where its output goes, and the user’s agreement. Prefer occasional background checks to extra work on every agent turn.</p>
-<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
+<h2 id="harness-specific-instructions">Harness-specific instructions<a class="headerlink" href="#harness-specific-instructions" title="Permanent link">¶</a></h2>
+<p>Use optional <code>harness-notes</code> after <code>procedure</code> for the actual settings, files, hooks, and commands a reader can use. Each <code>harness</code> has a short stable <code>id</code> and a plain-text <code>title</code>, followed by prose blocks. Reuse the same ID across entries (<code>claude-code</code>, <code>codex</code>, <code>opencode</code>, or <code>custom</code>) so the site's remembered selector works across the manual. Other harness IDs are allowed.</p>
+<p>Keep the shared procedure useful on its own. Harness notes explain how to carry it out; they must not hide a precondition, risk, or required step that applies to everyone. Cite official documentation beside product claims, state version boundaries, and verify the relevant route rather than assuming a general instruction file controls compaction. The entry's update date records when its guidance was last revised. Distinguish documented controls from an ADM proposal for using them.</p>
+<p>The HTML selector filters only these notes. Markdown, XML, search indexing, printing, and the page without JavaScript retain all variants. Do not duplicate whole interventions for each harness or promise a customization point you have not verified.</p>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
 <p>State the predicted observable effect, when to assess it, and what counts as useful progress. Measure correctness and task outcomes alongside the symptom; suppressing visible behavior can make the underlying problem worse.</p>
 <p>Agree with the user on how ordinary future work will be observed, who will review it, and a check-in date. Arrange a reminder or scheduled job so follow-up actually happens. A target number of tasks can guide the date; explain what to do if too few relevant tasks occur. Preserve correctness, completion, and required coverage alongside symptom reduction. Replay, ablation, or additional controls are optional investigations when they answer an unresolved question worth their cost.</p>
+<p>A frozen-input comparison can be useful when the component can be run separately, as with some compactors. Preserve the original input, change one relevant instruction, and compare a few candidates without replaying the task's external actions. A fixed transcript does not make model output deterministic. Check the chosen change on separate examples and future work; do not turn this optional shortcut into a mandatory ablation study.</p>
 <p>Explain positive, negative, and inconclusive results. Distinguish a change that was never active from one that was active but did not help. A successful remedy need not uniquely identify the cause. Put diagnosis-dependent predictions in that diagnosis's <code>intervention-ref/predictions</code>; use the intervention's evaluation to explain what to observe and how to interpret its limits. More careful wording alone is not evidence that the system produces better artifacts.</p>
-<h2 id="risks-rollback-and-evidence">Risks, rollback, and evidence<a class="headerlink" href="#risks-rollback-and-evidence" title="Permanent link">&para;</a></h2>
+<h2 id="risks-rollback-and-evidence">Risks, rollback, and evidence<a class="headerlink" href="#risks-rollback-and-evidence" title="Permanent link">¶</a></h2>
 <p>Describe concrete ways the change could cause harm or confound interpretation. Specify when to stop, what to remove or restore, and which effects rollback cannot undo.</p>
 <p>Use lists for concrete risks and rollback actions. Put sources and important limitations beside the claims they qualify; the root evidence label already identifies an unvalidated proposal. A detailed procedure does not establish that the remedy works.</p>
 <p>Write the procedure so the reader knows what to edit, delete, preserve, or inspect. Replace invented abstractions with the actual object, such as “the compaction prompt,” “the loaded tool definition,” or “the CI job.”</p></article>
@@ -381,10 +390,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/authoring-intervention.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

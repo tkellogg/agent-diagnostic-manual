@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -322,13 +322,13 @@
   
   <article data-pagefind-body>
 
-<h1 id="authoring-diagnosis-xml-files">Authoring diagnosis XML files<a class="headerlink" href="#authoring-diagnosis-xml-files" title="Permanent link">&para;</a></h1>
+<h1 id="authoring-diagnosis-xml-files">Authoring diagnosis XML files<a class="headerlink" href="#authoring-diagnosis-xml-files" title="Permanent link">¶</a></h1>
 <p>A diagnosis is a working explanation of how the configured agent system produces a problem. It earns a place in ADM when it helps choose a repair and predict what that repair will change. Naming an unpleasant behavior again does not provide that explanation.</p>
-<h2 id="start-with-the-model">Start with the model<a class="headerlink" href="#start-with-the-model" title="Permanent link">&para;</a></h2>
+<h2 id="start-with-the-model">Start with the model<a class="headerlink" href="#start-with-the-model" title="Permanent link">¶</a></h2>
 <p>In <code>definition</code>, explain how the relevant part should work, what goes wrong, and how that produces the symptoms. Use familiar objects and actions: “the compaction summary drops permission” is clearer than “authority fails to survive the transition.” A reader should understand the proposed failure before being asked to inspect evidence for it.</p>
 <p>The system includes the model, prompts, skills, tools, harness, and working repository. A harness fault can therefore be relevant. A bug in generated code is not automatically an agent diagnosis: explain how the recurring generation, testing, or completion process produces or misses it. Do not give every isolated bug a catalog entry.</p>
-<p>Use a title specific enough to identify the proposed failure. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.</p>
-<h2 id="put-predictions-near-the-explanation">Put predictions near the explanation<a class="headerlink" href="#put-predictions-near-the-explanation" title="Permanent link">&para;</a></h2>
+<p>Prefer a short noun phrase that people can use in conversation, such as “Incorrect compaction.” Keep the title specific enough to identify the proposed failure; put the fuller explanation in the summary. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.</p>
+<h2 id="put-predictions-near-the-explanation">Put predictions near the explanation<a class="headerlink" href="#put-predictions-near-the-explanation" title="Permanent link">¶</a></h2>
 <p>In <code>relations</code>, link the symptoms the model could explain and the interventions that plausibly address it. Each <code>intervention-ref</code> contains <code>when</code> and <code>predictions</code>. The predictions belong to the diagnosis <strong>and</strong> the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.</p>
 <p><code>predictions</code> requires these four singleton sections, in order. Each contains prose blocks and needs no ID:</p>
 <table>
@@ -358,15 +358,15 @@
 </tbody>
 </table>
 <p>The renderer supplies the labels; do not repeat them in the prose. Name a plausible harm rather than inventing one to fill the field. If none is identified, say so and explain the limit of that judgment. Keep predictions concrete. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.</p>
-<h2 id="evidence-for-this-explanation">Evidence for this explanation<a class="headerlink" href="#evidence-for-this-explanation" title="Permanent link">&para;</a></h2>
+<h2 id="evidence-for-this-explanation">Evidence for this explanation<a class="headerlink" href="#evidence-for-this-explanation" title="Permanent link">¶</a></h2>
 <p><code>criteria</code> states what would support the proposed cause in a particular case. It is separate from <code>definition</code>: the model explains; the criteria help decide whether it fits. For compaction loss, a useful chain is “the information mattered, compaction dropped it, and the omission explains the later mistake.” A repeated-read symptom alone does not establish that chain.</p>
 <p><code>operator="all"</code> means every listed criterion must have support before assigning the diagnosis. Missing evidence leaves a working hypothesis, not a reason to force the label or dismiss the complaint. A reviewer’s reasoned judgment can count as evidence; a numerical benchmark is not required.</p>
 <p>Keep criteria few and specific to the explanation. Arrange them so the reader can follow the proposed cause through to its consequence. The generated headings are numbered in document order; the numbers guide reading, not a scoring system or a requirement to investigate in that order. Keep numbers out of XML titles and IDs. Do not copy the symptom definition or prescribe a large investigation in every criterion.</p>
-<h2 id="boundaries-and-other-explanations">Boundaries and other explanations<a class="headerlink" href="#boundaries-and-other-explanations" title="Permanent link">&para;</a></h2>
+<h2 id="boundaries-and-other-explanations">Boundaries and other explanations<a class="headerlink" href="#boundaries-and-other-explanations" title="Permanent link">¶</a></h2>
 <p>Use <code>exclusions</code> to describe situations where the explanation may not fit, including normal behavior that resembles the failure. Explain the boundary in ordinary language: compaction should forget obsolete information. Avoid treating every uncertainty as a firm exclusion.</p>
 <p>Use <code>differential</code> for alternative causes that would lead to a different repair. Each <code>alternative</code> has a <code>discriminator</code>: what should the maintainer look at to tell them apart? For example, “the summary dropped permission” suggests fixing compaction; “the summary kept it but another rule demands fresh consent” suggests reviewing that rule. Omit alternatives that merely repeat a caveat without changing the next action.</p>
 <p>Several causes can coexist. A faulty instruction can explain a symptom without making it benign, and a normal action by the model can reveal a problem in the configured system. Check linked symptoms for contradictory boundaries.</p>
-<h2 id="investigation-sources-and-writing">Investigation, sources, and writing<a class="headerlink" href="#investigation-sources-and-writing" title="Permanent link">&para;</a></h2>
+<h2 id="investigation-sources-and-writing">Investigation, sources, and writing<a class="headerlink" href="#investigation-sources-and-writing" title="Permanent link">¶</a></h2>
 <p>Keep <code>investigation</code> to the next useful evidence to inspect. Shared recipes belong in <a href="observation-methods.html">observation methods</a>, not repeated paragraphs on every entry.</p>
 <p>The root <code>status</code> and <code>evidence</code> attributes identify provisional entries. Put a specific source or limitation next to the claim it qualifies; do not add an “evidence and uncertainty” section that repeats the draft badge. Reports of a behavior do not establish its cause or the effectiveness of a remedy. Keep private cases private.</p>
 <p>Use ordinary verbs, name the thing being changed, and avoid invented labels for familiar actions. Read the draft as someone who has not followed its author’s reasoning. If the reader must translate the prose before assessing the model, revise it.</p>
@@ -392,10 +392,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/authoring-diagnosis.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

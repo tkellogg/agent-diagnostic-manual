@@ -71,7 +71,7 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
 ## Diagnoses
 
-- [D001 — Compaction loses important information](diagnoses/context-handoff-loss.md)
+- [D001 — Incorrect compaction](diagnoses/context-handoff-loss.md)
 
     The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.
 
@@ -92,7 +92,7 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
 - [I001 — Fix compaction so important information survives](interventions/preserve-task-relevant-evidence.md)
 
-    Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.
+    Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.
 
 - [I002 — Consolidate verification instructions with the user](interventions/scope-verification-policy.md)
 

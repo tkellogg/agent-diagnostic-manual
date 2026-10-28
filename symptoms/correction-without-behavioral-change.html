@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,43 +326,40 @@
   
   <article data-pagefind-body>
 
-<h1 id="correction-without-behavioral-change">Correction without behavioral change<a class="headerlink" href="#correction-without-behavioral-change" title="Permanent link">&para;</a></h1>
+<h1 id="correction-without-behavioral-change">Correction without behavioral change<a class="headerlink" href="#correction-without-behavioral-change" title="Permanent link">¶</a></h1>
 <p>An agent acknowledges a specific correction and then repeats the corrected behavior under comparable conditions.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/repeated-violation"></a></p>
-<h3 id="repeated-violation">Repeated violation<a class="headerlink" href="#repeated-violation" title="Permanent link">&para;</a></h3>
+<h3 id="repeated-violation">Repeated violation<a class="headerlink" href="#repeated-violation" title="Permanent link">¶</a></h3>
 <p>After receiving and acknowledging an applicable correction, the agent performs materially the same corrected action at least once more while that correction remains in force. The acknowledgment and later action are both observable in the episode or linked continuation.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Pair an acknowledged correction with the next relevant action in the transcript. A small classifier can flag repeated violations for review; exclude actions already in progress when the correction arrived.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/changed-context"></a></p>
-<h3 id="changed-context">Changed context<a class="headerlink" href="#changed-context" title="Permanent link">&para;</a></h3>
+<h3 id="changed-context">Changed context<a class="headerlink" href="#changed-context" title="Permanent link">¶</a></h3>
 <p>The later action falls outside the correction’s stated scope. It therefore lacks the applicable correction required by <a href="correction-without-behavioral-change.html#observations/repeated-violation">repeated violation</a>.</p>
 <p><a id="benign-lookalikes/superseded-rule"></a></p>
-<h3 id="superseded-rule">Superseded rule<a class="headerlink" href="#superseded-rule" title="Permanent link">&para;</a></h3>
+<h3 id="superseded-rule">Superseded rule<a class="headerlink" href="#superseded-rule" title="Permanent link">¶</a></h3>
 <p>A later applicable instruction changes the rule, or a higher-priority requirement displaces it. The original correction is no longer in force as required by <a href="correction-without-behavioral-change.html#observations/repeated-violation">repeated violation</a>.</p>
 <p><a id="benign-lookalikes/action-in-flight"></a></p>
-<h3 id="action-in-flight">Action in flight<a class="headerlink" href="#action-in-flight" title="Permanent link">&para;</a></h3>
+<h3 id="action-in-flight">Action in flight<a class="headerlink" href="#action-in-flight" title="Permanent link">¶</a></h3>
 <p>Execution logs show that the apparent recurrence was issued before the correction and acknowledgment. It is not a later action chosen after acknowledgment under <a href="correction-without-behavioral-change.html#observations/repeated-violation">repeated violation</a>.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the episode identifier and date, task type, model/harness versions, the correction’s exact text and scope, its delivery and acknowledgment times, and each subsequent opportunity to apply it. Preserve later actions, intervening instructions, memory artifacts, and effective input where available. Include recurrence counts relative to relevant opportunities, user correction turns, elapsed delay, damaged or redone work, and whether behavior eventually changed. Distinguish missing context evidence from a demonstrated loss of the correction.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/repeated-file"></a></p>
-<h3 id="repeated-file">Repeated file<a class="headerlink" href="#repeated-file" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="repeated-file">Repeated file<a class="headerlink" href="#repeated-file" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>After being told to edit a source template rather than generated output, the agent acknowledges the correction but makes the next fix in the generated file. Comparing the correction with the diff identifies the recurrence. The next build overwrites that fix, leaving one unresolved defect and ten minutes of rework.</p>
 <p><a id="examples/saved-feedback"></a></p>
-<h3 id="saved-feedback">Saved feedback<a class="headerlink" href="#saved-feedback" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="saved-feedback">Saved feedback<a class="headerlink" href="#saved-feedback" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p><a href="https://github.com/anthropics/claude-code/issues/37847">Claude Code issue #37847</a> lists eight shell-command recurrences after feedback was saved: four Python, two shell-loop, and two Node examples. The reporter compared saved memory and acknowledgments with later commands, describing repeated corrections and lost confidence in memory. Total time lost and the effective input to every invocation are not supplied.</p>
 <p><a id="examples/new-authorization"></a></p>
-<h3 id="new-authorization">New authorization<a class="headerlink" href="#new-authorization" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="new-authorization">New authorization<a class="headerlink" href="#new-authorization" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>After prohibiting edits to generated output, the user explicitly approves one emergency edit there. The transcript records that exception before the single edit, so the change does not violate a correction that remained in force for that action.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -385,10 +382,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S005" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

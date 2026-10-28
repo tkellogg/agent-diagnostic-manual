@@ -83,7 +83,21 @@ article [id] { scroll-margin-top: 7rem; }
 article strong { font-weight: 650; }
 article li { padding-left: .2rem; margin-bottom: .45rem; }
 article .headerlink { color: var(--adm-accent); }
-.adm-example-kind { display: inline-block; margin-bottom: .8rem; padding: .15rem .55rem; border: 1px solid var(--adm-line); border-radius: 3px; color: var(--adm-muted); font-size: .7rem; letter-spacing: .03em; }
+.adm-example-kind { display: inline-block; margin-left: .7rem; padding: .15rem .55rem; vertical-align: middle; border: 1px solid var(--adm-line); border-radius: 3px; color: var(--adm-muted); font-size: .7rem; font-weight: 400; letter-spacing: .03em; }
+.adm-entry-ref { display: inline-flex; max-width: 100%; align-items: stretch; vertical-align: middle; border: 1px solid var(--adm-accent); border-radius: 1rem; overflow: hidden; text-decoration: none; font-size: .82rem; line-height: 1.4; font-weight: 500; background: var(--adm-surface); }
+.adm-ref-id { display: flex; align-items: center; padding: .35rem .6rem; background: var(--adm-accent); color: var(--adm-paper); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .75rem; flex-shrink: 0; }
+.adm-ref-title { padding: .35rem .7rem; color: var(--adm-accent); }
+.adm-entry-ref:hover { background: var(--adm-hover); text-decoration: none; }
+.adm-entry-ref:focus-visible { outline: 2px solid var(--adm-accent); outline-offset: 3px; }
+article .adm-entry-refs { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 1rem 0 1.5rem; }
+article .adm-entry-refs li { padding: 0; margin: 0; max-width: 100%; }
+.adm-harness-controls { margin: 1.25rem 0; padding: 1rem 1.2rem; background: var(--adm-surface); border: 1px solid var(--adm-line); border-radius: 4px; }
+.adm-harness-controls label { font-size: .85rem; font-weight: 650; margin-right: .8rem; }
+.adm-harness-controls select { max-width: 100%; padding: .5rem 2rem .5rem .7rem; background: var(--adm-paper); color: var(--adm-ink); border: 1px solid var(--adm-accent); border-radius: 3px; }
+.adm-harness-controls p { margin: .65rem 0 0; font-size: .78rem; line-height: 1.5; color: var(--adm-muted); }
+.adm-harness-note { padding: .1rem 0 .1rem 1.2rem; border-left: 2px solid var(--adm-accent); }
+.adm-harness-note h3 { margin-top: .6rem; }
+.adm-harness-note + .adm-harness-note { margin-top: 1.5rem; }
 article h4 + ul { padding: 1rem 1.25rem 1rem 2.25rem; border-left: 2px solid var(--adm-accent); background: var(--adm-surface); }
 /* The catalog remains portable Markdown, styled as rows on the homepage. */
 .homepage article :is(#symptoms, #diagnoses, #interventions) + ul { list-style: none; padding: 0; margin: 0; }
@@ -146,7 +160,8 @@ footer { margin: 5rem 0 0; font-weight: 400; text-align: left; }
 @media print {
   :root, [data-bs-theme] { --adm-paper: white; --adm-surface: white; --adm-ink: black; --adm-muted: #444; --adm-accent: #444; --adm-line: #ccc; }
   body { background: white; color: black; }
-  .adm-search, .adm-toolbar, .adm-review, .adm-sidebar, .adm-pagination, .navbar, .adm-skip, #__an_host { display: none !important; }
+  .adm-search, .adm-toolbar, .adm-review, .adm-sidebar, .adm-pagination, .adm-harness-controls, .navbar, .adm-skip, #__an_host { display: none !important; }
+  .adm-harness-note[hidden] { display: block !important; }
   .adm-main { width: 100%; padding: 0; }
   article { max-width: none; }
 }

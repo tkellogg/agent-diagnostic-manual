@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,43 +326,40 @@
   
   <article data-pagefind-body>
 
-<h1 id="unsupported-verification-claims">Unsupported verification claims<a class="headerlink" href="#unsupported-verification-claims" title="Permanent link">&para;</a></h1>
+<h1 id="unsupported-verification-claims">Unsupported verification claims<a class="headerlink" href="#unsupported-verification-claims" title="Permanent link">¶</a></h1>
 <p>An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/claim-evidence-gap"></a></p>
-<h3 id="claim-evidence-gap">Claim evidence gap<a class="headerlink" href="#claim-evidence-gap" title="Permanent link">&para;</a></h3>
+<h3 id="claim-evidence-gap">Claim evidence gap<a class="headerlink" href="#claim-evidence-gap" title="Permanent link">¶</a></h3>
 <p>The agent states that a check was performed or produced a particular result, but the corresponding execution record contradicts the claim or is demonstrably insufficient for its stated scope. Examples include stale output presented as fresh, a partial run described as a complete suite, and an incorrectly attributed failure.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Pair each verification claim with its test or tool result for the same version. Look for failures, skipped checks, and differences between what the test exercised and what the agent says it proved.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/accurate-scope"></a></p>
-<h3 id="accurate-scope">Accurate scope<a class="headerlink" href="#accurate-scope" title="Permanent link">&para;</a></h3>
+<h3 id="accurate-scope">Accurate scope<a class="headerlink" href="#accurate-scope" title="Permanent link">¶</a></h3>
 <p>The agent reports only the selected passing tests and states that the full suite was not run. The execution record supports the stated scope, so there is no <a href="unsupported-verification-claims.html#observations/claim-evidence-gap">claim–evidence gap</a>.</p>
 <p><a id="benign-lookalikes/disclosed-cache"></a></p>
-<h3 id="disclosed-cache">Disclosed cache<a class="headerlink" href="#disclosed-cache" title="Permanent link">&para;</a></h3>
+<h3 id="disclosed-cache">Disclosed cache<a class="headerlink" href="#disclosed-cache" title="Permanent link">¶</a></h3>
 <p>Cached results are labeled with their actual age and revision and used only for a claim they support. They do not contradict the reported freshness or scope in <a href="unsupported-verification-claims.html#observations/claim-evidence-gap">claim–evidence gap</a>.</p>
 <p><a id="benign-lookalikes/external-evidence"></a></p>
-<h3 id="external-evidence">External evidence<a class="headerlink" href="#external-evidence" title="Permanent link">&para;</a></h3>
+<h3 id="external-evidence">External evidence<a class="headerlink" href="#external-evidence" title="Permanent link">¶</a></h3>
 <p>A matching CI record supports the claim even though it is absent from the local transcript. That is not contradictory or demonstrably insufficient execution evidence under <a href="unsupported-verification-claims.html#observations/claim-evidence-gap">claim–evidence gap</a>; inaccessible logs alone leave the assessment unresolved.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the episode identifier and date, task type, model and harness versions, exact claim, claim time, and the verification scope asserted. Preserve command and test selection, executed/passed/failed/skipped counts, exit status, result artifacts, timestamps, revision, environment, wrappers, and output-capture errors. Include external evidence and access gaps, number of verification claims reviewed and contradicted, discrepancy type, subsequent decisions, reruns, and investigation time. Distinguish unknown evidence from a demonstrated contradiction.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/partial-as-full"></a></p>
-<h3 id="partial-as-full">Partial as full<a class="headerlink" href="#partial-as-full" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="partial-as-full">Partial as full<a class="headerlink" href="#partial-as-full" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>A filtered command passes two tests and the agent reports all 240 passed. The command selection and runner count expose 238 unrun tests; a reviewer’s full-suite run then finds six failures. The incorrect report had hidden the remaining verification work and required another run before review could finish.</p>
 <p><a id="examples/misreported-failure"></a></p>
-<h3 id="misreported-failure">Misreported failure<a class="headerlink" href="#misreported-failure" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="misreported-failure">Misreported failure<a class="headerlink" href="#misreported-failure" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p><a href="https://github.com/anthropics/claude-code/issues/22507">Claude Code issue #22507</a> includes a transcript excerpt showing a 10.31-second operation failing a one-second performance limit. The PR description instead blamed a different test and called the failure a pre-existing timeout. Comparing the description with the runner output exposed the misreport; the account describes a rerun and further challenges to reconstruct what happened. It supports inaccurate reporting, not the title’s assertion that no tests ran.</p>
 <p><a id="examples/limited-report"></a></p>
-<h3 id="limited-report">Limited report<a class="headerlink" href="#limited-report" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="limited-report">Limited report<a class="headerlink" href="#limited-report" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>The agent reports two targeted tests passed and 238 other tests remain unrun. The selection and runner output support the stated scope. The verification is limited, but the reader can see the remaining work without reconstructing a false full-suite claim.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -385,10 +382,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S011" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

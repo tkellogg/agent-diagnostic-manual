@@ -8,7 +8,7 @@ In `definition`, explain how the relevant part should work, what goes wrong, and
 
 The system includes the model, prompts, skills, tools, harness, and working repository. A harness fault can therefore be relevant. A bug in generated code is not automatically an agent diagnosis: explain how the recurring generation, testing, or completion process produces or misses it. Do not give every isolated bug a catalog entry.
 
-Use a title specific enough to identify the proposed failure. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.
+Prefer a short noun phrase that people can use in conversation, such as “Incorrect compaction.” Keep the title specific enough to identify the proposed failure; put the fuller explanation in the summary. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.
 
 ## Put predictions near the explanation
 

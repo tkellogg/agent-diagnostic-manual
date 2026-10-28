@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -330,23 +330,23 @@
   
   <article data-pagefind-body>
 
-<h1 id="tool-discovery-reports-unusable-tools">Tool discovery reports unusable tools<a class="headerlink" href="#tool-discovery-reports-unusable-tools" title="Permanent link">&para;</a></h1>
+<h1 id="tool-discovery-reports-unusable-tools">Tool discovery reports unusable tools<a class="headerlink" href="#tool-discovery-reports-unusable-tools" title="Permanent link">¶</a></h1>
 <p>Tool search says a tool is ready, but the agent lacks the definition or access needed to call it. Searching again gives the same unusable result.</p>
 <p><a id="definition"></a></p>
-<h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">&para;</a></h2>
+<h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">¶</a></h2>
 <p>Some harnesses load tools only when an agent searches for them. A successful search should supply the tool’s arguments and a working way to call it. If the harness reports success before doing that, the agent can keep finding a tool it cannot use.</p>
 <p>This is a possible harness fault. It belongs here because ADM examines the configured agent system, including its tools. Repeated searches alone do not show that the harness is faulty: the tool may be available and the agent may simply fail to call it.</p>
 <p><a id="relations"></a></p>
-<h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../symptoms/doom-looping.html">S002 — Doom looping</a></li>
+<h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">¶</a></h2>
+<ul class="adm-entry-refs">
+<li><a href="../symptoms/doom-looping.html" class="adm-entry-ref"><span class="adm-ref-id">S002</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Doom looping</span></a></li>
 </ul>
 <p><a id="relations/I005"></a>
 <a id="relations/I005/when"></a></p>
-<h3 id="intervention-i005-make-discovered-tools-callable">Intervention: <a href="../interventions/complete-tool-discovery-handoff.html">I005 — Make discovered tools callable</a><a class="headerlink" href="#intervention-i005-make-discovered-tools-callable" title="Permanent link">&para;</a></h3>
+<h3 id="intervention-i005-make-discovered-tools-callable">Intervention: <a href="../interventions/complete-tool-discovery-handoff.html" class="adm-entry-ref"><span class="adm-ref-id">I005</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Make discovered tools callable</span></a><a class="headerlink" href="#intervention-i005-make-discovered-tools-callable" title="Permanent link">¶</a></h3>
 <p><strong>Use this when:</strong> Tool search claims a tool is ready, but its definition or registration is missing.</p>
 <p><a id="relations/I005/predictions"></a></p>
-<h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
+<h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">¶</a></h4>
 <ul>
 <li>
 <p><a id="relations/I005/predictions/expected-improvement"></a><strong>Expected improvement:</strong> Once search returns a callable tool, the agent should use it instead of searching for it again. If the tool is unavailable, an honest error should let the agent choose another route or report the blocker.</p>
@@ -362,47 +362,47 @@
 </li>
 </ul>
 <p><a id="criteria"></a></p>
-<h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
+<h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">¶</a></h2>
 <p><a id="criteria/promised-capability"></a></p>
-<h3 id="search-promises-a-ready-tool">1. Search promises a ready tool<a class="headerlink" href="#search-promises-a-ready-tool" title="Permanent link">&para;</a></h3>
+<h3 id="search-promises-a-ready-tool">1. Search promises a ready tool<a class="headerlink" href="#search-promises-a-ready-tool" title="Permanent link">¶</a></h3>
 <p>The harness documents or reports that a successful search makes this tool ready to call.</p>
 <p><a id="criteria/missing-interface"></a></p>
-<h3 id="the-tool-cannot-be-called">2. The tool cannot be called<a class="headerlink" href="#the-tool-cannot-be-called" title="Permanent link">&para;</a></h3>
+<h3 id="the-tool-cannot-be-called">2. The tool cannot be called<a class="headerlink" href="#the-tool-cannot-be-called" title="Permanent link">¶</a></h3>
 <p>The tool’s arguments are missing from the model’s input, or the runtime has not registered the tool. Distinguish this from a tool call that reaches the service and returns an error.</p>
 <p><a id="criteria/stalled-use"></a></p>
-<h3 id="the-agent-keeps-searching-for-it">3. The agent keeps searching for it<a class="headerlink" href="#the-agent-keeps-searching-for-it" title="Permanent link">&para;</a></h3>
+<h3 id="the-agent-keeps-searching-for-it">3. The agent keeps searching for it<a class="headerlink" href="#the-agent-keeps-searching-for-it" title="Permanent link">¶</a></h3>
 <p>The agent needs the tool and repeats the same unsuccessful search cycle, matching <a href="../symptoms/doom-looping.html">doom looping</a>. Searching again does not fix the missing definition or registration.</p>
-<ul>
-<li><a href="../symptoms/doom-looping.html">S002 — Doom looping</a></li>
+<ul class="adm-entry-refs">
+<li><a href="../symptoms/doom-looping.html" class="adm-entry-ref"><span class="adm-ref-id">S002</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Doom looping</span></a></li>
 </ul>
 <p><a id="exclusions"></a></p>
-<h2 id="when-this-explanation-may-not-fit">When this explanation may not fit<a class="headerlink" href="#when-this-explanation-may-not-fit" title="Permanent link">&para;</a></h2>
+<h2 id="when-this-explanation-may-not-fit">When this explanation may not fit<a class="headerlink" href="#when-this-explanation-may-not-fit" title="Permanent link">¶</a></h2>
 <p><a id="exclusions/reference-contract"></a></p>
-<h3 id="a-listing-is-not-a-ready-tool">A listing is not a ready tool<a class="headerlink" href="#a-listing-is-not-a-ready-tool" title="Permanent link">&para;</a></h3>
+<h3 id="a-listing-is-not-a-ready-tool">A listing is not a ready tool<a class="headerlink" href="#a-listing-is-not-a-ready-tool" title="Permanent link">¶</a></h3>
 <p>A catalog may list an uninstalled tool and clearly say how to install it. Finding that listing is useful; it has not claimed that the tool is ready to call.</p>
 <p><a id="exclusions/expected-delay"></a></p>
-<h3 id="loading-is-still-in-progress">Loading is still in progress<a class="headerlink" href="#loading-is-still-in-progress" title="Permanent link">&para;</a></h3>
+<h3 id="loading-is-still-in-progress">Loading is still in progress<a class="headerlink" href="#loading-is-still-in-progress" title="Permanent link">¶</a></h3>
 <p>A tool may take time to activate. A clear “still loading” result and a working way to wait are reasonable, provided the stated wait has not expired.</p>
 <p><a id="differential"></a></p>
-<h2 id="other-explanations-to-consider">Other explanations to consider<a class="headerlink" href="#other-explanations-to-consider" title="Permanent link">&para;</a></h2>
+<h2 id="other-explanations-to-consider">Other explanations to consider<a class="headerlink" href="#other-explanations-to-consider" title="Permanent link">¶</a></h2>
 <p><a id="differential/callable-but-unused"></a></p>
-<h3 id="the-tool-is-ready-but-the-agent-does-not-call-it">The tool is ready, but the agent does not call it<a class="headerlink" href="#the-tool-is-ready-but-the-agent-does-not-call-it" title="Permanent link">&para;</a></h3>
+<h3 id="the-tool-is-ready-but-the-agent-does-not-call-it">The tool is ready, but the agent does not call it<a class="headerlink" href="#the-tool-is-ready-but-the-agent-does-not-call-it" title="Permanent link">¶</a></h3>
 <p><a id="differential/callable-but-unused/discriminator"></a>
 Inspect the tool definitions supplied for that turn. If the tool and its arguments are available, look at tool-selection instructions instead of repairing registration.</p>
 <p><a id="differential/runtime-rejection"></a></p>
-<h3 id="the-call-reaches-the-tool-and-fails">The call reaches the tool and fails<a class="headerlink" href="#the-call-reaches-the-tool-and-fails" title="Permanent link">&para;</a></h3>
+<h3 id="the-call-reaches-the-tool-and-fails">The call reaches the tool and fails<a class="headerlink" href="#the-call-reaches-the-tool-and-fails" title="Permanent link">¶</a></h3>
 <p><a id="differential/runtime-rejection/discriminator"></a>
 An authentication, permission, argument, or service error shows that a call was attempted. Repair that failure; repeated discovery usually cannot help.</p>
 <p><a id="differential/later-loss"></a></p>
-<h3 id="the-tool-disappears-after-compaction">The tool disappears after compaction<a class="headerlink" href="#the-tool-disappears-after-compaction" title="Permanent link">&para;</a></h3>
+<h3 id="the-tool-disappears-after-compaction">The tool disappears after compaction<a class="headerlink" href="#the-tool-disappears-after-compaction" title="Permanent link">¶</a></h3>
 <p><a id="differential/later-loss/discriminator"></a>
 Check whether the agent used the tool before compaction. If so, inspect whether the harness restores the tool definitions afterward; the initial search may have worked.</p>
 <p><a id="investigation"></a></p>
-<h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">&para;</a></h2>
+<h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">¶</a></h2>
 <p>Follow one tool from its search result to the next model request and attempted call. This distinguishes a missing tool definition from an available tool that the agent ignores; the two need different repairs.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="context-handoff-loss.html"><span>← Previous</span>D001 — Compaction loses important information</a>
+    <a rel="prev" href="context-handoff-loss.html"><span>← Previous</span>D001 — Incorrect compaction</a>
     <a rel="next" href="verification-policy-overgeneralization.html"><span>Next →</span>D003 — Overbroad verification instructions</a>
   </nav>
   
@@ -421,10 +421,11 @@ Check whether the agent used the tool before compaction. If so, inspect whether 
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="D002" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

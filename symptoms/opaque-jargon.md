@@ -4,7 +4,7 @@ kind: symptom
 summary: "The agent\u2019s human-facing writing uses dense, unexplained labels or\
   \ compressed phrasing that makes the reader reconstruct what it means."
 version: '1'
-status: draft
+status: reviewed
 evidence: unvalidated
 updated: '2026-10-28'
 title: Opaque jargon (neuralese)
@@ -69,7 +69,7 @@ Research uses “neuralese” for learned internal or inter-agent representation
 
 ## What to record
 
-Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader’s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding. Separate a dislike of the style from difficulty extracting its meaning; record model and configuration details without assuming they caused it.
+Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader’s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding.
 
 <a id="examples"></a>
 

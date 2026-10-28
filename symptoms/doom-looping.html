@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -322,47 +322,44 @@
   </div>
   
   
-  <p class="entry-status"><span class="entry-id">S002</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">S002</span><span>reviewed</span><span>unvalidated</span></p>
   
   <article data-pagefind-body>
 
-<h1 id="doom-looping">Doom looping<a class="headerlink" href="#doom-looping" title="Permanent link">&para;</a></h1>
+<h1 id="doom-looping">Doom looping<a class="headerlink" href="#doom-looping" title="Permanent link">¶</a></h1>
 <p>An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/stalled-cycles"></a></p>
-<h3 id="stalled-cycles">Stalled cycles<a class="headerlink" href="#stalled-cycles" title="Permanent link">&para;</a></h3>
+<h3 id="stalled-cycles">Stalled cycles<a class="headerlink" href="#stalled-cycles" title="Permanent link">¶</a></h3>
 <p>Within one task episode, at least three consecutive complete action-and-feedback cycles aimed at the same immediate outcome fail to advance it. Across those cycles, there is no evidenced change in relevant inputs, environment, available information, or strategy sufficient to justify expecting a different result.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Line up each attempt with its result in the tool log and look for three stalled cycles. Compare the inputs and feedback to see whether the agent learned anything or tried a meaningfully different approach.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/bounded-retries"></a></p>
-<h3 id="bounded-retries">Bounded retries<a class="headerlink" href="#bounded-retries" title="Permanent link">&para;</a></h3>
+<h3 id="bounded-retries">Bounded retries<a class="headerlink" href="#bounded-retries" title="Permanent link">¶</a></h3>
 <p>A transient error and a suitable delay give the next attempt a reason to succeed. Routine retries usually belong in the harness or a bounded script, so each retry need not consume another model turn.</p>
 <p><a id="benign-lookalikes/active-polling"></a></p>
-<h3 id="active-polling">Active polling<a class="headerlink" href="#active-polling" title="Permanent link">&para;</a></h3>
+<h3 id="active-polling">Active polling<a class="headerlink" href="#active-polling" title="Permanent link">¶</a></h3>
 <p>A background job is still progressing and status checks follow its expected cadence. Waiting for work that is advancing differs from repeating a failed action without change.</p>
 <p><a id="benign-lookalikes/hypothesis-testing"></a></p>
-<h3 id="hypothesis-testing">Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permanent link">&para;</a></h3>
+<h3 id="hypothesis-testing">Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Permanent link">¶</a></h3>
 <p>Successive attempts rule out different causes or collect samples for an agreed experiment. Repeating the general method is useful when each attempt adds information.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the episode identifier and date, model and harness versions, task type, immediate outcome, and the action/feedback boundaries used to count cycles. Preserve requested and executed calls, feedback, relevant state changes, retry policy, and context transitions. Include total cycles, consecutive stalled cycles, elapsed time, tokens or cost where available, and how the sequence ended: recovery, automatic limit, user interruption, or abandonment. Retain the corpus revision and actual counts so the provisional three-cycle screening rule can be reassessed across incidents.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/unchanged-permission"></a></p>
-<h3 id="unchanged-permission">Unchanged permission<a class="headerlink" href="#unchanged-permission" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="unchanged-permission">Unchanged permission<a class="headerlink" href="#unchanged-permission" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>Five file-read attempts receive permission denied over two minutes. The trace shows only quoting and output-format changes; credentials and access rights stay unchanged. Comparing the five errors exposes five stalled cycles, two minutes of delay, and no retrieved file before the user interrupts.</p>
 <p><a id="examples/repeated-grep"></a></p>
-<h3 id="repeated-grep">Repeated grep<a class="headerlink" href="#repeated-grep" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="repeated-grep">Repeated grep<a class="headerlink" href="#repeated-grep" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p><a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes 30–50+ identical grep calls returning identical output before manual interruption. The reporter recognized the loop in the repeated commands and estimated 1–2 hours spent on research expected to take 2–3 minutes. A complete execution trace is not supplied, so responsibility for the repeats remains unresolved.</p>
 <p><a id="examples/changing-failures"></a></p>
-<h3 id="changing-failures">Changing failures<a class="headerlink" href="#changing-failures" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="changing-failures">Changing failures<a class="headerlink" href="#changing-failures" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>Five successive edits resolve five different test failures. Test logs show the remaining failure count falling from five to zero. Although the agent repeats the edit/test cycle five times, each cycle advances the outcome and the final suite passes.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -385,10 +382,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S002" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

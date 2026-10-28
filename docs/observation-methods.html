@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,24 +326,24 @@
   
   <article data-pagefind-body>
 
-<h1 id="observation-methods">Observation methods<a class="headerlink" href="#observation-methods" title="Permanent link">&para;</a></h1>
+<h1 id="observation-methods">Observation methods<a class="headerlink" href="#observation-methods" title="Permanent link">¶</a></h1>
 <p>These are ways to find evidence for a symptom or check a prediction. They do not redefine symptoms, and using one is not required to report a problem. Start with existing transcripts, artifacts, and the user’s account; choose the cheapest method that answers the question.</p>
-<h2 id="scan-a-transcript-for-a-particular-behavior">Scan a transcript for a particular behavior<a class="headerlink" href="#scan-a-transcript-for-a-particular-behavior" title="Permanent link">&para;</a></h2>
+<h2 id="scan-a-transcript-for-a-particular-behavior">Scan a transcript for a particular behavior<a class="headerlink" href="#scan-a-transcript-for-a-particular-behavior" title="Permanent link">¶</a></h2>
 <p>For correction without behavioral change, give a reviewer the correction, the acknowledgment, and each later relevant action. Ask whether the corrected behavior happens again, with a quote or event number and an option to say “unclear.” Include surrounding turns so an action already in progress or a changed instruction is not mistaken for a new violation.</p>
 <p>A small, inexpensive model can do the first pass over many sessions. Try it on a few cases a human has read, including benign cases, before trusting its labels. Keep its model, prompt, evidence references, and disagreements so the classification can be checked. A classifier’s confidence is not proof of a diagnosis.</p>
-<h2 id="compare-before-and-after">Compare before and after<a class="headerlink" href="#compare-before-and-after" title="Permanent link">&para;</a></h2>
+<h2 id="compare-before-and-after">Compare before and after<a class="headerlink" href="#compare-before-and-after" title="Permanent link">¶</a></h2>
 <p>Put a recent good output beside a worse one on similar work. Name the difference in terms the user cares about: missed requirements, tangled code, lost progress, or extra rework. A judgment such as “this is less maintainable code” can be useful when the reviewer points to the relevant changes; no numerical score is required.</p>
 <p>Use several nearby examples when they are easy to obtain, including work that stayed good. Check whether the task became harder or the user changed what they wanted before calling the difference a performance drop.</p>
-<h2 id="check-whether-verification-served-the-task">Check whether verification served the task<a class="headerlink" href="#check-whether-verification-served-the-task" title="Permanent link">&para;</a></h2>
+<h2 id="check-whether-verification-served-the-task">Check whether verification served the task<a class="headerlink" href="#check-whether-verification-served-the-task" title="Permanent link">¶</a></h2>
 <p>Read the request and follow-up messages beside the tests or checks. Ask what decision each disputed check helped the user make, what failure it could catch, and who was supposed to do the remaining review. This can reveal excessive verification even on a first run, without a time budget or stop rule.</p>
 <p>A prototype for customer feedback and a production release need different evidence. If the user’s intent is unclear, discuss it instead of silently substituting either “always test everything” or “always move fast.”</p>
-<h2 id="sample-compactions">Sample compactions<a class="headerlink" href="#sample-compactions" title="Permanent link">&para;</a></h2>
+<h2 id="sample-compactions">Sample compactions<a class="headerlink" href="#sample-compactions" title="Permanent link">¶</a></h2>
 <p>Use the harness’s saved conversation and compaction summary to compare what was kept with what the next work needed. If those records do not exist, agree with the user on a private capture hook and retention period. A saved full conversation helps investigation; it does not prove the working agent retained its contents.</p>
 <p>An occasional async job or maintainer review can inspect samples after normal work. Agree on a check-in date and who will return to the evidence. If no relevant compactions occurred by then, extend the observation period explicitly; do not turn missing opportunities into a successful result.</p>
-<h2 id="follow-a-claim-to-its-evidence">Follow a claim to its evidence<a class="headerlink" href="#follow-a-claim-to-its-evidence" title="Permanent link">&para;</a></h2>
+<h2 id="follow-a-claim-to-its-evidence">Follow a claim to its evidence<a class="headerlink" href="#follow-a-claim-to-its-evidence" title="Permanent link">¶</a></h2>
 <p>For a completion or verification claim, inspect the artifact or check at the claimed version and destination. Record what was actually completed or tested and what the final message says. A test that calls an internal function may not establish that the user’s input reaches it.</p>
 <p>This comparison separates unfinished work, an unsupported testing claim, and a reporting mistake. It can suggest a diagnosis, but does not by itself establish the mechanism that caused the discrepancy.</p>
-<h2 id="review-whether-a-change-helped">Review whether a change helped<a class="headerlink" href="#review-whether-a-change-helped" title="Permanent link">&para;</a></h2>
+<h2 id="review-whether-a-change-helped">Review whether a change helped<a class="headerlink" href="#review-whether-a-change-helped" title="Permanent link">¶</a></h2>
 <p>Before changing the system, record an expected effect, something that should remain intact, and an outcome that would make you reconsider. Agree on a review date or an amount of normal work followed by a dated check-in, and arrange a reminder or job with the user’s agreement.</p>
 <p>At review, keep helpful outcomes, failures, and cases where the behavior had no opportunity to occur. Distinguish a change that was never active from one that was active and did not help. Do not infer a population rate from a collection of complaints, or claim a cause is proven merely because one repair helped.</p></article>
   
@@ -367,10 +367,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/observation-methods.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

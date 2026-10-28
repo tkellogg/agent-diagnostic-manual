@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,43 +326,40 @@
   
   <article data-pagefind-body>
 
-<h1 id="unrequested-changes">Unrequested changes<a class="headerlink" href="#unrequested-changes" title="Permanent link">&para;</a></h1>
+<h1 id="unrequested-changes">Unrequested changes<a class="headerlink" href="#unrequested-changes" title="Permanent link">¶</a></h1>
 <p>An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/scope-expansion"></a></p>
-<h3 id="scope-expansion">Scope expansion<a class="headerlink" href="#scope-expansion" title="Permanent link">&para;</a></h3>
+<h3 id="scope-expansion">Scope expansion<a class="headerlink" href="#scope-expansion" title="Permanent link">¶</a></h3>
 <p>The agent makes a material change to an artifact or system state that is outside the requested or otherwise authorized scope and is not supported as necessary to complete the task. This includes reverting unrelated work, unsolicited rewrites, and additional infrastructure.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Compare the user’s request with the actual diff or audit log. Separate unrelated changes from edits needed to make the requested behavior work.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/necessary-dependency"></a></p>
-<h3 id="necessary-dependency">Necessary dependency<a class="headerlink" href="#necessary-dependency" title="Permanent link">&para;</a></h3>
+<h3 id="necessary-dependency">Necessary dependency<a class="headerlink" href="#necessary-dependency" title="Permanent link">¶</a></h3>
 <p>The requested behavior requires a supporting schema, interface, or configuration change within the granted authority. This is the necessary dependency excluded by <a href="unrequested-changes.html#observations/scope-expansion">scope expansion</a>.</p>
 <p><a id="benign-lookalikes/authorized-refactor"></a></p>
-<h3 id="authorized-refactor">Authorized refactor<a class="headerlink" href="#authorized-refactor" title="Permanent link">&para;</a></h3>
+<h3 id="authorized-refactor">Authorized refactor<a class="headerlink" href="#authorized-refactor" title="Permanent link">¶</a></h3>
 <p>The user grants refactoring or cleanup scope that includes the affected components. The change is not outside the authorized boundary in <a href="unrequested-changes.html#observations/scope-expansion">scope expansion</a>.</p>
 <p><a id="benign-lookalikes/display-noise"></a></p>
-<h3 id="display-noise">Display noise<a class="headerlink" href="#display-noise" title="Permanent link">&para;</a></h3>
+<h3 id="display-noise">Display noise<a class="headerlink" href="#display-noise" title="Permanent link">¶</a></h3>
 <p>A viewer renders an apparent rewrite, but the underlying artifact and behavior are unchanged. There is no material change under <a href="unrequested-changes.html#observations/scope-expansion">scope expansion</a>; actual unsolicited formatting changes still require a scope assessment.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the episode identifier and date, task type, model and harness versions, request and standing authority, baseline revision, and before-and-after artifacts. Preserve semantic diffs, commands and execution times, claimed dependencies, concurrent-edit ownership, and whether each change was proposed or applied. Include total and out-of-scope files or resources changed, lost work, rollback success, recovery time, downstream failures, and the final task outcome.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/unrelated-reset"></a></p>
-<h3 id="unrelated-reset">Unrelated reset<a class="headerlink" href="#unrelated-reset" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="unrelated-reset">Unrelated reset<a class="headerlink" href="#unrelated-reset" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>While fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.</p>
 <p><a id="examples/concurrent-edits"></a></p>
-<h3 id="concurrent-edits">Concurrent edits<a class="headerlink" href="#concurrent-edits" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="concurrent-edits">Concurrent edits<a class="headerlink" href="#concurrent-edits" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p><a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.</p>
 <p><a id="examples/required-interface"></a></p>
-<h3 id="required-interface">Required interface<a class="headerlink" href="#required-interface" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="required-interface">Required interface<a class="headerlink" href="#required-interface" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>An authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -385,10 +382,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S009" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

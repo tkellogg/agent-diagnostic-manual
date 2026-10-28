@@ -1,5 +1,5 @@
 {
-  "schema_version": 6,
+  "schema_version": 7,
   "xml_namespace": "urn:adm:1",
   "documents": [
     {
@@ -11,7 +11,7 @@
       "evidence": "unvalidated",
       "updated": "2026-10-28",
       "unit": "configured-agent-system",
-      "title": "Compaction loses important information",
+      "title": "Incorrect compaction",
       "source": "entries/diagnoses/context-handoff-loss.xml",
       "url": "diagnoses/context-handoff-loss.html",
       "document": {
@@ -23,7 +23,7 @@
           "evidence": "unvalidated",
           "updated": "2026-10-28",
           "unit": "configured-agent-system",
-          "title": "Compaction loses important information"
+          "title": "Incorrect compaction"
         },
         "content": [
           {
@@ -1414,7 +1414,7 @@
     {
       "id": "I001",
       "kind": "intervention",
-      "summary": "Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.",
+      "summary": "Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.",
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
@@ -1437,7 +1437,7 @@
             "name": "summary",
             "attributes": {},
             "content": [
-              "Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user."
+              "Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work."
             ]
           },
           {
@@ -1448,7 +1448,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Improve what the compactor keeps and discards so critical information is not forgotten. Keep what unfinished work is likely to need; remove irrelevant history so the summary still saves space."
+                  "Improve what the compactor keeps so critical information is not forgotten. A completed action may still carry a decision, a failed approach, or a permission limit that future work needs. Choose what to preserve by its likely use, not just by whether the action is finished."
                 ]
               }
             ]
@@ -1475,7 +1475,7 @@
                           "target": "D001"
                         },
                         "content": [
-                          "compaction loss"
+                          "incorrect compaction"
                         ]
                       },
                       ". ",
@@ -1517,14 +1517,14 @@
                 "name": "precondition",
                 "attributes": {
                   "id": "editable-transition",
-                  "title": "Access to compaction"
+                  "title": "A supported way to influence compaction"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "You can edit the compaction prompt or algorithm and inspect its summaries. If compaction is controlled by a provider, identify the configurable part before promising a repair."
+                      "The harness exposes compaction instructions, a hook, or an implementation you control. Identify which path the installed version actually uses. A general instructions file is not automatically a compaction prompt. If the provider hides the retained state, use subsequent behavior to assess the change and record that you cannot inspect the summary directly."
                     ]
                   }
                 ]
@@ -1539,14 +1539,14 @@
                 "name": "step",
                 "attributes": {
                   "id": "locate-boundary",
-                  "title": "Inspect the compaction prompt"
+                  "title": "Find the control that applies"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Find the compaction prompt or algorithm and save its current version. Compare a recent summary with the conversation before it; identify useful facts it lost and irrelevant details it retained."
+                      "Use the harness notes below to locate the relevant setting or hook, then save its current version. Compare the affected conversation with the summary or first subsequent mistake. Identify the missing information and why later work needed it."
                     ]
                   }
                 ]
@@ -1555,14 +1555,14 @@
                 "name": "step",
                 "attributes": {
                   "id": "preserve-evidence",
-                  "title": "Save before-and-after conversations"
+                  "title": "Save the conversation before compaction"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Check whether the harness already saves the conversation before compaction and the resulting summary. If it does not, add a pre-compaction hook to save them privately; agree with the user where they go, who can access them, and how long to keep them."
+                      "Reuse existing session records. If an upcoming compaction would lose needed evidence, capture it with a supported hook or export. Keep an unchanged copy for comparison and save the resulting summary when it is readable. Agree with the user where these private records go and how long to keep them."
                     ]
                   }
                 ]
@@ -1571,14 +1571,37 @@
                 "name": "step",
                 "attributes": {
                   "id": "create-record",
-                  "title": "Change what compaction keeps"
+                  "title": "Change what compaction preserves"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Edit the compaction prompt or algorithm to keep unfinished goals, decisions, current constraints, permission limits, and findings needed for the next likely steps. Tell it to discard completed detours and repetitive output. Include one short example of an important fact the old version lost."
+                      "Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately or hard-code the answer from one incident into the prompt."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "compare-snapshot",
+                  "title": "Compare on a frozen conversation when practical"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "If the harness can fork or replay the saved conversation from before compaction, give the original and revised compactor the same input. Start each candidate from that unchanged input, not from the previous candidate's summary. Keep the model, settings, and relevant instruction files fixed apart from the intended change."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Compare whether the needed facts and their qualifications survive, what else is lost, and how much space is used. A small number of focused revisions can be faster than waiting for new incidents. This holds the input steady; it does not make model output deterministic. Stop when further trials are unlikely to change the decision."
                     ]
                   }
                 ]
@@ -1587,14 +1610,14 @@
                 "name": "step",
                 "attributes": {
                   "id": "confirm-delivery",
-                  "title": "Check what survived"
+                  "title": "Check what survived and deploy the change"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Inspect the next summary and, where accessible, the context used after compaction. Confirm the important facts survived in usable form; a saved full transcript alone does not show what the agent retained."
+                      "Inspect the retained state where possible. If it is opaque, a short continuation with external actions disabled can test whether the agent still follows the relevant constraint; it cannot prove which facts are encoded. A readable summary that looks right is also not enough by itself. Confirm the selected change reaches future sessions."
                     ]
                   }
                 ]
@@ -1610,7 +1633,7 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Set up an occasional background review of saved before/after conversations and subsequent work. Reuse an existing job or add an async hook that samples compactions; do not add another model call to every working turn."
+                      "Review occasional saved compactions and the work that followed them, using an existing background job where practical. Check a few different kinds of task so a fix for one conversation does not silently damage another. Avoid extra checking on every working turn."
                     ]
                   }
                 ]
@@ -1627,6 +1650,490 @@
                     "attributes": {},
                     "content": [
                       "Agree with the user on a check-in date, who will review the samples, and a reminder or scheduled job. For example, review in three workdays if normal use should produce several compactions; if too few occur, report that and choose another date."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "harness-notes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "harness",
+                "attributes": {
+                  "id": "claude-code",
+                  "title": "Claude Code"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Customize:"
+                        ]
+                      },
+                      " Claude Code documents a ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "Compact Instructions"
+                        ]
+                      },
+                      " section in ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "CLAUDE.md"
+                        ]
+                      },
+                      " for persistent compaction guidance. Use ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "/compact"
+                        ]
+                      },
+                      " with a focus instruction for a single comparison. This is the documented route; there is no need to invent a separate compaction ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "AGENTS.md"
+                        ]
+                      },
+                      ". See ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://code.claude.com/docs/en/how-claude-code-works#when-context-fills-up"
+                        },
+                        "content": [
+                          "context management"
+                        ]
+                      },
+                      "."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Capture:"
+                        ]
+                      },
+                      " The ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://code.claude.com/docs/en/hooks#precompact"
+                        },
+                        "content": [
+                          "PreCompact hook"
+                        ]
+                      },
+                      " receives ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "transcript_path"
+                        ]
+                      },
+                      "; ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://code.claude.com/docs/en/hooks#postcompact"
+                        },
+                        "content": [
+                          "PostCompact"
+                        ]
+                      },
+                      " receives ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "compact_summary"
+                        ]
+                      },
+                      ". Use these to save the before-and-after evidence. PostCompact cannot rewrite the result; logging a summary and changing compaction are separate operations. Check hook support in the installed version."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Compare:"
+                        ]
+                      },
+                      " Preserve a session from before compaction, then use ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "claude --resume SESSION_ID --fork-session"
+                        ]
+                      },
+                      " for each candidate and run ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "/compact"
+                        ]
+                      },
+                      " with the candidate focus. The ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://code.claude.com/docs/en/cli-reference"
+                        },
+                        "content": [
+                          "fork flag"
+                        ]
+                      },
+                      " gives the continuation a new session ID. Forking an already compacted session does not recreate its original input. Test the final persistent CLAUDE.md change as well as any temporary focus instruction."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "harness",
+                "attributes": {
+                  "id": "codex",
+                  "title": "Codex CLI"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Customize:"
+                        ]
+                      },
+                      " The ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://learn.chatgpt.com/docs/config-file/config-reference"
+                        },
+                        "content": [
+                          "configuration reference"
+                        ]
+                      },
+                      " documents ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "compact_prompt"
+                        ]
+                      },
+                      " for an inline override and ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "experimental_compact_prompt_file"
+                        ]
+                      },
+                      " for a file-based override. These are compaction-specific settings; ordinary ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "AGENTS.md"
+                        ]
+                      },
+                      " guidance should not be treated as a replacement prompt. Check that the installed version and compaction path honor the override before assessing its effect."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Compare:"
+                        ]
+                      },
+                      " Keep an untouched session from before compaction. Use ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "codex fork SESSION_ID"
+                        ]
+                      },
+                      " for a separate candidate session, then ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "/compact"
+                        ]
+                      },
+                      ". The ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://learn.chatgpt.com/docs/developer-commands?surface=cli"
+                        },
+                        "content": [
+                          "command reference"
+                        ]
+                      },
+                      " also documents ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "/export"
+                        ]
+                      },
+                      " for a readable conversation record. A Markdown export is evidence for review, not a promised exact replay format. Use saved sessions for forks and confirm the effective configuration in each one."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Limit:"
+                        ]
+                      },
+                      " Provider-side compaction can return an opaque state rather than a readable summary. Do not assume a local prompt setting controls every such path. When the state cannot be inspected, compare a constrained continuation and record that limitation. These notes cover the CLI; verify the controls separately for hosted Codex surfaces."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "harness",
+                "attributes": {
+                  "id": "opencode",
+                  "title": "OpenCode"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Customize:"
+                        ]
+                      },
+                      " In the ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://opencode.ai/docs/plugins/#compaction-hooks"
+                        },
+                        "content": [
+                          "V1 plugin API"
+                        ]
+                      },
+                      ", ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "experimental.session.compacting"
+                        ]
+                      },
+                      " can append guidance through ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "output.context"
+                        ]
+                      },
+                      " or replace the prompt through ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "output.prompt"
+                        ]
+                      },
+                      ". A replacement ignores the context array, so preserve the useful parts of the default prompt deliberately. ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://opencode.ai/docs/rules/"
+                        },
+                        "content": [
+                          "AGENTS.md"
+                        ]
+                      },
+                      " supplies general project instructions; the hook is the explicit compaction control."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Compare:"
+                        ]
+                      },
+                      " V1 documents ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "opencode --session SESSION_ID --fork"
+                        ]
+                      },
+                      ", ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "opencode export SESSION_ID"
+                        ]
+                      },
+                      ", and ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "/compact"
+                        ]
+                      },
+                      ". Fork the same saved session before each candidate compaction and keep the export privately. See the ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://opencode.ai/docs/cli/"
+                        },
+                        "content": [
+                          "CLI"
+                        ]
+                      },
+                      " and ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://opencode.ai/docs/tui/#compact"
+                        },
+                        "content": [
+                          "TUI"
+                        ]
+                      },
+                      " references."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Version matters:"
+                        ]
+                      },
+                      " The ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://dev.opencode.ai/v2/docs/build/plugins/migrate-v1"
+                        },
+                        "content": [
+                          "V2 migration guide"
+                        ]
+                      },
+                      " replaces the V1 hook with ",
+                      {
+                        "name": "code",
+                        "attributes": {},
+                        "content": [
+                          "ctx.session.hook(\"compaction\", ...)"
+                        ]
+                      },
+                      "; V1 plugin implementations do not run unchanged in V2. Use the API for the version deployed in your system."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "harness",
+                "attributes": {
+                  "id": "custom",
+                  "title": "Custom harness"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Customize and compare:"
+                        ]
+                      },
+                      " If you own the summarizer, save its exact input, system instructions, model settings, and output format. Run only that summarization step against the frozen input while changing the targeted instruction. Keep external tools out of the comparison. Then test the chosen change on a separate incident and in ordinary future work."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Opaque compaction:"
+                        ]
+                      },
+                      " OpenAI's ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://developers.openai.com/api/docs/guides/compaction"
+                        },
+                        "content": [
+                          "Responses compaction API"
+                        ]
+                      },
+                      " returns a compacted window containing an encrypted item. Keep the returned window intact for subsequent requests; it is not a text summary to edit or inspect. A custom summarizer experiment does not establish how that provider-managed path behaves."
                     ]
                   }
                 ]
@@ -1662,14 +2169,21 @@
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "At the agreed check-in, compare saved summaries with the next work. Did requirements survive? Did the agent repeat less work? Did the summary still omit irrelevant material?"
+                      "Use a frozen-input comparison, when available, to reject poor candidates quickly. Keep an untouched incident for a separate check. A better summary on the example used to tune the prompt is preliminary evidence, not proof of a lasting repair."
                     ]
                   },
                   {
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "If the facts survive but mistakes continue, reconsider the explanation. If summaries were not captured or no relevant compaction occurred, say that the review is inconclusive."
+                      "At the agreed check-in, compare retained information and subsequent work. Did requirements and permission limits survive? Did the agent repeat less work? Was enough context space still available?"
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "If the facts survive but mistakes continue, reconsider the explanation. If evidence was not captured or no relevant compaction occurred, say that the review is inconclusive."
                     ]
                   }
                 ]
@@ -1688,14 +2202,21 @@
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits."
+                      "Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits. Removing completed work can erase why an approach failed."
                     ]
                   },
                   {
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model or task change can make comparisons harder."
+                      "Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model, harness, or task change can make comparisons harder."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Forking a conversation does not necessarily isolate its files, credentials, or external services. A continuation test must not repeat the original task's external actions. Prompt revisions can overfit a single transcript."
                     ]
                   }
                 ]
@@ -1714,7 +2235,7 @@
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "Restore the previous compaction prompt or algorithm if the change causes stale decisions, lost permission limits, or excessive context use."
+                      "Restore the previous compaction instructions or implementation if the change causes stale decisions, lost permission limits, or excessive context use."
                     ]
                   },
                   {
@@ -2734,7 +3255,7 @@
       "kind": "symptom",
       "summary": "An agent retrieves already-delivered information again without a new content, freshness, or verification need.",
       "version": "1",
-      "status": "draft",
+      "status": "reviewed",
       "evidence": "unvalidated",
       "updated": "2026-10-28",
       "title": "Repeated retrieval",
@@ -2745,7 +3266,7 @@
         "attributes": {
           "id": "S001",
           "version": "1",
-          "status": "draft",
+          "status": "reviewed",
           "evidence": "unvalidated",
           "updated": "2026-10-28",
           "title": "Repeated retrieval"
@@ -2967,7 +3488,7 @@
       "kind": "symptom",
       "summary": "An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.",
       "version": "1",
-      "status": "draft",
+      "status": "reviewed",
       "evidence": "unvalidated",
       "updated": "2026-10-28",
       "title": "Doom looping",
@@ -2978,7 +3499,7 @@
         "attributes": {
           "id": "S002",
           "version": "1",
-          "status": "draft",
+          "status": "reviewed",
           "evidence": "unvalidated",
           "updated": "2026-10-28",
           "title": "Doom looping"
@@ -5856,7 +6377,7 @@
       "kind": "symptom",
       "summary": "The agent\u2019s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.",
       "version": "1",
-      "status": "draft",
+      "status": "reviewed",
       "evidence": "unvalidated",
       "updated": "2026-10-28",
       "title": "Opaque jargon (neuralese)",
@@ -5867,7 +6388,7 @@
         "attributes": {
           "id": "S015",
           "version": "1",
-          "status": "draft",
+          "status": "reviewed",
           "evidence": "unvalidated",
           "updated": "2026-10-28",
           "title": "Opaque jargon (neuralese)"
@@ -6013,7 +6534,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader\u2019s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding. Separate a dislike of the style from difficulty extracting its meaning; record model and configuration details without assuming they caused it."
+                  "Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader\u2019s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding."
                 ]
               }
             ]
@@ -6854,6 +7375,12 @@
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#procedure/create-record"
     },
+    "I001#procedure/compare-snapshot": {
+      "document": "I001",
+      "kind": "step",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#procedure/compare-snapshot"
+    },
     "I001#procedure/confirm-delivery": {
       "document": "I001",
       "kind": "step",
@@ -6871,6 +7398,36 @@
       "kind": "step",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html#procedure/agree-followup"
+    },
+    "I001#harness-notes": {
+      "document": "I001",
+      "kind": "harness-notes",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#harness-notes"
+    },
+    "I001#harness-notes/claude-code": {
+      "document": "I001",
+      "kind": "harness",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#harness-notes/claude-code"
+    },
+    "I001#harness-notes/codex": {
+      "document": "I001",
+      "kind": "harness",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#harness-notes/codex"
+    },
+    "I001#harness-notes/opencode": {
+      "document": "I001",
+      "kind": "harness",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#harness-notes/opencode"
+    },
+    "I001#harness-notes/custom": {
+      "document": "I001",
+      "kind": "harness",
+      "source": "entries/interventions/preserve-task-relevant-evidence.xml",
+      "url": "interventions/preserve-task-relevant-evidence.html#harness-notes/custom"
     },
     "I001#evaluation": {
       "document": "I001",

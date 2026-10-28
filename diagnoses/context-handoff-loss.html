@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/diagnoses/context-handoff-loss.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>D001 — Compaction loses important information - Agent Diagnostic Manual</title>
+        <title>D001 — Incorrect compaction - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="context-handoff-loss.html" class="dropdown-item active" aria-current="page">D001 — Compaction loses important information</a>
+    <a href="context-handoff-loss.html" class="dropdown-item active" aria-current="page">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -269,7 +269,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#compaction-loses-important-information" class="nav-link">Compaction loses important information</a>
+            <li class="nav-item" data-bs-level="1"><a href="#incorrect-compaction" class="nav-link">Incorrect compaction</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#how-this-could-happen" class="nav-link">How this could happen</a>
               <ul class="nav flex-column">
@@ -330,25 +330,25 @@
   
   <article data-pagefind-body>
 
-<h1 id="compaction-loses-important-information">Compaction loses important information<a class="headerlink" href="#compaction-loses-important-information" title="Permanent link">&para;</a></h1>
+<h1 id="incorrect-compaction">Incorrect compaction<a class="headerlink" href="#incorrect-compaction" title="Permanent link">¶</a></h1>
 <p>The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.</p>
 <p><a id="definition"></a></p>
-<h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">&para;</a></h2>
+<h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">¶</a></h2>
 <p>Compaction makes room by forgetting most of a conversation. It has to predict what will matter next: keep the decisions, constraints, permissions, and findings needed for unfinished work, and discard irrelevant history. This diagnosis proposes that the compactor is making that choice badly.</p>
 <p>For example, it may preserve a long account of completed edits but drop the user’s instruction to leave a particular file alone. The agent then resumes without that restriction. The same visible mistake has a different explanation if the restriction survived in the context.</p>
 <p><a id="relations"></a></p>
-<h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></li>
-<li><a href="../symptoms/lost-task-constraints.html">S006 — Lost task constraints</a></li>
-<li><a href="../symptoms/repeated-reauthorization.html">S008 — Repeated reauthorization</a></li>
+<h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">¶</a></h2>
+<ul class="adm-entry-refs">
+<li><a href="../symptoms/repeated-retrieval.html" class="adm-entry-ref"><span class="adm-ref-id">S001</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Repeated retrieval</span></a></li>
+<li><a href="../symptoms/lost-task-constraints.html" class="adm-entry-ref"><span class="adm-ref-id">S006</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Lost task constraints</span></a></li>
+<li><a href="../symptoms/repeated-reauthorization.html" class="adm-entry-ref"><span class="adm-ref-id">S008</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Repeated reauthorization</span></a></li>
 </ul>
 <p><a id="relations/I001"></a>
 <a id="relations/I001/when"></a></p>
-<h3 id="intervention-i001-fix-compaction-so-important-information-survives">Intervention: <a href="../interventions/preserve-task-relevant-evidence.html">I001 — Fix compaction so important information survives</a><a class="headerlink" href="#intervention-i001-fix-compaction-so-important-information-survives" title="Permanent link">&para;</a></h3>
+<h3 id="intervention-i001-fix-compaction-so-important-information-survives">Intervention: <a href="../interventions/preserve-task-relevant-evidence.html" class="adm-entry-ref"><span class="adm-ref-id">I001</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Fix compaction so important information survives</span></a><a class="headerlink" href="#intervention-i001-fix-compaction-so-important-information-survives" title="Permanent link">¶</a></h3>
 <p><strong>Use this when:</strong> A compaction summary has lost important information, and you can change the compaction prompt or algorithm.</p>
 <p><a id="relations/I001/predictions"></a></p>
-<h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
+<h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">¶</a></h4>
 <ul>
 <li>
 <p><a id="relations/I001/predictions/expected-improvement"></a><strong>Expected improvement:</strong> After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.</p>
@@ -364,45 +364,45 @@
 </li>
 </ul>
 <p><a id="criteria"></a></p>
-<h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
+<h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">¶</a></h2>
 <p><a id="criteria/prior-state"></a></p>
-<h3 id="the-information-mattered">1. The information mattered<a class="headerlink" href="#the-information-mattered" title="Permanent link">&para;</a></h3>
+<h3 id="the-information-mattered">1. The information mattered<a class="headerlink" href="#the-information-mattered" title="Permanent link">¶</a></h3>
 <p>Identify a fact, requirement, or permission that was in the conversation before compaction and was needed afterward.</p>
 <p><a id="criteria/delivery-loss"></a></p>
-<h3 id="compaction-dropped-it">2. Compaction dropped it<a class="headerlink" href="#compaction-dropped-it" title="Permanent link">&para;</a></h3>
+<h3 id="compaction-dropped-it">2. Compaction dropped it<a class="headerlink" href="#compaction-dropped-it" title="Permanent link">¶</a></h3>
 <p>The summary or the model’s context after compaction omits or changes that information. If you cannot inspect either, keep information loss as a hypothesis.</p>
 <p><a id="criteria/linked-disruption"></a></p>
-<h3 id="the-omission-explains-the-mistake">3. The omission explains the mistake<a class="headerlink" href="#the-omission-explains-the-mistake" title="Permanent link">&para;</a></h3>
+<h3 id="the-omission-explains-the-mistake">3. The omission explains the mistake<a class="headerlink" href="#the-omission-explains-the-mistake" title="Permanent link">¶</a></h3>
 <p>The next work shows <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>, breaks the missing requirement, or asks for the lost permission. Show which missing fact would have helped; timing alone is not enough.</p>
-<ul>
-<li><a href="../symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></li>
-<li><a href="../symptoms/lost-task-constraints.html">S006 — Lost task constraints</a></li>
-<li><a href="../symptoms/repeated-reauthorization.html">S008 — Repeated reauthorization</a></li>
+<ul class="adm-entry-refs">
+<li><a href="../symptoms/repeated-retrieval.html" class="adm-entry-ref"><span class="adm-ref-id">S001</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Repeated retrieval</span></a></li>
+<li><a href="../symptoms/lost-task-constraints.html" class="adm-entry-ref"><span class="adm-ref-id">S006</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Lost task constraints</span></a></li>
+<li><a href="../symptoms/repeated-reauthorization.html" class="adm-entry-ref"><span class="adm-ref-id">S008</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Repeated reauthorization</span></a></li>
 </ul>
 <p><a id="exclusions"></a></p>
-<h2 id="when-this-explanation-may-not-fit">When this explanation may not fit<a class="headerlink" href="#when-this-explanation-may-not-fit" title="Permanent link">&para;</a></h2>
+<h2 id="when-this-explanation-may-not-fit">When this explanation may not fit<a class="headerlink" href="#when-this-explanation-may-not-fit" title="Permanent link">¶</a></h2>
 <p><a id="exclusions/expired-state"></a></p>
-<h3 id="information-no-longer-needed">Information no longer needed<a class="headerlink" href="#information-no-longer-needed" title="Permanent link">&para;</a></h3>
+<h3 id="information-no-longer-needed">Information no longer needed<a class="headerlink" href="#information-no-longer-needed" title="Permanent link">¶</a></h3>
 <p>Forgetting is useful when a fact is obsolete, a task is finished, or permission has expired. Keeping everything would defeat compaction.</p>
 <p><a id="exclusions/equivalent-context"></a></p>
-<h3 id="the-meaning-survived">The meaning survived<a class="headerlink" href="#the-meaning-survived" title="Permanent link">&para;</a></h3>
+<h3 id="the-meaning-survived">The meaning survived<a class="headerlink" href="#the-meaning-survived" title="Permanent link">¶</a></h3>
 <p>A shorter wording may preserve the same meaning. If the relevant information is still clear, there may be a problem with following it, but it was not lost during compaction.</p>
 <p><a id="differential"></a></p>
-<h2 id="other-explanations-to-consider">Other explanations to consider<a class="headerlink" href="#other-explanations-to-consider" title="Permanent link">&para;</a></h2>
+<h2 id="other-explanations-to-consider">Other explanations to consider<a class="headerlink" href="#other-explanations-to-consider" title="Permanent link">¶</a></h2>
 <p><a id="differential/initial-delivery"></a></p>
-<h3 id="the-agent-never-had-the-information">The agent never had the information<a class="headerlink" href="#the-agent-never-had-the-information" title="Permanent link">&para;</a></h3>
+<h3 id="the-agent-never-had-the-information">The agent never had the information<a class="headerlink" href="#the-agent-never-had-the-information" title="Permanent link">¶</a></h3>
 <p><a id="differential/initial-delivery/discriminator"></a>
 Check the conversation before compaction. A fact in an unread file was never available to summarize; improve how the agent finds or records it.</p>
 <p><a id="differential/policy-conflict"></a></p>
-<h3 id="another-instruction-demands-the-repeated-work">Another instruction demands the repeated work<a class="headerlink" href="#another-instruction-demands-the-repeated-work" title="Permanent link">&para;</a></h3>
+<h3 id="another-instruction-demands-the-repeated-work">Another instruction demands the repeated work<a class="headerlink" href="#another-instruction-demands-the-repeated-work" title="Permanent link">¶</a></h3>
 <p><a id="differential/policy-conflict/discriminator"></a>
 If the summary retains a passed test but a standing rule requires another run anyway, changing compaction will not remove that rule. Consider <a href="verification-policy-overgeneralization.html">overbroad verification instructions</a>.</p>
 <p><a id="differential/visible-state"></a></p>
-<h3 id="the-agent-has-the-information-but-does-not-use-it">The agent has the information but does not use it<a class="headerlink" href="#the-agent-has-the-information-but-does-not-use-it" title="Permanent link">&para;</a></h3>
+<h3 id="the-agent-has-the-information-but-does-not-use-it">The agent has the information but does not use it<a class="headerlink" href="#the-agent-has-the-information-but-does-not-use-it" title="Permanent link">¶</a></h3>
 <p><a id="differential/visible-state/discriminator"></a>
 If the needed fact is clear in the current context, look for conflicting instructions or a failure to follow it. Rewriting the summary may not help.</p>
 <p><a id="investigation"></a></p>
-<h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">&para;</a></h2>
+<h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">¶</a></h2>
 <p>Compare the conversation just before compaction with its summary and the next mistake. Look for something the compactor discarded that the unfinished task was likely to need, and for less useful material it kept instead.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -425,10 +425,11 @@ If the needed fact is clear in the current context, look for conflicting instruc
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="D001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

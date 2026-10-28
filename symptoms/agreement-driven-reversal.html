@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,43 +326,40 @@
   
   <article data-pagefind-body>
 
-<h1 id="agreement-driven-reversal">Agreement-driven reversal<a class="headerlink" href="#agreement-driven-reversal" title="Permanent link">&para;</a></h1>
+<h1 id="agreement-driven-reversal">Agreement-driven reversal<a class="headerlink" href="#agreement-driven-reversal" title="Permanent link">¶</a></h1>
 <p>An agent reverses a substantive conclusion toward a user’s assertion without establishing evidence or reasoning that supports the reversal.</p>
 <p><a id="observations"></a></p>
-<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
 <p><a id="observations/unsupported-reversal"></a></p>
-<h3 id="unsupported-reversal">Unsupported reversal<a class="headerlink" href="#unsupported-reversal" title="Permanent link">&para;</a></h3>
+<h3 id="unsupported-reversal">Unsupported reversal<a class="headerlink" href="#unsupported-reversal" title="Permanent link">¶</a></h3>
 <p>After a user challenges a substantive conclusion, the agent adopts the user’s opposing claim or reverses related work while providing no adequate new evidence, applicable premise, or reasoning to support that change. The earlier and later positions concern the same factual or technical question.</p>
 <p><a id="how-to-recognize-it"></a></p>
-<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
 <p>Read the initial answer, the user’s challenge, and the reversal together. Look for new evidence or changed requirements that justify the new position.</p>
 <p><a id="benign-lookalikes"></a></p>
-<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
 <p><a id="benign-lookalikes/valid-correction"></a></p>
-<h3 id="valid-correction">Valid correction<a class="headerlink" href="#valid-correction" title="Permanent link">&para;</a></h3>
+<h3 id="valid-correction">Valid correction<a class="headerlink" href="#valid-correction" title="Permanent link">¶</a></h3>
 <p>The user supplies a sound counterexample or exposes an error, and the agent explains the resulting revision. That supplies the supporting evidence or reasoning absent from <a href="agreement-driven-reversal.html#observations/unsupported-reversal">unsupported reversal</a>.</p>
 <p><a id="benign-lookalikes/changed-preference"></a></p>
-<h3 id="changed-preference">Changed preference<a class="headerlink" href="#changed-preference" title="Permanent link">&para;</a></h3>
+<h3 id="changed-preference">Changed preference<a class="headerlink" href="#changed-preference" title="Permanent link">¶</a></h3>
 <p>The user changes a design preference or requirement that determines the desired outcome. The agent is following a new premise, not reversing the same factual or technical conclusion without support under <a href="agreement-driven-reversal.html#observations/unsupported-reversal">unsupported reversal</a>.</p>
 <p><a id="benign-lookalikes/explicit-revert"></a></p>
-<h3 id="explicit-revert">Explicit revert<a class="headerlink" href="#explicit-revert" title="Permanent link">&para;</a></h3>
+<h3 id="explicit-revert">Explicit revert<a class="headerlink" href="#explicit-revert" title="Permanent link">¶</a></h3>
 <p>The user requests a revert and the agent carries it out without claiming the original implementation was technically wrong. There is no opposing factual conclusion adopted as in <a href="agreement-driven-reversal.html#observations/unsupported-reversal">unsupported reversal</a>.</p>
 <p><a id="what-to-record"></a></p>
-<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
 <p>Record the episode identifier and date, task type, model and harness versions, original and revised conclusions, exact user challenge, and supporting evidence or reasoning for each position. Preserve intervening tool use, code changes, and any independent counterexample or reference. Include substantive challenges reviewed, unsupported reversals, unnecessary edits, changed correctness, review or rollback time, and user-reported trust effects. Keep compliance with preferences or action requests separate from factual reversals.</p>
 <p><a id="examples"></a></p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><a id="examples/unsupported-flip"></a></p>
-<h3 id="unsupported-flip">Unsupported flip<a class="headerlink" href="#unsupported-flip" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="unsupported-flip">Unsupported flip<a class="headerlink" href="#unsupported-flip" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>An agent checks that a function returns a new list without mutating its input. After an unsupported user assertion that it mutates the input, the agent reverses that conclusion and adds a defensive copy. Comparing the transcript, original test, and diff exposes the unsupported change: one unnecessary copy per call and twenty minutes of review and rollback, with no correctness benefit.</p>
 <p><a id="examples/developer-study"></a></p>
-<h3 id="developer-study">Developer study<a class="headerlink" href="#developer-study" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Reported example</span></p>
+<h3 id="developer-study">Developer study<a class="headerlink" href="#developer-study" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
 <p>Reported research example: in <a href="https://arxiv.org/html/2506.12347v3">Why AI Agents Still Need You</a>, participant P15 describes the agent reverting work after being told its change was wrong. The study connects contradictory explanations across the conversation with reduced developer confidence; P16 likewise reports that the agent was easy to mislead. These participant accounts make the trust impact tangible but do not quantify lost time or establish that every reverted change was originally correct.</p>
 <p><a id="examples/real-counterexample"></a></p>
-<h3 id="real-counterexample">Real counterexample<a class="headerlink" href="#real-counterexample" title="Permanent link">&para;</a></h3>
-<p><span class="adm-example-kind">Synthetic example</span></p>
+<h3 id="real-counterexample">Real counterexample<a class="headerlink" href="#real-counterexample" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
 <p>The user supplies one failing input that contradicts the agent’s conclusion. The agent reproduces it, identifies the mistaken assumption, and changes the implementation so that the input passes. The test result explains the reversal and shows one defect corrected.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -385,10 +382,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S013" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

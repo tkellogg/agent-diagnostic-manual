@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Repeated retrieval">
+<symptom xmlns="urn:adm:1" id="S001" version="1" status="reviewed" evidence="unvalidated" updated="2026-10-28" title="Repeated retrieval">
   <summary>An agent retrieves already-delivered information again without a new content, freshness, or verification need.</summary>
   <observations>
     <observation id="multi-read">

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S015" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Opaque jargon (neuralese)">
+<symptom xmlns="urn:adm:1" id="S015" version="1" status="reviewed" evidence="unvalidated" updated="2026-10-28" title="Opaque jargon (neuralese)">
   <summary>The agent’s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.</summary>
   <observations>
     <observation id="unexplained-labels">
@@ -27,7 +27,7 @@
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
-    <p>Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader’s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding. Separate a dislike of the style from difficulty extracting its meaning; record model and configuration details without assuming they caused it.</p>
+    <p>Keep the exact passage, surrounding question, intended audience, and any applicable writing instructions. Record the reader’s interpretation or clarification request, a clearer rewrite when available, and the resulting rework, delay, or misunderstanding.</p>
   </what-to-record>
   <examples>
     <example id="noun-heavy-prose" kind="observed">

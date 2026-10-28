@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -330,42 +330,42 @@
   
   <article data-pagefind-body>
 
-<h1 id="keep-derived-values-out-of-source-only-fields">Keep derived values out of source-only fields<a class="headerlink" href="#keep-derived-values-out-of-source-only-fields" title="Permanent link">&para;</a></h1>
+<h1 id="keep-derived-values-out-of-source-only-fields">Keep derived values out of source-only fields<a class="headerlink" href="#keep-derived-values-out-of-source-only-fields" title="Permanent link">¶</a></h1>
 <p>Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.</p>
 <p><a id="purpose"></a></p>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
 <p>Prevent <a href="../symptoms/inferred-values-as-observations.html">inferred values presented as observations</a> by preserving a field's meaning through collection and serialization. An accurate calculation can still violate a source-only contract.</p>
 <p><a id="preconditions"></a></p>
-<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
 <p><a id="preconditions/field-contract"></a></p>
-<h3 id="field-contract">Field contract<a class="headerlink" href="#field-contract" title="Permanent link">&para;</a></h3>
+<h3 id="field-contract">Field contract<a class="headerlink" href="#field-contract" title="Permanent link">¶</a></h3>
 <p>The task or output format distinguishes source-reported fields from calculations, and that distinction is being lost or bypassed.</p>
 <p><a id="preconditions/editable-publisher"></a></p>
-<h3 id="editable-publisher">Editable publisher<a class="headerlink" href="#editable-publisher" title="Permanent link">&para;</a></h3>
+<h3 id="editable-publisher">Editable publisher<a class="headerlink" href="#editable-publisher" title="Permanent link">¶</a></h3>
 <p>The maintainer can change the collector instructions, serializer, or publication template and its consumers without silently changing the agreed output contract.</p>
 <p><a id="procedure"></a></p>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
+<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
 <p><a id="procedure/separate-values"></a></p>
-<h3 id="separate-values">Separate values<a class="headerlink" href="#separate-values" title="Permanent link">&para;</a></h3>
+<h3 id="separate-values">Separate values<a class="headerlink" href="#separate-values" title="Permanent link">¶</a></h3>
 <p>Update the reusable collector and serializer to keep an observed value tied to its source location. Permit calculations only in explicitly authorized derived fields, with their formula and inputs; preserve the contract's missing-value representation.</p>
 <p><a id="procedure/block-substitution"></a></p>
-<h3 id="block-substitution">Block substitution<a class="headerlink" href="#block-substitution" title="Permanent link">&para;</a></h3>
+<h3 id="block-substitution">Block substitution<a class="headerlink" href="#block-substitution" title="Permanent link">¶</a></h3>
 <p>Remove formula fallbacks and guessed defaults from source-only assignments. When the source lacks a value, publish the agreed missing marker rather than a computed substitute. If the current format cannot express the distinction, leave that field missing and report the limitation.</p>
 <p><a id="procedure/check-boundary"></a></p>
-<h3 id="check-boundary">Check boundary<a class="headerlink" href="#check-boundary" title="Permanent link">&para;</a></h3>
+<h3 id="check-boundary">Check boundary<a class="headerlink" href="#check-boundary" title="Permanent link">¶</a></h3>
 <p>Check the final publication path with one observed value, a genuine zero, a missing value, and an authorized calculation. Confirm that serialization and display retain each meaning; use the existing data model where it can express these distinctions.</p>
 <p><a id="procedure/review-publications"></a></p>
-<h3 id="review-publications">Review publications<a class="headerlink" href="#review-publications" title="Permanent link">&para;</a></h3>
+<h3 id="review-publications">Review publications<a class="headerlink" href="#review-publications" title="Permanent link">¶</a></h3>
 <p>Review subsequent comparable outputs against available source evidence, including outputs that look complete and those with missing fields.</p>
 <p><a id="evaluation"></a></p>
-<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
 <p>Predict fewer unsupported non-missing values in source-only fields, with genuine observations and permitted calculations preserved. Compare published values with accessible sources and inspect whether downstream consumers retain the distinction.</p>
 <p>More missing values may reflect honest uncertainty, lost access, or a broken collector. Check useful data coverage and publication success alongside provenance accuracy. Correct source records with misleading rendered labels point to the publication layer; this change will not repair unrelated date filters or arithmetic errors.</p>
 <p><a id="risks-and-confounders"></a></p>
-<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
+<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">¶</a></h2>
 <p>Overstrict handling can discard valid observations, convert real zeros to missing values, or break consumers expecting a complete row. Source changes and inaccessible source pages limit retrospective assessment.</p>
 <p><a id="stop-and-rollback"></a></p>
-<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
+<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">¶</a></h2>
 <p>Repair or revert the faulty collector or serializer if valid data is lost or publication breaks. Preserve the observed-versus-derived distinction in a compatible output or an explicit limitation; do not reinstate silent fabrication as the fallback.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
@@ -388,10 +388,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I004" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

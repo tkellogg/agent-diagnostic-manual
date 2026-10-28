@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -326,10 +326,10 @@
   
   <article data-pagefind-body>
 
-<h1 id="diagnosing-and-improving-an-agent-system">Diagnosing and improving an agent system<a class="headerlink" href="#diagnosing-and-improving-an-agent-system" title="Permanent link">&para;</a></h1>
+<h1 id="diagnosing-and-improving-an-agent-system">Diagnosing and improving an agent system<a class="headerlink" href="#diagnosing-and-improving-an-agent-system" title="Permanent link">¶</a></h1>
 <p>ADM's diagnostic process aims to improve the software factory: the configured system of models, skills, prompts, tools, memory, and orchestration that produces agent behavior. A completed incident supplies evidence about that system. An intervention changes it so future incidents unfold differently.</p>
 <p>A human or a separate maintenance agent can use this process. It does not require the agent doing the work to diagnose itself. This guide describes the method independently of any particular skill, harness, or XML representation.</p>
-<h2 id="the-working-model">The working model<a class="headerlink" href="#the-working-model" title="Permanent link">&para;</a></h2>
+<h2 id="the-working-model">The working model<a class="headerlink" href="#the-working-model" title="Permanent link">¶</a></h2>
 <p>The three entry types answer different questions:</p>
 <table>
 <thead>
@@ -364,7 +364,7 @@
 <p>Given this explanation of the system, making this change should produce this particular pattern of future behavior.</p>
 </blockquote>
 <p>That pattern may include symptoms improving, behaviors remaining unchanged, or new problems appearing. Predictions make the explanation answerable to subsequent observations.</p>
-<h2 id="the-flow">The flow<a class="headerlink" href="#the-flow" title="Permanent link">&para;</a></h2>
+<h2 id="the-flow">The flow<a class="headerlink" href="#the-flow" title="Permanent link">¶</a></h2>
 <ol>
 <li>
 <p><strong>Review incidents.</strong> Establish what happened from transcripts, artifacts, logs, and the instructions actually in force. Record consequences, relevant configuration versions, and missing evidence. Use symptom definitions and benign lookalikes to separate the reported behavior from acceptable behavior. The original incident may be over; there is no requirement to reproduce or finish it.</p>
@@ -385,7 +385,7 @@
 <p><strong>Revise the model and the change.</strong> Compare the observed pattern with the recorded predictions. Decide whether to retain, refine, extend, or revert the intervention. Separately update confidence in the explanation. An intervention may help for a different reason than expected; a supported explanation may still lead to an intervention whose side effects outweigh its benefits. Use the revised model to choose any next intervention.</p>
 </li>
 </ol>
-<h2 id="worked-example-redundant-authorization-requests">Worked example: redundant authorization requests<a class="headerlink" href="#worked-example-redundant-authorization-requests" title="Permanent link">&para;</a></h2>
+<h2 id="worked-example-redundant-authorization-requests">Worked example: redundant authorization requests<a class="headerlink" href="#worked-example-redundant-authorization-requests" title="Permanent link">¶</a></h2>
 <p>This hypothetical example illustrates the flow; it does not establish a diagnosis or remedy.</p>
 <p>Completed incidents show workers asking for permission immediately after compactions, even though the user already authorized the work. The maintenance agent suspects that compactions preserve the task but omit its authorization. A competing explanation is that a standing instruction requires fresh consent for each action.</p>
 <p>The proposed intervention changes the compaction prompt to include the original authorization, its scope, and the conditions requiring renewed consent. It preserves existing consent requirements. The maintainer records these predictions before changing the prompt:</p>
@@ -416,14 +416,14 @@
 </tbody>
 </table>
 <p>The maintainer reviews subsequent tasks that actually include compactions and authorization decisions. A period with no such opportunities supplies little evidence. No replay of the original incidents is needed.</p>
-<h2 id="what-to-retain">What to retain<a class="headerlink" href="#what-to-retain" title="Permanent link">&para;</a></h2>
+<h2 id="what-to-retain">What to retain<a class="headerlink" href="#what-to-retain" title="Permanent link">¶</a></h2>
 <p>Keep a proportionate record of the incident evidence, competing explanations, exact system change and version, predictions made beforehand, observation period and opportunities, actual outcomes, confounders, and the decision about what to do next. This can be ordinary prose with links to artifacts; the process does not require a new case schema or a formal study.</p>
 <p>A prediction coming true supports an explanation most strongly when competing explanations would have predicted something different. General improvement alone is less discriminating. Repeated useful outcomes may justify retaining a change while its mechanism remains uncertain. Case-level confidence and the evidence status of a reusable ADM entry are separate judgments.</p>
 <p>Distinguish a newly caused problem from one newly exposed by progress or better observation. A better compaction summary may let work reach a previously hidden failure; a better acceptance check may reveal an existing defect. Neither observation alone shows the intervention damaged the system.</p>
-<h2 id="where-the-knowledge-belongs">Where the knowledge belongs<a class="headerlink" href="#where-the-knowledge-belongs" title="Permanent link">&para;</a></h2>
+<h2 id="where-the-knowledge-belongs">Where the knowledge belongs<a class="headerlink" href="#where-the-knowledge-belongs" title="Permanent link">¶</a></h2>
 <p>Symptoms provide shared descriptions of behavior. Diagnoses organize reusable explanations and their alternatives. Interventions specify changes to the system. The prediction depends on the diagnosis, the intervention, and the configuration where it is applied; it should be stated for that combination rather than treated as an unconditional promise of the intervention.</p>
 <p>This guide is the shared methodology. The <a href="../skills/agent-diagnostics/SKILL.html">diagnostic skill</a> is an agent-facing aid for working with ADM files. The <a href="authoring-symptom.html">symptom</a>, <a href="authoring-diagnosis.html">diagnosis</a>, and <a href="authoring-intervention.html">intervention</a> authoring guides describe how to contribute entries; the <a href="../skills/agent-diagnostics/references/format.html">format reference</a> describes their representation.</p>
-<h2 id="decisions-still-under-discussion">Decisions still under discussion<a class="headerlink" href="#decisions-still-under-discussion" title="Permanent link">&para;</a></h2>
+<h2 id="decisions-still-under-discussion">Decisions still under discussion<a class="headerlink" href="#decisions-still-under-discussion" title="Permanent link">¶</a></h2>
 <p>These entries are working drafts. Three questions should guide further examples:</p>
 <ul>
 <li><strong>How broad should a diagnosis be?</strong> A reusable explanation needs more substance than a bug name, but a label that covers several unrelated causes cannot guide a repair. Include harness and repository behavior when it explains the agent system’s recurring failure.</li>
@@ -452,10 +452,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/diagnostic-process.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -330,47 +330,47 @@
   
   <article data-pagefind-body>
 
-<h1 id="make-discovered-tools-callable">Make discovered tools callable<a class="headerlink" href="#make-discovered-tools-callable" title="Permanent link">&para;</a></h1>
+<h1 id="make-discovered-tools-callable">Make discovered tools callable<a class="headerlink" href="#make-discovered-tools-callable" title="Permanent link">¶</a></h1>
 <p>Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.</p>
 <p><a id="purpose"></a></p>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
 <p>Repair the harness fault described by <a href="../diagnoses/tool-discovery-delivery-gap.html">tool discovery reports unusable tools</a>. A tool name alone is not enough: the agent needs its arguments, and the runtime needs to know how to execute the call.</p>
 <p><a id="preconditions"></a></p>
-<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
 <p><a id="preconditions/delivery-gap"></a></p>
-<h3 id="tool-search-promises-access-it-has-not-provided">Tool search promises access it has not provided<a class="headerlink" href="#tool-search-promises-access-it-has-not-provided" title="Permanent link">&para;</a></h3>
+<h3 id="tool-search-promises-access-it-has-not-provided">Tool search promises access it has not provided<a class="headerlink" href="#tool-search-promises-access-it-has-not-provided" title="Permanent link">¶</a></h3>
 <p>Search claims a tool is ready, but its definition or runtime registration is missing. An ordinary failed service call is a different problem.</p>
 <p><a id="preconditions/adapter-access"></a></p>
-<h3 id="access-to-tool-loading">Access to tool loading<a class="headerlink" href="#access-to-tool-loading" title="Permanent link">&para;</a></h3>
+<h3 id="access-to-tool-loading">Access to tool loading<a class="headerlink" href="#access-to-tool-loading" title="Permanent link">¶</a></h3>
 <p>The maintainer can change tool loading and inspect the tool definitions supplied to the model.</p>
 <p><a id="procedure"></a></p>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
+<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
 <p><a id="procedure/trace-handoff"></a></p>
-<h3 id="find-the-missing-tool-setup">Find the missing tool setup<a class="headerlink" href="#find-the-missing-tool-setup" title="Permanent link">&para;</a></h3>
+<h3 id="find-the-missing-tool-setup">Find the missing tool setup<a class="headerlink" href="#find-the-missing-tool-setup" title="Permanent link">¶</a></h3>
 <p>Follow one tool from search to registration and the next model request. Find which definition or registration is missing.</p>
 <p><a id="procedure/complete-delivery"></a></p>
-<h3 id="finish-loading-before-reporting-success">Finish loading before reporting success<a class="headerlink" href="#finish-loading-before-reporting-success" title="Permanent link">&para;</a></h3>
+<h3 id="finish-loading-before-reporting-success">Finish loading before reporting success<a class="headerlink" href="#finish-loading-before-reporting-success" title="Permanent link">¶</a></h3>
 <p>Change tool loading to finish registration and supply the definition before returning “ready.” For slow loading, return an explicit pending status and a working way to wait.</p>
 <p><a id="procedure/expose-blocks"></a></p>
-<h3 id="report-unavailable-tools-clearly">Report unavailable tools clearly<a class="headerlink" href="#report-unavailable-tools-clearly" title="Permanent link">&para;</a></h3>
+<h3 id="report-unavailable-tools-clearly">Report unavailable tools clearly<a class="headerlink" href="#report-unavailable-tools-clearly" title="Permanent link">¶</a></h3>
 <p>When loading fails, return an unavailable result with the reason and any useful recovery step. Do not keep returning success when repeating the same search cannot help.</p>
 <p><a id="procedure/confirm-use"></a></p>
-<h3 id="check-calls-and-future-use">Check calls and future use<a class="headerlink" href="#check-calls-and-future-use" title="Permanent link">&para;</a></h3>
+<h3 id="check-calls-and-future-use">Check calls and future use<a class="headerlink" href="#check-calls-and-future-use" title="Permanent link">¶</a></h3>
 <p>Check a harmless call to an available tool and a failed load. Then review ordinary use at an agreed follow-up, including whether the agent still repeats discovery.</p>
 <p><a id="evaluation"></a></p>
-<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
 <ul>
 <li>Expect repeated discovery to decline and required tool work to continue. Unavailable tools should produce clear blockers or useful alternatives.</li>
 <li>If the tool is callable but the agent keeps searching, reconsider D002. If calls reach the service and fail, investigate those errors.</li>
 </ul>
 <p><a id="risks-and-confounders"></a></p>
-<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
+<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">¶</a></h2>
 <ul>
 <li>Loading unnecessary tool definitions can fill the context. Incorrect registrations can call the wrong tool.</li>
 <li>Preserve existing permissions; making tools callable must not expose capabilities the user has not authorized.</li>
 </ul>
 <p><a id="stop-and-rollback"></a></p>
-<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
+<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">¶</a></h2>
 <ul>
 <li>Revert a loader change that exposes unauthorized tools or breaks working calls.</li>
 <li>Continue to report unavailable tools honestly while repairing the loader.</li>
@@ -396,10 +396,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I005" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 

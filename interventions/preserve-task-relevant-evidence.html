@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=b746f20de713" rel="stylesheet">
+        <link href="../assets/adm.css?v=51c7f3ba75aa" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -123,7 +123,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
 </li>
                                     
 <li>
@@ -283,6 +283,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#in-your-harness" class="nav-link">In your harness</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#evaluation" class="nav-link">Evaluation</a>
               <ul class="nav flex-column">
               </ul>
@@ -330,56 +334,83 @@
   
   <article data-pagefind-body>
 
-<h1 id="fix-compaction-so-important-information-survives">Fix compaction so important information survives<a class="headerlink" href="#fix-compaction-so-important-information-survives" title="Permanent link">&para;</a></h1>
-<p>Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.</p>
+<h1 id="fix-compaction-so-important-information-survives">Fix compaction so important information survives<a class="headerlink" href="#fix-compaction-so-important-information-survives" title="Permanent link">¶</a></h1>
+<p>Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.</p>
 <p><a id="purpose"></a></p>
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Improve what the compactor keeps and discards so critical information is not forgotten. Keep what unfinished work is likely to need; remove irrelevant history so the summary still saves space.</p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
+<p>Improve what the compactor keeps so critical information is not forgotten. A completed action may still carry a decision, a failed approach, or a permission limit that future work needs. Choose what to preserve by its likely use, not just by whether the action is finished.</p>
 <p><a id="preconditions"></a></p>
-<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
 <p><a id="preconditions/identified-omission"></a></p>
-<h3 id="important-information-was-lost">Important information was lost<a class="headerlink" href="#important-information-was-lost" title="Permanent link">&para;</a></h3>
-<p>Important information disappears during compaction, as proposed in <a href="../diagnoses/context-handoff-loss.html">compaction loss</a>. <a href="../symptoms/repeated-retrieval.html">Repeated retrieval</a>, <a href="../symptoms/lost-task-constraints.html">lost constraints</a>, or <a href="../symptoms/repeated-reauthorization.html">repeated permission requests</a> can point you toward an incident to inspect.</p>
+<h3 id="important-information-was-lost">Important information was lost<a class="headerlink" href="#important-information-was-lost" title="Permanent link">¶</a></h3>
+<p>Important information disappears during compaction, as proposed in <a href="../diagnoses/context-handoff-loss.html">incorrect compaction</a>. <a href="../symptoms/repeated-retrieval.html">Repeated retrieval</a>, <a href="../symptoms/lost-task-constraints.html">lost constraints</a>, or <a href="../symptoms/repeated-reauthorization.html">repeated permission requests</a> can point you toward an incident to inspect.</p>
 <p><a id="preconditions/editable-transition"></a></p>
-<h3 id="access-to-compaction">Access to compaction<a class="headerlink" href="#access-to-compaction" title="Permanent link">&para;</a></h3>
-<p>You can edit the compaction prompt or algorithm and inspect its summaries. If compaction is controlled by a provider, identify the configurable part before promising a repair.</p>
+<h3 id="a-supported-way-to-influence-compaction">A supported way to influence compaction<a class="headerlink" href="#a-supported-way-to-influence-compaction" title="Permanent link">¶</a></h3>
+<p>The harness exposes compaction instructions, a hook, or an implementation you control. Identify which path the installed version actually uses. A general instructions file is not automatically a compaction prompt. If the provider hides the retained state, use subsequent behavior to assess the change and record that you cannot inspect the summary directly.</p>
 <p><a id="procedure"></a></p>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
+<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
 <p><a id="procedure/locate-boundary"></a></p>
-<h3 id="inspect-the-compaction-prompt">Inspect the compaction prompt<a class="headerlink" href="#inspect-the-compaction-prompt" title="Permanent link">&para;</a></h3>
-<p>Find the compaction prompt or algorithm and save its current version. Compare a recent summary with the conversation before it; identify useful facts it lost and irrelevant details it retained.</p>
+<h3 id="find-the-control-that-applies">Find the control that applies<a class="headerlink" href="#find-the-control-that-applies" title="Permanent link">¶</a></h3>
+<p>Use the harness notes below to locate the relevant setting or hook, then save its current version. Compare the affected conversation with the summary or first subsequent mistake. Identify the missing information and why later work needed it.</p>
 <p><a id="procedure/preserve-evidence"></a></p>
-<h3 id="save-before-and-after-conversations">Save before-and-after conversations<a class="headerlink" href="#save-before-and-after-conversations" title="Permanent link">&para;</a></h3>
-<p>Check whether the harness already saves the conversation before compaction and the resulting summary. If it does not, add a pre-compaction hook to save them privately; agree with the user where they go, who can access them, and how long to keep them.</p>
+<h3 id="save-the-conversation-before-compaction">Save the conversation before compaction<a class="headerlink" href="#save-the-conversation-before-compaction" title="Permanent link">¶</a></h3>
+<p>Reuse existing session records. If an upcoming compaction would lose needed evidence, capture it with a supported hook or export. Keep an unchanged copy for comparison and save the resulting summary when it is readable. Agree with the user where these private records go and how long to keep them.</p>
 <p><a id="procedure/create-record"></a></p>
-<h3 id="change-what-compaction-keeps">Change what compaction keeps<a class="headerlink" href="#change-what-compaction-keeps" title="Permanent link">&para;</a></h3>
-<p>Edit the compaction prompt or algorithm to keep unfinished goals, decisions, current constraints, permission limits, and findings needed for the next likely steps. Tell it to discard completed detours and repetitive output. Include one short example of an important fact the old version lost.</p>
+<h3 id="change-what-compaction-preserves">Change what compaction preserves<a class="headerlink" href="#change-what-compaction-preserves" title="Permanent link">¶</a></h3>
+<p>Make a small change tied to the observed omission. For example, if permission survived but its scope did not, ask the compactor to retain each permission together with its limits and expiry conditions. Inspect the existing instructions before adding another rule. Do not remove completed work indiscriminately or hard-code the answer from one incident into the prompt.</p>
+<p><a id="procedure/compare-snapshot"></a></p>
+<h3 id="compare-on-a-frozen-conversation-when-practical">Compare on a frozen conversation when practical<a class="headerlink" href="#compare-on-a-frozen-conversation-when-practical" title="Permanent link">¶</a></h3>
+<p>If the harness can fork or replay the saved conversation from before compaction, give the original and revised compactor the same input. Start each candidate from that unchanged input, not from the previous candidate's summary. Keep the model, settings, and relevant instruction files fixed apart from the intended change.</p>
+<p>Compare whether the needed facts and their qualifications survive, what else is lost, and how much space is used. A small number of focused revisions can be faster than waiting for new incidents. This holds the input steady; it does not make model output deterministic. Stop when further trials are unlikely to change the decision.</p>
 <p><a id="procedure/confirm-delivery"></a></p>
-<h3 id="check-what-survived">Check what survived<a class="headerlink" href="#check-what-survived" title="Permanent link">&para;</a></h3>
-<p>Inspect the next summary and, where accessible, the context used after compaction. Confirm the important facts survived in usable form; a saved full transcript alone does not show what the agent retained.</p>
+<h3 id="check-what-survived-and-deploy-the-change">Check what survived and deploy the change<a class="headerlink" href="#check-what-survived-and-deploy-the-change" title="Permanent link">¶</a></h3>
+<p>Inspect the retained state where possible. If it is opaque, a short continuation with external actions disabled can test whether the agent still follows the relevant constraint; it cannot prove which facts are encoded. A readable summary that looks right is also not enough by itself. Confirm the selected change reaches future sessions.</p>
 <p><a id="procedure/review-work"></a></p>
-<h3 id="review-occasional-samples">Review occasional samples<a class="headerlink" href="#review-occasional-samples" title="Permanent link">&para;</a></h3>
-<p>Set up an occasional background review of saved before/after conversations and subsequent work. Reuse an existing job or add an async hook that samples compactions; do not add another model call to every working turn.</p>
+<h3 id="review-occasional-samples">Review occasional samples<a class="headerlink" href="#review-occasional-samples" title="Permanent link">¶</a></h3>
+<p>Review occasional saved compactions and the work that followed them, using an existing background job where practical. Check a few different kinds of task so a fix for one conversation does not silently damage another. Avoid extra checking on every working turn.</p>
 <p><a id="procedure/agree-followup"></a></p>
-<h3 id="agree-on-a-check-in-date">Agree on a check-in date<a class="headerlink" href="#agree-on-a-check-in-date" title="Permanent link">&para;</a></h3>
+<h3 id="agree-on-a-check-in-date">Agree on a check-in date<a class="headerlink" href="#agree-on-a-check-in-date" title="Permanent link">¶</a></h3>
 <p>Agree with the user on a check-in date, who will review the samples, and a reminder or scheduled job. For example, review in three workdays if normal use should produce several compactions; if too few occur, report that and choose another date.</p>
-<p><a id="evaluation"></a></p>
-<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
+<p><a id="harness-notes"></a></p>
+<h2 id="in-your-harness">In your harness<a class="headerlink" href="#in-your-harness" title="Permanent link">¶</a></h2>
+<div class="adm-harness-controls" hidden="" data-pagefind-ignore=""><label for="adm-harness-select">Harness</label><select id="adm-harness-select" aria-describedby="adm-harness-status"><option value="all">All harnesses</option><option value="claude-code">Claude Code</option><option value="codex">Codex CLI</option><option value="opencode">OpenCode</option><option value="custom">Custom harness</option></select><p id="adm-harness-status" role="status">Shared instructions above apply to every harness. Your choice is remembered in this browser.</p></div><section class="adm-harness-note" data-harness="claude-code" aria-labelledby="claude-code"><p><a id="harness-notes/claude-code"></a></p>
+<h3 id="claude-code">Claude Code<a class="headerlink" href="#claude-code" title="Permanent link">¶</a></h3>
+<p><strong>Customize:</strong> Claude Code documents a <code>Compact Instructions</code> section in <code>CLAUDE.md</code> for persistent compaction guidance. Use <code>/compact</code> with a focus instruction for a single comparison. This is the documented route; there is no need to invent a separate compaction <code>AGENTS.md</code>. See <a href="https://code.claude.com/docs/en/how-claude-code-works#when-context-fills-up">context management</a>.</p>
+<p><strong>Capture:</strong> The <a href="https://code.claude.com/docs/en/hooks#precompact">PreCompact hook</a> receives <code>transcript_path</code>; <a href="https://code.claude.com/docs/en/hooks#postcompact">PostCompact</a> receives <code>compact_summary</code>. Use these to save the before-and-after evidence. PostCompact cannot rewrite the result; logging a summary and changing compaction are separate operations. Check hook support in the installed version.</p>
+<p><strong>Compare:</strong> Preserve a session from before compaction, then use <code>claude --resume SESSION_ID --fork-session</code> for each candidate and run <code>/compact</code> with the candidate focus. The <a href="https://code.claude.com/docs/en/cli-reference">fork flag</a> gives the continuation a new session ID. Forking an already compacted session does not recreate its original input. Test the final persistent CLAUDE.md change as well as any temporary focus instruction.</p>
+</section><section class="adm-harness-note" data-harness="codex" aria-labelledby="codex-cli"><p><a id="harness-notes/codex"></a></p>
+<h3 id="codex-cli">Codex CLI<a class="headerlink" href="#codex-cli" title="Permanent link">¶</a></h3>
+<p><strong>Customize:</strong> The <a href="https://learn.chatgpt.com/docs/config-file/config-reference">configuration reference</a> documents <code>compact_prompt</code> for an inline override and <code>experimental_compact_prompt_file</code> for a file-based override. These are compaction-specific settings; ordinary <code>AGENTS.md</code> guidance should not be treated as a replacement prompt. Check that the installed version and compaction path honor the override before assessing its effect.</p>
+<p><strong>Compare:</strong> Keep an untouched session from before compaction. Use <code>codex fork SESSION_ID</code> for a separate candidate session, then <code>/compact</code>. The <a href="https://learn.chatgpt.com/docs/developer-commands?surface=cli">command reference</a> also documents <code>/export</code> for a readable conversation record. A Markdown export is evidence for review, not a promised exact replay format. Use saved sessions for forks and confirm the effective configuration in each one.</p>
+<p><strong>Limit:</strong> Provider-side compaction can return an opaque state rather than a readable summary. Do not assume a local prompt setting controls every such path. When the state cannot be inspected, compare a constrained continuation and record that limitation. These notes cover the CLI; verify the controls separately for hosted Codex surfaces.</p>
+</section><section class="adm-harness-note" data-harness="opencode" aria-labelledby="opencode"><p><a id="harness-notes/opencode"></a></p>
+<h3 id="opencode">OpenCode<a class="headerlink" href="#opencode" title="Permanent link">¶</a></h3>
+<p><strong>Customize:</strong> In the <a href="https://opencode.ai/docs/plugins/#compaction-hooks">V1 plugin API</a>, <code>experimental.session.compacting</code> can append guidance through <code>output.context</code> or replace the prompt through <code>output.prompt</code>. A replacement ignores the context array, so preserve the useful parts of the default prompt deliberately. <a href="https://opencode.ai/docs/rules/">AGENTS.md</a> supplies general project instructions; the hook is the explicit compaction control.</p>
+<p><strong>Compare:</strong> V1 documents <code>opencode --session SESSION_ID --fork</code>, <code>opencode export SESSION_ID</code>, and <code>/compact</code>. Fork the same saved session before each candidate compaction and keep the export privately. See the <a href="https://opencode.ai/docs/cli/">CLI</a> and <a href="https://opencode.ai/docs/tui/#compact">TUI</a> references.</p>
+<p><strong>Version matters:</strong> The <a href="https://dev.opencode.ai/v2/docs/build/plugins/migrate-v1">V2 migration guide</a> replaces the V1 hook with <code>ctx.session.hook("compaction", ...)</code>; V1 plugin implementations do not run unchanged in V2. Use the API for the version deployed in your system.</p>
+</section><section class="adm-harness-note" data-harness="custom" aria-labelledby="custom-harness"><p><a id="harness-notes/custom"></a></p>
+<h3 id="custom-harness">Custom harness<a class="headerlink" href="#custom-harness" title="Permanent link">¶</a></h3>
+<p><strong>Customize and compare:</strong> If you own the summarizer, save its exact input, system instructions, model settings, and output format. Run only that summarization step against the frozen input while changing the targeted instruction. Keep external tools out of the comparison. Then test the chosen change on a separate incident and in ordinary future work.</p>
+<p><strong>Opaque compaction:</strong> OpenAI's <a href="https://developers.openai.com/api/docs/guides/compaction">Responses compaction API</a> returns a compacted window containing an encrypted item. Keep the returned window intact for subsequent requests; it is not a text summary to edit or inspect. A custom summarizer experiment does not establish how that provider-managed path behaves.</p>
+</section><p><a id="evaluation"></a></p>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
 <ul>
 <li>Before applying the change, record which lost facts should now survive and which later mistakes should decline. Use the predictions in <a href="../diagnoses/context-handoff-loss.html#relations/I001/predictions">D001</a> when that explanation fits.</li>
-<li>At the agreed check-in, compare saved summaries with the next work. Did requirements survive? Did the agent repeat less work? Did the summary still omit irrelevant material?</li>
-<li>If the facts survive but mistakes continue, reconsider the explanation. If summaries were not captured or no relevant compaction occurred, say that the review is inconclusive.</li>
+<li>Use a frozen-input comparison, when available, to reject poor candidates quickly. Keep an untouched incident for a separate check. A better summary on the example used to tune the prompt is preliminary evidence, not proof of a lasting repair.</li>
+<li>At the agreed check-in, compare retained information and subsequent work. Did requirements and permission limits survive? Did the agent repeat less work? Was enough context space still available?</li>
+<li>If the facts survive but mistakes continue, reconsider the explanation. If evidence was not captured or no relevant compaction occurred, say that the review is inconclusive.</li>
 </ul>
 <p><a id="risks-and-confounders"></a></p>
-<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
+<h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">¶</a></h2>
 <ul>
-<li>Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits.</li>
-<li>Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model or task change can make comparisons harder.</li>
+<li>Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits. Removing completed work can erase why an approach failed.</li>
+<li>Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model, harness, or task change can make comparisons harder.</li>
+<li>Forking a conversation does not necessarily isolate its files, credentials, or external services. A continuation test must not repeat the original task's external actions. Prompt revisions can overfit a single transcript.</li>
 </ul>
 <p><a id="stop-and-rollback"></a></p>
-<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
+<h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">¶</a></h2>
 <ul>
-<li>Restore the previous compaction prompt or algorithm if the change causes stale decisions, lost permission limits, or excessive context use.</li>
+<li>Restore the previous compaction instructions or implementation if the change causes stale decisions, lost permission limits, or excessive context use.</li>
 <li>Correct affected summaries and repair any resulting work. Reverting the prompt does not undo actions already taken.</li>
 <li>Remove temporary capture or review hooks when the agreed review ends, unless the user chooses to keep them.</li>
 </ul></article>
@@ -404,10 +435,11 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=b746f20de713" data-base-url="../"></script>
+<script src="../assets/adm.js?v=51c7f3ba75aa" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=51c7f3ba75aa" defer></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=b746f20de713"></script>
+<script src="../assets/adm-review.js?v=51c7f3ba75aa"></script>
 
 
 
