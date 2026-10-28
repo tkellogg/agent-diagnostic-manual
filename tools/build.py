@@ -25,7 +25,8 @@ TITLES={'definition':'How this could happen',
         'differential':'Other explanations to consider',
         'relations':'Symptoms and predicted effects',
         'predictions':'What to expect if this explanation is right',
-        'investigation':'Where to look next'}
+        'investigation':'Where to look next',
+        'harness-notes':'In your harness'}
 ENTRY_KINDS=[('symptom','Symptoms'),('diagnosis','Diagnoses'),('intervention','Interventions')]
 INDEX_MARKER='<!-- ADM:ENTRY-INDEX -->'
 PREDICTION_LABELS={'expected-improvement':'Expected improvement',
@@ -94,6 +95,11 @@ class Renderer:
         tag=name(n)
         if tag in METADATA:return ''
         if tag=='discriminator':return self.anchor(n)+self.children(n,depth)
+        if tag=='harness':
+            heading=self.heading(n.get('title'),depth).rstrip()
+            if self.mode=='md':heading+=' {data-adm-harness="'+n.get('id')+'"}'
+            else:heading=heading.replace('>', ' data-adm-harness="'+n.get('id')+'">',1)
+            return self.anchor(n)+heading+'\n\n'+self.children(n,depth+1)
         if tag=='predictions':
             items=[]
             for field in n:
@@ -206,13 +212,14 @@ def build(root=ROOT,check=False,search=False):
     vendor.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(annotate/'annotate.js',vendor/'annotate-1.5.3.js')
     shutil.copyfile(annotate/'LICENSE',vendor/'annotate-LICENSE.txt')
-    catalog={'schema_version':6,'xml_namespace':'urn:adm:1',
+    catalog={'schema_version':7,'xml_namespace':'urn:adm:1',
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
     (staging/'catalog.json').write_text(json.dumps(catalog,indent=2)+'\n',encoding='utf-8')
     # A content version prevents an old cached stylesheet accompanying new HTML.
     asset_version=hashlib.sha256((root/'website/assets/adm.css').read_bytes()+
                                  (root/'website/assets/adm.js').read_bytes()+
+                                 (root/'website/assets/adm-harness.js').read_bytes()+
                                  (root/'website/assets/adm-review.js').read_bytes()).hexdigest()[:12]
     config=load_config(config_file=str(root/'mkdocs.yml'),nav=nav,strict=True,
                        extra_css=['assets/adm.css?v='+asset_version],

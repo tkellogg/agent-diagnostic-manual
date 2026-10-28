@@ -104,7 +104,7 @@ class FormatTests(unittest.TestCase):
     def test_structured_lists_reject_stray_prose(self):
         containers={S:['observations','benign-lookalikes','examples'],
                     D:['criteria','exclusions','differential'],
-                    I:['preconditions','procedure']}
+                    I:['preconditions','procedure','harness-notes']}
         for path,tags in containers.items():
             original=(self.root/path).read_bytes()
             for tag in tags:
@@ -132,10 +132,12 @@ class FormatTests(unittest.TestCase):
             count=len(doc['node'].xpath('descendant-or-self::*[@title]'))
             h=(self.root/'dist'/doc['path']).read_text()
             m=(self.root/'dist'/Path(doc['path']).with_suffix('.md')).read_text()
-            headings=ET.HTML(h).xpath('//article//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]')
+            rendered=ET.HTML(h)
+            for badge in rendered.xpath('//span[@class="adm-example-kind"]'):badge.getparent().remove(badge)
+            headings=rendered.xpath('//article//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]')
             def unnumber(value):return re.sub(r'^\d+\. ', '',value)
             self.assertEqual(sum(unnumber(''.join(e.itertext()).removesuffix('¶'))==title for e in headings),count)
-            self.assertEqual(sum(unnumber(re.sub(r' \{#[^}]*\}$','',line.lstrip('# ').strip())) == r'A &amp; "B" &lt;C&gt; \*D\*' for line in m.splitlines() if line.startswith('#')),count)
+            self.assertEqual(sum(unnumber(re.sub(r' \{(?:#|data-adm-harness=)[^}]*\}$','',line.lstrip('# ').strip())) == r'A &amp; "B" &lt;C&gt; \*D\*' for line in m.splitlines() if line.startswith('#')),count)
     def test_title_attributes_required(self):
         for path in (S,D,I):
             original=(self.root/path).read_bytes()
@@ -175,7 +177,7 @@ class FormatTests(unittest.TestCase):
         self.assertTrue(all(li.xpath('./p/strong') for li in predictions))
         self.assertFalse(any(li.xpath('.//pre') for li in predictions))
         symptom=ET.HTML((self.root/'dist/symptoms/opaque-jargon.html').read_text())
-        badges=symptom.xpath('//span[@class="adm-example-kind"]/text()')
+        badges=symptom.xpath('//h3/span[@class="adm-example-kind"]/text()')
         self.assertIn('Synthetic example',badges)
         self.assertIn('Reported example',badges)
         md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
@@ -188,6 +190,50 @@ class FormatTests(unittest.TestCase):
                 heading=h.xpath('//*[@id="criteria/'+criterion.get('id')+'"]/following::h3[1]')[0]
                 self.assertTrue(''.join(heading.itertext()).startswith(f'{number}. '+criterion.get('title')))
         self.assertTrue(article.xpath('.//h3[@id="the-information-mattered"]'))
+        pills=article.xpath('.//a[@class="adm-entry-ref"]')
+        self.assertTrue(any(a.xpath('./span[@class="adm-ref-id"][text()="I001"]') for a in pills))
+        self.assertTrue(article.xpath('.//ul[@class="adm-entry-refs"]/li/a/span[@class="adm-ref-id"]'))
+        for pill in pills:
+            self.assertTrue(pill.xpath('./span[@class="adm-ref-title"]'))
+            self.assertEqual(len(pill.xpath('.//a')),0)
+    def test_harness_notes_remain_available_in_every_format(self):
+        build(self.root)
+        source=ET.parse(str(self.root/I))
+        keys=[h.get('id') for h in source.findall('a:harness-notes/a:harness',N)]
+        out=self.root/'dist/interventions/preserve-task-relevant-evidence'
+        page=ET.HTML(out.with_suffix('.html').read_text())
+        self.assertTrue(page.xpath('//div[@class="adm-harness-controls"][@hidden]'))
+        self.assertEqual(page.xpath('//select[@id="adm-harness-select"]/option/@value'),['all']+keys)
+        self.assertEqual(page.xpath('//section[@class="adm-harness-note"]/@data-harness'),keys)
+        self.assertFalse(page.xpath('//section[@class="adm-harness-note"]/@hidden'))
+        self.assertFalse(page.xpath('//section[@class="adm-harness-note"]//h2'))
+        self.assertTrue(page.xpath('//h2[@id="evaluation"]'))
+        for key in keys:
+            note=page.xpath('//section[@data-harness="'+key+'"]')[0]
+            self.assertTrue(note.xpath('.//*[@id="harness-notes/'+key+'"]'))
+            self.assertTrue(note.xpath('./h3'))
+            self.assertIn('id="harness-notes/'+key+'"',out.with_suffix('.md').read_text())
+        self.assertEqual(out.with_suffix('.xml').read_bytes(),(self.root/I).read_bytes())
+        catalog=json.loads((self.root/'dist/catalog.json').read_text())
+        self.assertIn('I001#harness-notes/codex',catalog['objects'])
+    def test_harness_identity_is_extensible_and_list_local(self):
+        original=(self.root/I).read_bytes()
+        for mutation in ('duplicate','title','id'):
+            with self.subTest(mutation=mutation):
+                tree=ET.fromstring(original)
+                notes=tree.find('a:harness-notes',N)
+                if mutation=='duplicate':notes.append(deepcopy(notes[0]))
+                else:notes[0].attrib.pop(mutation)
+                (self.root/I).write_bytes(ET.tostring(tree))
+                with self.assertRaises(ValueError):load(self.root)
+        tree=ET.fromstring(original)
+        notes=tree.find('a:harness-notes',N);notes[0].set('id','another-harness')
+        (self.root/I).write_bytes(ET.tostring(tree))
+        _,objects,_,_=load(self.root)
+        self.assertIn('I001#harness-notes/another-harness',objects)
+        tree.remove(notes)
+        (self.root/I).write_bytes(ET.tostring(tree))
+        load(self.root)
     def test_criteria_renumber_without_changing_identity(self):
         tree=ET.parse(str(self.root/D))
         criteria=tree.find('a:criteria',N)
@@ -255,7 +301,7 @@ class FormatTests(unittest.TestCase):
         tree.write(str(self.root/D),encoding='UTF-8')
         build(self.root)
         catalog=json.loads((self.root/'dist/catalog.json').read_text())
-        self.assertEqual(catalog['schema_version'],6)
+        self.assertEqual(catalog['schema_version'],7)
         relation=next(r for r in catalog['relationships'] if r.get('address')=='D001#relations/I001')
         self.assertEqual(relation['predictions'],ast(predictions))
         h=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())

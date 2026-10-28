@@ -15,6 +15,8 @@ theme:
   color_mode: light
   user_color_mode_toggle: true
 plugins: []
+hooks:
+  - website/hooks.py
 markdown_extensions:
   - attr_list
   - tables

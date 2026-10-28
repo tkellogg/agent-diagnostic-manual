@@ -9,7 +9,7 @@ N={'a':NS}
 LOCAL_ID=re.compile(r'[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){0,2}\Z')
 PROSE={'p','ul','ol','li','strong','em','a','ref','code'}
 METADATA={'summary'}
-ITEMS={'observation','lookalike','example','criterion','exclusion','alternative','precondition','step','intervention-ref'}
+ITEMS={'observation','lookalike','example','criterion','exclusion','alternative','precondition','step','intervention-ref','harness'}
 
 def name(node):return ET.QName(node).localname
 

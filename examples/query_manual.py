@@ -32,6 +32,11 @@ def query(entries):
                         ' '.join(''.join(p.itertext()).strip() for p in field)
                         for field in i.find('a:predictions',NS)}}
                     for i in node.findall('a:relations/a:intervention-ref',NS)]})
+        elif node.tag=='{urn:adm:1}intervention':
+            result.append({'intervention':did,
+                'harnesses':[{'id':h.get('id'),'title':h.get('title'),
+                    'address':did+'#harness-notes/'+h.get('id')}
+                    for h in node.findall('a:harness-notes/a:harness',NS)]})
     return result
 
 if __name__=='__main__':

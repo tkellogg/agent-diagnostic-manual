@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S002" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Doom looping">
+<symptom xmlns="urn:adm:1" id="S002" version="1" status="reviewed" evidence="unvalidated" updated="2026-10-28" title="Doom looping">
   <summary>An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.</summary>
   <observations>
     <observation id="stalled-cycles">

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" unit="configured-agent-system" title="Compaction loses important information">
+<diagnosis xmlns="urn:adm:1" id="D001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" unit="configured-agent-system" title="Incorrect compaction">
   <summary>The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.</summary>
   <definition>
     <p>Compaction makes room by forgetting most of a conversation. It has to predict what will matter next: keep the decisions, constraints, permissions, and findings needed for unfinished work, and discard irrelevant history. This diagnosis proposes that the compactor is making that choice badly.</p>
