@@ -1,16 +1,39 @@
 # Agent Diagnostic Manual
 
-A small XML corpus of agent symptoms, candidate diagnoses, and interventions, designed for independent tools and human readers.
+A database of symptoms, diagnoses and interventions for agents. Intended for discovering and addressing common problems with all types of AI agents.
 
-Start with [the diagnostic process](docs/diagnostic-process.md): learn from past incidents, change the agent system, and use predictions about future behavior to refine the diagnosis. The [diagnostic skill](skills/agent-diagnostics/SKILL.md) and [format reference](skills/agent-diagnostics/references/format.md) explain how to work with the files.
+The ADM is loosely modeled after the [DSM (Diagnostic and Statistical Manual of Mental Disorders)](https://www.psychiatry.org/psychiatrists/practice/dsm/), which is the standard resource for diagnosing patients in psychotherapy and mental health. 
 
-Browse the XML entries for [symptoms](entries/symptoms/), [diagnoses](entries/diagnoses/), and [interventions](entries/interventions/). The website lists all entries automatically.
+The ADM documents a broad array of symptoms with definitions and clear instructions for discovering if an agent is exhibiting a symptom. From there, multiple diagnoses are considered, and interventions are iteratively applied until one diagnosis remains and the symptoms have cleared.
 
-<!-- ADM:ENTRY-INDEX -->
+```mermaid
+---
+config:
+  layout: elk
+  elk:
+    preset: modelOrder
+---
+flowchart TD
+    subgraph Observed
+        s1[symptom]
+        s2[symptom]
+        s3[symptom]
+    end
 
-Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared [observation methods](docs/observation-methods.md) describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.
+    subgraph Considered
+        d1[diagnosis]
+        d2[diagnosis]
+    end
 
-Entries have separate review and evidence statuses: `reviewed` records editorial approval, not validation of a definition, diagnosis, or remedy. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.
+    s1 --> Considered --> Applied
+    s2 --> Considered
+    s3 --> Considered
+
+
+    Applied --> Observed
+```
+
+
 
 ## Use the skill
 
@@ -24,17 +47,19 @@ Or copy that folder into a skill directory supported by your agent. It contains 
 
 XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.
 
-## Review the manual
+## Report an issue
+The HTML version of the ADM is wired with [annotate.js](https://reviewjs.github.io/annotate/), which we use for commenting. It's very easy with rich commenting support. But the comments have to be exported from your browser and submitted to Github manually.
+
 
 On any website page, choose the floating **Review** button to open annotate.js. Highlight text, add a section note, or pin a comment, then post it. Move between entries and guides normally; comments stay attached to their pages. Open **Comments** in the review toolbar (or press **A**) to see your notes and review actions.
 
 In the comments panel, choose **Export all** under **All ADM pages** to download one `adm-review-YYYY-MM-DD.json` containing posted comments from every ADM page in this browser, including replies and resolved comments. Send that file for review. Exporting leaves your saved comments intact. Unposted drafts are not included. The **This page** section's Download, Copy, and Import buttons operate on one page; use **Export all** for the complete review.
 
-Comments are private to this browser profile and site address. They do not sync between devices or go to a server. Use the same browser for a review pass and export a backup before clearing site data; private browsing or storage restrictions can prevent persistence.
-
 After exporting a review round, choose **Clear all** in the same **All ADM pages** section to start fresh across every ADM page in this browser. Confirm the count in the dialog. **Undo clear** appears there after clearing and restores the last cleared round, including replies and resolved notes, while keeping new comments; it remains available after navigation or reload, until the next clear. Clearing also discards unposted drafts in open ADM tabs. Exported files and other browsers are unaffected. A single recovery copy stays in local browser storage, so this is a review reset, not a secure erase.
 
-The site bundles [annotate.js](https://github.com/reviewjs/annotate) 1.5.3 and its MIT license locally. ADM's small export adapter reads that pinned version's project store. The JSON groups native page exports under `pages`, retaining entry IDs or guide paths, original URLs, quoted text, anchors, and threads.
+This is probably the best way to help out the project.
+
+<!-- ADM:ENTRY-INDEX -->
 
 ## Build and read
 
