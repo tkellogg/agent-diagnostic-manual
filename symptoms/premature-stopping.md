@@ -6,7 +6,7 @@ summary: An agent ends its turn or run with authorized, actionable work remainin
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Premature stopping
 xml_source: symptoms/premature-stopping.xml
 ---
@@ -29,9 +29,7 @@ The agent yields a final or idle state while the active request remains incomple
 
 ## How to recognize it
 
-Compare the active request and acceptance checklist with delivered files, deployed state, or other outputs. Use conversation end markers and scheduler or job status to locate the actual stop and identify a remaining action supported by the available tools and authority.
-
-Inspect permission records, missing-input messages, runtime limits, and active background jobs for a dependency that explains the pause. If a later continuation exists, compare its prompt and first action with the stopped state to see whether new information or authorization was supplied.
+Compare the final response with the requested result and any unfinished work the agent was able and authorized to do. Check for an agreed human checkpoint or an active background job before treating the pause as a stop.
 
 <a id="benign-lookalikes"></a>
 
@@ -41,7 +39,7 @@ Inspect permission records, missing-input messages, runtime limits, and active b
 
 ### Human dependency
 
-Every relevant next step depends on an approval, credential, choice, or missing input that only the user can provide. The available authorized next step required by [unfinished stop](premature-stopping.md#observations/unfinished-stop) is absent.
+The next step needs an approval, credential, or choice from the user, or the user has asked to review at this point. A person may want to stay involved even when the agent could technically continue; respecting that checkpoint is appropriate.
 
 <a id="benign-lookalikes/active-job"></a>
 
@@ -69,16 +67,22 @@ Record the episode identifier and date, task type, model/client and harness vers
 
 ### Stage one
 
-Synthetic incident: asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.
+<span class="adm-example-kind">Synthetic example</span>
+
+Asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.
 
 <a id="examples/handoff-stop"></a>
 
 ### Handoff stop
 
-Reported incident: [Codex issue #33398](https://github.com/openai/codex/issues/33398) describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.
+<span class="adm-example-kind">Reported example</span>
+
+[Codex issue #33398](https://github.com/openai/codex/issues/33398) describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.
 
 <a id="examples/needed-choice"></a>
 
 ### Needed choice
 
-Synthetic comparison: the next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.
+<span class="adm-example-kind">Synthetic example</span>
+
+The next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.

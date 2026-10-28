@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="diagnostic-process.html" class="dropdown-item active" aria-current="page">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -283,6 +291,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#decisions-still-under-discussion" class="nav-link">Decisions still under discussion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -316,7 +328,34 @@
 <p>ADM's diagnostic process aims to improve the software factory: the configured system of models, skills, prompts, tools, memory, and orchestration that produces agent behavior. A completed incident supplies evidence about that system. An intervention changes it so future incidents unfold differently.</p>
 <p>A human or a separate maintenance agent can use this process. It does not require the agent doing the work to diagnose itself. This guide describes the method independently of any particular skill, harness, or XML representation.</p>
 <h2 id="the-working-model">The working model<a class="headerlink" href="#the-working-model" title="Permanent link">&para;</a></h2>
-<p>A symptom describes observable behavior. A working diagnosis explains how the system may be producing or maintaining that behavior. Differential diagnosis compares plausible explanations and identifies evidence that would distinguish them. A useful model also suggests other symptoms to look for, including ones the original report did not mention.</p>
+<p>The three entry types answer different questions:</p>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Question it answers</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symptom</td>
+<td>What is going wrong?</td>
+<td>The agent asks again for permission already given.</td>
+</tr>
+<tr>
+<td>Diagnosis</td>
+<td>What about this system could produce that behavior?</td>
+<td>Compaction drops permission from the summary.</td>
+</tr>
+<tr>
+<td>Intervention</td>
+<td>What lasting change could help?</td>
+<td>Change what the compaction prompt keeps, then review later work.</td>
+</tr>
+</tbody>
+</table>
+<p>Differential diagnosis means comparing explanations that would lead to different repairs. If the permission survived but a standing rule demands a new approval, editing that rule is more promising than rewriting compaction. A useful model can also suggest symptoms the original report did not mention.</p>
 <p>The model need not identify one ultimate root cause. Several conditions can interact. Keep the proposed explanation explicit and provisional; a descriptive pattern belongs among symptoms until there is a working model to add. If no catalog diagnosis fits, record a working hypothesis rather than forcing a match.</p>
 <p>An intervention makes a concrete, lasting change based on that explanation. Its prediction connects the change to future behavior:</p>
 <blockquote>
@@ -335,7 +374,7 @@
 <p><strong>Choose a system change.</strong> Specify the skill, prompt, context policy, tool interface, or harness behavior to modify. Explain why this addresses the suspected problem, what implementation costs it incurs, and what other behavior it could affect. A maintainer should be able to enact the change without inventing the intervention. A one-time rescue of a session does not by itself improve the factory.</p>
 </li>
 <li>
-<p><strong>Write predictions before applying it.</strong> State which symptoms should change, under what circumstances, which behaviors should remain intact, and any new symptoms the model predicts. Include results that would favor a competing explanation or weaken the current one. Choose a review point based on future opportunities for the behavior to occur, and specify when to stop or revert.</p>
+<p><strong>Write predictions before applying it.</strong> State which symptoms should change, under what circumstances, which behaviors should remain intact, and any new symptoms the model predicts. Include results that would favor a competing explanation or weaken the current one. Agree with the user on a check-in date, who will review the evidence, and a reminder or scheduled job. Choose a period likely to include relevant work, and specify when to stop or revert.</p>
 </li>
 <li>
 <p><strong>Observe subsequent work.</strong> Confirm that the intended configuration change reached the relevant agents. Collect outcomes as ordinary work proceeds, including successful episodes and opportunities where the symptom did not occur. Track correctness and consequences alongside symptom frequency. Note changes in task mix, models, tools, and environment that complicate the comparison. Replay and ablation are optional investigations when their expected value justifies their cost.</p>
@@ -346,8 +385,8 @@
 </ol>
 <h2 id="worked-example-redundant-authorization-requests">Worked example: redundant authorization requests<a class="headerlink" href="#worked-example-redundant-authorization-requests" title="Permanent link">&para;</a></h2>
 <p>This hypothetical example illustrates the flow; it does not establish a diagnosis or remedy.</p>
-<p>Completed incidents show workers asking for permission immediately after handoffs, even though the user already authorized the work. The maintenance agent suspects that handoffs preserve the task but omit its authorization. A competing explanation is that a standing instruction requires fresh consent for each action.</p>
-<p>The proposed intervention changes the handoff protocol to include the original authorization, its scope, and the conditions requiring renewed consent. It preserves existing consent requirements. The maintainer records these predictions before changing the protocol:</p>
+<p>Completed incidents show workers asking for permission immediately after compactions, even though the user already authorized the work. The maintenance agent suspects that compactions preserve the task but omit its authorization. A competing explanation is that a standing instruction requires fresh consent for each action.</p>
+<p>The proposed intervention changes the compaction prompt to include the original authorization, its scope, and the conditions requiring renewed consent. It preserves existing consent requirements. The maintainer records these predictions before changing the prompt:</p>
 <table>
 <thead>
 <tr>
@@ -357,7 +396,7 @@
 </thead>
 <tbody>
 <tr>
-<td>Redundant requests decline after handoffs.</td>
+<td>Redundant requests decline after compactions.</td>
 <td>Supports the authorization-loss explanation, subject to other changes in the system and work.</td>
 </tr>
 <tr>
@@ -365,27 +404,35 @@
 <td>The intervention preserved the intended authorization boundary.</td>
 </tr>
 <tr>
-<td>Redundant requests persist despite the receiving agent having the authorization.</td>
+<td>Redundant requests persist despite the summary clearly retaining the permission.</td>
 <td>Weakens missing authorization as the explanation; inspect the standing instructions and other alternatives.</td>
 </tr>
 <tr>
 <td>Agents begin acting beyond the original permission.</td>
-<td>The handoff may be losing scope restrictions or presenting permission too broadly. Revert or correct the change even if redundant requests declined.</td>
+<td>The summary may be losing scope restrictions or presenting permission too broadly. Revert or correct the change even if redundant requests declined.</td>
 </tr>
 </tbody>
 </table>
-<p>The maintainer reviews subsequent tasks that actually include handoffs and authorization decisions. A period with no such opportunities supplies little evidence. No replay of the original incidents is needed.</p>
+<p>The maintainer reviews subsequent tasks that actually include compactions and authorization decisions. A period with no such opportunities supplies little evidence. No replay of the original incidents is needed.</p>
 <h2 id="what-to-retain">What to retain<a class="headerlink" href="#what-to-retain" title="Permanent link">&para;</a></h2>
 <p>Keep a proportionate record of the incident evidence, competing explanations, exact system change and version, predictions made beforehand, observation period and opportunities, actual outcomes, confounders, and the decision about what to do next. This can be ordinary prose with links to artifacts; the process does not require a new case schema or a formal study.</p>
 <p>A prediction coming true supports an explanation most strongly when competing explanations would have predicted something different. General improvement alone is less discriminating. Repeated useful outcomes may justify retaining a change while its mechanism remains uncertain. Case-level confidence and the evidence status of a reusable ADM entry are separate judgments.</p>
-<p>Distinguish a newly caused problem from one newly exposed by progress or better observation. A repaired handoff may let work reach a previously hidden failure; a better acceptance check may reveal an existing defect. Neither observation alone shows the intervention damaged the system.</p>
+<p>Distinguish a newly caused problem from one newly exposed by progress or better observation. A better compaction summary may let work reach a previously hidden failure; a better acceptance check may reveal an existing defect. Neither observation alone shows the intervention damaged the system.</p>
 <h2 id="where-the-knowledge-belongs">Where the knowledge belongs<a class="headerlink" href="#where-the-knowledge-belongs" title="Permanent link">&para;</a></h2>
 <p>Symptoms provide shared descriptions of behavior. Diagnoses organize reusable explanations and their alternatives. Interventions specify changes to the system. The prediction depends on the diagnosis, the intervention, and the configuration where it is applied; it should be stated for that combination rather than treated as an unconditional promise of the intervention.</p>
-<p>This guide is the shared methodology. The <a href="../skills/agent-diagnostics/SKILL.html">diagnostic skill</a> is an agent-facing aid for working with ADM files. The <a href="authoring-symptom.html">symptom</a>, <a href="authoring-diagnosis.html">diagnosis</a>, and <a href="authoring-intervention.html">intervention</a> authoring guides describe how to contribute entries; the <a href="../skills/agent-diagnostics/references/format.html">format reference</a> describes their representation.</p></article>
+<p>This guide is the shared methodology. The <a href="../skills/agent-diagnostics/SKILL.html">diagnostic skill</a> is an agent-facing aid for working with ADM files. The <a href="authoring-symptom.html">symptom</a>, <a href="authoring-diagnosis.html">diagnosis</a>, and <a href="authoring-intervention.html">intervention</a> authoring guides describe how to contribute entries; the <a href="../skills/agent-diagnostics/references/format.html">format reference</a> describes their representation.</p>
+<h2 id="decisions-still-under-discussion">Decisions still under discussion<a class="headerlink" href="#decisions-still-under-discussion" title="Permanent link">&para;</a></h2>
+<p>These entries are working drafts. Three questions should guide further examples:</p>
+<ul>
+<li><strong>How broad should a diagnosis be?</strong> A reusable explanation needs more substance than a bug name, but a label that covers several unrelated causes cannot guide a repair. Include harness and repository behavior when it explains the agent system’s recurring failure.</li>
+<li><strong>What makes an intervention complete?</strong> The reader should know what to change, how to involve the user, and when to review the result. A development principle such as “write better tests” is too broad until it identifies how the existing workflow changes.</li>
+<li><strong>What observation is enough to learn from?</strong> A user’s concrete comparison can justify investigation. Stronger causal claims need evidence that separates explanations, but an ordinary repair should not require a controlled experiment.</li>
+</ul>
+<p>Use <a href="observation-methods.html">observation methods</a> for shared ways to collect that evidence. Keep these questions open as real cases improve the entries; the XML structure does not settle them.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="authoring-symptom.html"><span>← Previous</span>Authoring symptoms XML files</a>
-    <a rel="next" href="../skills/agent-diagnostics/SKILL.html"><span>Next →</span>Diagnostic skill</a>
+    <a rel="next" href="observation-methods.html"><span>Next →</span>Observation methods</a>
   </nav>
   
 </main>
@@ -403,10 +450,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/diagnostic-process.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

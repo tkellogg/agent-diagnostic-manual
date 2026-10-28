@@ -6,7 +6,7 @@ summary: An agent acknowledges a specific correction and then repeats the correc
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Correction without behavioral change
 xml_source: symptoms/correction-without-behavioral-change.xml
 ---
@@ -29,9 +29,7 @@ After receiving and acknowledging an applicable correction, the agent performs m
 
 ## How to recognize it
 
-In the transcript, pair the specific correction and acknowledgment with the next relevant tool call, edit, or answer. Use execution timestamps to distinguish a newly chosen action from one already in flight, and compare intervening instructions for a change in scope.
-
-Inspect saved feedback files, memory loading records, and handoff summaries alongside the later input where available. These can show what was retained or omitted; compare actual later actions with the correction rather than treating an apology or memory write as proof of compliance.
+Pair an acknowledged correction with the next relevant action in the transcript. A small classifier can flag repeated violations for review; exclude actions already in progress when the correction arrived.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,16 +67,22 @@ Record the episode identifier and date, task type, model/harness versions, the c
 
 ### Repeated file
 
-Synthetic incident: after being told to edit a source template rather than generated output, the agent acknowledges the correction but makes the next fix in the generated file. Comparing the correction with the diff identifies the recurrence. The next build overwrites that fix, leaving one unresolved defect and ten minutes of rework.
+<span class="adm-example-kind">Synthetic example</span>
+
+After being told to edit a source template rather than generated output, the agent acknowledges the correction but makes the next fix in the generated file. Comparing the correction with the diff identifies the recurrence. The next build overwrites that fix, leaving one unresolved defect and ten minutes of rework.
 
 <a id="examples/saved-feedback"></a>
 
 ### Saved feedback
 
-Reported incident: [Claude Code issue #37847](https://github.com/anthropics/claude-code/issues/37847) lists eight shell-command recurrences after feedback was saved: four Python, two shell-loop, and two Node examples. The reporter compared saved memory and acknowledgments with later commands, describing repeated corrections and lost confidence in memory. Total time lost and the effective input to every invocation are not supplied.
+<span class="adm-example-kind">Reported example</span>
+
+[Claude Code issue #37847](https://github.com/anthropics/claude-code/issues/37847) lists eight shell-command recurrences after feedback was saved: four Python, two shell-loop, and two Node examples. The reporter compared saved memory and acknowledgments with later commands, describing repeated corrections and lost confidence in memory. Total time lost and the effective input to every invocation are not supplied.
 
 <a id="examples/new-authorization"></a>
 
 ### New authorization
 
-Synthetic comparison: after prohibiting edits to generated output, the user explicitly approves one emergency edit there. The transcript records that exception before the single edit, so the change does not violate a correction that remained in force for that action.
+<span class="adm-example-kind">Synthetic example</span>
+
+After prohibiting edits to generated output, the user explicitly approves one emergency edit there. The transcript records that exception before the single edit, so the change does not violate a correction that remained in force for that action.

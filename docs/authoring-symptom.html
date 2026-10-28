@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -315,20 +323,22 @@
 <h1 id="authoring-symptoms-xml-files">Authoring symptoms XML files<a class="headerlink" href="#authoring-symptoms-xml-files" title="Permanent link">&para;</a></h1>
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p>Observations define what the behavior is in the canonical case. These blocks should be succinct and phrased as objective observations that can be made by looking at non-experiential evidence (session transcripts, files, audit logs, etc.). </p>
-<p>Make sure to include clear rules. Now, these clear rules are going to be arbitrary to some extent, like "3-5 cycles", chosen as a guiding principle. These rules should be dialed slightly towards optimizing for recall than precision. Try for precision, but when it's ambiguous, reall is fine.</p>
+<p>Make sure to include clear rules. Now, these clear rules are going to be arbitrary to some extent, like "3-5 cycles", chosen as a guiding principle. These rules should be dialed slightly towards optimizing for recall than precision. Try for precision, but when it's ambiguous, recall is fine.</p>
 <p>Generally keep an observation to a single paragraph. Ideally 1-2 sentences. Maximize clarity.</p>
+<p>Observable does not mean numerically measured. A reviewer can identify poorer code, misunderstood intent, or an explanation that is hard to follow by pointing to concrete evidence. Do not require a benchmark, fixed sample size, or explicit time budget unless the behavior actually needs that boundary.</p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>These are light suggestions for where to look (data sources) and how to surface data that might match one of the <code>observations</code>. This block should be more tangibly helpful than the observations block, but should not conflict with it at all.</p>
-<p>Read this block, and think to yourself. If such a situation exists in which a reader could read the observations, then this block, and suddenly be confused on if it's a match or not, then you've written this wrong. It shouldn't conflict at all, it should merely be more tangible help.</p>
-<p>For this block, focus on where to look — session transcripts, memory files, code, git history, etc. And describe general recipes (not so much detail that it could conflict, but enough to make it tangible) for how to surface the data, how to surface counter examples, how to surface data to show it's not a benign lookalike, etc.</p>
+<p>This optional section gives a specific, useful hint about where to find evidence. Keep it to one or two sentences. Omit it when it merely restates the observations or repeats generic advice to read transcripts and logs.</p>
+<p>It must not change the definition or add a new requirement for recognizing the symptom. Reusable techniques such as transcript classifiers, before-and-after comparisons, and occasional background reviews belong in <a href="observation-methods.html">observation methods</a>.</p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
-<p>Describe situations that are acceptable but might look like. This is a chance to explore the boundry conditions and present counter examples. Every benign lookalike should reference the observations to explain why this lookalike doesn't match the criteria.</p>
+<p>Describe situations that are acceptable but might look like. This is a chance to explore the boundary conditions and present counter examples. Make the lookalike the negative half of the definition: reinforce what the behavior is by showing what it is not. A conceptual reference is enough; an explicit XML link to the observation is optional.</p>
 <p>An explanation is not automatically a benign lookalike: a faulty instruction, failed delivery, or context policy can cause a symptom of the configured system even when the model is behaving reasonably. Exclude justified behavior, not behavior whose cause you can explain. If a case falls outside this symptom's definition, do not imply that the entire system is healthy. Check linked diagnoses for contradictions before changing either boundary.</p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
 <p>Describe in prose all data that would be helpful to capture per-incident in order to do population-level analysis to spot trends.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Make it tangible. Try to use real reported examples from the internet (with links). It's fine to include made-up examples, as long as they're phrased as a real incident. Make sure to include what it looked like (the observation), how it was recognized, and the impacts.</p>
-<p>The primary purpose of examples is to quantify the impacts of the symptom. It's done through several real world examples so that the reader can see why it's harmful and suddenly associate behavior that could have been benign and instead categorize it as a real symptom. That is done by understanding the impact.</p></article>
+<p>The primary purpose of examples is to quantify the impacts of the symptom. It's done through several real world examples so that the reader can see why it's harmful and suddenly associate behavior that could have been benign and instead categorize it as a real symptom. That is done by understanding the impact.</p>
+<p>Use <code>kind="synthetic"</code> or <code>kind="observed"</code> on each example; the builder displays a badge, so do not repeat “Synthetic incident” in its prose. Prefer linked firsthand reports when available, preserve important qualifications and follow-ups, and keep invented examples concrete and easy to follow.</p>
+<p>Write for a reader who has not followed the author’s reasoning. Use familiar words, name actors and actions, and explain necessary terms. Dense labels and compressed noun phrases can themselves obscure the behavior being defined; see <a href="https://diag.timkellogg.me/symptoms/opaque-jargon.html">S015</a>.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="authoring-intervention.html"><span>← Previous</span>Authoring intervention XML files</a>
@@ -350,10 +360,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/authoring-symptom.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

@@ -1,35 +1,43 @@
 # Authoring diagnosis XML files
 
-A diagnosis is a reusable working explanation of how the configured agent system produces or maintains a problem. It should help a maintainer choose a system change and predict what future behavior would support or weaken that explanation. A more severe restatement of a symptom does not supply that model.
+A diagnosis is a working explanation of how the configured agent system produces a problem. It earns a place in ADM when it helps choose a repair and predict what that repair will change. Naming an unpleasant behavior again does not provide that explanation.
 
-## Scope and definition
+## Start with the model
 
-Treat the configured system as the patient and completed episodes as evidence. In `definition`, explain how the relevant part should work, what goes wrong, and how that produces the observed behavior. Name the boundary or process involved without assuming hidden thoughts or intent.
+In `definition`, explain how the relevant part should work, what goes wrong, and how that produces the symptoms. Use familiar objects and actions: “the compaction summary drops permission” is clearer than “authority fails to survive the transition.” A reader should understand the proposed failure before being asked to inspect evidence for it.
 
-A bug in generated code establishes an artifact defect. It becomes evidence for an ADM diagnosis when there is a supported connection to how the agent system generates, checks, or uses that code. Defects in an agent's own harness can be part of the pathology, but a catalog entry should describe a reusable failure mechanism rather than give every isolated bug a diagnosis.
+The system includes the model, prompts, skills, tools, harness, and working repository. A harness fault can therefore be relevant. A bug in generated code is not automatically an agent diagnosis: explain how the recurring generation, testing, or completion process produces or misses it. Do not give every isolated bug a catalog entry.
 
-Keep plausible models provisional. A draft can name evidence that would be needed without claiming that an observed case already supplies it. If there is only a behavioral pattern, contribute a symptom or leave a working hypothesis in the case notes.
+Use a title specific enough to identify the proposed failure. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.
 
-## Criteria and differential
+## Put predictions near the explanation
 
-Use criteria to state the observations needed to support the explanation in a particular configuration. Put the mechanism's distinguishing evidence here; do not make a symptom reference stand in for causal evidence. `operator="all"` requires support for every criterion. An inaccessible model input remains unknown, not evidence of omission.
+In `relations`, link the symptoms the model could explain and the interventions that plausibly address it. Each `intervention-ref` contains `when` and `predictions`. The predictions belong to the diagnosis **and** the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.
 
-Use exclusions for circumstances that rule this diagnosis out. Use differential alternatives for competing explanations and specify the observation that separates them. Several mechanisms can coexist. A failed delivery can exclude a symptom that requires prior usable delivery without excluding another symptom such as doom looping.
+Use a short list of concrete outcomes: what should improve, what should stay intact, what would favor another explanation, and any harm the change could cause. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.
 
-Do not redefine a linked symptom inside a diagnosis. An explanation is not automatically benign: complying with a faulty checking rule can produce a real system-level symptom. Conversely, a slow but justified check is not pathological merely because the user dislikes its cost. Assess policy changes at the maintainer level; recognizing a bad rule does not authorize a worker to bypass it.
+## Evidence for this explanation
 
-## Interventions and predictions
+`criteria` states what would support the proposed cause in a particular case. It is separate from `definition`: the model explains; the criteria help decide whether it fits. For compaction loss, a useful chain is “the information mattered, compaction dropped it, and the omission explains the later mistake.” A repeated-read symptom alone does not establish that chain.
 
-Link a concrete intervention only when its prerequisites make sense for this explanation. Each `intervention-ref` has `when` and a prose `predictions` block. Describe expected improvement, behavior that should remain intact, and an outcome that would weaken the explanation or favor an alternative. Include possible harms or newly visible problems when the model predicts them.
+`operator="all"` means every listed criterion must have support before assigning the diagnosis. Missing evidence leaves a working hypothesis, not a reason to force the label or dismiss the complaint. A reviewer’s reasoned judgment can count as evidence; a numerical benchmark is not required.
 
-The prediction belongs to this diagnosis–intervention combination. The maintainer adapts it to the actual configuration and chooses a proportionate review point before applying the change. Do not encode a universal sample size or turn predictions into a causal programming language.
+Keep criteria few and specific to the explanation. Do not copy the symptom definition or prescribe a large investigation in every criterion.
 
-Keep `investigation` focused on the evidence needed to distinguish explanations. Prefer existing traces and ordinary future work; repeated replay, independent reviewers, or new instrumentation should answer an actual unresolved question, not become entry boilerplate.
+## Boundaries and other explanations
 
-## Evidence and uncertainty
+Use `exclusions` to describe situations where the explanation may not fit, including normal behavior that resembles the failure. Explain the boundary in ordinary language: compaction should forget obsolete information. Avoid treating every uncertainty as a firm exclusion.
 
-Separate what was observed, what mechanism it supports, whether a proposed repair helped, and how widely the result might apply. A source-backed artifact discrepancy does not automatically validate its proposed cause or remedy. The root evidence label is a coarse summary; use `evidence-and-uncertainty` to state the supported claims and limits precisely.
+Use `differential` for alternative causes that would lead to a different repair. Each `alternative` has a `discriminator`: what should the maintainer look at to tell them apart? For example, “the summary dropped permission” suggests fixing compaction; “the summary kept it but another rule demands fresh consent” suggests reviewing that rule. Omit alternatives that merely repeat a caveat without changing the next action.
 
-Keep private cases and excerpts in their authorized location. Public entries can present general hypotheses and clearly synthetic examples without publishing the motivating incident or implying publicly inspectable support that is not supplied.
+Several causes can coexist. A faulty instruction can explain a symptom without making it benign, and a normal action by the model can reveal a problem in the configured system. Check linked symptoms for contradictory boundaries.
 
-Use the [diagnostic process](diagnostic-process.md) for the overall flow and the [format reference](../skills/agent-diagnostics/references/format.md) for XML structure and scoped addresses.
+## Investigation, sources, and writing
+
+Keep `investigation` to the next useful evidence to inspect. Shared recipes belong in [observation methods](observation-methods.md), not repeated paragraphs on every entry.
+
+The root `status` and `evidence` attributes identify provisional entries. Put a specific source or limitation next to the claim it qualifies; do not add an “evidence and uncertainty” section that repeats the draft badge. Reports of a behavior do not establish its cause or the effectiveness of a remedy. Keep private cases private.
+
+Use ordinary verbs, name the thing being changed, and avoid invented labels for familiar actions. Read the draft as someone who has not followed its author’s reasoning. If the reader must translate the prose before assessing the model, revise it.
+
+See the [diagnostic process](diagnostic-process.md) and [format reference](../skills/agent-diagnostics/references/format.md) for the shared flow and XML details. These conventions remain a working draft; a useful example should shape the structure, not be stretched to fill it.

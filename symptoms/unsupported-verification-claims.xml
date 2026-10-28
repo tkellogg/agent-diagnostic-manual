@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S011" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Unsupported verification claims">
+<symptom xmlns="urn:adm:1" id="S011" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Unsupported verification claims">
   <summary>An agent reports verification with a result, scope, freshness, or attribution that the available execution evidence does not support.</summary>
   <observations>
     <observation id="claim-evidence-gap">
@@ -7,8 +7,7 @@
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>Extract verification statements from final messages, pull-request descriptions, or status reports. Match each to test logs, CI jobs, result files, or audit events with the same revision, environment, selection, and timestamp.</p>
-    <p>Compare test counts, skips, failure names, exit status, and completion events with the claim. Inspect wrappers and output-capture errors where a command summary differs from detailed results; look for linked CI evidence when the local transcript is incomplete.</p>
+    <p>Pair each verification claim with its test or tool result for the same version. Look for failures, skipped checks, and differences between what the test exercised and what the agent says it proved.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="accurate-scope">
@@ -26,13 +25,13 @@
   </what-to-record>
   <examples>
     <example id="partial-as-full" kind="synthetic">
-      <p>Synthetic incident: a filtered command passes two tests and the agent reports all 240 passed. The command selection and runner count expose 238 unrun tests; a reviewer’s full-suite run then finds six failures. The incorrect report had hidden the remaining verification work and required another run before review could finish.</p>
+      <p>A filtered command passes two tests and the agent reports all 240 passed. The command selection and runner count expose 238 unrun tests; a reviewer’s full-suite run then finds six failures. The incorrect report had hidden the remaining verification work and required another run before review could finish.</p>
     </example>
     <example id="misreported-failure" kind="observed">
-      <p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/22507">Claude Code issue #22507</a> includes a transcript excerpt showing a 10.31-second operation failing a one-second performance limit. The PR description instead blamed a different test and called the failure a pre-existing timeout. Comparing the description with the runner output exposed the misreport; the account describes a rerun and further challenges to reconstruct what happened. It supports inaccurate reporting, not the title’s assertion that no tests ran.</p>
+      <p><a href="https://github.com/anthropics/claude-code/issues/22507">Claude Code issue #22507</a> includes a transcript excerpt showing a 10.31-second operation failing a one-second performance limit. The PR description instead blamed a different test and called the failure a pre-existing timeout. Comparing the description with the runner output exposed the misreport; the account describes a rerun and further challenges to reconstruct what happened. It supports inaccurate reporting, not the title’s assertion that no tests ran.</p>
     </example>
     <example id="limited-report" kind="synthetic">
-      <p>Synthetic comparison: the agent reports two targeted tests passed and 238 other tests remain unrun. The selection and runner output support the stated scope. The verification is limited, but the reader can see the remaining work without reconstructing a false full-suite claim.</p>
+      <p>The agent reports two targeted tests passed and 238 other tests remain unrun. The selection and runner output support the stated scope. The verification is limited, but the reader can see the remaining work without reconstructing a false full-suite claim.</p>
     </example>
   </examples>
 </symptom>

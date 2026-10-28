@@ -6,7 +6,7 @@ summary: "An agent continues or expands verification beyond the task\u2019s just
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Excessive verification
 xml_source: symptoms/excessive-verification.xml
 ---
@@ -23,15 +23,19 @@ An agent continues or expands verification beyond the task’s justified checkin
 
 ### Checking overrun
 
-Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an unmet acceptance need, relevant risk, or investigation question that justifies it; an overbroad standing rule can cause this behavior.
+The agent spends effort checking things that do not help the user’s actual goal, planned review, or credible failure risks, delaying useful work or adding avoidable cost. This can happen on the first check: no repeated run or explicit time limit is required.
+
+<a id="observations/goal-mismatch"></a>
+
+### Goal mismatch
+
+The agent verifies at a level suited to a different task: it hardens a disposable prototype when the user wants feedback, takes over review the user intends to do, or tests states the application cannot reach.
 
 <a id="how-to-recognize-it"></a>
 
 ## How to recognize it
 
-Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.
-
-Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Distinguish a rule's existence from the acceptance need or risk it addresses; new failures, unmet coverage, and planned repeatability studies can justify further checking.
+Read the user’s request and follow-up messages beside the checks the agent performed: what was the user trying to learn, what would they review themselves, and what could actually fail? A human or classifier can identify a mismatch without a predeclared time budget.
 
 <a id="benign-lookalikes"></a>
 
@@ -41,44 +45,80 @@ Compare later checks against code and environment changes, unresolved failures, 
 
 ### Required gate
 
-A release, security, or project check supplies coverage still needed for the requested action. That unmet acceptance need distinguishes it from [checking overrun](excessive-verification.md#observations/checking-overrun), even when the suite takes longer than the edit. A policy requiring equivalent checks after that need is met may itself warrant diagnosis.
+The user wants a release, or the change could cause a consequential failure. Checking that risk serves the task even when it takes longer than the edit; a rule’s mere existence does not establish that it is appropriate.
+
+<a id="benign-lookalikes/shared-review"></a>
+
+### Shared review
+
+The user wants help with verification, or the agreed workflow assigns those checks to the agent. This differs from assuming the agent must do every check when the user has chosen to handle part of the review.
 
 <a id="benign-lookalikes/new-risk"></a>
 
 ### New risk
 
-A check reveals a relevant new failure or an edit affects additional behavior. The new evidence justifies the broader checking, unlike the unexplained extra work in [checking overrun](excessive-verification.md#observations/checking-overrun).
+A new failure or a real interaction in the application justifies a broader check. The agent should be able to name that risk; the number of tests alone does not show excess.
 
 <a id="benign-lookalikes/repeatability-study"></a>
 
 ### Repeatability study
 
-Unchanged runs belong to an agreed flakiness, load, or reproducibility investigation. They answer its unresolved question and satisfy its checking scope, so repetition alone is not [checking overrun](excessive-verification.md#observations/checking-overrun).
+The user is investigating flakiness or reliability. Repeated runs answer the question they asked, even when the code is unchanged.
 
 <a id="what-to-record"></a>
 
 ## What to record
 
-Record the episode identifier and date, task type, model and harness versions, requested outcome and urgency, explicit checking budget, mandatory gates, and stopping condition. Preserve check commands, selected tests, job timestamps, state changes, results, and the decision each check informed. Include required versus unexplained runs, infrastructure added, time after the stopping condition, tokens or cost where available, delivery delay, and defects actually caught. Record total tasks or checks reviewed when aggregating incidents, rather than treating a count of complaints as a rate.
+Keep the user’s goal, intended review, urgency, and relevant instructions alongside the checks performed. Describe why each disputed check did or did not help, including what could actually fail in the application. Record delay, cost, useful defects found, and the user’s corrections where available; exact timing or a predeclared budget is helpful but not required.
 
 <a id="examples"></a>
 
 ## Examples
 
-<a id="examples/past-completion"></a>
+<a id="examples/prototype-delay"></a>
 
-### Past completion
+### Prototype delay
 
-Synthetic incident: a user requests a reversible text edit and one targeted check, which passes. With no new failure or broader requirement, the agent installs a test framework, repairs its setup, and runs the full suite twice. The command timeline shows twenty-four additional minutes before delivery and no further defect found.
+<span class="adm-example-kind">Synthetic example</span>
+
+A founder asks for a clickable mockup to show five prospective customers that afternoon. The agent spends forty minutes adding file-integrity checks to static demo assets. The request and command log make the mismatch visible: the checks do not help learn whether customers want the idea, and the feedback session starts without the mockup.
+
+<a id="examples/shared-review"></a>
+
+### Shared review
+
+<span class="adm-example-kind">Synthetic example</span>
+
+A user asks for a small UI change and says they will check the visual result themselves. The agent spends another twenty minutes building screenshot comparisons before showing the page. It has taken over review the user chose to do and delayed that review.
+
+<a id="examples/impossible-state"></a>
+
+### Impossible state
+
+<span class="adm-example-kind">Synthetic example</span>
+
+The application creates a fixed internal list; users cannot change its shape. After a label edit, the agent writes a suite for malformed external versions of that list. Reading where the list is constructed shows those inputs cannot reach this code, and the tests delay the requested change without covering a real risk.
+
+<a id="examples/testing-spiral"></a>
+
+### Testing spiral
+
+<span class="adm-example-kind">Reported example</span>
+
+[A developer describes a week of expanding reviews and more than 4,000 tests](https://www.reddit.com/r/ClaudeAI/comments/1n0d0a7/vibe_coding_with_no_experience_week_1_of_coding/), ending with CI blocked. The author later clarified that features did exist, but described the testing as mismatched to an early product. This is a report of workflow cost and unmet intent, not proof that every test was unnecessary.
 
 <a id="examples/suite-overrun"></a>
 
 ### Suite overrun
 
-Reported incident: [a Claude Code user reports repeated runs of more than 1,500 tests after small edits despite instructions to stop](https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/). The user recognized the activity by inspecting long-running background tasks and reports about two hours per run, with the project largely stalled for weeks. These are user estimates; the post does not supply a full trace establishing the applicable requirements for each run.
+<span class="adm-example-kind">Reported example</span>
+
+[A Claude Code user reports repeated runs of more than 1,500 tests after small edits despite instructions to stop](https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/), estimating about two hours per run. This illustrates repeated checking; it is only one form of the symptom, and the report does not establish the need for each test.
 
 <a id="examples/release-check"></a>
 
 ### Release check
 
-Synthetic comparison: a one-line authentication edit takes one minute and its mandatory regression suite takes twelve minutes. The release policy and CI log account for the longer check; the run satisfies a required gate rather than adding unexplained verification.
+<span class="adm-example-kind">Synthetic example</span>
+
+A one-line authentication change takes one minute and its regression suite takes twelve. The suite checks a real access-control risk before a release the user requested. The longer check serves the task.

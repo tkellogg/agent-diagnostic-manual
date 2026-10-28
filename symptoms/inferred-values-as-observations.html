@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item active" aria-current="page">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -325,8 +333,7 @@
 <p>At least one output value is presented as source-reported, through its label or the applicable field contract, but the trace or transformation shows it was calculated, estimated, or defaulted without a matching source observation. The output does not disclose that substitution.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Compare the field's promised meaning with the accessible source, extraction trace, transformation code, and published value. Look for formula fallbacks or defaults in assignments to source-only fields and check whether downstream labels preserve any derivation disclosed upstream.</p>
-<p>A plausible number alone is insufficient. If the source is inaccessible and there is no evidence of substitution, record uncertainty rather than assuming fabrication. A matching source value may have been independently observed; inspect its provenance.</p>
+<p>Trace a published source-only value back through the source, extraction result, and any calculation or default. If the source cannot be inspected and there is no evidence of substitution, leave the case uncertain.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/labeled-derivation"></a></p>
@@ -345,17 +352,20 @@
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/computed-total"></a></p>
 <h3 id="computed-total">Computed total<a class="headerlink" href="#computed-total" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: a collector must copy a supplier's quoted total, leaving it missing when absent. For one quote it multiplies quantity by unit price and fills the source-only total. The transformation exposes the substitution; a reviewer spends six minutes correcting the export because the unobserved total might exclude fees.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>A collector must copy a supplier's quoted total, leaving it missing when absent. For one quote it multiplies quantity by unit price and fills the source-only total. The transformation exposes the substitution; a reviewer spends six minutes correcting the export because the unobserved total might exclude fees.</p>
 <p><a id="examples/missing-as-zero"></a></p>
 <h3 id="missing-as-zero">Missing as zero<a class="headerlink" href="#missing-as-zero" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: a survey extractor converts three unanswered counts into zeros with a default-value expression. Comparing the form with the export reveals three unobserved values presented as responses, and the analyst must regenerate the summary before using it.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>A survey extractor converts three unanswered counts into zeros with a default-value expression. Comparing the form with the export reveals three unobserved values presented as responses, and the analyst must regenerate the summary before using it.</p>
 <p><a id="examples/authorized-estimate"></a></p>
 <h3 id="authorized-estimate">Authorized estimate<a class="headerlink" href="#authorized-estimate" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: the user requests an estimated total from observed quantity and unit price. The output labels one calculated estimate and leaves the supplier's quoted-total field missing. The derivation and its source inputs are explicit, so no source observation is substituted.</p></article>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>The user requests an estimated total from observed quantity and unit price. The output labels one calculated estimate and leaves the supplier's quoted-total field missing. The derivation and its source inputs are explicit, so no source observation is substituted.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="agreement-driven-reversal.html"><span>← Previous</span>S013 — Agreement-driven reversal</a>
-    <a rel="next" href="../diagnoses/context-handoff-loss.html"><span>Next →</span>D001 — Context handoff loss</a>
+    <a rel="next" href="opaque-jargon.html"><span>Next →</span>S015 — Opaque jargon (neuralese)</a>
   </nav>
   
 </main>
@@ -373,10 +383,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S014" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

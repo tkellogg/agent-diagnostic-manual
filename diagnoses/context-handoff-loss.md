@@ -1,146 +1,122 @@
 ---
 id: D001
 kind: diagnosis
-summary: A compaction or handoff drops still-needed task state from the receiving
-  agent's input, causing it to repeat discovery, lose constraints, or ask again for
-  existing authorization.
+summary: The compaction prompt or algorithm drops information that later work still
+  needs, so the agent repeats work, misses a requirement, or asks for permission again.
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 unit: configured-agent-system
-title: Context handoff loss
+title: Compaction loses important information
 xml_source: diagnoses/context-handoff-loss.xml
 ---
 
-# Context handoff loss
+# Compaction loses important information
 
-A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.
-
-<a id="relations"></a>
-
-## Relationships
-
-Related symptom: [S001](../symptoms/repeated-retrieval.md)
-
-Related symptom: [S006](../symptoms/lost-task-constraints.md)
-
-Related symptom: [S008](../symptoms/repeated-reauthorization.md)
-
-<a id="relations/I001"></a>
-<a id="relations/I001/when"></a>
-[I001](../interventions/preserve-task-relevant-evidence.md)
-
-**When:** Task state was available before a context transition and omitted from the continuation that needed it; the maintainer can change the transition policy.
-
-<a id="relations/I001/predictions"></a>
-
-#### Predictions
-
-On future continuations that receive the preserved state, redundant retrieval, constraint violations, and repeated authorization requests attributable to that omission should decline. Legitimate source refreshes and requests for expanded authority should remain.
-
-Failures before any transition should not improve through this mechanism. Persistence despite confirmed delivery weakens the omission explanation; acting beyond preserved permission suggests that the intervention lost its scope restrictions.
+The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.
 
 <a id="definition"></a>
 
-## Definition
+## How this could happen
 
-The context-management system should carry forward the information needed for unfinished work. Its selection or delivery policy instead omits still-applicable evidence, constraints, or authorization at compaction or delegation. A later decision must reconstruct that state or proceeds without it.
+Compaction makes room by forgetting most of a conversation. It has to predict what will matter next: keep the decisions, constraints, permissions, and findings needed for unfinished work, and discard irrelevant history. This diagnosis proposes that the compactor is making that choice badly.
 
-This is a proposed explanation of the configured system. [Repeated retrieval](../symptoms/repeated-retrieval.md) alone does not establish it, and a transcript retaining information does not establish that the receiving model had it.
+For example, it may preserve a long account of completed edits but drop the user’s instruction to leave a particular file alone. The agent then resumes without that restriction. The same visible mistake has a different explanation if the restriction survived in the context.
+
+<a id="relations"></a>
+
+## Symptoms and predicted effects
+
+- [S001 — Repeated retrieval](../symptoms/repeated-retrieval.md)
+- [S006 — Lost task constraints](../symptoms/lost-task-constraints.md)
+- [S008 — Repeated reauthorization](../symptoms/repeated-reauthorization.md)
+
+<a id="relations/I001"></a>
+<a id="relations/I001/when"></a>
+
+### Intervention: [I001 — Fix compaction so important information survives](../interventions/preserve-task-relevant-evidence.md)
+
+**Use this when:** A compaction summary has lost important information, and you can change the compaction prompt or algorithm.
+
+<a id="relations/I001/predictions"></a>
+
+#### What to expect if this explanation is right
+
+- **Expected improvement:** After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.
+- **Still necessary:** It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.
+- **A reason to reconsider:** If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.
+- **Possible harm:** Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.
 
 <a id="criteria"></a>
 
-## Candidate criteria
+## What would support this explanation
 
 <a id="criteria/prior-state"></a>
 
-### Previously available task state
+### The information mattered
 
-Identify a specific fact, constraint, or authorization that was available before the transition and remained applicable to the later decision.
+Identify a fact, requirement, or permission that was in the conversation before compaction and was needed afterward.
 
 <a id="criteria/delivery-loss"></a>
 
-### Loss at the transition
+### Compaction dropped it
 
-The transition output and effective receiving input show the needed state omitted or materially altered, with no equivalent representation available at that decision. Inaccessible model inputs leave this criterion unknown.
+The summary or the model’s context after compaction omits or changes that information. If you cannot inspect either, keep information loss as a hypothesis.
 
 <a id="criteria/linked-disruption"></a>
 
-### A disruption the missing state explains
+### The omission explains the mistake
 
-The continuation unnecessarily retrieves the same evidence, violates the omitted constraint, or requests authorization already granted. Identify the connection to the particular missing state rather than relying on timing alone.
+The next work shows [repeated retrieval](../symptoms/repeated-retrieval.md), breaks the missing requirement, or asks for the lost permission. Show which missing fact would have helped; timing alone is not enough.
 
-Related symptom: [S001](../symptoms/repeated-retrieval.md)
-
-Related symptom: [S006](../symptoms/lost-task-constraints.md)
-
-Related symptom: [S008](../symptoms/repeated-reauthorization.md)
+- [S001 — Repeated retrieval](../symptoms/repeated-retrieval.md)
+- [S006 — Lost task constraints](../symptoms/lost-task-constraints.md)
+- [S008 — Repeated reauthorization](../symptoms/repeated-reauthorization.md)
 
 <a id="exclusions"></a>
 
-## Exclusions
+## When this explanation may not fit
 
 <a id="exclusions/expired-state"></a>
 
-### Expired state
+### Information no longer needed
 
-Information legitimately expired or the user changed the requirement or authorization before continuation.
+Forgetting is useful when a fact is obsolete, a task is finished, or permission has expired. Keeping everything would defeat compaction.
 
 <a id="exclusions/equivalent-context"></a>
 
-### Equivalent context
+### The meaning survived
 
-The receiving input contains an adequate equivalent of the necessary state. Poor use of visible information requires another explanation.
+A shorter wording may preserve the same meaning. If the relevant information is still clear, there may be a problem with following it, but it was not lost during compaction.
 
 <a id="differential"></a>
 
-## Differential diagnosis
+## Other explanations to consider
 
 <a id="differential/initial-delivery"></a>
 
-### Information was never delivered
+### The agent never had the information
 
 <a id="differential/initial-delivery/discriminator"></a>
-
-#### Discriminator
-
-Compare the original usable result with actual model input before the transition. Backend success or a saved file alone cannot establish prior delivery.
+Check the conversation before compaction. A fact in an unread file was never available to summarize; improve how the agent finds or records it.
 
 <a id="differential/policy-conflict"></a>
 
-### A standing rule demands the behavior
+### Another instruction demands the repeated work
 
 <a id="differential/policy-conflict/discriminator"></a>
-
-#### Discriminator
-
-Check whether a fresh-consent or repeated-check rule still requires the action when the state is visible. For excessive checking, consider [verification policy overgeneralization](verification-policy-overgeneralization.md).
+If the summary retains a passed test but a standing rule requires another run anyway, changing compaction will not remove that rule. Consider [overbroad verification instructions](verification-policy-overgeneralization.md).
 
 <a id="differential/visible-state"></a>
 
-### The agent acts against visible state
+### The agent has the information but does not use it
 
 <a id="differential/visible-state/discriminator"></a>
-
-#### Discriminator
-
-If the relevant state is present and clear at the decision, investigate competing instructions and action selection. Do not infer internal forgetting from incompatible behavior.
+If the needed fact is clear in the current context, look for conflicting instructions or a failure to follow it. Rewriting the summary may not help.
 
 <a id="investigation"></a>
 
-## Investigation
+## Where to look next
 
-Inspect the affected transition and the next decision using existing input captures where available. Compare which state survived with what the pending work needed. Look for ordinary continuations under the same policy that preserved the state and proceeded correctly; no replay of the incident is required.
-
-<a id="interventions"></a>
-
-## Interventions
-
-[Preserve task state across context transitions](../interventions/preserve-task-relevant-evidence.md) changes future handoffs and compactions. A one-time reminder may rescue an episode but does not repair the transition policy.
-
-<a id="evidence-and-uncertainty"></a>
-
-## Evidence and uncertainty
-
-This is an unvalidated working model. The entry supplies neither an adjudicated public case establishing the mechanism nor evidence that the intervention is effective. Evidence for an omission, its contribution to behavior, and benefit from changing the policy are separate claims.
+Compare the conversation just before compaction with its summary and the next mistake. Look for something the compactor discarded that the unfinished task was likely to need, and for less useful material it kept instead.

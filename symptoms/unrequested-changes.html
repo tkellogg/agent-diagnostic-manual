@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -325,8 +333,7 @@
 <p>The agent makes a material change to an artifact or system state that is outside the requested or otherwise authorized scope and is not supported as necessary to complete the task. This includes reverting unrelated work, unsolicited rewrites, and additional infrastructure.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Compare the request and standing instructions with version-control diffs, file snapshots, deployment events, or service audit logs. Identify what the agent actually changed and use timestamps or authorship records to separate its edits from concurrent work.</p>
-<p>Trace each candidate extra change to the requested behavior using interfaces, dependencies, and configuration. Compare semantic diffs with whitespace-insensitive views, and inspect command results to distinguish a proposed change from an applied one. These records can expose authorized supporting work as well as unrelated cleanup.</p>
+<p>Compare the user’s request with the actual diff or audit log. Separate unrelated changes from edits needed to make the requested behavior work.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/necessary-dependency"></a></p>
@@ -345,17 +352,20 @@
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/unrelated-reset"></a></p>
 <h3 id="unrelated-reset">Unrelated reset<a class="headerlink" href="#unrelated-reset" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: while fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>While fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.</p>
 <p><a id="examples/concurrent-edits"></a></p>
 <h3 id="concurrent-edits">Concurrent edits<a class="headerlink" href="#concurrent-edits" title="Permanent link">&para;</a></h3>
-<p>Reported incident: <a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.</p>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://github.com/openai/codex/issues/6187">Codex issue #6187</a> describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.</p>
 <p><a id="examples/required-interface"></a></p>
 <h3 id="required-interface">Required interface<a class="headerlink" href="#required-interface" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: an authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.</p></article>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="repeated-reauthorization.html"><span>← Previous</span>S008 — Repeated reauthorization</a>
-    <a rel="next" href="completion-artifact-mismatch.html"><span>Next →</span>S010 — Completion–artifact mismatch</a>
+    <a rel="next" href="completion-artifact-mismatch.html"><span>Next →</span>S010 — Claims completion while work is unfinished</a>
   </nav>
   
 </main>
@@ -373,10 +383,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S009" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

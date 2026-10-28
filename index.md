@@ -44,9 +44,9 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
     An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.
 
-- [S010 — Completion–artifact mismatch](symptoms/completion-artifact-mismatch.md)
+- [S010 — Claims completion while work is unfinished](symptoms/completion-artifact-mismatch.md)
 
-    An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.
+    The agent says the requested work is done, but the delivered result still lacks something covered by that claim.
 
 - [S011 — Unsupported verification claims](symptoms/unsupported-verification-claims.md)
 
@@ -64,50 +64,54 @@ Browse the XML entries for [symptoms](#symptoms), [diagnoses](#diagnoses), and [
 
     An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source.
 
+- [S015 — Opaque jargon (neuralese)](symptoms/opaque-jargon.md)
+
+    The agent’s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.
+
 
 ## Diagnoses
 
-- [D001 — Context handoff loss](diagnoses/context-handoff-loss.md)
+- [D001 — Compaction loses important information](diagnoses/context-handoff-loss.md)
 
-    A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.
+    The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.
 
-- [D002 — Tool discovery delivery gap](diagnoses/tool-discovery-delivery-gap.md)
+- [D002 — Tool discovery reports unusable tools](diagnoses/tool-discovery-delivery-gap.md)
 
-    The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use.
+    Tool search says a tool is ready, but the agent lacks the definition or access needed to call it. Searching again gives the same unusable result.
 
-- [D003 — Verification policy overgeneralization](diagnoses/verification-policy-overgeneralization.md)
+- [D003 — Overbroad verification instructions](diagnoses/verification-policy-overgeneralization.md)
 
-    A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.
+    Instructions make the agent check more than the user’s task needs, often because several files repeat or contradict one another.
 
-- [D004 — Verification scope collapse](diagnoses/verification-scope-collapse.md)
+- [D004 — Component checks mistaken for complete verification](diagnoses/verification-scope-collapse.md)
 
-    The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.
+    The workflow treats a passing component test as proof that the whole requested behavior works, even though the connections between components were never exercised.
 
 
 ## Interventions
 
-- [I001 — Preserve task state across context transitions](interventions/preserve-task-relevant-evidence.md)
+- [I001 — Fix compaction so important information survives](interventions/preserve-task-relevant-evidence.md)
 
-    Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.
+    Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.
 
-- [I002 — Give verification a scope and stopping condition](interventions/scope-verification-policy.md)
+- [I002 — Consolidate verification instructions with the user](interventions/scope-verification-policy.md)
 
-    Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.
+    Find the instructions that demand extra checking, remove duplicates and contradictions, and agree with the user on one simple account of what verification each kind of work needs.
 
-- [I003 — Verify through the required acceptance path](interventions/verify-acceptance-path.md)
+- [I003 — Repair gaps between tests and real use](interventions/verify-acceptance-path.md)
 
-    Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope.
+    Audit where existing tests bypass connections that users rely on, then change the project’s test setup and QA instructions to cover those gaps on relevant future work.
 
 - [I004 — Keep derived values out of source-only fields](interventions/separate-observed-derived-values.md)
 
     Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.
 
-- [I005 — Complete the discovery-to-invocation handoff](interventions/complete-tool-discovery-handoff.md)
+- [I005 — Make discovered tools callable](interventions/complete-tool-discovery-handoff.md)
 
-    Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.
+    Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.
 
 
-Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.
+Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared [observation methods](docs/observation-methods.md) describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.
 
 These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.
 

@@ -1,19 +1,19 @@
 ---
 id: S010
 kind: symptom
-summary: An agent claims that requested work is complete while the delivered artifact
-  or resulting state demonstrably lacks a required part.
+summary: The agent says the requested work is done, but the delivered result still
+  lacks something covered by that claim.
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
-title: "Completion\u2013artifact mismatch"
+updated: '2026-10-28'
+title: Claims completion while work is unfinished
 xml_source: symptoms/completion-artifact-mismatch.xml
 ---
 
-# Completion–artifact mismatch
+# Claims completion while work is unfinished
 
-An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.
+The agent says the requested work is done, but the delivered result still lacks something covered by that claim.
 
 <a id="observations"></a>
 
@@ -21,17 +21,15 @@ An agent claims that requested work is complete while the delivered artifact or 
 
 <a id="observations/unsupported-completion"></a>
 
-### Unsupported completion
+### Work is claimed complete but is unfinished
 
-A completion claim covers a stated deliverable or acceptance criterion, but inspection of the corresponding artifact or system state at that time contradicts the claim. The discrepancy is about delivered work, not merely confidence or phrasing.
+The agent claims a deliverable is complete, but inspecting it shows that part of the claimed work is missing or unfinished. Unlike [premature stopping](premature-stopping.md), this symptom requires a false completion claim; an agent can stop early while accurately saying work remains.
 
 <a id="how-to-recognize-it"></a>
 
 ## How to recognize it
 
-Take the exact completion statement from the transcript and map it to the requested deliverable. Inspect the named branch, revision, destination, or deployed environment using files, git history, deployment records, or the delivered workflow.
-
-Compare artifact timestamps with the claim, and follow persistence, commit, transfer, and deployment events to locate where work stopped reaching the destination. Check disclosed limitations and later modifications before attributing a discrepancy to the state at claim time.
+Match the exact completion claim to the artifact at the named revision and destination. Inspect what was there when the claim was made, rather than a later version.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,16 +67,22 @@ Record the episode identifier and date, task type, model and harness versions, a
 
 ### Missing export
 
-Synthetic incident: an agent reports that CSV export is implemented and ready. The delivered revision has a button and success message but no export path; exercising that workflow produces zero files. The user discovers the mismatch during a scheduled export and spends twenty minutes producing the CSV manually.
+<span class="adm-example-kind">Synthetic example</span>
+
+An agent reports that CSV export is implemented and ready. The delivered revision has a button and success message but no export path; exercising that workflow produces zero files. The user discovers the mismatch during a scheduled export and spends twenty minutes producing the CSV manually.
 
 <a id="examples/empty-worktree"></a>
 
 ### Empty worktree
 
-Reported incident: [Matthew Hawthorne’s February 2026 account](https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything) describes a seven-turn resumed task declaring success on a branch with no changes. Code review exposed the empty branch; the earlier run’s uncommitted work had not reached the new worktree. The requested feature was absent despite the completion report, and investigation prompted changes to resume and persistence handling. Recovery time is not given.
+<span class="adm-example-kind">Reported example</span>
+
+[Matthew Hawthorne’s February 2026 account](https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything) describes a seven-turn resumed task declaring success on a branch with no changes. Code review exposed the empty branch; the earlier run’s uncommitted work had not reached the new worktree. The requested feature was absent despite the completion report, and investigation prompted changes to resume and persistence handling. Recovery time is not given.
 
 <a id="examples/explicit-partial"></a>
 
 ### Explicit partial
 
-Synthetic comparison: an agent delivers an export button and explicitly says CSV generation remains unfinished. The diff and a workflow check confirm that exact boundary. One requirement remains open, but the report does not falsely describe it as complete.
+<span class="adm-example-kind">Synthetic example</span>
+
+An agent delivers an export button and explicitly says CSV generation remains unfinished. The diff and a workflow check confirm that exact boundary. One requirement remains open, but the report does not falsely describe it as complete.

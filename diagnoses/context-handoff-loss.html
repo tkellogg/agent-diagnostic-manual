@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/diagnoses/context-handoff-loss.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>D001 — Context handoff loss - Agent Diagnostic Manual</title>
+        <title>D001 — Compaction loses important information - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="context-handoff-loss.html" class="dropdown-item active" aria-current="page">D001 — Context handoff loss</a>
+    <a href="context-handoff-loss.html" class="dropdown-item active" aria-current="page">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -261,37 +269,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#context-handoff-loss" class="nav-link">Context handoff loss</a>
+            <li class="nav-item" data-bs-level="1"><a href="#compaction-loses-important-information" class="nav-link">Compaction loses important information</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#relationships" class="nav-link">Relationships</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#definition" class="nav-link">Definition</a>
+            <li class="nav-item" data-bs-level="2"><a href="#how-this-could-happen" class="nav-link">How this could happen</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#candidate-criteria" class="nav-link">Candidate criteria</a>
+            <li class="nav-item" data-bs-level="2"><a href="#symptoms-and-predicted-effects" class="nav-link">Symptoms and predicted effects</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#exclusions" class="nav-link">Exclusions</a>
+            <li class="nav-item" data-bs-level="2"><a href="#what-would-support-this-explanation" class="nav-link">What would support this explanation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#differential-diagnosis" class="nav-link">Differential diagnosis</a>
+            <li class="nav-item" data-bs-level="2"><a href="#when-this-explanation-may-not-fit" class="nav-link">When this explanation may not fit</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#investigation" class="nav-link">Investigation</a>
+            <li class="nav-item" data-bs-level="2"><a href="#other-explanations-to-consider" class="nav-link">Other explanations to consider</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#interventions" class="nav-link">Interventions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
+            <li class="nav-item" data-bs-level="2"><a href="#where-to-look-next" class="nav-link">Where to look next</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -328,77 +328,76 @@
   
   <article data-pagefind-body>
 
-<h1 id="context-handoff-loss">Context handoff loss<a class="headerlink" href="#context-handoff-loss" title="Permanent link">&para;</a></h1>
-<p>A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.</p>
-<p><a id="relations"></a></p>
-<h2 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h2>
-<p>Related symptom: <a href="../symptoms/repeated-retrieval.html">S001</a></p>
-<p>Related symptom: <a href="../symptoms/lost-task-constraints.html">S006</a></p>
-<p>Related symptom: <a href="../symptoms/repeated-reauthorization.html">S008</a></p>
-<p><a id="relations/I001"></a>
-<a id="relations/I001/when"></a>
-<a href="../interventions/preserve-task-relevant-evidence.html">I001</a></p>
-<p><strong>When:</strong> Task state was available before a context transition and omitted from the continuation that needed it; the maintainer can change the transition policy.</p>
-<p><a id="relations/I001/predictions"></a></p>
-<h4 id="predictions">Predictions<a class="headerlink" href="#predictions" title="Permanent link">&para;</a></h4>
-<p>On future continuations that receive the preserved state, redundant retrieval, constraint violations, and repeated authorization requests attributable to that omission should decline. Legitimate source refreshes and requests for expanded authority should remain.</p>
-<p>Failures before any transition should not improve through this mechanism. Persistence despite confirmed delivery weakens the omission explanation; acting beyond preserved permission suggests that the intervention lost its scope restrictions.</p>
+<h1 id="compaction-loses-important-information">Compaction loses important information<a class="headerlink" href="#compaction-loses-important-information" title="Permanent link">&para;</a></h1>
+<p>The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.</p>
 <p><a id="definition"></a></p>
-<h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link">&para;</a></h2>
-<p>The context-management system should carry forward the information needed for unfinished work. Its selection or delivery policy instead omits still-applicable evidence, constraints, or authorization at compaction or delegation. A later decision must reconstruct that state or proceeds without it.</p>
-<p>This is a proposed explanation of the configured system. <a href="../symptoms/repeated-retrieval.html">Repeated retrieval</a> alone does not establish it, and a transcript retaining information does not establish that the receiving model had it.</p>
+<h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">&para;</a></h2>
+<p>Compaction makes room by forgetting most of a conversation. It has to predict what will matter next: keep the decisions, constraints, permissions, and findings needed for unfinished work, and discard irrelevant history. This diagnosis proposes that the compactor is making that choice badly.</p>
+<p>For example, it may preserve a long account of completed edits but drop the user’s instruction to leave a particular file alone. The agent then resumes without that restriction. The same visible mistake has a different explanation if the restriction survived in the context.</p>
+<p><a id="relations"></a></p>
+<h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></li>
+<li><a href="../symptoms/lost-task-constraints.html">S006 — Lost task constraints</a></li>
+<li><a href="../symptoms/repeated-reauthorization.html">S008 — Repeated reauthorization</a></li>
+</ul>
+<p><a id="relations/I001"></a>
+<a id="relations/I001/when"></a></p>
+<h3 id="intervention-i001-fix-compaction-so-important-information-survives">Intervention: <a href="../interventions/preserve-task-relevant-evidence.html">I001 — Fix compaction so important information survives</a><a class="headerlink" href="#intervention-i001-fix-compaction-so-important-information-survives" title="Permanent link">&para;</a></h3>
+<p><strong>Use this when:</strong> A compaction summary has lost important information, and you can change the compaction prompt or algorithm.</p>
+<p><a id="relations/I001/predictions"></a></p>
+<h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Expected improvement:</strong> After compaction, the agent should reread fewer unchanged sources, follow the saved requirements, and stop asking again for permission already given.</li>
+<li><strong>Still necessary:</strong> It should check sources that may have changed and ask permission for work outside the original scope. The summary should still discard irrelevant history.</li>
+<li><strong>A reason to reconsider:</strong> If the important information survives but the same mistakes continue, investigate how the agent uses it. Problems that start before compaction need another explanation.</li>
+<li><strong>Possible harm:</strong> Keeping too much can crowd out useful context. Keeping a permission but losing its limits can lead to unauthorized work.</li>
+</ul>
 <p><a id="criteria"></a></p>
-<h2 id="candidate-criteria">Candidate criteria<a class="headerlink" href="#candidate-criteria" title="Permanent link">&para;</a></h2>
+<h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
 <p><a id="criteria/prior-state"></a></p>
-<h3 id="previously-available-task-state">Previously available task state<a class="headerlink" href="#previously-available-task-state" title="Permanent link">&para;</a></h3>
-<p>Identify a specific fact, constraint, or authorization that was available before the transition and remained applicable to the later decision.</p>
+<h3 id="the-information-mattered">The information mattered<a class="headerlink" href="#the-information-mattered" title="Permanent link">&para;</a></h3>
+<p>Identify a fact, requirement, or permission that was in the conversation before compaction and was needed afterward.</p>
 <p><a id="criteria/delivery-loss"></a></p>
-<h3 id="loss-at-the-transition">Loss at the transition<a class="headerlink" href="#loss-at-the-transition" title="Permanent link">&para;</a></h3>
-<p>The transition output and effective receiving input show the needed state omitted or materially altered, with no equivalent representation available at that decision. Inaccessible model inputs leave this criterion unknown.</p>
+<h3 id="compaction-dropped-it">Compaction dropped it<a class="headerlink" href="#compaction-dropped-it" title="Permanent link">&para;</a></h3>
+<p>The summary or the model’s context after compaction omits or changes that information. If you cannot inspect either, keep information loss as a hypothesis.</p>
 <p><a id="criteria/linked-disruption"></a></p>
-<h3 id="a-disruption-the-missing-state-explains">A disruption the missing state explains<a class="headerlink" href="#a-disruption-the-missing-state-explains" title="Permanent link">&para;</a></h3>
-<p>The continuation unnecessarily retrieves the same evidence, violates the omitted constraint, or requests authorization already granted. Identify the connection to the particular missing state rather than relying on timing alone.</p>
-<p>Related symptom: <a href="../symptoms/repeated-retrieval.html">S001</a></p>
-<p>Related symptom: <a href="../symptoms/lost-task-constraints.html">S006</a></p>
-<p>Related symptom: <a href="../symptoms/repeated-reauthorization.html">S008</a></p>
+<h3 id="the-omission-explains-the-mistake">The omission explains the mistake<a class="headerlink" href="#the-omission-explains-the-mistake" title="Permanent link">&para;</a></h3>
+<p>The next work shows <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>, breaks the missing requirement, or asks for the lost permission. Show which missing fact would have helped; timing alone is not enough.</p>
+<ul>
+<li><a href="../symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></li>
+<li><a href="../symptoms/lost-task-constraints.html">S006 — Lost task constraints</a></li>
+<li><a href="../symptoms/repeated-reauthorization.html">S008 — Repeated reauthorization</a></li>
+</ul>
 <p><a id="exclusions"></a></p>
-<h2 id="exclusions">Exclusions<a class="headerlink" href="#exclusions" title="Permanent link">&para;</a></h2>
+<h2 id="when-this-explanation-may-not-fit">When this explanation may not fit<a class="headerlink" href="#when-this-explanation-may-not-fit" title="Permanent link">&para;</a></h2>
 <p><a id="exclusions/expired-state"></a></p>
-<h3 id="expired-state">Expired state<a class="headerlink" href="#expired-state" title="Permanent link">&para;</a></h3>
-<p>Information legitimately expired or the user changed the requirement or authorization before continuation.</p>
+<h3 id="information-no-longer-needed">Information no longer needed<a class="headerlink" href="#information-no-longer-needed" title="Permanent link">&para;</a></h3>
+<p>Forgetting is useful when a fact is obsolete, a task is finished, or permission has expired. Keeping everything would defeat compaction.</p>
 <p><a id="exclusions/equivalent-context"></a></p>
-<h3 id="equivalent-context">Equivalent context<a class="headerlink" href="#equivalent-context" title="Permanent link">&para;</a></h3>
-<p>The receiving input contains an adequate equivalent of the necessary state. Poor use of visible information requires another explanation.</p>
+<h3 id="the-meaning-survived">The meaning survived<a class="headerlink" href="#the-meaning-survived" title="Permanent link">&para;</a></h3>
+<p>A shorter wording may preserve the same meaning. If the relevant information is still clear, there may be a problem with following it, but it was not lost during compaction.</p>
 <p><a id="differential"></a></p>
-<h2 id="differential-diagnosis">Differential diagnosis<a class="headerlink" href="#differential-diagnosis" title="Permanent link">&para;</a></h2>
+<h2 id="other-explanations-to-consider">Other explanations to consider<a class="headerlink" href="#other-explanations-to-consider" title="Permanent link">&para;</a></h2>
 <p><a id="differential/initial-delivery"></a></p>
-<h3 id="information-was-never-delivered">Information was never delivered<a class="headerlink" href="#information-was-never-delivered" title="Permanent link">&para;</a></h3>
-<p><a id="differential/initial-delivery/discriminator"></a></p>
-<h4 id="discriminator">Discriminator<a class="headerlink" href="#discriminator" title="Permanent link">&para;</a></h4>
-<p>Compare the original usable result with actual model input before the transition. Backend success or a saved file alone cannot establish prior delivery.</p>
+<h3 id="the-agent-never-had-the-information">The agent never had the information<a class="headerlink" href="#the-agent-never-had-the-information" title="Permanent link">&para;</a></h3>
+<p><a id="differential/initial-delivery/discriminator"></a>
+Check the conversation before compaction. A fact in an unread file was never available to summarize; improve how the agent finds or records it.</p>
 <p><a id="differential/policy-conflict"></a></p>
-<h3 id="a-standing-rule-demands-the-behavior">A standing rule demands the behavior<a class="headerlink" href="#a-standing-rule-demands-the-behavior" title="Permanent link">&para;</a></h3>
-<p><a id="differential/policy-conflict/discriminator"></a></p>
-<h4 id="discriminator_1">Discriminator<a class="headerlink" href="#discriminator_1" title="Permanent link">&para;</a></h4>
-<p>Check whether a fresh-consent or repeated-check rule still requires the action when the state is visible. For excessive checking, consider <a href="verification-policy-overgeneralization.html">verification policy overgeneralization</a>.</p>
+<h3 id="another-instruction-demands-the-repeated-work">Another instruction demands the repeated work<a class="headerlink" href="#another-instruction-demands-the-repeated-work" title="Permanent link">&para;</a></h3>
+<p><a id="differential/policy-conflict/discriminator"></a>
+If the summary retains a passed test but a standing rule requires another run anyway, changing compaction will not remove that rule. Consider <a href="verification-policy-overgeneralization.html">overbroad verification instructions</a>.</p>
 <p><a id="differential/visible-state"></a></p>
-<h3 id="the-agent-acts-against-visible-state">The agent acts against visible state<a class="headerlink" href="#the-agent-acts-against-visible-state" title="Permanent link">&para;</a></h3>
-<p><a id="differential/visible-state/discriminator"></a></p>
-<h4 id="discriminator_2">Discriminator<a class="headerlink" href="#discriminator_2" title="Permanent link">&para;</a></h4>
-<p>If the relevant state is present and clear at the decision, investigate competing instructions and action selection. Do not infer internal forgetting from incompatible behavior.</p>
+<h3 id="the-agent-has-the-information-but-does-not-use-it">The agent has the information but does not use it<a class="headerlink" href="#the-agent-has-the-information-but-does-not-use-it" title="Permanent link">&para;</a></h3>
+<p><a id="differential/visible-state/discriminator"></a>
+If the needed fact is clear in the current context, look for conflicting instructions or a failure to follow it. Rewriting the summary may not help.</p>
 <p><a id="investigation"></a></p>
-<h2 id="investigation">Investigation<a class="headerlink" href="#investigation" title="Permanent link">&para;</a></h2>
-<p>Inspect the affected transition and the next decision using existing input captures where available. Compare which state survived with what the pending work needed. Look for ordinary continuations under the same policy that preserved the state and proceeded correctly; no replay of the incident is required.</p>
-<p><a id="interventions"></a></p>
-<h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
-<p><a href="../interventions/preserve-task-relevant-evidence.html">Preserve task state across context transitions</a> changes future handoffs and compactions. A one-time reminder may rescue an episode but does not repair the transition policy.</p>
-<p><a id="evidence-and-uncertainty"></a></p>
-<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p>This is an unvalidated working model. The entry supplies neither an adjudicated public case establishing the mechanism nor evidence that the intervention is effective. Evidence for an omission, its contribution to behavior, and benefit from changing the policy are separate claims.</p></article>
+<h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">&para;</a></h2>
+<p>Compare the conversation just before compaction with its summary and the next mistake. Look for something the compactor discarded that the unfinished task was likely to need, and for less useful material it kept instead.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../symptoms/inferred-values-as-observations.html"><span>← Previous</span>S014 — Inferred values presented as observations</a>
-    <a rel="next" href="tool-discovery-delivery-gap.html"><span>Next →</span>D002 — Tool discovery delivery gap</a>
+    <a rel="prev" href="../symptoms/opaque-jargon.html"><span>← Previous</span>S015 — Opaque jargon (neuralese)</a>
+    <a rel="next" href="tool-discovery-delivery-gap.html"><span>Next →</span>D002 — Tool discovery reports unusable tools</a>
   </nav>
   
 </main>
@@ -416,10 +415,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="D001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

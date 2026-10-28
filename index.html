@@ -18,7 +18,7 @@
         <link href="css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -377,8 +385,8 @@
 <p>An agent modifies artifacts or system state beyond the authorized task scope without an established dependency that requires the change.</p>
 </li>
 <li>
-<p><a href="symptoms/completion-artifact-mismatch.html">S010 — Completion–artifact mismatch</a></p>
-<p>An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.</p>
+<p><a href="symptoms/completion-artifact-mismatch.html">S010 — Claims completion while work is unfinished</a></p>
+<p>The agent says the requested work is done, but the delivered result still lacks something covered by that claim.</p>
 </li>
 <li>
 <p><a href="symptoms/unsupported-verification-claims.html">S011 — Unsupported verification claims</a></p>
@@ -396,50 +404,54 @@
 <p><a href="symptoms/inferred-values-as-observations.html">S014 — Inferred values presented as observations</a></p>
 <p>An output presents a calculated, estimated, or defaulted value as though it were directly reported by the source.</p>
 </li>
+<li>
+<p><a href="symptoms/opaque-jargon.html">S015 — Opaque jargon (neuralese)</a></p>
+<p>The agent’s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.</p>
+</li>
 </ul>
 <h2 id="diagnoses">Diagnoses<a class="headerlink" href="#diagnoses" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><a href="diagnoses/context-handoff-loss.html">D001 — Context handoff loss</a></p>
-<p>A compaction or handoff drops still-needed task state from the receiving agent's input, causing it to repeat discovery, lose constraints, or ask again for existing authorization.</p>
+<p><a href="diagnoses/context-handoff-loss.html">D001 — Compaction loses important information</a></p>
+<p>The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.</p>
 </li>
 <li>
-<p><a href="diagnoses/tool-discovery-delivery-gap.html">D002 — Tool discovery delivery gap</a></p>
-<p>The discovery interface identifies a tool as available without supplying the callable interface needed by the next agent turn, leaving the system searching for a capability it cannot use.</p>
+<p><a href="diagnoses/tool-discovery-delivery-gap.html">D002 — Tool discovery reports unusable tools</a></p>
+<p>Tool search says a tool is ready, but the agent lacks the definition or access needed to call it. Searching again gives the same unusable result.</p>
 </li>
 <li>
-<p><a href="diagnoses/verification-policy-overgeneralization.html">D003 — Verification policy overgeneralization</a></p>
-<p>A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.</p>
+<p><a href="diagnoses/verification-policy-overgeneralization.html">D003 — Overbroad verification instructions</a></p>
+<p>Instructions make the agent check more than the user’s task needs, often because several files repeat or contradict one another.</p>
 </li>
 <li>
-<p><a href="diagnoses/verification-scope-collapse.html">D004 — Verification scope collapse</a></p>
-<p>The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.</p>
+<p><a href="diagnoses/verification-scope-collapse.html">D004 — Component checks mistaken for complete verification</a></p>
+<p>The workflow treats a passing component test as proof that the whole requested behavior works, even though the connections between components were never exercised.</p>
 </li>
 </ul>
 <h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Preserve task state across context transitions</a></p>
-<p>Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.</p>
+<p><a href="interventions/preserve-task-relevant-evidence.html">I001 — Fix compaction so important information survives</a></p>
+<p>Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.</p>
 </li>
 <li>
-<p><a href="interventions/scope-verification-policy.html">I002 — Give verification a scope and stopping condition</a></p>
-<p>Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.</p>
+<p><a href="interventions/scope-verification-policy.html">I002 — Consolidate verification instructions with the user</a></p>
+<p>Find the instructions that demand extra checking, remove duplicates and contradictions, and agree with the user on one simple account of what verification each kind of work needs.</p>
 </li>
 <li>
-<p><a href="interventions/verify-acceptance-path.html">I003 — Verify through the required acceptance path</a></p>
-<p>Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope.</p>
+<p><a href="interventions/verify-acceptance-path.html">I003 — Repair gaps between tests and real use</a></p>
+<p>Audit where existing tests bypass connections that users rely on, then change the project’s test setup and QA instructions to cover those gaps on relevant future work.</p>
 </li>
 <li>
 <p><a href="interventions/separate-observed-derived-values.html">I004 — Keep derived values out of source-only fields</a></p>
 <p>Change the collection and publication path so source observations, authorized calculations, and missing values remain distinguishable in future outputs.</p>
 </li>
 <li>
-<p><a href="interventions/complete-tool-discovery-handoff.html">I005 — Complete the discovery-to-invocation handoff</a></p>
-<p>Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.</p>
+<p><a href="interventions/complete-tool-discovery-handoff.html">I005 — Make discovered tools callable</a></p>
+<p>Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.</p>
 </li>
 </ul>
-<p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes recognition guidance, benign lookalikes, what to record, and examples. A symptom does not by itself establish a diagnosis or cause.</p>
+<p>Symptoms describe observable behavior and can overlap in one episode. Each entry includes benign lookalikes, what to record, and examples, with brief recognition hints where helpful. Shared <a href="docs/observation-methods.html">observation methods</a> describe ways to examine incidents. A symptom does not by itself establish a diagnosis or cause.</p>
 <p>These are draft, unvalidated definitions. Synthetic examples are labeled; linked public reports and research observations motivate the definitions but do not validate their thresholds or establish prevalence. Reported cases are distinguished from independently audited traces. Severity remains deferred. Licensing remains to be decided.</p>
 <h2 id="use-the-skill">Use the skill<a class="headerlink" href="#use-the-skill" title="Permanent link">&para;</a></h2>
 <p>Distribute <code>skills/agent-diagnostics/</code> as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ADM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.</p>
@@ -504,10 +516,10 @@ python examples/query_manual.py
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="pagefind/pagefind-ui.js"></script>
-<script src="assets/adm.js?v=aa91e03f9d6c" data-base-url="./"></script>
+<script src="assets/adm.js?v=7ad52da50514" data-base-url="./"></script>
 
 <script src="assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="index.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="assets/adm-review.js?v=7ad52da50514"></script>
 
 
 
@@ -557,5 +569,5 @@ python examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-27 20:27:08.196206+00:00
+Build Date UTC : 2026-10-28 13:53:14.436854+00:00
 -->

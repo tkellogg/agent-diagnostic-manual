@@ -1,137 +1,117 @@
 ---
 id: D004
 kind: diagnosis
-summary: The verification workflow promotes a limited check into evidence for a broader
-  acceptance condition, so untested boundaries disappear from completion decisions.
+summary: The workflow treats a passing component test as proof that the whole requested
+  behavior works, even though the connections between components were never exercised.
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 unit: configured-agent-system
-title: Verification scope collapse
+title: Component checks mistaken for complete verification
 xml_source: diagnoses/verification-scope-collapse.xml
 ---
 
-# Verification scope collapse
+# Component checks mistaken for complete verification
 
-The verification workflow promotes a limited check into evidence for a broader acceptance condition, so untested boundaries disappear from completion decisions.
-
-<a id="relations"></a>
-
-## Relationships
-
-Related symptom: [S011](../symptoms/unsupported-verification-claims.md)
-
-<a id="relations/I003"></a>
-<a id="relations/I003/when"></a>
-[I003](../interventions/verify-acceptance-path.md)
-
-**When:** The QA skill, tool result, or completion policy treats a component or simulated check as sufficient for a broader required behavior.
-
-<a id="relations/I003/predictions"></a>
-
-#### Predictions
-
-Future tasks requiring the broader behavior should exercise its actual acceptance path and produce fewer unsupported verification claims. Failures at previously bypassed boundaries may become visible even before underlying implementation quality improves.
-
-Component-only tasks should retain their lightweight checks. If claims become narrower but required paths remain untested, the intervention changed reporting without completing the repair. Persistent overclaims despite clear path evidence favor a separate interpretation or reporting failure.
+The workflow treats a passing component test as proof that the whole requested behavior works, even though the connections between components were never exercised.
 
 <a id="definition"></a>
 
-## Definition
+## How this could happen
 
-Verification evidence has a scope: a component, input path, artifact revision, environment, or physical stage. The system should preserve that scope when deciding whether acceptance has been demonstrated. Instead, its workflow equates a narrower success with the broader requirement and closes the requirement without evidence for the missing boundary.
+A function can work while the application around it is broken. For example, directly calling a keyboard handler does not show that a real keypress reaches it. This diagnosis proposes that the testing or completion workflow treats those two checks as equivalent.
 
-A hypothetical example is treating a successful internal handler call as proof that the user-facing input reaches that handler. The handler may work perfectly while the input path remains unknown.
+The failure is in how the system decides that verification is complete. A broad claim in the final answer may suggest this model, but it could also be a reporting mistake after an otherwise honest test process.
+
+<a id="relations"></a>
+
+## Symptoms and predicted effects
+
+- [S011 — Unsupported verification claims](../symptoms/unsupported-verification-claims.md)
+
+<a id="relations/I003"></a>
+<a id="relations/I003/when"></a>
+
+### Intervention: [I003 — Repair gaps between tests and real use](../interventions/verify-acceptance-path.md)
+
+**Use this when:** The usual tests skip a connection required by the task, yet the workflow treats their success as verification of the whole behavior.
+
+<a id="relations/I003/predictions"></a>
+
+#### What to expect if this explanation is right
+
+- **Expected change:** Tests should begin exercising the previously skipped connection. Existing bugs there may become visible, and claims that the whole feature was verified should have better support.
+- **Preserve:** Small component changes should still use small tests when the broader workflow is outside the task’s scope.
+- **A reason to reconsider:** If the workflow records the missing coverage correctly but the final answer still claims everything passed, investigate reporting. More cautious wording alone does not fix a missing test.
 
 <a id="criteria"></a>
 
-## Candidate criteria
+## What would support this explanation
 
 <a id="criteria/broader-requirement"></a>
 
-### A broader acceptance condition applies
+### The task needs more than the tested component
 
-Identify the requested behavior and the boundaries its verification must cover.
+Name the requested behavior, such as a user pressing a key and seeing a result.
 
 <a id="criteria/limited-probe"></a>
 
-### The cited evidence covers less
+### The check skips a needed connection
 
-The actual check bypasses or omits a required boundary, and no independent matching evidence closes that gap.
+The test calls or mocks an internal part instead of exercising that connection, and no other check covers it.
 
 <a id="criteria/scope-promotion"></a>
 
-### The workflow promotes the limited result
+### The workflow treats the limited test as enough
 
-A policy, tool-result transformation, or recorded acceptance decision equates that limited result with satisfaction of the broader condition, producing [unsupported verification claims](../symptoms/unsupported-verification-claims.md). An overclaim with no evidence of this promotion leaves the mechanism unknown.
+A test rule, result summary, or completion decision treats the component’s pass as proof of the whole behavior, producing [unsupported verification claims](../symptoms/unsupported-verification-claims.md). If only the final claim is visible, the cause remains uncertain.
 
-Related symptom: [S011](../symptoms/unsupported-verification-claims.md)
+- [S011 — Unsupported verification claims](../symptoms/unsupported-verification-claims.md)
 
 <a id="exclusions"></a>
 
-## Exclusions
+## When this explanation may not fit
 
 <a id="exclusions/matching-evidence"></a>
 
-### Matching evidence
+### Another test covers the behavior
 
-A separate check covers the required path, revision, and environment, including external evidence the local transcript does not contain.
+Another test may cover the missing connection. Check that before concluding it was never tested.
 
 <a id="exclusions/scoped-task"></a>
 
-### Scoped task
+### The user requested only a component change
 
-The requested work and the report are explicitly limited to the tested component.
+The user may have asked only for a component change. A component test and a report limited to that change can be sufficient.
 
 <a id="differential"></a>
 
-## Differential diagnosis
+## Other explanations to consider
 
 <a id="differential/artifact-defect"></a>
 
-### The required path was tested and failed
+### The full workflow was tested and failed
 
 <a id="differential/artifact-defect/discriminator"></a>
-
-#### Discriminator
-
-Inspect actual inputs and outputs. A real-path defect requires an implementation repair; it does not establish scope collapse unless the workflow substitutes other evidence for the failure.
+A failed test has exposed a code defect. That does not establish this diagnosis unless the completion process ignores the failure and substitutes a narrower pass.
 
 <a id="differential/stale-result"></a>
 
-### Evidence applies to another artifact
+### The result belongs to an older build
 
 <a id="differential/stale-result/discriminator"></a>
-
-#### Discriminator
-
-Match revision and destination. Correct testing of an earlier build can produce false assurance without a component-to-whole substitution.
+Compare the tested version with the delivered version. The test may cover the right behavior on the wrong code.
 
 <a id="differential/reporting-error"></a>
 
-### The acceptance boundary is retained but misreported
+### Only the final answer exaggerates the evidence
 
 <a id="differential/reporting-error/discriminator"></a>
-
-#### Discriminator
-
-If the workflow leaves the broader condition open and the final report alone claims it passed, investigate reporting. A shared symptom does not establish the same mechanism.
+If the test process correctly records the broader behavior as untested, repair how the agent reports results rather than adding tests it already knows are missing.
 
 <a id="investigation"></a>
 
-## Investigation
+## Where to look next
 
-Trace one acceptance condition from its task requirement through the executed check, returned result, and completion decision. Identify exactly where scope was broadened. Look for successful work where the real path was exercised without unnecessary additional testing.
-
-<a id="interventions"></a>
-
-## Interventions
-
-[Verify through the required acceptance path](../interventions/verify-acceptance-path.md) changes the QA workflow to exercise the missing boundary. Merely softening the final report does not complete an unmet acceptance condition.
-
-<a id="evidence-and-uncertainty"></a>
-
-## Evidence and uncertainty
-
-This is an unvalidated scaffold with a hypothetical illustration. A gap in shown verification supports a symptom more readily than this causal account; unavailable external evidence remains an uncertainty. No efficacy or prevalence claim is made.
+Choose one claimed success and trace it back to the test. Compare what the user does with what the test actually does, then find the instruction or decision that treated the smaller check as sufficient.

@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -325,25 +333,24 @@
 <p>Within one task episode, the agent retrieves substantially the same information again after an earlier usable result was delivered, for at least two retrievals in total. The later retrieval supplies no needed new content or source state and addresses no unmet freshness or verification need; a standing instruction to reread does not by itself establish such a need.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>In the session transcript or tool audit log, group retrievals by the question answered, source, and returned passage or field. Compare result bodies or hashes, delivery status, and file versions or timestamps; identical commands can return changed content, while different commands can return the same content.</p>
-<p>Check task requirements, source-change risks, and intervening edits for a new content need, freshness condition, or unresolved verification question. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call. A rule can explain a redundant read without making it useful; record that rule for investigation.</p>
+<p>Group reads of the same source in the tool log and compare what they returned. Check whether a change, freshness need, or unresolved question explains each reread.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/changed-source"></a></p>
 <h3 id="changed-source">Changed source<a class="headerlink" href="#changed-source" title="Permanent link">&para;</a></h3>
-<p>A reread after an edit returns the changed setting needed for the next decision. Unlike <a href="repeated-retrieval.html#observations/multi-read">multi-read</a>, it supplies a needed new source state.</p>
+<p>A reread after an edit obtains a changed setting needed for the next decision. The new information makes this useful work.</p>
 <p><a id="benign-lookalikes/different-content"></a></p>
 <h3 id="different-content">Different content<a class="headerlink" href="#different-content" title="Permanent link">&para;</a></h3>
-<p>A second call obtains a different passage or field needed for the task. It does not retrieve substantially the same information as <a href="repeated-retrieval.html#observations/multi-read">multi-read</a>.</p>
+<p>A second read obtains a different passage or field needed for the task. It is not a repeat of information already obtained.</p>
 <p><a id="benign-lookalikes/failed-delivery"></a></p>
 <h3 id="failed-delivery">Failed delivery<a class="headerlink" href="#failed-delivery" title="Permanent link">&para;</a></h3>
-<p>A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by <a href="repeated-retrieval.html#observations/multi-read">multi-read</a> is absent. This excludes this symptom, not a delivery fault or <a href="doom-looping.html">doom looping</a> if repeated unsuccessful retries meet its definition.</p>
+<p>The earlier result was empty, wrong, or cut off before the needed content. A retry can obtain missing information; repeated unsuccessful retries may still become <a href="doom-looping.html">doom looping</a>.</p>
 <p><a id="benign-lookalikes/freshness-check"></a></p>
 <h3 id="freshness-check">Freshness check<a class="headerlink" href="#freshness-check" title="Permanent link">&para;</a></h3>
-<p>A reading at a decision boundary establishes freshness needed for a decision about mutable state, even if the value is unchanged. It answers an unmet freshness need, unlike <a href="repeated-retrieval.html#observations/multi-read">multi-read</a>; a generic reread instruction alone is insufficient.</p>
+<p>A file or service may have changed since the last read. Checking a version number, timestamp, diff, or other reliable change signal can establish whether a full reread is needed; an unchanged result can still answer a real freshness question.</p>
 <p><a id="benign-lookalikes/required-verification"></a></p>
 <h3 id="required-verification">Required verification<a class="headerlink" href="#required-verification" title="Permanent link">&para;</a></h3>
-<p>An independent second retrieval checks a still-unresolved reliability question, and the agent performs that check. It supplies verification evidence missing from <a href="repeated-retrieval.html#observations/multi-read">multi-read</a>; equivalent repetitions after the question is settled are not excluded merely because a rule demands them.</p>
+<p>An independent second source can answer an unresolved reliability question. Repeating equivalent checks after that question is settled does not add the same value.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
 <p>Record the episode identifier and date, task type, model and harness versions, retrieval tools, and relevant instructions. Preserve call timestamps, arguments, source versions, returned passages or permitted hashes, delivery status, and the earlier result associated with each repeat. Include total retrievals and repeat counts, output volume, elapsed time, tokens or cost where available, context transitions, intervening edits, and the eventual task outcome. Record user interruptions and recovery work so incident frequency and impact can be compared across runs.</p>
@@ -351,13 +358,16 @@
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/stalled-edit"></a></p>
 <h3 id="stalled-edit">Stalled edit<a class="headerlink" href="#stalled-edit" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: an agent reads a 200-line configuration file, extracts the requested setting, and rereads the unchanged file twice without making the edit or encountering a new requirement. The tool log and file hash identify two redundant retrievals: 400 additional lines enter the transcript while the edit remains unstarted.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An agent reads a 200-line configuration file, extracts the requested setting, and rereads the unchanged file twice without making the edit or encountering a new requirement. The tool log and file hash identify two redundant retrievals: 400 additional lines enter the transcript while the edit remains unstarted.</p>
 <p><a id="examples/verified-edit"></a></p>
 <h3 id="verified-edit">Verified edit<a class="headerlink" href="#verified-edit" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: an agent reads a configuration file, edits one setting, and rereads it once. The diff and returned value show that the second read verifies the changed state; two reads support one completed edit and reveal no redundant retrieval under this definition.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An agent reads a configuration file, edits one setting, and rereads it once. The diff and returned value show that the second read verifies the changed state; two reads support one completed edit and reveal no redundant retrieval under this definition.</p>
 <p><a id="examples/repeated-grep"></a></p>
 <h3 id="repeated-grep">Repeated grep<a class="headerlink" href="#repeated-grep" title="Permanent link">&para;</a></h3>
-<p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes recognizing 30–50+ consecutive grep calls with identical arguments and output during codebase research. The reporter says tasks expected to take 2–3 minutes instead occupied 1–2 hours and required manual interruption. The account supplies repetition and impact estimates, but not a complete trace separating model requests from runtime replays.</p></article>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes recognizing 30–50+ consecutive grep calls with identical arguments and output during codebase research. The reporter says tasks expected to take 2–3 minutes instead occupied 1–2 hours and required manual interruption. The account supplies repetition and impact estimates, but not a complete trace separating model requests from runtime replays.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="../index.html"><span>← Previous</span>Home</a>
@@ -379,10 +389,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

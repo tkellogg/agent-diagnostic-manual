@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S002" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Doom looping">
+<symptom xmlns="urn:adm:1" id="S002" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Doom looping">
   <summary>An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.</summary>
   <observations>
     <observation id="stalled-cycles">
@@ -7,18 +7,17 @@
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>Use the session transcript and tool execution log to pair attempts with their feedback, such as an edit with its test result or a search with its returned matches. Group cycles by the immediate outcome; this helps separate several tool calls within one attempt from successive attempts.</p>
-    <p>Compare command arguments, outputs, file diffs, service status, and timestamps between cycles. Look for evidence that a retry addresses the blocker: a corrected credential, new error, eliminated hypothesis, or documented recovery interval. Mark gaps in the recorded state rather than filling them with an assumption that nothing changed.</p>
+    <p>Line up each attempt with its result in the tool log and look for three stalled cycles. Compare the inputs and feedback to see whether the agent learned anything or tried a meaningfully different approach.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="bounded-retries">
-      <p>Retries follow a documented transient failure and a recovery interval that gives the next attempt a reason to succeed. That changed recovery state differs from <ref target="S002#observations/stalled-cycles">stalled cycles</ref>; a retry limit alone would not explain unchanged failures.</p>
+      <p>A transient error and a suitable delay give the next attempt a reason to succeed. Routine retries usually belong in the harness or a bounded script, so each retry need not consume another model turn.</p>
     </lookalike>
     <lookalike id="active-polling">
-      <p>Status checks follow an active external job at its expected cadence, and job telemetry shows progress or a documented completion window. The evolving job state supplies the relevant change missing from <ref target="S002#observations/stalled-cycles">stalled cycles</ref>.</p>
+      <p>A background job is still progressing and status checks follow its expected cadence. Waiting for work that is advancing differs from repeating a failed action without change.</p>
     </lookalike>
     <lookalike id="hypothesis-testing">
-      <p>Successive attempts eliminate distinct hypotheses or add samples to a planned stochastic estimate. They advance the immediate investigation or add relevant information, unlike <ref target="S002#observations/stalled-cycles">stalled cycles</ref>.</p>
+      <p>Successive attempts rule out different causes or collect samples for an agreed experiment. Repeating the general method is useful when each attempt adds information.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
@@ -26,13 +25,13 @@
   </what-to-record>
   <examples>
     <example id="unchanged-permission" kind="synthetic">
-      <p>Synthetic incident: five file-read attempts receive permission denied over two minutes. The trace shows only quoting and output-format changes; credentials and access rights stay unchanged. Comparing the five errors exposes five stalled cycles, two minutes of delay, and no retrieved file before the user interrupts.</p>
+      <p>Five file-read attempts receive permission denied over two minutes. The trace shows only quoting and output-format changes; credentials and access rights stay unchanged. Comparing the five errors exposes five stalled cycles, two minutes of delay, and no retrieved file before the user interrupts.</p>
     </example>
     <example id="repeated-grep" kind="observed">
-      <p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes 30–50+ identical grep calls returning identical output before manual interruption. The reporter recognized the loop in the repeated commands and estimated 1–2 hours spent on research expected to take 2–3 minutes. A complete execution trace is not supplied, so responsibility for the repeats remains unresolved.</p>
+      <p><a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes 30–50+ identical grep calls returning identical output before manual interruption. The reporter recognized the loop in the repeated commands and estimated 1–2 hours spent on research expected to take 2–3 minutes. A complete execution trace is not supplied, so responsibility for the repeats remains unresolved.</p>
     </example>
     <example id="changing-failures" kind="synthetic">
-      <p>Synthetic comparison: five successive edits resolve five different test failures. Test logs show the remaining failure count falling from five to zero. Although the agent repeats the edit/test cycle five times, each cycle advances the outcome and the final suite passes.</p>
+      <p>Five successive edits resolve five different test failures. Test logs show the remaining failure count falling from five to zero. Although the agent repeats the edit/test cycle five times, each cycle advances the outcome and the final suite passes.</p>
     </example>
   </examples>
 </symptom>

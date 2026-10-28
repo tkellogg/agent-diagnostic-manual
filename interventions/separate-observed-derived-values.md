@@ -6,7 +6,7 @@ summary: Change the collection and publication path so source observations, auth
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Keep derived values out of source-only fields
 xml_source: interventions/separate-observed-derived-values.xml
 ---
@@ -84,9 +84,3 @@ Overstrict handling can discard valid observations, convert real zeros to missin
 ## Stop and rollback
 
 Repair or revert the faulty collector or serializer if valid data is lost or publication breaks. Preserve the observed-versus-derived distinction in a compatible output or an explicit limitation; do not reinstate silent fabrication as the fallback.
-
-<a id="evidence-and-uncertainty"></a>
-
-## Evidence and uncertainty
-
-This proposed intervention has no established outcome here. It can be appropriate from an observed contract violation without a catalog diagnosis; the underlying cause may lie in instructions, extraction, serialization, or presentation.

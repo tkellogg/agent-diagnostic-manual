@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/symptoms/completion-artifact-mismatch.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>S010 — Completion–artifact mismatch - Agent Diagnostic Manual</title>
+        <title>S010 — Claims completion while work is unfinished - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item active" aria-current="page">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item active" aria-current="page">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -261,7 +269,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#completionartifact-mismatch" class="nav-link">Completion–artifact mismatch</a>
+            <li class="nav-item" data-bs-level="1"><a href="#claims-completion-while-work-is-unfinished" class="nav-link">Claims completion while work is unfinished</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#observations" class="nav-link">Observations</a>
               <ul class="nav flex-column">
@@ -316,17 +324,16 @@
   
   <article data-pagefind-body>
 
-<h1 id="completionartifact-mismatch">Completion–artifact mismatch<a class="headerlink" href="#completionartifact-mismatch" title="Permanent link">&para;</a></h1>
-<p>An agent claims that requested work is complete while the delivered artifact or resulting state demonstrably lacks a required part.</p>
+<h1 id="claims-completion-while-work-is-unfinished">Claims completion while work is unfinished<a class="headerlink" href="#claims-completion-while-work-is-unfinished" title="Permanent link">&para;</a></h1>
+<p>The agent says the requested work is done, but the delivered result still lacks something covered by that claim.</p>
 <p><a id="observations"></a></p>
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p><a id="observations/unsupported-completion"></a></p>
-<h3 id="unsupported-completion">Unsupported completion<a class="headerlink" href="#unsupported-completion" title="Permanent link">&para;</a></h3>
-<p>A completion claim covers a stated deliverable or acceptance criterion, but inspection of the corresponding artifact or system state at that time contradicts the claim. The discrepancy is about delivered work, not merely confidence or phrasing.</p>
+<h3 id="work-is-claimed-complete-but-is-unfinished">Work is claimed complete but is unfinished<a class="headerlink" href="#work-is-claimed-complete-but-is-unfinished" title="Permanent link">&para;</a></h3>
+<p>The agent claims a deliverable is complete, but inspecting it shows that part of the claimed work is missing or unfinished. Unlike <a href="premature-stopping.html">premature stopping</a>, this symptom requires a false completion claim; an agent can stop early while accurately saying work remains.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Take the exact completion statement from the transcript and map it to the requested deliverable. Inspect the named branch, revision, destination, or deployed environment using files, git history, deployment records, or the delivered workflow.</p>
-<p>Compare artifact timestamps with the claim, and follow persistence, commit, transfer, and deployment events to locate where work stopped reaching the destination. Check disclosed limitations and later modifications before attributing a discrepancy to the state at claim time.</p>
+<p>Match the exact completion claim to the artifact at the named revision and destination. Inspect what was there when the claim was made, rather than a later version.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/scoped-completion"></a></p>
@@ -345,13 +352,16 @@
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/missing-export"></a></p>
 <h3 id="missing-export">Missing export<a class="headerlink" href="#missing-export" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: an agent reports that CSV export is implemented and ready. The delivered revision has a button and success message but no export path; exercising that workflow produces zero files. The user discovers the mismatch during a scheduled export and spends twenty minutes producing the CSV manually.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An agent reports that CSV export is implemented and ready. The delivered revision has a button and success message but no export path; exercising that workflow produces zero files. The user discovers the mismatch during a scheduled export and spends twenty minutes producing the CSV manually.</p>
 <p><a id="examples/empty-worktree"></a></p>
 <h3 id="empty-worktree">Empty worktree<a class="headerlink" href="#empty-worktree" title="Permanent link">&para;</a></h3>
-<p>Reported incident: <a href="https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything">Matthew Hawthorne’s February 2026 account</a> describes a seven-turn resumed task declaring success on a branch with no changes. Code review exposed the empty branch; the earlier run’s uncommitted work had not reached the new worktree. The requested feature was absent despite the completion report, and investigation prompted changes to resume and persistence handling. Recovery time is not given.</p>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://pushtoprod.substack.com/p/my-ai-agent-didnt-do-anything">Matthew Hawthorne’s February 2026 account</a> describes a seven-turn resumed task declaring success on a branch with no changes. Code review exposed the empty branch; the earlier run’s uncommitted work had not reached the new worktree. The requested feature was absent despite the completion report, and investigation prompted changes to resume and persistence handling. Recovery time is not given.</p>
 <p><a id="examples/explicit-partial"></a></p>
 <h3 id="explicit-partial">Explicit partial<a class="headerlink" href="#explicit-partial" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: an agent delivers an export button and explicitly says CSV generation remains unfinished. The diff and a workflow check confirm that exact boundary. One requirement remains open, but the report does not falsely describe it as complete.</p></article>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An agent delivers an export button and explicitly says CSV generation remains unfinished. The diff and a workflow check confirm that exact boundary. One requirement remains open, but the report does not falsely describe it as complete.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="unrequested-changes.html"><span>← Previous</span>S009 — Unrequested changes</a>
@@ -373,10 +383,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S010" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

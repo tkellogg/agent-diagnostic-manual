@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/interventions/complete-tool-discovery-handoff.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>I005 — Complete the discovery-to-invocation handoff - Agent Diagnostic Manual</title>
+        <title>I005 — Make discovered tools callable - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="complete-tool-discovery-handoff.html" class="dropdown-item active" aria-current="page">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="complete-tool-discovery-handoff.html" class="dropdown-item active" aria-current="page">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -261,7 +269,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#complete-the-discovery-to-invocation-handoff" class="nav-link">Complete the discovery-to-invocation handoff</a>
+            <li class="nav-item" data-bs-level="1"><a href="#make-discovered-tools-callable" class="nav-link">Make discovered tools callable</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -284,10 +292,6 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#stop-and-rollback" class="nav-link">Stop and rollback</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -324,46 +328,51 @@
   
   <article data-pagefind-body>
 
-<h1 id="complete-the-discovery-to-invocation-handoff">Complete the discovery-to-invocation handoff<a class="headerlink" href="#complete-the-discovery-to-invocation-handoff" title="Permanent link">&para;</a></h1>
-<p>Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.</p>
+<h1 id="make-discovered-tools-callable">Make discovered tools callable<a class="headerlink" href="#make-discovered-tools-callable" title="Permanent link">&para;</a></h1>
+<p>Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.</p>
 <p><a id="purpose"></a></p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Repair the interface between tool discovery and use. A capability name is not enough when invocation requires additional schema or runtime registration. Discovery should either complete that handoff or tell the agent what remains blocked.</p>
+<p>Repair the harness fault described by <a href="../diagnoses/tool-discovery-delivery-gap.html">tool discovery reports unusable tools</a>. A tool name alone is not enough: the agent needs its arguments, and the runtime needs to know how to execute the call.</p>
 <p><a id="preconditions"></a></p>
 <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
 <p><a id="preconditions/delivery-gap"></a></p>
-<h3 id="delivery-gap">Delivery gap<a class="headerlink" href="#delivery-gap" title="Permanent link">&para;</a></h3>
-<p>The adapter promises callable access after discovery, but inspection shows a gap in registration, schema delivery, or the supported invocation route.</p>
+<h3 id="tool-search-promises-access-it-has-not-provided">Tool search promises access it has not provided<a class="headerlink" href="#tool-search-promises-access-it-has-not-provided" title="Permanent link">&para;</a></h3>
+<p>Search claims a tool is ready, but its definition or runtime registration is missing. An ordinary failed service call is a different problem.</p>
 <p><a id="preconditions/adapter-access"></a></p>
-<h3 id="adapter-access">Adapter access<a class="headerlink" href="#adapter-access" title="Permanent link">&para;</a></h3>
-<p>The maintainer can change and inspect the adapter and receiving tool configuration while preserving existing permissions.</p>
+<h3 id="access-to-tool-loading">Access to tool loading<a class="headerlink" href="#access-to-tool-loading" title="Permanent link">&para;</a></h3>
+<p>The maintainer can change tool loading and inspect the tool definitions supplied to the model.</p>
 <p><a id="procedure"></a></p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
 <p><a id="procedure/trace-handoff"></a></p>
-<h3 id="trace-handoff">Trace handoff<a class="headerlink" href="#trace-handoff" title="Permanent link">&para;</a></h3>
-<p>Locate where discovery resolves the capability, where runtime registration occurs, and how the receiving turn gets its invocation contract.</p>
+<h3 id="find-the-missing-tool-setup">Find the missing tool setup<a class="headerlink" href="#find-the-missing-tool-setup" title="Permanent link">&para;</a></h3>
+<p>Follow one tool from search to registration and the next model request. Find which definition or registration is missing.</p>
 <p><a id="procedure/complete-delivery"></a></p>
-<h3 id="complete-delivery">Complete delivery<a class="headerlink" href="#complete-delivery" title="Permanent link">&para;</a></h3>
-<p>Change that shared path to register and deliver the interface before reporting callable availability. If activation is asynchronous, return its pending state and supported continuation instead of an apparently completed discovery.</p>
+<h3 id="finish-loading-before-reporting-success">Finish loading before reporting success<a class="headerlink" href="#finish-loading-before-reporting-success" title="Permanent link">&para;</a></h3>
+<p>Change tool loading to finish registration and supply the definition before returning “ready.” For slow loading, return an explicit pending status and a working way to wait.</p>
 <p><a id="procedure/expose-blocks"></a></p>
-<h3 id="expose-blocks">Expose blocks<a class="headerlink" href="#expose-blocks" title="Permanent link">&para;</a></h3>
-<p>Return an explicit unavailable result when activation fails, with the actionable reason and supported recovery if one exists. Repeated discovery should not return the same success-looking reference while the capability remains inaccessible.</p>
+<h3 id="report-unavailable-tools-clearly">Report unavailable tools clearly<a class="headerlink" href="#report-unavailable-tools-clearly" title="Permanent link">&para;</a></h3>
+<p>When loading fails, return an unavailable result with the reason and any useful recovery step. Do not keep returning success when repeating the same search cannot help.</p>
 <p><a id="procedure/confirm-use"></a></p>
-<h3 id="confirm-use">Confirm use<a class="headerlink" href="#confirm-use" title="Permanent link">&para;</a></h3>
-<p>Inspect a representative receiving input and safe invocation, then observe ordinary subsequent tool-use opportunities. Check an unavailable capability as well so errors remain visible and permission boundaries hold.</p>
+<h3 id="check-calls-and-future-use">Check calls and future use<a class="headerlink" href="#check-calls-and-future-use" title="Permanent link">&para;</a></h3>
+<p>Check a harmless call to an available tool and a failed load. Then review ordinary use at an agreed follow-up, including whether the agent still repeats discovery.</p>
 <p><a id="evaluation"></a></p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
-<p>Record predictions for available and unavailable tools separately. On applicable future turns, compare successful discovery-to-use transitions, repeated searches for the same capability, explicit blocks, and completed required tool work.</p>
-<p>Confirmed delivery with continued rediscovery weakens the delivery-gap explanation. Correct invocations that fail at an external service indicate another obstruction. Fewer searches caused by silently skipping required work are not success.</p>
+<ul>
+<li>Expect repeated discovery to decline and required tool work to continue. Unavailable tools should produce clear blockers or useful alternatives.</li>
+<li>If the tool is callable but the agent keeps searching, reconsider D002. If calls reach the service and fail, investigate those errors.</li>
+</ul>
 <p><a id="risks-and-confounders"></a></p>
 <h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
-<p>Loading unnecessary schemas can consume context; stale registrations can call the wrong interface. Adapter changes must preserve authorization and tool selection. Model or provider changes can independently affect discovery behavior.</p>
+<ul>
+<li>Loading unnecessary tool definitions can fill the context. Incorrect registrations can call the wrong tool.</li>
+<li>Preserve existing permissions; making tools callable must not expose capabilities the user has not authorized.</li>
+</ul>
 <p><a id="stop-and-rollback"></a></p>
 <h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
-<p>Revert the adapter change if it exposes unauthorized tools, delivers incompatible schemas, or breaks working routes. Report unavailable capabilities explicitly while repairing the handoff; do not mask activation failures as successful access.</p>
-<p><a id="evidence-and-uncertainty"></a></p>
-<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p>This is an unvalidated proposed adapter repair. No particular harness is asserted to have this defect, and a completed handoff does not guarantee correct tool choice or successful task completion.</p></article>
+<ul>
+<li>Revert a loader change that exposes unauthorized tools or breaks working calls.</li>
+<li>Continue to report unavailable tools honestly while repairing the loader.</li>
+</ul></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="separate-observed-derived-values.html"><span>← Previous</span>I004 — Keep derived values out of source-only fields</a>
@@ -385,10 +394,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I005" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

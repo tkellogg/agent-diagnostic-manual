@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -263,19 +271,23 @@
             
             <li class="nav-item" data-bs-level="1"><a href="#authoring-diagnosis-xml-files" class="nav-link">Authoring diagnosis XML files</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#scope-and-definition" class="nav-link">Scope and definition</a>
+            <li class="nav-item" data-bs-level="2"><a href="#start-with-the-model" class="nav-link">Start with the model</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#criteria-and-differential" class="nav-link">Criteria and differential</a>
+            <li class="nav-item" data-bs-level="2"><a href="#put-predictions-near-the-explanation" class="nav-link">Put predictions near the explanation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#interventions-and-predictions" class="nav-link">Interventions and predictions</a>
+            <li class="nav-item" data-bs-level="2"><a href="#evidence-for-this-explanation" class="nav-link">Evidence for this explanation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
+            <li class="nav-item" data-bs-level="2"><a href="#boundaries-and-other-explanations" class="nav-link">Boundaries and other explanations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#investigation-sources-and-writing" class="nav-link">Investigation, sources, and writing</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -309,26 +321,30 @@
   <article data-pagefind-body>
 
 <h1 id="authoring-diagnosis-xml-files">Authoring diagnosis XML files<a class="headerlink" href="#authoring-diagnosis-xml-files" title="Permanent link">&para;</a></h1>
-<p>A diagnosis is a reusable working explanation of how the configured agent system produces or maintains a problem. It should help a maintainer choose a system change and predict what future behavior would support or weaken that explanation. A more severe restatement of a symptom does not supply that model.</p>
-<h2 id="scope-and-definition">Scope and definition<a class="headerlink" href="#scope-and-definition" title="Permanent link">&para;</a></h2>
-<p>Treat the configured system as the patient and completed episodes as evidence. In <code>definition</code>, explain how the relevant part should work, what goes wrong, and how that produces the observed behavior. Name the boundary or process involved without assuming hidden thoughts or intent.</p>
-<p>A bug in generated code establishes an artifact defect. It becomes evidence for an ADM diagnosis when there is a supported connection to how the agent system generates, checks, or uses that code. Defects in an agent's own harness can be part of the pathology, but a catalog entry should describe a reusable failure mechanism rather than give every isolated bug a diagnosis.</p>
-<p>Keep plausible models provisional. A draft can name evidence that would be needed without claiming that an observed case already supplies it. If there is only a behavioral pattern, contribute a symptom or leave a working hypothesis in the case notes.</p>
-<h2 id="criteria-and-differential">Criteria and differential<a class="headerlink" href="#criteria-and-differential" title="Permanent link">&para;</a></h2>
-<p>Use criteria to state the observations needed to support the explanation in a particular configuration. Put the mechanism's distinguishing evidence here; do not make a symptom reference stand in for causal evidence. <code>operator="all"</code> requires support for every criterion. An inaccessible model input remains unknown, not evidence of omission.</p>
-<p>Use exclusions for circumstances that rule this diagnosis out. Use differential alternatives for competing explanations and specify the observation that separates them. Several mechanisms can coexist. A failed delivery can exclude a symptom that requires prior usable delivery without excluding another symptom such as doom looping.</p>
-<p>Do not redefine a linked symptom inside a diagnosis. An explanation is not automatically benign: complying with a faulty checking rule can produce a real system-level symptom. Conversely, a slow but justified check is not pathological merely because the user dislikes its cost. Assess policy changes at the maintainer level; recognizing a bad rule does not authorize a worker to bypass it.</p>
-<h2 id="interventions-and-predictions">Interventions and predictions<a class="headerlink" href="#interventions-and-predictions" title="Permanent link">&para;</a></h2>
-<p>Link a concrete intervention only when its prerequisites make sense for this explanation. Each <code>intervention-ref</code> has <code>when</code> and a prose <code>predictions</code> block. Describe expected improvement, behavior that should remain intact, and an outcome that would weaken the explanation or favor an alternative. Include possible harms or newly visible problems when the model predicts them.</p>
-<p>The prediction belongs to this diagnosis–intervention combination. The maintainer adapts it to the actual configuration and chooses a proportionate review point before applying the change. Do not encode a universal sample size or turn predictions into a causal programming language.</p>
-<p>Keep <code>investigation</code> focused on the evidence needed to distinguish explanations. Prefer existing traces and ordinary future work; repeated replay, independent reviewers, or new instrumentation should answer an actual unresolved question, not become entry boilerplate.</p>
-<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p>Separate what was observed, what mechanism it supports, whether a proposed repair helped, and how widely the result might apply. A source-backed artifact discrepancy does not automatically validate its proposed cause or remedy. The root evidence label is a coarse summary; use <code>evidence-and-uncertainty</code> to state the supported claims and limits precisely.</p>
-<p>Keep private cases and excerpts in their authorized location. Public entries can present general hypotheses and clearly synthetic examples without publishing the motivating incident or implying publicly inspectable support that is not supplied.</p>
-<p>Use the <a href="diagnostic-process.html">diagnostic process</a> for the overall flow and the <a href="../skills/agent-diagnostics/references/format.html">format reference</a> for XML structure and scoped addresses.</p></article>
+<p>A diagnosis is a working explanation of how the configured agent system produces a problem. It earns a place in ADM when it helps choose a repair and predict what that repair will change. Naming an unpleasant behavior again does not provide that explanation.</p>
+<h2 id="start-with-the-model">Start with the model<a class="headerlink" href="#start-with-the-model" title="Permanent link">&para;</a></h2>
+<p>In <code>definition</code>, explain how the relevant part should work, what goes wrong, and how that produces the symptoms. Use familiar objects and actions: “the compaction summary drops permission” is clearer than “authority fails to survive the transition.” A reader should understand the proposed failure before being asked to inspect evidence for it.</p>
+<p>The system includes the model, prompts, skills, tools, harness, and working repository. A harness fault can therefore be relevant. A bug in generated code is not automatically an agent diagnosis: explain how the recurring generation, testing, or completion process produces or misses it. Do not give every isolated bug a catalog entry.</p>
+<p>Use a title specific enough to identify the proposed failure. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.</p>
+<h2 id="put-predictions-near-the-explanation">Put predictions near the explanation<a class="headerlink" href="#put-predictions-near-the-explanation" title="Permanent link">&para;</a></h2>
+<p>In <code>relations</code>, link the symptoms the model could explain and the interventions that plausibly address it. Each <code>intervention-ref</code> contains <code>when</code> and <code>predictions</code>. The predictions belong to the diagnosis <strong>and</strong> the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.</p>
+<p>Use a short list of concrete outcomes: what should improve, what should stay intact, what would favor another explanation, and any harm the change could cause. “After compaction, the agent should stop asking again for saved permission” is more useful than “continuity should improve.” Predict ordinary future behavior; do not make an ablation study the price of admission.</p>
+<h2 id="evidence-for-this-explanation">Evidence for this explanation<a class="headerlink" href="#evidence-for-this-explanation" title="Permanent link">&para;</a></h2>
+<p><code>criteria</code> states what would support the proposed cause in a particular case. It is separate from <code>definition</code>: the model explains; the criteria help decide whether it fits. For compaction loss, a useful chain is “the information mattered, compaction dropped it, and the omission explains the later mistake.” A repeated-read symptom alone does not establish that chain.</p>
+<p><code>operator="all"</code> means every listed criterion must have support before assigning the diagnosis. Missing evidence leaves a working hypothesis, not a reason to force the label or dismiss the complaint. A reviewer’s reasoned judgment can count as evidence; a numerical benchmark is not required.</p>
+<p>Keep criteria few and specific to the explanation. Do not copy the symptom definition or prescribe a large investigation in every criterion.</p>
+<h2 id="boundaries-and-other-explanations">Boundaries and other explanations<a class="headerlink" href="#boundaries-and-other-explanations" title="Permanent link">&para;</a></h2>
+<p>Use <code>exclusions</code> to describe situations where the explanation may not fit, including normal behavior that resembles the failure. Explain the boundary in ordinary language: compaction should forget obsolete information. Avoid treating every uncertainty as a firm exclusion.</p>
+<p>Use <code>differential</code> for alternative causes that would lead to a different repair. Each <code>alternative</code> has a <code>discriminator</code>: what should the maintainer look at to tell them apart? For example, “the summary dropped permission” suggests fixing compaction; “the summary kept it but another rule demands fresh consent” suggests reviewing that rule. Omit alternatives that merely repeat a caveat without changing the next action.</p>
+<p>Several causes can coexist. A faulty instruction can explain a symptom without making it benign, and a normal action by the model can reveal a problem in the configured system. Check linked symptoms for contradictory boundaries.</p>
+<h2 id="investigation-sources-and-writing">Investigation, sources, and writing<a class="headerlink" href="#investigation-sources-and-writing" title="Permanent link">&para;</a></h2>
+<p>Keep <code>investigation</code> to the next useful evidence to inspect. Shared recipes belong in <a href="observation-methods.html">observation methods</a>, not repeated paragraphs on every entry.</p>
+<p>The root <code>status</code> and <code>evidence</code> attributes identify provisional entries. Put a specific source or limitation next to the claim it qualifies; do not add an “evidence and uncertainty” section that repeats the draft badge. Reports of a behavior do not establish its cause or the effectiveness of a remedy. Keep private cases private.</p>
+<p>Use ordinary verbs, name the thing being changed, and avoid invented labels for familiar actions. Read the draft as someone who has not followed its author’s reasoning. If the reader must translate the prose before assessing the model, revise it.</p>
+<p>See the <a href="diagnostic-process.html">diagnostic process</a> and <a href="../skills/agent-diagnostics/references/format.html">format reference</a> for the shared flow and XML details. These conventions remain a working draft; a useful example should shape the structure, not be stretched to fill it.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../interventions/complete-tool-discovery-handoff.html"><span>← Previous</span>I005 — Complete the discovery-to-invocation handoff</a>
+    <a rel="prev" href="../interventions/complete-tool-discovery-handoff.html"><span>← Previous</span>I005 — Make discovered tools callable</a>
     <a rel="next" href="authoring-intervention.html"><span>Next →</span>Authoring intervention XML files</a>
   </nav>
   
@@ -347,10 +363,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="docs/authoring-diagnosis.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

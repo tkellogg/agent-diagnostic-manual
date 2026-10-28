@@ -18,7 +18,7 @@
         <link href="../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -317,7 +325,7 @@
 <h2 id="investigate-the-system-through-incidents">Investigate the system through incidents<a class="headerlink" href="#investigate-the-system-through-incidents" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Establish the incident's task and success criteria. Record the model, harness, tools, instructions, context policy, environment, and relevant versions. The incident may be over; do not assume its task must be replayed or finished.</li>
-<li>Read relevant symptom entries. Compare actual calls, returned content, source versions, and model-visible inputs against the observations and benign lookalikes. An explanation is not automatically benign: a faulty instruction can cause a system-level symptom. Use <code>what-to-record</code> to identify missing evidence. Treat agent self-explanations as claims to check.</li>
+<li>Read relevant symptom entries. Compare actual calls, returned content, source versions, and model-visible inputs against the observations and benign lookalikes. An explanation is not automatically benign: a faulty instruction can cause a system-level symptom. Accept reasoned qualitative comparisons when the definition allows them; do not demand a benchmark or fixed sample size. Use <code>what-to-record</code> to identify useful evidence, not a mandatory intake checklist. Treat agent self-explanations as claims to check.</li>
 <li>Find diagnoses whose <code>relations/symptom-ref</code> references those symptoms. Read the whole candidate entry, including exclusions and differential alternatives. Do not force a catalog match if no entry fits.</li>
 <li>Assess each criterion as supported, contradicted, or unknown, with trace citations. For <code>operator="all"</code>, all criteria must be supported to assign the candidate label. A contradicted required criterion means the definition does not fit; an unknown one leaves insufficient evidence. Symptom references alone do not establish a criterion.</li>
 <li>Compare plausible alternatives using their discriminators. Describe how the system should work, what fails, and how that would produce the symptoms. Prefer existing evidence that separates explanations; allow interacting causes and keep unavailable input evidence unknown.</li>
@@ -327,7 +335,7 @@
 <h2 id="use-an-intervention">Use an intervention<a class="headerlink" href="#use-an-intervention" title="Permanent link">&para;</a></h2>
 <p>Read the diagnosis's <code>intervention-ref/when</code> and <code>predictions</code>, then the intervention's purpose, preconditions, ordered procedure, evaluation, confounders, and rollback. An observed problem may justify an intervention without an established catalog diagnosis.</p>
 <p>Choose a concrete change to the recurring system behavior. A one-time reminder or a more cautious report does not by itself repair the factory. Keep the change and its evaluation proportional to the problem; do not add instrumentation or repeated trials by default.</p>
-<p>Before applying the change, adapt the predictions to this configuration: what should improve, what should remain intact, what could newly appear, and what would weaken the explanation. Choose a review point with relevant opportunities. Confirm the changed behavior reaches future agents and observe ordinary work; use replay or ablation only when its expected value justifies its cost.</p>
+<p>Before applying the change, adapt the predictions to this configuration: what should improve, what should remain intact, what could newly appear, and what would weaken the explanation. Agree with the user on a dated check-in, who will review the evidence, and a reminder or job. Use existing records or agreed occasional capture rather than checking every turn. Confirm the changed behavior reaches future agents and observe ordinary work; use replay or ablation only when its expected value justifies its cost.</p>
 <p>Evaluate correctness and completion alongside symptom frequency and cost. Distinguish a newly exposed defect from harm introduced by the intervention. Separately decide whether the change helps and whether its predicted pattern supports the diagnosis; improvement alone does not uniquely establish the mechanism.</p>
 <p>Execute changes only within the user's authorized scope. Apply the protocol's stop and rollback conditions. Do not interpret a request for diagnosis as authorization to alter a production agent.</p>
 <h2 id="record-evidence-and-improve-entries">Record evidence and improve entries<a class="headerlink" href="#record-evidence-and-improve-entries" title="Permanent link">&para;</a></h2>
@@ -339,10 +347,10 @@
 <li><code>replicated</code>: linked repetitions support the claim under stated conditions and limits.</li>
 </ul>
 <p>Do not promote evidence labels based on plausible examples, successful parsing, or reviewer agreement alone. Distinguish reliability (reviewers agree), validity (the distinction is supported), and utility (it helps decisions).</p>
-<p>When asked to contribute, distinguish a provisional scaffold from an evidence-supported entry. Edit canonical XML, preserve stable IDs, and validate the schema and cross-references. Keep private incidents out of public entries unless their publication is authorized. Use the checkout's <code>docs/</code> authoring guides and shared diagnostic process when available; do not introduce a case schema or severity scale without a concrete need.</p></article>
+<p>When asked to contribute, distinguish a provisional scaffold from an evidence-supported entry. Edit canonical XML, preserve stable IDs, and validate the schema and cross-references. Keep private incidents out of public entries unless their publication is authorized. Use the checkout's <code>docs/</code> authoring guides, diagnostic process, and observation methods when available; do not introduce a case schema or severity scale without a concrete need.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../../docs/diagnostic-process.html"><span>← Previous</span>Diagnosing and improving an agent system</a>
+    <a rel="prev" href="../../docs/observation-methods.html"><span>← Previous</span>Observation methods</a>
     <a rel="next" href="references/format.html"><span>Next →</span>File format</a>
   </nav>
   
@@ -361,10 +369,10 @@
 
 <script src="../../js/bootstrap.bundle.min.js"></script>
 <script src="../../pagefind/pagefind-ui.js"></script>
-<script src="../../assets/adm.js?v=aa91e03f9d6c" data-base-url="../../"></script>
+<script src="../../assets/adm.js?v=7ad52da50514" data-base-url="../../"></script>
 
 <script src="../../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="skills/agent-diagnostics/SKILL.md" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

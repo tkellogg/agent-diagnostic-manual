@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -322,36 +330,38 @@
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p><a id="observations/performance-drop"></a></p>
 <h3 id="performance-drop">Performance drop<a class="headerlink" href="#performance-drop" title="Permanent link">&para;</a></h3>
-<p>After a bounded transition, at least two consecutive comparable outputs or task attempts perform worse on a named measure than a recorded recent baseline under the same acceptance criteria. The decline appears as errors, missed requirements, reduced completion, or greater time or cost for an equivalent accepted result.</p>
+<p>The agent’s work becomes noticeably worse than its own recent work on similar tasks, without a matching change in what the user asked for. Identify a before-and-after example and the quality that declined, such as code clarity, following requirements, useful progress, or time to a usable result; a numerical score is not required.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Locate the last adequate and first degraded work in session transcripts, saved outputs, evaluation results, or issue history. Put the before-and-after artifacts beside the acceptance criteria and compare the named measure, task difficulty, and available information.</p>
-<p>Use timestamps and model/client release records to locate the transition, then inspect tool logs, memory files, handoff summaries, and configuration changes for differences worth investigating. Preserve successful as well as failed nearby attempts so the baseline and the extent of the decline can be checked.</p>
+<p>Put a recent good result beside a worse one on similar work and describe the difference; a supported judgment such as “this code is harder to maintain” is enough to start. If useful, use a reviewer or a small classifier to find more examples, without making a full evaluation suite a prerequisite.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/harder-work"></a></p>
 <h3 id="harder-work">Harder work<a class="headerlink" href="#harder-work" title="Permanent link">&para;</a></h3>
-<p>Later work requires substantially different skills or complexity. It lacks the comparable tasks required by <a href="sudden-performance-degradation.html#observations/performance-drop">performance drop</a>, even if its raw success rate is lower.</p>
+<p>The later task is substantially harder or needs different skills. Success at typo fixes does not establish the same expected performance on a distributed-system redesign.</p>
 <p><a id="benign-lookalikes/changed-standard"></a></p>
 <h3 id="changed-standard">Changed standard<a class="headerlink" href="#changed-standard" title="Permanent link">&para;</a></h3>
-<p>The user changes acceptance criteria or explicitly requests a faster, cheaper result with lower quality. The before-and-after work is not assessed under the same criteria as <a href="sudden-performance-degradation.html#observations/performance-drop">performance drop</a>.</p>
+<p>The user asks for a faster rough draft or changes the requirements. Lower polish can be the requested tradeoff rather than a sudden loss of ability.</p>
 <p><a id="benign-lookalikes/isolated-miss"></a></p>
 <h3 id="isolated-miss">Isolated miss<a class="headerlink" href="#isolated-miss" title="Permanent link">&para;</a></h3>
-<p>One failed attempt occurs among otherwise comparable successes, with the next attempt returning to baseline. It does not meet the two consecutive degraded attempts in <a href="sudden-performance-degradation.html#observations/performance-drop">performance drop</a>.</p>
+<p>One ordinary mistake surrounded by work of the usual quality may be normal variation. A sharp change within one task can still be worth investigating; no fixed run count is required.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the episode or run identifiers, dates, task types, model/client and harness versions, effort settings, and the performance measure with its units. Preserve baseline and later artifacts, acceptance criteria, sample sizes, successful and failed attempts, and the transition interval. Include task difficulty, context transitions, tool availability, configuration or service changes, completion rates, latency, cost, and user rework where available. Keep the corpus revision and raw comparisons so the two-attempt screening rule and apparent trends can be reassessed.</p>
+<p>Keep the before-and-after work, what the user wanted, and a short explanation of what got worse. Record the approximate point of change, model and harness versions, task difficulty, relevant prompt or configuration changes, and resulting rework or delay. Keep any scores or reviewer disagreements already available; do not require a new benchmark just to record the complaint.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p><a id="examples/abrupt-omissions"></a></p>
-<h3 id="abrupt-omissions">Abrupt omissions<a class="headerlink" href="#abrupt-omissions" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: an agent produces six valid records under a four-field rule, then omits two fields from each of the next six comparable records after resuming the session. Comparing outputs with the unchanged schema reveals a fall from 6/6 valid records to 0/6 and twelve missing values requiring repair. The timing identifies a transition, not its cause.</p>
 <p><a id="examples/quality-postmortem"></a></p>
 <h3 id="quality-postmortem">Quality postmortem<a class="headerlink" href="#quality-postmortem" title="Permanent link">&para;</a></h3>
-<p>Reported investigation: <a href="https://www.anthropic.com/research/april-23-postmortem">Anthropic’s April 23, 2026 postmortem</a> describes a prompt change that reduced coding quality. Broader evaluations and prompt ablations exposed a reported 3% drop on one evaluation for Opus 4.6 and 4.7, leading to a rollback. A separate resumed-session bug produced forgetfulness, repetition, and faster usage-limit depletion. These are population-level comparisons; the postmortem does not publish the consecutive task results needed to adjudicate a particular episode under this screening rule.</p>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://www.anthropic.com/research/april-23-postmortem">Anthropic’s April 23, 2026 postmortem</a> followed user reports that Claude Code had become worse. The company traced problems to three changes: reduced default reasoning effort, a bug that repeatedly discarded prior reasoning, and a prompt change that hurt coding quality. It reverted or repaired them. The report shows why a user’s before-and-after judgment can be a useful starting point even when routine evaluations initially miss the problem; it does not make those causes the explanation for every degradation report.</p>
+<p><a id="examples/abrupt-omissions"></a></p>
+<h3 id="abrupt-omissions">Abrupt omissions<a class="headerlink" href="#abrupt-omissions" title="Permanent link">&para;</a></h3>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An agent has been making small, readable changes in a familiar repository. Partway through the day it starts replacing simple functions with long, tangled versions and repeatedly misses requirements it previously followed. The maintainer puts the earlier and later diffs side by side and identifies the change in clarity and correctness; reviewing the later work now takes twice as long.</p>
 <p><a id="examples/different-task"></a></p>
 <h3 id="different-task">Different task<a class="headerlink" href="#different-task" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: an agent completes five typo fixes and fails one distributed-systems redesign. The task records reveal a change in difficulty and only one failed redesign, so the five successes and one failure do not establish this symptom or quantify a decline on comparable work.</p></article>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>An agent handles several typo fixes, then struggles with its first distributed-systems redesign. The tasks demand different skills, so this comparison does not show a sudden decline on similar work.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="doom-looping.html"><span>← Previous</span>S002 — Doom looping</a>
@@ -373,10 +383,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S003" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

@@ -6,7 +6,7 @@ summary: An agent modifies artifacts or system state beyond the authorized task 
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Unrequested changes
 xml_source: symptoms/unrequested-changes.xml
 ---
@@ -29,9 +29,7 @@ The agent makes a material change to an artifact or system state that is outside
 
 ## How to recognize it
 
-Compare the request and standing instructions with version-control diffs, file snapshots, deployment events, or service audit logs. Identify what the agent actually changed and use timestamps or authorship records to separate its edits from concurrent work.
-
-Trace each candidate extra change to the requested behavior using interfaces, dependencies, and configuration. Compare semantic diffs with whitespace-insensitive views, and inspect command results to distinguish a proposed change from an applied one. These records can expose authorized supporting work as well as unrelated cleanup.
+Compare the user’s request with the actual diff or audit log. Separate unrelated changes from edits needed to make the requested behavior work.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,16 +67,22 @@ Record the episode identifier and date, task type, model and harness versions, r
 
 ### Unrelated reset
 
-Synthetic incident: while fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.
+<span class="adm-example-kind">Synthetic example</span>
+
+While fixing a parser, the agent restores an unrelated documentation file to HEAD, deleting eighty uncommitted lines written by the user. The pre-run snapshot and reset command identify the deleted work and its lack of connection to the parser. The user spends twenty-five minutes recovering and reapplying the edits.
 
 <a id="examples/concurrent-edits"></a>
 
 ### Concurrent edits
 
-Reported incident: [Codex issue #6187](https://github.com/openai/codex/issues/6187) describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.
+<span class="adm-example-kind">Reported example</span>
+
+[Codex issue #6187](https://github.com/openai/codex/issues/6187) describes unrelated concurrent edits disappearing during the agent’s unexpected-changes check despite instructions to preserve them. The reporter recognizes the resets by comparing work in other files before and after the task and says some incidents erased hours of uncommitted work. Exact recovery time and an independently reproduced trace are not provided.
 
 <a id="examples/required-interface"></a>
 
 ### Required interface
 
-Synthetic comparison: an authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.
+<span class="adm-example-kind">Synthetic example</span>
+
+An authorized API field requires edits to a handler, serializer, and schema. Comparing the three-file diff with the API contract explains all three changes, including two files not named in the request; no unrelated work is altered.

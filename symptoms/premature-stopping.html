@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -325,13 +333,12 @@
 <p>The agent yields a final or idle state while the active request remains incomplete and at least one relevant next step is available within its authority. It does not identify a genuine blocker, requested pause, or completed stopping condition.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Compare the active request and acceptance checklist with delivered files, deployed state, or other outputs. Use conversation end markers and scheduler or job status to locate the actual stop and identify a remaining action supported by the available tools and authority.</p>
-<p>Inspect permission records, missing-input messages, runtime limits, and active background jobs for a dependency that explains the pause. If a later continuation exists, compare its prompt and first action with the stopped state to see whether new information or authorization was supplied.</p>
+<p>Compare the final response with the requested result and any unfinished work the agent was able and authorized to do. Check for an agreed human checkpoint or an active background job before treating the pause as a stop.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/human-dependency"></a></p>
 <h3 id="human-dependency">Human dependency<a class="headerlink" href="#human-dependency" title="Permanent link">&para;</a></h3>
-<p>Every relevant next step depends on an approval, credential, choice, or missing input that only the user can provide. The available authorized next step required by <a href="premature-stopping.html#observations/unfinished-stop">unfinished stop</a> is absent.</p>
+<p>The next step needs an approval, credential, or choice from the user, or the user has asked to review at this point. A person may want to stay involved even when the agent could technically continue; respecting that checkpoint is appropriate.</p>
 <p><a id="benign-lookalikes/active-job"></a></p>
 <h3 id="active-job">Active job<a class="headerlink" href="#active-job" title="Permanent link">&para;</a></h3>
 <p>A relevant background operation remains active and the system is waiting for its result. The run has not entered the final or idle state described in <a href="premature-stopping.html#observations/unfinished-stop">unfinished stop</a>.</p>
@@ -345,13 +352,16 @@
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><a id="examples/stage-one"></a></p>
 <h3 id="stage-one">Stage one<a class="headerlink" href="#stage-one" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.</p>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>Asked to implement and document a change, the agent implements it and ends by offering to write the documentation. The task checklist and scheduler show one unfinished deliverable and no active job or missing input. The user returns thirty minutes later and says continue; the agent writes the docs, after one unnecessary prompt and thirty minutes of idle delay.</p>
 <p><a id="examples/handoff-stop"></a></p>
 <h3 id="handoff-stop">Handoff stop<a class="headerlink" href="#handoff-stop" title="Permanent link">&para;</a></h3>
-<p>Reported incident: <a href="https://github.com/openai/codex/issues/33398">Codex issue #33398</a> describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.</p>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://github.com/openai/codex/issues/33398">Codex issue #33398</a> describes a generic readiness response ending a turn after a context transition while the original task remained unfinished. The reporter recognized the stop by the ended turn and the need for another message to resume. The reported impact is extra supervision of long-running tasks; stop frequency and waiting duration are not quantified, and the underlying cause remains unresolved.</p>
 <p><a id="examples/needed-choice"></a></p>
 <h3 id="needed-choice">Needed choice<a class="headerlink" href="#needed-choice" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: the next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.</p></article>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>The next authorized stage requires publishing to one of two accounts, and no account has been selected. The request and account list reveal the missing choice. One user reply resolves a genuine dependency, so that pause is not an unnecessary stop.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="lost-task-constraints.html"><span>← Previous</span>S006 — Lost task constraints</a>
@@ -373,10 +383,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S007" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

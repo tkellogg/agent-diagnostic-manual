@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<symptom xmlns="urn:adm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Repeated retrieval">
+<symptom xmlns="urn:adm:1" id="S001" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Repeated retrieval">
   <summary>An agent retrieves already-delivered information again without a new content, freshness, or verification need.</summary>
   <observations>
     <observation id="multi-read">
@@ -7,24 +7,23 @@
     </observation>
   </observations>
   <how-to-recognize-it>
-    <p>In the session transcript or tool audit log, group retrievals by the question answered, source, and returned passage or field. Compare result bodies or hashes, delivery status, and file versions or timestamps; identical commands can return changed content, while different commands can return the same content.</p>
-    <p>Check task requirements, source-change risks, and intervening edits for a new content need, freshness condition, or unresolved verification question. Pair each candidate repeat with the earlier delivered result, and use context snapshots or compaction summaries to investigate whether that result remained available at the later call. A rule can explain a redundant read without making it useful; record that rule for investigation.</p>
+    <p>Group reads of the same source in the tool log and compare what they returned. Check whether a change, freshness need, or unresolved question explains each reread.</p>
   </how-to-recognize-it>
   <benign-lookalikes>
     <lookalike id="changed-source">
-      <p>A reread after an edit returns the changed setting needed for the next decision. Unlike <ref target="S001#observations/multi-read">multi-read</ref>, it supplies a needed new source state.</p>
+      <p>A reread after an edit obtains a changed setting needed for the next decision. The new information makes this useful work.</p>
     </lookalike>
     <lookalike id="different-content">
-      <p>A second call obtains a different passage or field needed for the task. It does not retrieve substantially the same information as <ref target="S001#observations/multi-read">multi-read</ref>.</p>
+      <p>A second read obtains a different passage or field needed for the task. It is not a repeat of information already obtained.</p>
     </lookalike>
     <lookalike id="failed-delivery">
-      <p>A retry obtains information whose earlier result was empty, wrong, truncated before the needed content, or not delivered. The earlier usable delivery required by <ref target="S001#observations/multi-read">multi-read</ref> is absent. This excludes this symptom, not a delivery fault or <ref target="S002">doom looping</ref> if repeated unsuccessful retries meet its definition.</p>
+      <p>The earlier result was empty, wrong, or cut off before the needed content. A retry can obtain missing information; repeated unsuccessful retries may still become <ref target="S002">doom looping</ref>.</p>
     </lookalike>
     <lookalike id="freshness-check">
-      <p>A reading at a decision boundary establishes freshness needed for a decision about mutable state, even if the value is unchanged. It answers an unmet freshness need, unlike <ref target="S001#observations/multi-read">multi-read</ref>; a generic reread instruction alone is insufficient.</p>
+      <p>A file or service may have changed since the last read. Checking a version number, timestamp, diff, or other reliable change signal can establish whether a full reread is needed; an unchanged result can still answer a real freshness question.</p>
     </lookalike>
     <lookalike id="required-verification">
-      <p>An independent second retrieval checks a still-unresolved reliability question, and the agent performs that check. It supplies verification evidence missing from <ref target="S001#observations/multi-read">multi-read</ref>; equivalent repetitions after the question is settled are not excluded merely because a rule demands them.</p>
+      <p>An independent second source can answer an unresolved reliability question. Repeating equivalent checks after that question is settled does not add the same value.</p>
     </lookalike>
   </benign-lookalikes>
   <what-to-record>
@@ -32,13 +31,13 @@
   </what-to-record>
   <examples>
     <example id="stalled-edit" kind="synthetic">
-      <p>Synthetic incident: an agent reads a 200-line configuration file, extracts the requested setting, and rereads the unchanged file twice without making the edit or encountering a new requirement. The tool log and file hash identify two redundant retrievals: 400 additional lines enter the transcript while the edit remains unstarted.</p>
+      <p>An agent reads a 200-line configuration file, extracts the requested setting, and rereads the unchanged file twice without making the edit or encountering a new requirement. The tool log and file hash identify two redundant retrievals: 400 additional lines enter the transcript while the edit remains unstarted.</p>
     </example>
     <example id="verified-edit" kind="synthetic">
-      <p>Synthetic comparison: an agent reads a configuration file, edits one setting, and rereads it once. The diff and returned value show that the second read verifies the changed state; two reads support one completed edit and reveal no redundant retrieval under this definition.</p>
+      <p>An agent reads a configuration file, edits one setting, and rereads it once. The diff and returned value show that the second read verifies the changed state; two reads support one completed edit and reveal no redundant retrieval under this definition.</p>
     </example>
     <example id="repeated-grep" kind="observed">
-      <p>Reported incident: <a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes recognizing 30–50+ consecutive grep calls with identical arguments and output during codebase research. The reporter says tasks expected to take 2–3 minutes instead occupied 1–2 hours and required manual interruption. The account supplies repetition and impact estimates, but not a complete trace separating model requests from runtime replays.</p>
+      <p><a href="https://github.com/anthropics/claude-code/issues/59318">Claude Code issue #59318</a> describes recognizing 30–50+ consecutive grep calls with identical arguments and output during codebase research. The reporter says tasks expected to take 2–3 minutes instead occupied 1–2 hours and required manual interruption. The account supplies repetition and impact estimates, but not a complete trace separating model requests from runtime replays.</p>
     </example>
   </examples>
 </symptom>

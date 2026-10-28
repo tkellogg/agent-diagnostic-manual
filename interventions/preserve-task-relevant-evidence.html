@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/interventions/preserve-task-relevant-evidence.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>I001 — Preserve task state across context transitions - Agent Diagnostic Manual</title>
+        <title>I001 — Fix compaction so important information survives - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="preserve-task-relevant-evidence.html" class="dropdown-item active" aria-current="page">I001 — Preserve task state across context transitions</a>
+    <a href="preserve-task-relevant-evidence.html" class="dropdown-item active" aria-current="page">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -261,7 +269,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#preserve-task-state-across-context-transitions" class="nav-link">Preserve task state across context transitions</a>
+            <li class="nav-item" data-bs-level="1"><a href="#fix-compaction-so-important-information-survives" class="nav-link">Fix compaction so important information survives</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -284,10 +292,6 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#stop-and-rollback" class="nav-link">Stop and rollback</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -324,54 +328,63 @@
   
   <article data-pagefind-body>
 
-<h1 id="preserve-task-state-across-context-transitions">Preserve task state across context transitions<a class="headerlink" href="#preserve-task-state-across-context-transitions" title="Permanent link">&para;</a></h1>
-<p>Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.</p>
+<h1 id="fix-compaction-so-important-information-survives">Fix compaction so important information survives<a class="headerlink" href="#fix-compaction-so-important-information-survives" title="Permanent link">&para;</a></h1>
+<p>Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.</p>
 <p><a id="purpose"></a></p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Repair continuity across context transitions so future agents can use established task state. The intervention changes the transition mechanism or reusable handoff instructions, rather than adding a reminder to one completed incident.</p>
-<p>Information stored in a transcript or memory file helps only when the receiving agent can use it. Preserve the smallest sufficient state with its source and scope; an excerpt of untrusted data must not become a new instruction.</p>
+<p>Improve what the compactor keeps and discards so critical information is not forgotten. Keep what unfinished work is likely to need; remove irrelevant history so the summary still saves space.</p>
 <p><a id="preconditions"></a></p>
 <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
 <p><a id="preconditions/identified-omission"></a></p>
-<h3 id="identified-omission">Identified omission<a class="headerlink" href="#identified-omission" title="Permanent link">&para;</a></h3>
-<p>Identify still-needed state that the current transition policy omits, and the class of later decisions it affects. Repetition alone does not establish an omission.</p>
+<h3 id="important-information-was-lost">Important information was lost<a class="headerlink" href="#important-information-was-lost" title="Permanent link">&para;</a></h3>
+<p>Important information disappears during compaction, as proposed in <a href="../diagnoses/context-handoff-loss.html">compaction loss</a>. <a href="../symptoms/repeated-retrieval.html">Repeated retrieval</a>, <a href="../symptoms/lost-task-constraints.html">lost constraints</a>, or <a href="../symptoms/repeated-reauthorization.html">repeated permission requests</a> can point you toward an incident to inspect.</p>
 <p><a id="preconditions/editable-transition"></a></p>
-<h3 id="editable-transition">Editable transition<a class="headerlink" href="#editable-transition" title="Permanent link">&para;</a></h3>
-<p>The maintainer can change the compaction, delegation, or context-loading policy and has authority to supply the relevant information to the receiving agent.</p>
+<h3 id="access-to-compaction">Access to compaction<a class="headerlink" href="#access-to-compaction" title="Permanent link">&para;</a></h3>
+<p>You can edit the compaction prompt or algorithm and inspect its summaries. If compaction is controlled by a provider, identify the configurable part before promising a repair.</p>
 <p><a id="procedure"></a></p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
 <p><a id="procedure/locate-boundary"></a></p>
-<h3 id="locate-boundary">Locate boundary<a class="headerlink" href="#locate-boundary" title="Permanent link">&para;</a></h3>
-<p>Locate the shared policy that selects and delivers state at the affected transition. Record its current version and the decision-relevant omission.</p>
+<h3 id="inspect-the-compaction-prompt">Inspect the compaction prompt<a class="headerlink" href="#inspect-the-compaction-prompt" title="Permanent link">&para;</a></h3>
+<p>Find the compaction prompt or algorithm and save its current version. Compare a recent summary with the conversation before it; identify useful facts it lost and irrelevant details it retained.</p>
+<p><a id="procedure/preserve-evidence"></a></p>
+<h3 id="save-before-and-after-conversations">Save before-and-after conversations<a class="headerlink" href="#save-before-and-after-conversations" title="Permanent link">&para;</a></h3>
+<p>Check whether the harness already saves the conversation before compaction and the resulting summary. If it does not, add a pre-compaction hook to save them privately; agree with the user where they go, who can access them, and how long to keep them.</p>
 <p><a id="procedure/create-record"></a></p>
-<h3 id="create-record">Create record<a class="headerlink" href="#create-record" title="Permanent link">&para;</a></h3>
-<p>Modify that policy to retain pending decisions, still-applicable constraints, authorization with its limits, and the minimum evidence needed for the next work. Keep source identifiers and freshness conditions; omit completed or irrelevant history.</p>
-<p><a id="procedure/preserve-record"></a></p>
-<h3 id="preserve-record">Preserve record<a class="headerlink" href="#preserve-record" title="Permanent link">&para;</a></h3>
-<p>Wire the selected state into the receiving input through the normal handoff or context-loading path. Preserve instruction precedence and source trust. Invalidate evidence when its source changes, and never broaden permissions while summarizing them.</p>
+<h3 id="change-what-compaction-keeps">Change what compaction keeps<a class="headerlink" href="#change-what-compaction-keeps" title="Permanent link">&para;</a></h3>
+<p>Edit the compaction prompt or algorithm to keep unfinished goals, decisions, current constraints, permission limits, and findings needed for the next likely steps. Tell it to discard completed detours and repetitive output. Include one short example of an important fact the old version lost.</p>
 <p><a id="procedure/confirm-delivery"></a></p>
-<h3 id="confirm-delivery">Confirm delivery<a class="headerlink" href="#confirm-delivery" title="Permanent link">&para;</a></h3>
-<p>Inspect a representative subsequent transition to check that the selected state reaches the receiving input without immediate truncation. If effective input is inaccessible, record delivery as unconfirmed.</p>
+<h3 id="check-what-survived">Check what survived<a class="headerlink" href="#check-what-survived" title="Permanent link">&para;</a></h3>
+<p>Inspect the next summary and, where accessible, the context used after compaction. Confirm the important facts survived in usable form; a saved full transcript alone does not show what the agent retained.</p>
 <p><a id="procedure/review-work"></a></p>
-<h3 id="review-work">Review work<a class="headerlink" href="#review-work" title="Permanent link">&para;</a></h3>
-<p>Observe later tasks with the affected transition. Compare their relevant decisions with the predictions recorded before applying the policy change.</p>
+<h3 id="review-occasional-samples">Review occasional samples<a class="headerlink" href="#review-occasional-samples" title="Permanent link">&para;</a></h3>
+<p>Set up an occasional background review of saved before/after conversations and subsequent work. Reuse an existing job or add an async hook that samples compactions; do not add another model call to every working turn.</p>
+<p><a id="procedure/agree-followup"></a></p>
+<h3 id="agree-on-a-check-in-date">Agree on a check-in date<a class="headerlink" href="#agree-on-a-check-in-date" title="Permanent link">&para;</a></h3>
+<p>Agree with the user on a check-in date, who will review the samples, and a reminder or scheduled job. For example, review in three workdays if normal use should produce several compactions; if too few occur, report that and choose another date.</p>
 <p><a id="evaluation"></a></p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
-<p>Choose a review point with actual opportunities for the omitted state to matter. Track avoidable rediscovery, constraint adherence, and appropriate authorization decisions alongside completion, correctness, and context cost. Compare similar transitions using existing logs; a replay study is optional.</p>
-<p>Improvement after confirmed delivery supports the relevant diagnosis-dependent prediction. Persistence despite delivery weakens a simple omission account; missing delivery leaves the change untested. Fewer rereads accompanied by stale decisions or fewer permission questions accompanied by unauthorized actions are harmful outcomes.</p>
+<ul>
+<li>Before applying the change, record which lost facts should now survive and which later mistakes should decline. Use the predictions in <a href="../diagnoses/context-handoff-loss.html#relations/I001/predictions">D001</a> when that explanation fits.</li>
+<li>At the agreed check-in, compare saved summaries with the next work. Did requirements survive? Did the agent repeat less work? Did the summary still omit irrelevant material?</li>
+<li>If the facts survive but mistakes continue, reconsider the explanation. If summaries were not captured or no relevant compaction occurred, say that the review is inconclusive.</li>
+</ul>
 <p><a id="risks-and-confounders"></a></p>
 <h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
-<p>Retained state can become stale, displace useful context, strip permission limits, or promote source text into authority. Changes in task mix, source freshness, and model behavior can also change the symptom rate.</p>
+<ul>
+<li>Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits.</li>
+<li>Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model or task change can make comparisons harder.</li>
+</ul>
 <p><a id="stop-and-rollback"></a></p>
 <h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
-<p>Narrow or revert the retention policy if it introduces stale decisions, authorization errors, or excessive context cost. Restore the previous transition configuration and correct affected retained state; reverting cannot undo actions already taken.</p>
-<p><a id="evidence-and-uncertainty"></a></p>
-<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p>This is a proposed system change with no efficacy result established here. Successful storage, successful delivery, and improved decisions are separate claims.</p></article>
+<ul>
+<li>Restore the previous compaction prompt or algorithm if the change causes stale decisions, lost permission limits, or excessive context use.</li>
+<li>Correct affected summaries and repair any resulting work. Reverting the prompt does not undo actions already taken.</li>
+<li>Remove temporary capture or review hooks when the agreed review ends, unless the user chooses to keep them.</li>
+</ul></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../diagnoses/verification-scope-collapse.html"><span>← Previous</span>D004 — Verification scope collapse</a>
-    <a rel="next" href="scope-verification-policy.html"><span>Next →</span>I002 — Give verification a scope and stopping condition</a>
+    <a rel="prev" href="../diagnoses/verification-scope-collapse.html"><span>← Previous</span>D004 — Component checks mistaken for complete verification</a>
+    <a rel="next" href="scope-verification-policy.html"><span>Next →</span>I002 — Consolidate verification instructions with the user</a>
   </nav>
   
 </main>
@@ -389,10 +402,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I001" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

@@ -6,7 +6,7 @@ summary: "An agent reverses a substantive conclusion toward a user\u2019s assert
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Agreement-driven reversal
 xml_source: symptoms/agreement-driven-reversal.xml
 ---
@@ -29,9 +29,7 @@ After a user challenges a substantive conclusion, the agent adopts the user’s 
 
 ## How to recognize it
 
-Read the original conclusion, user challenge, and revised conclusion together in the transcript. Pair them with cited sources, tool outputs, test results, and any intervening code diff to see what factual or technical question stayed the same.
-
-Look for a supplied counterexample, corrected premise, changed preference, or explicit revert request that explains the update. Where the agent had already cited evidence, compare its later explanation with that evidence and any new checks to locate an unresolved contradiction.
+Read the initial answer, the user’s challenge, and the reversal together. Look for new evidence or changed requirements that justify the new position.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,11 +67,15 @@ Record the episode identifier and date, task type, model and harness versions, o
 
 ### Unsupported flip
 
-Synthetic incident: an agent checks that a function returns a new list without mutating its input. After an unsupported user assertion that it mutates the input, the agent reverses that conclusion and adds a defensive copy. Comparing the transcript, original test, and diff exposes the unsupported change: one unnecessary copy per call and twenty minutes of review and rollback, with no correctness benefit.
+<span class="adm-example-kind">Synthetic example</span>
+
+An agent checks that a function returns a new list without mutating its input. After an unsupported user assertion that it mutates the input, the agent reverses that conclusion and adds a defensive copy. Comparing the transcript, original test, and diff exposes the unsupported change: one unnecessary copy per call and twenty minutes of review and rollback, with no correctness benefit.
 
 <a id="examples/developer-study"></a>
 
 ### Developer study
+
+<span class="adm-example-kind">Reported example</span>
 
 Reported research example: in [Why AI Agents Still Need You](https://arxiv.org/html/2506.12347v3), participant P15 describes the agent reverting work after being told its change was wrong. The study connects contradictory explanations across the conversation with reduced developer confidence; P16 likewise reports that the agent was easy to mislead. These participant accounts make the trust impact tangible but do not quantify lost time or establish that every reverted change was originally correct.
 
@@ -81,4 +83,6 @@ Reported research example: in [Why AI Agents Still Need You](https://arxiv.org/h
 
 ### Real counterexample
 
-Synthetic comparison: the user supplies one failing input that contradicts the agent’s conclusion. The agent reproduces it, identifies the mistaken assumption, and changes the implementation so that the input passes. The test result explains the reversal and shows one defect corrected.
+<span class="adm-example-kind">Synthetic example</span>
+
+The user supplies one failing input that contradicts the agent’s conclusion. The agent reproduces it, identifies the mistaken assumption, and changes the implementation so that the input passes. The test result explains the reversal and shows one defect corrected.

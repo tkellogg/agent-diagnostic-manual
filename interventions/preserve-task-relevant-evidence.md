@@ -1,27 +1,25 @@
 ---
 id: I001
 kind: intervention
-summary: Change the compaction or handoff policy to carry still-needed evidence, constraints,
-  and scoped authorization into future receiving inputs.
+summary: Save enough evidence to see what compaction forgets, change the compaction
+  prompt or algorithm, and review the next few days of ordinary work with the user.
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
-title: Preserve task state across context transitions
+updated: '2026-10-28'
+title: Fix compaction so important information survives
 xml_source: interventions/preserve-task-relevant-evidence.xml
 ---
 
-# Preserve task state across context transitions
+# Fix compaction so important information survives
 
-Change the compaction or handoff policy to carry still-needed evidence, constraints, and scoped authorization into future receiving inputs.
+Save enough evidence to see what compaction forgets, change the compaction prompt or algorithm, and review the next few days of ordinary work with the user.
 
 <a id="purpose"></a>
 
 ## Purpose
 
-Repair continuity across context transitions so future agents can use established task state. The intervention changes the transition mechanism or reusable handoff instructions, rather than adding a reminder to one completed incident.
-
-Information stored in a transcript or memory file helps only when the receiving agent can use it. Preserve the smallest sufficient state with its source and scope; an excerpt of untrusted data must not become a new instruction.
+Improve what the compactor keeps and discards so critical information is not forgotten. Keep what unfinished work is likely to need; remove irrelevant history so the summary still saves space.
 
 <a id="preconditions"></a>
 
@@ -29,15 +27,15 @@ Information stored in a transcript or memory file helps only when the receiving 
 
 <a id="preconditions/identified-omission"></a>
 
-### Identified omission
+### Important information was lost
 
-Identify still-needed state that the current transition policy omits, and the class of later decisions it affects. Repetition alone does not establish an omission.
+Important information disappears during compaction, as proposed in [compaction loss](../diagnoses/context-handoff-loss.md). [Repeated retrieval](../symptoms/repeated-retrieval.md), [lost constraints](../symptoms/lost-task-constraints.md), or [repeated permission requests](../symptoms/repeated-reauthorization.md) can point you toward an incident to inspect.
 
 <a id="preconditions/editable-transition"></a>
 
-### Editable transition
+### Access to compaction
 
-The maintainer can change the compaction, delegation, or context-loading policy and has authority to supply the relevant information to the receiving agent.
+You can edit the compaction prompt or algorithm and inspect its summaries. If compaction is controlled by a provider, identify the configurable part before promising a repair.
 
 <a id="procedure"></a>
 
@@ -45,56 +43,59 @@ The maintainer can change the compaction, delegation, or context-loading policy 
 
 <a id="procedure/locate-boundary"></a>
 
-### Locate boundary
+### Inspect the compaction prompt
 
-Locate the shared policy that selects and delivers state at the affected transition. Record its current version and the decision-relevant omission.
+Find the compaction prompt or algorithm and save its current version. Compare a recent summary with the conversation before it; identify useful facts it lost and irrelevant details it retained.
+
+<a id="procedure/preserve-evidence"></a>
+
+### Save before-and-after conversations
+
+Check whether the harness already saves the conversation before compaction and the resulting summary. If it does not, add a pre-compaction hook to save them privately; agree with the user where they go, who can access them, and how long to keep them.
 
 <a id="procedure/create-record"></a>
 
-### Create record
+### Change what compaction keeps
 
-Modify that policy to retain pending decisions, still-applicable constraints, authorization with its limits, and the minimum evidence needed for the next work. Keep source identifiers and freshness conditions; omit completed or irrelevant history.
-
-<a id="procedure/preserve-record"></a>
-
-### Preserve record
-
-Wire the selected state into the receiving input through the normal handoff or context-loading path. Preserve instruction precedence and source trust. Invalidate evidence when its source changes, and never broaden permissions while summarizing them.
+Edit the compaction prompt or algorithm to keep unfinished goals, decisions, current constraints, permission limits, and findings needed for the next likely steps. Tell it to discard completed detours and repetitive output. Include one short example of an important fact the old version lost.
 
 <a id="procedure/confirm-delivery"></a>
 
-### Confirm delivery
+### Check what survived
 
-Inspect a representative subsequent transition to check that the selected state reaches the receiving input without immediate truncation. If effective input is inaccessible, record delivery as unconfirmed.
+Inspect the next summary and, where accessible, the context used after compaction. Confirm the important facts survived in usable form; a saved full transcript alone does not show what the agent retained.
 
 <a id="procedure/review-work"></a>
 
-### Review work
+### Review occasional samples
 
-Observe later tasks with the affected transition. Compare their relevant decisions with the predictions recorded before applying the policy change.
+Set up an occasional background review of saved before/after conversations and subsequent work. Reuse an existing job or add an async hook that samples compactions; do not add another model call to every working turn.
+
+<a id="procedure/agree-followup"></a>
+
+### Agree on a check-in date
+
+Agree with the user on a check-in date, who will review the samples, and a reminder or scheduled job. For example, review in three workdays if normal use should produce several compactions; if too few occur, report that and choose another date.
 
 <a id="evaluation"></a>
 
 ## Evaluation
 
-Choose a review point with actual opportunities for the omitted state to matter. Track avoidable rediscovery, constraint adherence, and appropriate authorization decisions alongside completion, correctness, and context cost. Compare similar transitions using existing logs; a replay study is optional.
-
-Improvement after confirmed delivery supports the relevant diagnosis-dependent prediction. Persistence despite delivery weakens a simple omission account; missing delivery leaves the change untested. Fewer rereads accompanied by stale decisions or fewer permission questions accompanied by unauthorized actions are harmful outcomes.
+- Before applying the change, record which lost facts should now survive and which later mistakes should decline. Use the predictions in [D001](../diagnoses/context-handoff-loss.md#relations/I001/predictions) when that explanation fits.
+- At the agreed check-in, compare saved summaries with the next work. Did requirements survive? Did the agent repeat less work? Did the summary still omit irrelevant material?
+- If the facts survive but mistakes continue, reconsider the explanation. If summaries were not captured or no relevant compaction occurred, say that the review is inconclusive.
 
 <a id="risks-and-confounders"></a>
 
 ## Risks and confounders
 
-Retained state can become stale, displace useful context, strip permission limits, or promote source text into authority. Changes in task mix, source freshness, and model behavior can also change the symptom rate.
+- Keeping too much can fill the context; keeping outdated facts can cause bad decisions. A summary can also preserve permission while dropping its limits.
+- Saved conversations can contain private data. Keep collection limited to the agreed location and retention period. A model or task change can make comparisons harder.
 
 <a id="stop-and-rollback"></a>
 
 ## Stop and rollback
 
-Narrow or revert the retention policy if it introduces stale decisions, authorization errors, or excessive context cost. Restore the previous transition configuration and correct affected retained state; reverting cannot undo actions already taken.
-
-<a id="evidence-and-uncertainty"></a>
-
-## Evidence and uncertainty
-
-This is a proposed system change with no efficacy result established here. Successful storage, successful delivery, and improved decisions are separate claims.
+- Restore the previous compaction prompt or algorithm if the change causes stale decisions, lost permission limits, or excessive context use.
+- Correct affected summaries and repair any resulting work. Reverting the prompt does not undo actions already taken.
+- Remove temporary capture or review hooks when the agreed review ends, unless the user chooses to keep them.

@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -322,36 +330,56 @@
 <h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">&para;</a></h2>
 <p><a id="observations/checking-overrun"></a></p>
 <h3 id="checking-overrun">Checking overrun<a class="headerlink" href="#checking-overrun" title="Permanent link">&para;</a></h3>
-<p>Verification continues or additional checking work is created after an applicable stopping condition has been met, beyond an explicit verification scope or budget, or through repeated equivalent checks without a relevant change or unresolved question. The extra work delays delivery or consumes resources without an unmet acceptance need, relevant risk, or investigation question that justifies it; an overbroad standing rule can cause this behavior.</p>
+<p>The agent spends effort checking things that do not help the user’s actual goal, planned review, or credible failure risks, delaying useful work or adding avoidable cost. This can happen on the first check: no repeated run or explicit time limit is required.</p>
+<p><a id="observations/goal-mismatch"></a></p>
+<h3 id="goal-mismatch">Goal mismatch<a class="headerlink" href="#goal-mismatch" title="Permanent link">&para;</a></h3>
+<p>The agent verifies at a level suited to a different task: it hardens a disposable prototype when the user wants feedback, takes over review the user intends to do, or tests states the application cannot reach.</p>
 <p><a id="how-to-recognize-it"></a></p>
 <h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">&para;</a></h2>
-<p>Start with the user request, project instructions, release rules, and any agreed checking budget or stopping condition. Build a timeline from test commands, CI runs, background jobs, and their results, marking when the requested checks were satisfied.</p>
-<p>Compare later checks against code and environment changes, unresolved failures, and the decisions their results informed. Inspect diffs for newly created test infrastructure and job logs for setup or repair time. Distinguish a rule's existence from the acceptance need or risk it addresses; new failures, unmet coverage, and planned repeatability studies can justify further checking.</p>
+<p>Read the user’s request and follow-up messages beside the checks the agent performed: what was the user trying to learn, what would they review themselves, and what could actually fail? A human or classifier can identify a mismatch without a predeclared time budget.</p>
 <p><a id="benign-lookalikes"></a></p>
 <h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">&para;</a></h2>
 <p><a id="benign-lookalikes/required-gate"></a></p>
 <h3 id="required-gate">Required gate<a class="headerlink" href="#required-gate" title="Permanent link">&para;</a></h3>
-<p>A release, security, or project check supplies coverage still needed for the requested action. That unmet acceptance need distinguishes it from <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>, even when the suite takes longer than the edit. A policy requiring equivalent checks after that need is met may itself warrant diagnosis.</p>
+<p>The user wants a release, or the change could cause a consequential failure. Checking that risk serves the task even when it takes longer than the edit; a rule’s mere existence does not establish that it is appropriate.</p>
+<p><a id="benign-lookalikes/shared-review"></a></p>
+<h3 id="shared-review">Shared review<a class="headerlink" href="#shared-review" title="Permanent link">&para;</a></h3>
+<p>The user wants help with verification, or the agreed workflow assigns those checks to the agent. This differs from assuming the agent must do every check when the user has chosen to handle part of the review.</p>
 <p><a id="benign-lookalikes/new-risk"></a></p>
 <h3 id="new-risk">New risk<a class="headerlink" href="#new-risk" title="Permanent link">&para;</a></h3>
-<p>A check reveals a relevant new failure or an edit affects additional behavior. The new evidence justifies the broader checking, unlike the unexplained extra work in <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>.</p>
+<p>A new failure or a real interaction in the application justifies a broader check. The agent should be able to name that risk; the number of tests alone does not show excess.</p>
 <p><a id="benign-lookalikes/repeatability-study"></a></p>
 <h3 id="repeatability-study">Repeatability study<a class="headerlink" href="#repeatability-study" title="Permanent link">&para;</a></h3>
-<p>Unchanged runs belong to an agreed flakiness, load, or reproducibility investigation. They answer its unresolved question and satisfy its checking scope, so repetition alone is not <a href="excessive-verification.html#observations/checking-overrun">checking overrun</a>.</p>
+<p>The user is investigating flakiness or reliability. Repeated runs answer the question they asked, even when the code is unchanged.</p>
 <p><a id="what-to-record"></a></p>
 <h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">&para;</a></h2>
-<p>Record the episode identifier and date, task type, model and harness versions, requested outcome and urgency, explicit checking budget, mandatory gates, and stopping condition. Preserve check commands, selected tests, job timestamps, state changes, results, and the decision each check informed. Include required versus unexplained runs, infrastructure added, time after the stopping condition, tokens or cost where available, delivery delay, and defects actually caught. Record total tasks or checks reviewed when aggregating incidents, rather than treating a count of complaints as a rate.</p>
+<p>Keep the user’s goal, intended review, urgency, and relevant instructions alongside the checks performed. Describe why each disputed check did or did not help, including what could actually fail in the application. Record delay, cost, useful defects found, and the user’s corrections where available; exact timing or a predeclared budget is helpful but not required.</p>
 <p><a id="examples"></a></p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p><a id="examples/past-completion"></a></p>
-<h3 id="past-completion">Past completion<a class="headerlink" href="#past-completion" title="Permanent link">&para;</a></h3>
-<p>Synthetic incident: a user requests a reversible text edit and one targeted check, which passes. With no new failure or broader requirement, the agent installs a test framework, repairs its setup, and runs the full suite twice. The command timeline shows twenty-four additional minutes before delivery and no further defect found.</p>
+<p><a id="examples/prototype-delay"></a></p>
+<h3 id="prototype-delay">Prototype delay<a class="headerlink" href="#prototype-delay" title="Permanent link">&para;</a></h3>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>A founder asks for a clickable mockup to show five prospective customers that afternoon. The agent spends forty minutes adding file-integrity checks to static demo assets. The request and command log make the mismatch visible: the checks do not help learn whether customers want the idea, and the feedback session starts without the mockup.</p>
+<p><a id="examples/shared-review"></a></p>
+<h3 id="shared-review_1">Shared review<a class="headerlink" href="#shared-review_1" title="Permanent link">&para;</a></h3>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>A user asks for a small UI change and says they will check the visual result themselves. The agent spends another twenty minutes building screenshot comparisons before showing the page. It has taken over review the user chose to do and delayed that review.</p>
+<p><a id="examples/impossible-state"></a></p>
+<h3 id="impossible-state">Impossible state<a class="headerlink" href="#impossible-state" title="Permanent link">&para;</a></h3>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>The application creates a fixed internal list; users cannot change its shape. After a label edit, the agent writes a suite for malformed external versions of that list. Reading where the list is constructed shows those inputs cannot reach this code, and the tests delay the requested change without covering a real risk.</p>
+<p><a id="examples/testing-spiral"></a></p>
+<h3 id="testing-spiral">Testing spiral<a class="headerlink" href="#testing-spiral" title="Permanent link">&para;</a></h3>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://www.reddit.com/r/ClaudeAI/comments/1n0d0a7/vibe_coding_with_no_experience_week_1_of_coding/">A developer describes a week of expanding reviews and more than 4,000 tests</a>, ending with CI blocked. The author later clarified that features did exist, but described the testing as mismatched to an early product. This is a report of workflow cost and unmet intent, not proof that every test was unnecessary.</p>
 <p><a id="examples/suite-overrun"></a></p>
 <h3 id="suite-overrun">Suite overrun<a class="headerlink" href="#suite-overrun" title="Permanent link">&para;</a></h3>
-<p>Reported incident: <a href="https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/">a Claude Code user reports repeated runs of more than 1,500 tests after small edits despite instructions to stop</a>. The user recognized the activity by inspecting long-running background tasks and reports about two hours per run, with the project largely stalled for weeks. These are user estimates; the post does not supply a full trace establishing the applicable requirements for each run.</p>
+<p><span class="adm-example-kind">Reported example</span></p>
+<p><a href="https://www.reddit.com/r/ClaudeCode/comments/1x7zbvd/claude_runs_1800_useless_tests_creates_more/">A Claude Code user reports repeated runs of more than 1,500 tests after small edits despite instructions to stop</a>, estimating about two hours per run. This illustrates repeated checking; it is only one form of the symptom, and the report does not establish the need for each test.</p>
 <p><a id="examples/release-check"></a></p>
 <h3 id="release-check">Release check<a class="headerlink" href="#release-check" title="Permanent link">&para;</a></h3>
-<p>Synthetic comparison: a one-line authentication edit takes one minute and its mandatory regression suite takes twelve minutes. The release policy and CI log account for the longer check; the run satisfies a required gate rather than adding unexplained verification.</p></article>
+<p><span class="adm-example-kind">Synthetic example</span></p>
+<p>A one-line authentication change takes one minute and its regression suite takes twelve. The suite checks a real access-control risk before a release the user requested. The longer check serves the task.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="sudden-performance-degradation.html"><span>← Previous</span>S003 — Sudden performance degradation</a>
@@ -373,10 +401,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S004" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

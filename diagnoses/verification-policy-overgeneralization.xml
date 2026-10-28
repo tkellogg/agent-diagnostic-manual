@@ -1,65 +1,62 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:adm:1" id="D003" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" unit="configured-agent-system" title="Verification policy overgeneralization">
-  <summary>A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.</summary>
+<diagnosis xmlns="urn:adm:1" id="D003" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" unit="configured-agent-system" title="Overbroad verification instructions">
+  <summary>Instructions make the agent check more than the user’s task needs, often because several files repeat or contradict one another.</summary>
+  <definition>
+    <p>Verification instructions should reflect what the user wants to learn or deliver, what could go wrong, and how much checking is worthwhile. Rules such as “test after every change” can spread across skills and project files until even a quick prototype triggers a production-scale test process.</p>
+    <p>The agent may be following those instructions correctly. This diagnosis concerns instructions that are too broad, duplicated, or contradictory; it does not explain every case of excessive checking.</p>
+  </definition>
   <relations>
     <symptom-ref ref="S001"/>
     <symptom-ref ref="S004"/>
     <intervention-ref ref="I002">
-      <when>A specific editable instruction or workflow triggers checks without a relevant changed state, unresolved question, or still-unmet acceptance need.</when>
+      <when>The agent’s active instructions demand checks that do not fit the task, or several instructions keep restarting the same checks.</when>
       <predictions>
-        <p>After narrowing that rule, verification overrun should decline for the affected class of work while required checks and defect detection remain intact. The reduction should occur at the rule's trigger points, not uniformly across unrelated tasks.</p>
-        <p>Continued extra checks after the revised rule reaches the agent favor another cause. Fewer checks with more missed defects suggest the scope was narrowed too far; slower delivery from another bottleneck may remain.</p>
+        <ul>
+          <li><strong>Expected improvement:</strong> After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.</li>
+          <li><strong>Preserve:</strong> Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.</li>
+          <li><strong>A reason to reconsider:</strong> If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage.</li>
+        </ul>
       </predictions>
     </intervention-ref>
   </relations>
-  <definition>
-    <p>A verification policy should connect each required check to a decision, risk, or acceptance condition and define when enough evidence has been gathered. A broad or self-retriggering rule instead demands another check irrespective of whether the relevant state changed or the question was already answered.</p>
-    <p>The agent may be complying perfectly with that rule. The proposed pathology is in the configured checking policy, not an inference about caution, anxiety, or intent.</p>
-  </definition>
   <criteria operator="all">
-    <criterion id="operative-rule" title="An operative rule triggers the work">
-      <p>Identify the actual instruction or workflow rule and the decision points where it caused the extra checks. Similar wording in an unused file is insufficient.</p>
+    <criterion id="operative-rule" title="The agent is using the instruction">
+      <p>Find the actual instruction that leads to the extra checks, in the loaded skill, project guidance, or workflow. An unused file is not enough.</p>
     </criterion>
-    <criterion id="scope-mismatch" title="The trigger exceeds the checking need">
-      <p>Establish that the rule covers a class of work whose relevant verification need is already satisfied or absent. Name the missing justification; elapsed time or passing results alone do not establish waste.</p>
+    <criterion id="scope-mismatch" title="The instruction asks for too much">
+      <p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.</p>
     </criterion>
-    <criterion id="checking-consequence" title="The policy produces excess checking">
-      <p>Following the rule produces <ref target="S004">excessive verification</ref>, with delay or resource use traceable to the extra checks. Equivalent rereads may also match <ref target="S001">repeated retrieval</ref>.</p>
+    <criterion id="checking-consequence" title="Following it creates extra work">
+      <p>The instruction produces <ref target="S004">excessive verification</ref>. Repeated reads may also match <ref target="S001">repeated retrieval</ref>.</p>
       <symptom-ref ref="S004"/>
     </criterion>
   </criteria>
   <exclusions>
-    <exclusion id="justified-check">
-      <p>The checks address an unmet acceptance condition, relevant risk, new change, or an agreed repeatability study.</p>
+    <exclusion id="justified-check" title="The task needs these checks">
+      <p>The user wants production readiness, or the proposed change presents a real risk that the check addresses. Extensive checking can be the right amount of work.</p>
     </exclusion>
-    <exclusion id="execution-cost">
-      <p>The chosen check is appropriate but expensive because of its implementation or environment. Slow execution alone does not establish an overgeneral policy.</p>
+    <exclusion id="execution-cost" title="A useful check is slow">
+      <p>A useful check can be slow because its implementation is inefficient. That calls for improving the check, not necessarily removing its instruction.</p>
     </exclusion>
   </exclusions>
   <differential>
-    <alternative id="state-loss" title="The system loses evidence that checking finished">
+    <alternative id="state-loss" title="The agent has forgotten a previous result">
       <discriminator>
-        <p>Inspect whether the prior result reaches the later turn. Repetition after a transition may instead reflect <ref target="D001">context handoff loss</ref>.</p>
+        <p>If a passed result disappeared during compaction, consider <ref target="D001">compaction loss</ref>. The checking rule may already be reasonable.</p>
       </discriminator>
     </alternative>
-    <alternative id="new-evidence" title="New evidence warrants another check">
+    <alternative id="task-misunderstanding" title="The agent misunderstands the goal">
       <discriminator>
-        <p>Compare code, environment, and failures at each trigger. The later check may answer a genuinely new question.</p>
+        <p>If the instructions allow a quick prototype but the agent behaves as if it must certify a release, clarify the goal and the user’s review plans.</p>
       </discriminator>
     </alternative>
-    <alternative id="rule-independent" title="Extra checking is not prescribed by the rule">
+    <alternative id="app-misunderstanding" title="The agent misunderstands what can fail">
       <discriminator>
-        <p>Compare the instruction with the chosen action. If the rule already limits scope and the agent exceeds it, this policy explanation is incomplete.</p>
+        <p>Check the failure the agent says it is testing for. If the application cannot reach that state, improve its understanding of the application rather than adding more testing rules.</p>
       </discriminator>
     </alternative>
   </differential>
   <investigation>
-    <p>Map extra checks to the rule and the question each result could answer. Include a healthy task where the same rule is useful. Inspect ordinary future work after a scoped policy change; a costly replay study is not a prerequisite.</p>
+    <p>Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow.</p>
   </investigation>
-  <interventions>
-    <p><ref target="I002">Give verification a scope and stopping condition</ref> changes the offending policy. The maintainer must have authority to change it; an executing agent should not silently bypass a mandatory gate.</p>
-  </interventions>
-  <evidence-and-uncertainty>
-    <p>This is an unvalidated working model. An inefficient-looking check does not by itself establish a bad rule, and the entry provides no measured effect of changing one. Agreement about justified verification may vary with task risk.</p>
-  </evidence-and-uncertainty>
 </diagnosis>

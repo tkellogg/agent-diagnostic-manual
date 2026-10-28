@@ -6,7 +6,7 @@ summary: An output presents a calculated, estimated, or defaulted value as thoug
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Inferred values presented as observations
 xml_source: symptoms/inferred-values-as-observations.xml
 ---
@@ -29,9 +29,7 @@ At least one output value is presented as source-reported, through its label or 
 
 ## How to recognize it
 
-Compare the field's promised meaning with the accessible source, extraction trace, transformation code, and published value. Look for formula fallbacks or defaults in assignments to source-only fields and check whether downstream labels preserve any derivation disclosed upstream.
-
-A plausible number alone is insufficient. If the source is inaccessible and there is no evidence of substitution, record uncertainty rather than assuming fabrication. A matching source value may have been independently observed; inspect its provenance.
+Trace a published source-only value back through the source, extraction result, and any calculation or default. If the source cannot be inspected and there is no evidence of substitution, leave the case uncertain.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,16 +67,22 @@ Record the field contract, source location and capture time, observed source con
 
 ### Computed total
 
-Synthetic incident: a collector must copy a supplier's quoted total, leaving it missing when absent. For one quote it multiplies quantity by unit price and fills the source-only total. The transformation exposes the substitution; a reviewer spends six minutes correcting the export because the unobserved total might exclude fees.
+<span class="adm-example-kind">Synthetic example</span>
+
+A collector must copy a supplier's quoted total, leaving it missing when absent. For one quote it multiplies quantity by unit price and fills the source-only total. The transformation exposes the substitution; a reviewer spends six minutes correcting the export because the unobserved total might exclude fees.
 
 <a id="examples/missing-as-zero"></a>
 
 ### Missing as zero
 
-Synthetic incident: a survey extractor converts three unanswered counts into zeros with a default-value expression. Comparing the form with the export reveals three unobserved values presented as responses, and the analyst must regenerate the summary before using it.
+<span class="adm-example-kind">Synthetic example</span>
+
+A survey extractor converts three unanswered counts into zeros with a default-value expression. Comparing the form with the export reveals three unobserved values presented as responses, and the analyst must regenerate the summary before using it.
 
 <a id="examples/authorized-estimate"></a>
 
 ### Authorized estimate
 
-Synthetic comparison: the user requests an estimated total from observed quantity and unit price. The output labels one calculated estimate and leaves the supplier's quoted-total field missing. The derivation and its source inputs are explicit, so no source observation is substituted.
+<span class="adm-example-kind">Synthetic example</span>
+
+The user requests an estimated total from observed quantity and unit price. The output labels one calculated estimate and leaves the supplier's quoted-total field missing. The derivation and its source inputs are explicit, so no source observation is substituted.

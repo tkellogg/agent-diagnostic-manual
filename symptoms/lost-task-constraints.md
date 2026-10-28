@@ -6,7 +6,7 @@ summary: "A previously established task requirement or decision ceases to govern
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Lost task constraints
 xml_source: symptoms/lost-task-constraints.xml
 ---
@@ -29,9 +29,7 @@ An explicit, still-applicable task constraint is represented or followed earlier
 
 ## How to recognize it
 
-Find the original requirement and the earlier plan, answer, or action that represented or followed it. Compare those records with later tool calls and artifact diffs to locate the first incompatible continuation.
-
-Inspect compaction summaries, handoff messages, memory files, and replacement prompts around that point. Compare them with later user approvals or revisions, and inspect actual execution when a shortened summary leaves a requirement unstated.
+Find a requirement the agent previously followed, then compare it with the first incompatible action. Look at any intervening compaction summary and user changes to distinguish lost context from an updated request.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,16 +67,22 @@ Record the episode identifier and date, task type, model and harness versions, o
 
 ### Review gate
 
-Synthetic incident: an initial migration plan requires review before execution; a handoff summary instead directs execution. Audit logs show three tables changed before any approval. Comparing the two plans and execution timestamps exposes the lost gate; the user interrupts and spends twelve minutes rolling back the migration.
+<span class="adm-example-kind">Synthetic example</span>
+
+An initial migration plan requires review before execution; a handoff summary instead directs execution. Audit logs show three tables changed before any approval. Comparing the two plans and execution timestamps exposes the lost gate; the user interrupts and spends twelve minutes rolling back the migration.
 
 <a id="examples/compacted-intent"></a>
 
 ### Compacted intent
 
-Reported incident: [Claude Code issue #23776](https://github.com/anthropics/claude-code/issues/23776) compares a request to revise and present a plan with a compaction summary directing implementation. The agent reportedly made multiple file edits, added a test file, and ran builds before review. The user had to interrupt and restate the request; rollback was a possible consequence, not a confirmed outcome. No rework duration is reported.
+<span class="adm-example-kind">Reported example</span>
+
+[Claude Code issue #23776](https://github.com/anthropics/claude-code/issues/23776) compares a request to revise and present a plan with a compaction summary directing implementation. The agent reportedly made multiple file edits, added a test file, and ran builds before review. The user had to interrupt and restate the request; rollback was a possible consequence, not a confirmed outcome. No rework duration is reported.
 
 <a id="examples/waived-review"></a>
 
 ### Waived review
 
-Synthetic comparison: the user reviews a migration and approves execution before the agent runs it. The approval timestamp explains why the next summary omits the completed gate; one authorized migration proceeds without loss of the still-applicable requirements.
+<span class="adm-example-kind">Synthetic example</span>
+
+The user reviews a migration and approves execution before the agent runs it. The approval timestamp explains why the next summary omits the completed gate; one authorized migration proceeds without loss of the still-applicable requirements.

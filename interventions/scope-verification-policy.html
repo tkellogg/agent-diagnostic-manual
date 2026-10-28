@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/interventions/scope-verification-policy.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>I002 — Give verification a scope and stopping condition - Agent Diagnostic Manual</title>
+        <title>I002 — Consolidate verification instructions with the user - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Verification policy overgeneralization</a>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="scope-verification-policy.html" class="dropdown-item active" aria-current="page">I002 — Give verification a scope and stopping condition</a>
+    <a href="scope-verification-policy.html" class="dropdown-item active" aria-current="page">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -261,7 +269,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#give-verification-a-scope-and-stopping-condition" class="nav-link">Give verification a scope and stopping condition</a>
+            <li class="nav-item" data-bs-level="1"><a href="#consolidate-verification-instructions-with-the-user" class="nav-link">Consolidate verification instructions with the user</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -284,10 +292,6 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#stop-and-rollback" class="nav-link">Stop and rollback</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -324,50 +328,59 @@
   
   <article data-pagefind-body>
 
-<h1 id="give-verification-a-scope-and-stopping-condition">Give verification a scope and stopping condition<a class="headerlink" href="#give-verification-a-scope-and-stopping-condition" title="Permanent link">&para;</a></h1>
-<p>Replace an overbroad checking instruction with a rule that specifies its trigger, required coverage, completion condition, and reasons to reopen verification.</p>
+<h1 id="consolidate-verification-instructions-with-the-user">Consolidate verification instructions with the user<a class="headerlink" href="#consolidate-verification-instructions-with-the-user" title="Permanent link">&para;</a></h1>
+<p>Find the instructions that demand extra checking, remove duplicates and contradictions, and agree with the user on one simple account of what verification each kind of work needs.</p>
 <p><a id="purpose"></a></p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>Reduce redundant checking by fixing the policy that generates it. Verification should answer a task-relevant question; more passing runs do not necessarily add evidence. Retain checks justified by the work's risks and acceptance conditions.</p>
+<p>Reduce <a href="../symptoms/excessive-verification.html">excessive verification</a> by simplifying the instructions that cause it. A pile of testing rules can make the agent lose sight of whether the user wants a quick demonstration, a maintained feature, or a production release.</p>
 <p><a id="preconditions"></a></p>
 <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
 <p><a id="preconditions/identified-rule"></a></p>
-<h3 id="identified-rule">Identified rule<a class="headerlink" href="#identified-rule" title="Permanent link">&para;</a></h3>
-<p>A specific instruction or workflow causes extra checks, and the maintainer can identify the class of work for which its scope is excessive.</p>
+<h3 id="instructions-contribute-to-the-problem">Instructions contribute to the problem<a class="headerlink" href="#instructions-contribute-to-the-problem" title="Permanent link">&para;</a></h3>
+<p>Active skills, prompts, project files, or workflows contain broad or conflicting checking instructions. This is a plausible repair for <a href="../diagnoses/verification-policy-overgeneralization.html">overbroad verification instructions</a>; if the instructions are already clear, investigate the agent’s understanding of the task.</p>
 <p><a id="preconditions/authorized-change"></a></p>
-<h3 id="authorized-change">Authorized change<a class="headerlink" href="#authorized-change" title="Permanent link">&para;</a></h3>
-<p>The maintainer has authority to revise that policy and can identify the requirements that must remain enforced. Otherwise seek the policy owner's change rather than bypassing it during execution.</p>
+<h3 id="user-or-workflow-owner-involvement">User or workflow owner involvement<a class="headerlink" href="#user-or-workflow-owner-involvement" title="Permanent link">&para;</a></h3>
+<p>The user or workflow owner can review the proposed simplification and identify checks that must remain. The maintainer can edit the relevant instruction sources.</p>
 <p><a id="procedure"></a></p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
-<p><a id="procedure/name-purpose"></a></p>
-<h3 id="name-purpose">Name purpose<a class="headerlink" href="#name-purpose" title="Permanent link">&para;</a></h3>
-<p>Identify the decision or failure risk the rule is intended to address and the checks needed to address it.</p>
-<p><a id="procedure/rewrite-rule"></a></p>
-<h3 id="rewrite-rule">Rewrite rule<a class="headerlink" href="#rewrite-rule" title="Permanent link">&para;</a></h3>
-<p>Edit the source instruction or workflow to state when it applies, which relevant checks satisfy it, and when checking stops. State the changes or new failures that warrant reopening it. Remove conflicting blanket instructions in the same policy.</p>
-<p><a id="procedure/preserve-gates"></a></p>
-<h3 id="preserve-gates">Preserve gates<a class="headerlink" href="#preserve-gates" title="Permanent link">&para;</a></h3>
-<p>Retain mandatory coverage and justified repeated sampling. For example, a targeted check may finish a small local edit while release approval still requires the project's release gate; neither is automatically a substitute for the other.</p>
-<p><a id="procedure/apply-and-review"></a></p>
-<h3 id="apply-and-review">Apply and review<a class="headerlink" href="#apply-and-review" title="Permanent link">&para;</a></h3>
-<p>Deliver the revised policy to future agents and confirm it is active at an affected decision. Review subsequent eligible work for both reduced overrun and preserved defect detection.</p>
+<p><a id="procedure/find-instructions"></a></p>
+<h3 id="find-the-active-instructions">Find the active instructions<a class="headerlink" href="#find-the-active-instructions" title="Permanent link">&para;</a></h3>
+<p>Search the instructions actually loaded by the agent: system and project guidance, nested instruction files, skills, command templates, and CI rules. List each verification demand with its source; identify duplicates, contradictions, and rules that restart checks after every small edit.</p>
+<p><a id="procedure/agree-needs"></a></p>
+<h3 id="agree-on-what-checking-is-useful">Agree on what checking is useful<a class="headerlink" href="#agree-on-what-checking-is-useful" title="Permanent link">&para;</a></h3>
+<p>Review that list with the user. Establish what they are trying to learn or ship, what they plan to verify themselves, which failures matter, and what time or cost they consider reasonable. Use familiar task examples to resolve differences.</p>
+<p><a id="procedure/consolidate-rules"></a></p>
+<h3 id="remove-duplication-and-contradictions">Remove duplication and contradictions<a class="headerlink" href="#remove-duplication-and-contradictions" title="Permanent link">&para;</a></h3>
+<p>Delete redundant and obsolete instructions, reconcile contradictions, and keep the remaining guidance in the fewest useful places. Make other files point there instead of copying it. Preserve necessary safety and release checks; do not delete a quota of rules blindly.</p>
+<p><a id="procedure/make-it-simple"></a></p>
+<h3 id="write-one-short-rule">Write one short rule<a class="headerlink" href="#write-one-short-rule" title="Permanent link">&para;</a></h3>
+<p>Write a short rule for choosing enough verification for the task. For example: check the changed behavior, stop once that question is answered, and run broader checks when the change or release requires them. Show where a prototype and a release differ; avoid replacing the old pile with a larger checklist.</p>
+<p><a id="procedure/review-work"></a></p>
+<h3 id="review-future-tasks">Review future tasks<a class="headerlink" href="#review-future-tasks" title="Permanent link">&para;</a></h3>
+<p>Confirm future sessions load the consolidated guidance. Agree on a check-in after a few normal tasks, then review unwanted checks, time to a usable result, and missed defects with the user.</p>
 <p><a id="evaluation"></a></p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
-<p>Before the change, predict which trigger points should lose redundant work and which checks should remain. At a proportionate review point, compare time spent after requirements were satisfied, checks repeated without new justification, missed defects, and usable task completion in comparable work.</p>
-<p>Less checking alone is insufficient. If defects rise, coverage may have been removed. If the revised rule reaches the agent but excess checking persists, inspect other instructions and decision behavior. Work with no relevant check opportunity supplies little evidence.</p>
+<ul>
+<li>Predict which duplicate or unnecessary checks should disappear and which important checks should remain. Compare similar tasks before and after consolidation.</li>
+<li>Ask whether the remaining verification fits the user’s intent and planned review. Shorter runs are helpful only if the requested result remains useful and credible.</li>
+<li>If the revised instructions are active but excess checking continues, inspect task misunderstandings or mistaken assumptions about the application.</li>
+</ul>
 <p><a id="risks-and-confounders"></a></p>
 <h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">&para;</a></h2>
-<p>A narrow rule can miss interacting changes or encourage premature completion. A different task mix or faster test infrastructure can also reduce checking time without validating the policy explanation.</p>
+<ul>
+<li>Simplification can accidentally remove a necessary check or hide a difference between prototype and production work.</li>
+<li>A faster test runner or easier task mix can reduce time independently of the instruction change.</li>
+</ul>
 <p><a id="stop-and-rollback"></a></p>
 <h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">&para;</a></h2>
-<p>Restore needed coverage if the change skips required gates or misses relevant defects. Revert the rule or narrow its exception; preserve evidence of defects and repair affected artifacts separately.</p>
-<p><a id="evidence-and-uncertainty"></a></p>
-<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p>This intervention is unvalidated. Its usefulness depends on correctly identifying an overbroad rule; it is not a general recommendation to test less.</p></article>
+<ul>
+<li>Restore a removed requirement if relevant defects are missed or a required gate is skipped.</li>
+<li>Correct the smallest harmful change instead of automatically restoring every duplicate instruction.</li>
+</ul></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="preserve-task-relevant-evidence.html"><span>← Previous</span>I001 — Preserve task state across context transitions</a>
-    <a rel="next" href="verify-acceptance-path.html"><span>Next →</span>I003 — Verify through the required acceptance path</a>
+    <a rel="prev" href="preserve-task-relevant-evidence.html"><span>← Previous</span>I001 — Fix compaction so important information survives</a>
+    <a rel="next" href="verify-acceptance-path.html"><span>Next →</span>I003 — Repair gaps between tests and real use</a>
   </nav>
   
 </main>
@@ -385,10 +398,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I002" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

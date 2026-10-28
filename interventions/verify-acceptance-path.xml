@@ -1,42 +1,51 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I003" version="1" status="draft" evidence="unvalidated" updated="2026-10-27" title="Verify through the required acceptance path">
-  <summary>Change the reusable QA workflow so acceptance checks exercise the required input-to-result path on the relevant artifact, while component checks retain their actual scope.</summary>
+<intervention xmlns="urn:adm:1" id="I003" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Repair gaps between tests and real use">
+  <summary>Audit where existing tests bypass connections that users rely on, then change the project’s test setup and QA instructions to cover those gaps on relevant future work.</summary>
   <purpose>
-    <p>Make future verification cover the boundary that matters to the task. A component probe can help locate a defect without proving that a user's input, deployment path, or physical process reaches that component correctly.</p>
+    <p>Make the software factory test the behavior it claims to have checked. The repository’s tests and the instructions for choosing them are part of that factory; adding an isolated test without changing future verification can leave the same mistake in place.</p>
   </purpose>
   <preconditions>
-    <precondition id="known-boundary">
-      <p>Identify a required acceptance boundary omitted by the current QA workflow and the relevant artifact or destination.</p>
+    <precondition id="known-boundary" title="A gap in existing verification">
+      <p><ref target="S011">Unsupported verification claims</ref> or <ref target="D004">component checks mistaken for complete verification</ref> point to a gap: individual parts pass, but their connection is untested. A confirmed diagnosis is not required to repair a demonstrated coverage gap.</p>
     </precondition>
-    <precondition id="feasible-check">
-      <p>The maintainer can change the QA skill, template, or harness, and the needed check is feasible within the task's access, cost, and authorization limits. Otherwise preserve the unresolved requirement rather than claiming verification.</p>
+    <precondition id="feasible-check" title="Access to the test setup">
+      <p>You can change the project’s test setup and QA guidance, and exercise the relevant behavior within the user’s access, cost, and safety limits.</p>
     </precondition>
   </preconditions>
   <procedure>
-    <step id="define-path">
-      <p>Update the reusable QA instructions to connect the relevant acceptance condition to its input, artifact version, and observable result. Select the smallest check that covers that path.</p>
+    <step id="find-gaps" title="Find what the tests skip">
+      <p>Take a recent claim that a feature works and inspect the tests behind it. Compare the user’s steps with the test’s steps. Look for mocked services, directly called handlers, skipped serialization, or deployment differences that hide a connection the user depends on.</p>
     </step>
-    <step id="exercise-boundary">
-      <p>Change the default acceptance procedure to use the required interface. For a user-input requirement, drive that input rather than calling its internal handler; for a delivered artifact, inspect the relevant destination. Wait for asynchronous completion using its observable result and an appropriate timeout.</p>
+    <step id="choose-coverage" title="Choose the useful checks">
+      <p>Review the consequential gaps with the user or maintainer. Select the smallest tests that exercise those connections; keep fast component tests for the problems they already catch.</p>
     </step>
-    <step id="retain-scope">
-      <p>Keep component probes available for diagnosis, but label their results with what they exercised. Do not let a component success close a broader acceptance condition without matching evidence. Use existing check output; a new receipt format is not required.</p>
+    <step id="exercise-boundary" title="Exercise the missing connections">
+      <p>Repair the test setup and fixtures so those checks use the relevant interfaces. For a keyboard feature, send a keypress through the UI rather than calling the handler directly. Use a safe test environment for workflows with external effects.</p>
     </step>
-    <step id="review-outcomes">
-      <p>Confirm subsequent QA work follows the revised path and review both acceptance outcomes and the accuracy of claims based on them.</p>
+    <step id="update-workflow" title="Change the recurring QA workflow">
+      <p>Update the QA skill, project instructions, and relevant CI job so agents routinely choose the repaired checks when that behavior changes. Remove any rule that treats a component pass as proof that the entire workflow works.</p>
+    </step>
+    <step id="review-outcomes" title="Review later work">
+      <p>At an agreed check-in, inspect a few ordinary changes involving those connections. Check whether the intended tests ran, what they found, and whether the final report describes the evidence accurately.</p>
     </step>
   </procedure>
   <evaluation>
-    <p>Predict which previously bypassed failures may become visible and which component-only tasks should remain unchanged. On future applicable work, inspect whether the required path was attempted, whether it worked, and whether the final statement matches the result. Record blocked or unavailable checks as unresolved.</p>
-    <p>Fewer overclaims with the required path still untested is only a reporting improvement. Newly detected defects may mean the check became more informative, not that implementation quality deteriorated. Persistent real-path failures require their own repair.</p>
+    <ul>
+      <li>Expect previously hidden integration bugs to become visible. Finding them can be progress even before the code has been repaired.</li>
+      <li>Check that unsupported verification claims decline because relevant testing improved. A cautious final answer with the same missing coverage is only a reporting improvement.</li>
+      <li>Component-only work should remain cheap. If every change now triggers a large end-to-end suite, narrow the selection rule.</li>
+    </ul>
   </evaluation>
   <risks-and-confounders>
-    <p>Full paths can be slow, flaky, or have external effects. Restrict the procedure to the task's actual acceptance boundary and authorized environment; do not require live deployment or physical fabrication for every component change.</p>
+    <ul>
+      <li>Broader tests can be slow, flaky, or affect external systems. Match them to the actual task and use an authorized test environment.</li>
+      <li>A new test may share the implementation’s mistaken assumptions. Compare its steps with real use, not just the code it tests.</li>
+    </ul>
   </risks-and-confounders>
   <stop-and-rollback>
-    <p>Narrow or revert a check that introduces unauthorized effects, false blocking, or disproportionate delay. Keep the broader condition open when coverage is removed; rollback does not turn missing evidence into a pass.</p>
+    <ul>
+      <li>Narrow or revert a check that introduces unauthorized effects, false failures, or disproportionate delay.</li>
+      <li>Keep any removed coverage marked as untested until a suitable replacement exists.</li>
+    </ul>
   </stop-and-rollback>
-  <evidence-and-uncertainty>
-    <p>This is an unvalidated workflow change. Better verification may reveal defects without fixing them, and a more accurate report alone does not establish better task completion.</p>
-  </evidence-and-uncertainty>
 </intervention>

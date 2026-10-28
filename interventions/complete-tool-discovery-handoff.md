@@ -1,26 +1,25 @@
 ---
 id: I005
 kind: intervention
-summary: Change the deferred-tool adapter so successful discovery delivers a callable
-  interface to the receiving turn, and failed activation returns an explicit unavailable
-  result.
+summary: Fix tool loading so search reports a tool as ready only after the agent has
+  its definition and the runtime can execute it.
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
-title: Complete the discovery-to-invocation handoff
+updated: '2026-10-28'
+title: Make discovered tools callable
 xml_source: interventions/complete-tool-discovery-handoff.xml
 ---
 
-# Complete the discovery-to-invocation handoff
+# Make discovered tools callable
 
-Change the deferred-tool adapter so successful discovery delivers a callable interface to the receiving turn, and failed activation returns an explicit unavailable result.
+Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.
 
 <a id="purpose"></a>
 
 ## Purpose
 
-Repair the interface between tool discovery and use. A capability name is not enough when invocation requires additional schema or runtime registration. Discovery should either complete that handoff or tell the agent what remains blocked.
+Repair the harness fault described by [tool discovery reports unusable tools](../diagnoses/tool-discovery-delivery-gap.md). A tool name alone is not enough: the agent needs its arguments, and the runtime needs to know how to execute the call.
 
 <a id="preconditions"></a>
 
@@ -28,15 +27,15 @@ Repair the interface between tool discovery and use. A capability name is not en
 
 <a id="preconditions/delivery-gap"></a>
 
-### Delivery gap
+### Tool search promises access it has not provided
 
-The adapter promises callable access after discovery, but inspection shows a gap in registration, schema delivery, or the supported invocation route.
+Search claims a tool is ready, but its definition or runtime registration is missing. An ordinary failed service call is a different problem.
 
 <a id="preconditions/adapter-access"></a>
 
-### Adapter access
+### Access to tool loading
 
-The maintainer can change and inspect the adapter and receiving tool configuration while preserving existing permissions.
+The maintainer can change tool loading and inspect the tool definitions supplied to the model.
 
 <a id="procedure"></a>
 
@@ -44,50 +43,45 @@ The maintainer can change and inspect the adapter and receiving tool configurati
 
 <a id="procedure/trace-handoff"></a>
 
-### Trace handoff
+### Find the missing tool setup
 
-Locate where discovery resolves the capability, where runtime registration occurs, and how the receiving turn gets its invocation contract.
+Follow one tool from search to registration and the next model request. Find which definition or registration is missing.
 
 <a id="procedure/complete-delivery"></a>
 
-### Complete delivery
+### Finish loading before reporting success
 
-Change that shared path to register and deliver the interface before reporting callable availability. If activation is asynchronous, return its pending state and supported continuation instead of an apparently completed discovery.
+Change tool loading to finish registration and supply the definition before returning “ready.” For slow loading, return an explicit pending status and a working way to wait.
 
 <a id="procedure/expose-blocks"></a>
 
-### Expose blocks
+### Report unavailable tools clearly
 
-Return an explicit unavailable result when activation fails, with the actionable reason and supported recovery if one exists. Repeated discovery should not return the same success-looking reference while the capability remains inaccessible.
+When loading fails, return an unavailable result with the reason and any useful recovery step. Do not keep returning success when repeating the same search cannot help.
 
 <a id="procedure/confirm-use"></a>
 
-### Confirm use
+### Check calls and future use
 
-Inspect a representative receiving input and safe invocation, then observe ordinary subsequent tool-use opportunities. Check an unavailable capability as well so errors remain visible and permission boundaries hold.
+Check a harmless call to an available tool and a failed load. Then review ordinary use at an agreed follow-up, including whether the agent still repeats discovery.
 
 <a id="evaluation"></a>
 
 ## Evaluation
 
-Record predictions for available and unavailable tools separately. On applicable future turns, compare successful discovery-to-use transitions, repeated searches for the same capability, explicit blocks, and completed required tool work.
-
-Confirmed delivery with continued rediscovery weakens the delivery-gap explanation. Correct invocations that fail at an external service indicate another obstruction. Fewer searches caused by silently skipping required work are not success.
+- Expect repeated discovery to decline and required tool work to continue. Unavailable tools should produce clear blockers or useful alternatives.
+- If the tool is callable but the agent keeps searching, reconsider D002. If calls reach the service and fail, investigate those errors.
 
 <a id="risks-and-confounders"></a>
 
 ## Risks and confounders
 
-Loading unnecessary schemas can consume context; stale registrations can call the wrong interface. Adapter changes must preserve authorization and tool selection. Model or provider changes can independently affect discovery behavior.
+- Loading unnecessary tool definitions can fill the context. Incorrect registrations can call the wrong tool.
+- Preserve existing permissions; making tools callable must not expose capabilities the user has not authorized.
 
 <a id="stop-and-rollback"></a>
 
 ## Stop and rollback
 
-Revert the adapter change if it exposes unauthorized tools, delivers incompatible schemas, or breaks working routes. Report unavailable capabilities explicitly while repairing the handoff; do not mask activation failures as successful access.
-
-<a id="evidence-and-uncertainty"></a>
-
-## Evidence and uncertainty
-
-This is an unvalidated proposed adapter repair. No particular harness is asserted to have this defect, and a completed handoff does not guarantee correct tool choice or successful task completion.
+- Revert a loader change that exposes unauthorized tools or breaks working calls.
+- Continue to report unavailable tools honestly while repairing the loader.

@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/diagnoses/verification-policy-overgeneralization.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>D003 — Verification policy overgeneralization - Agent Diagnostic Manual</title>
+        <title>D003 — Overbroad verification instructions - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=aa91e03f9d6c" rel="stylesheet">
+        <link href="../assets/adm.css?v=7ad52da50514" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Completion–artifact mismatch</a>
+    <a href="../symptoms/completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
 </li>
                                     
 <li>
@@ -112,6 +112,10 @@
 <li>
     <a href="../symptoms/inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
 </li>
+                                    
+<li>
+    <a href="../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,19 +123,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="context-handoff-loss.html" class="dropdown-item">D001 — Context handoff loss</a>
+    <a href="context-handoff-loss.html" class="dropdown-item">D001 — Compaction loses important information</a>
 </li>
                                     
 <li>
-    <a href="tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery delivery gap</a>
+    <a href="tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
 </li>
                                     
 <li>
-    <a href="verification-policy-overgeneralization.html" class="dropdown-item active" aria-current="page">D003 — Verification policy overgeneralization</a>
+    <a href="verification-policy-overgeneralization.html" class="dropdown-item active" aria-current="page">D003 — Overbroad verification instructions</a>
 </li>
                                     
 <li>
-    <a href="verification-scope-collapse.html" class="dropdown-item">D004 — Verification scope collapse</a>
+    <a href="verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
 </li>
                                 </ul>
                             </li>
@@ -140,15 +144,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Preserve task state across context transitions</a>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction so important information survives</a>
 </li>
                                     
 <li>
-    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Give verification a scope and stopping condition</a>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
 </li>
                                     
 <li>
-    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Verify through the required acceptance path</a>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
 </li>
                                     
 <li>
@@ -156,7 +160,7 @@
 </li>
                                     
 <li>
-    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Complete the discovery-to-invocation handoff</a>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
 </li>
                                 </ul>
                             </li>
@@ -178,6 +182,10 @@
                                     
 <li>
     <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
 </li>
                                     
 <li>
@@ -261,37 +269,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#verification-policy-overgeneralization" class="nav-link">Verification policy overgeneralization</a>
+            <li class="nav-item" data-bs-level="1"><a href="#overbroad-verification-instructions" class="nav-link">Overbroad verification instructions</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#relationships" class="nav-link">Relationships</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#definition" class="nav-link">Definition</a>
+            <li class="nav-item" data-bs-level="2"><a href="#how-this-could-happen" class="nav-link">How this could happen</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#candidate-criteria" class="nav-link">Candidate criteria</a>
+            <li class="nav-item" data-bs-level="2"><a href="#symptoms-and-predicted-effects" class="nav-link">Symptoms and predicted effects</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#exclusions" class="nav-link">Exclusions</a>
+            <li class="nav-item" data-bs-level="2"><a href="#what-would-support-this-explanation" class="nav-link">What would support this explanation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#differential-diagnosis" class="nav-link">Differential diagnosis</a>
+            <li class="nav-item" data-bs-level="2"><a href="#when-this-explanation-may-not-fit" class="nav-link">When this explanation may not fit</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#investigation" class="nav-link">Investigation</a>
+            <li class="nav-item" data-bs-level="2"><a href="#other-explanations-to-consider" class="nav-link">Other explanations to consider</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#interventions" class="nav-link">Interventions</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#evidence-and-uncertainty" class="nav-link">Evidence and uncertainty</a>
+            <li class="nav-item" data-bs-level="2"><a href="#where-to-look-next" class="nav-link">Where to look next</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -328,74 +328,72 @@
   
   <article data-pagefind-body>
 
-<h1 id="verification-policy-overgeneralization">Verification policy overgeneralization<a class="headerlink" href="#verification-policy-overgeneralization" title="Permanent link">&para;</a></h1>
-<p>A standing checking policy applies beyond the risks or decisions it was meant to address, producing redundant verification even when the agent follows its instructions.</p>
-<p><a id="relations"></a></p>
-<h2 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h2>
-<p>Related symptom: <a href="../symptoms/repeated-retrieval.html">S001</a></p>
-<p>Related symptom: <a href="../symptoms/excessive-verification.html">S004</a></p>
-<p><a id="relations/I002"></a>
-<a id="relations/I002/when"></a>
-<a href="../interventions/scope-verification-policy.html">I002</a></p>
-<p><strong>When:</strong> A specific editable instruction or workflow triggers checks without a relevant changed state, unresolved question, or still-unmet acceptance need.</p>
-<p><a id="relations/I002/predictions"></a></p>
-<h4 id="predictions">Predictions<a class="headerlink" href="#predictions" title="Permanent link">&para;</a></h4>
-<p>After narrowing that rule, verification overrun should decline for the affected class of work while required checks and defect detection remain intact. The reduction should occur at the rule's trigger points, not uniformly across unrelated tasks.</p>
-<p>Continued extra checks after the revised rule reaches the agent favor another cause. Fewer checks with more missed defects suggest the scope was narrowed too far; slower delivery from another bottleneck may remain.</p>
+<h1 id="overbroad-verification-instructions">Overbroad verification instructions<a class="headerlink" href="#overbroad-verification-instructions" title="Permanent link">&para;</a></h1>
+<p>Instructions make the agent check more than the user’s task needs, often because several files repeat or contradict one another.</p>
 <p><a id="definition"></a></p>
-<h2 id="definition">Definition<a class="headerlink" href="#definition" title="Permanent link">&para;</a></h2>
-<p>A verification policy should connect each required check to a decision, risk, or acceptance condition and define when enough evidence has been gathered. A broad or self-retriggering rule instead demands another check irrespective of whether the relevant state changed or the question was already answered.</p>
-<p>The agent may be complying perfectly with that rule. The proposed pathology is in the configured checking policy, not an inference about caution, anxiety, or intent.</p>
+<h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">&para;</a></h2>
+<p>Verification instructions should reflect what the user wants to learn or deliver, what could go wrong, and how much checking is worthwhile. Rules such as “test after every change” can spread across skills and project files until even a quick prototype triggers a production-scale test process.</p>
+<p>The agent may be following those instructions correctly. This diagnosis concerns instructions that are too broad, duplicated, or contradictory; it does not explain every case of excessive checking.</p>
+<p><a id="relations"></a></p>
+<h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../symptoms/repeated-retrieval.html">S001 — Repeated retrieval</a></li>
+<li><a href="../symptoms/excessive-verification.html">S004 — Excessive verification</a></li>
+</ul>
+<p><a id="relations/I002"></a>
+<a id="relations/I002/when"></a></p>
+<h3 id="intervention-i002-consolidate-verification-instructions-with-the-user">Intervention: <a href="../interventions/scope-verification-policy.html">I002 — Consolidate verification instructions with the user</a><a class="headerlink" href="#intervention-i002-consolidate-verification-instructions-with-the-user" title="Permanent link">&para;</a></h3>
+<p><strong>Use this when:</strong> The agent’s active instructions demand checks that do not fit the task, or several instructions keep restarting the same checks.</p>
+<p><a id="relations/I002/predictions"></a></p>
+<h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Expected improvement:</strong> After consolidating the instructions, similar tasks should spend less time on unwanted checks and reach the user sooner.</li>
+<li><strong>Preserve:</strong> Checks that the user needs for a release or a credible risk should still happen. The agent should respect when the user plans to do the remaining review.</li>
+<li><strong>A reason to reconsider:</strong> If excess checking continues under the simplified instructions, examine whether the agent understands the task and application. If defects increase, restore the missing coverage.</li>
+</ul>
 <p><a id="criteria"></a></p>
-<h2 id="candidate-criteria">Candidate criteria<a class="headerlink" href="#candidate-criteria" title="Permanent link">&para;</a></h2>
+<h2 id="what-would-support-this-explanation">What would support this explanation<a class="headerlink" href="#what-would-support-this-explanation" title="Permanent link">&para;</a></h2>
 <p><a id="criteria/operative-rule"></a></p>
-<h3 id="an-operative-rule-triggers-the-work">An operative rule triggers the work<a class="headerlink" href="#an-operative-rule-triggers-the-work" title="Permanent link">&para;</a></h3>
-<p>Identify the actual instruction or workflow rule and the decision points where it caused the extra checks. Similar wording in an unused file is insufficient.</p>
+<h3 id="the-agent-is-using-the-instruction">The agent is using the instruction<a class="headerlink" href="#the-agent-is-using-the-instruction" title="Permanent link">&para;</a></h3>
+<p>Find the actual instruction that leads to the extra checks, in the loaded skill, project guidance, or workflow. An unused file is not enough.</p>
 <p><a id="criteria/scope-mismatch"></a></p>
-<h3 id="the-trigger-exceeds-the-checking-need">The trigger exceeds the checking need<a class="headerlink" href="#the-trigger-exceeds-the-checking-need" title="Permanent link">&para;</a></h3>
-<p>Establish that the rule covers a class of work whose relevant verification need is already satisfied or absent. Name the missing justification; elapsed time or passing results alone do not establish waste.</p>
+<h3 id="the-instruction-asks-for-too-much">The instruction asks for too much<a class="headerlink" href="#the-instruction-asks-for-too-much" title="Permanent link">&para;</a></h3>
+<p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.</p>
 <p><a id="criteria/checking-consequence"></a></p>
-<h3 id="the-policy-produces-excess-checking">The policy produces excess checking<a class="headerlink" href="#the-policy-produces-excess-checking" title="Permanent link">&para;</a></h3>
-<p>Following the rule produces <a href="../symptoms/excessive-verification.html">excessive verification</a>, with delay or resource use traceable to the extra checks. Equivalent rereads may also match <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>.</p>
-<p>Related symptom: <a href="../symptoms/excessive-verification.html">S004</a></p>
+<h3 id="following-it-creates-extra-work">Following it creates extra work<a class="headerlink" href="#following-it-creates-extra-work" title="Permanent link">&para;</a></h3>
+<p>The instruction produces <a href="../symptoms/excessive-verification.html">excessive verification</a>. Repeated reads may also match <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>.</p>
+<ul>
+<li><a href="../symptoms/excessive-verification.html">S004 — Excessive verification</a></li>
+</ul>
 <p><a id="exclusions"></a></p>
-<h2 id="exclusions">Exclusions<a class="headerlink" href="#exclusions" title="Permanent link">&para;</a></h2>
+<h2 id="when-this-explanation-may-not-fit">When this explanation may not fit<a class="headerlink" href="#when-this-explanation-may-not-fit" title="Permanent link">&para;</a></h2>
 <p><a id="exclusions/justified-check"></a></p>
-<h3 id="justified-check">Justified check<a class="headerlink" href="#justified-check" title="Permanent link">&para;</a></h3>
-<p>The checks address an unmet acceptance condition, relevant risk, new change, or an agreed repeatability study.</p>
+<h3 id="the-task-needs-these-checks">The task needs these checks<a class="headerlink" href="#the-task-needs-these-checks" title="Permanent link">&para;</a></h3>
+<p>The user wants production readiness, or the proposed change presents a real risk that the check addresses. Extensive checking can be the right amount of work.</p>
 <p><a id="exclusions/execution-cost"></a></p>
-<h3 id="execution-cost">Execution cost<a class="headerlink" href="#execution-cost" title="Permanent link">&para;</a></h3>
-<p>The chosen check is appropriate but expensive because of its implementation or environment. Slow execution alone does not establish an overgeneral policy.</p>
+<h3 id="a-useful-check-is-slow">A useful check is slow<a class="headerlink" href="#a-useful-check-is-slow" title="Permanent link">&para;</a></h3>
+<p>A useful check can be slow because its implementation is inefficient. That calls for improving the check, not necessarily removing its instruction.</p>
 <p><a id="differential"></a></p>
-<h2 id="differential-diagnosis">Differential diagnosis<a class="headerlink" href="#differential-diagnosis" title="Permanent link">&para;</a></h2>
+<h2 id="other-explanations-to-consider">Other explanations to consider<a class="headerlink" href="#other-explanations-to-consider" title="Permanent link">&para;</a></h2>
 <p><a id="differential/state-loss"></a></p>
-<h3 id="the-system-loses-evidence-that-checking-finished">The system loses evidence that checking finished<a class="headerlink" href="#the-system-loses-evidence-that-checking-finished" title="Permanent link">&para;</a></h3>
-<p><a id="differential/state-loss/discriminator"></a></p>
-<h4 id="discriminator">Discriminator<a class="headerlink" href="#discriminator" title="Permanent link">&para;</a></h4>
-<p>Inspect whether the prior result reaches the later turn. Repetition after a transition may instead reflect <a href="context-handoff-loss.html">context handoff loss</a>.</p>
-<p><a id="differential/new-evidence"></a></p>
-<h3 id="new-evidence-warrants-another-check">New evidence warrants another check<a class="headerlink" href="#new-evidence-warrants-another-check" title="Permanent link">&para;</a></h3>
-<p><a id="differential/new-evidence/discriminator"></a></p>
-<h4 id="discriminator_1">Discriminator<a class="headerlink" href="#discriminator_1" title="Permanent link">&para;</a></h4>
-<p>Compare code, environment, and failures at each trigger. The later check may answer a genuinely new question.</p>
-<p><a id="differential/rule-independent"></a></p>
-<h3 id="extra-checking-is-not-prescribed-by-the-rule">Extra checking is not prescribed by the rule<a class="headerlink" href="#extra-checking-is-not-prescribed-by-the-rule" title="Permanent link">&para;</a></h3>
-<p><a id="differential/rule-independent/discriminator"></a></p>
-<h4 id="discriminator_2">Discriminator<a class="headerlink" href="#discriminator_2" title="Permanent link">&para;</a></h4>
-<p>Compare the instruction with the chosen action. If the rule already limits scope and the agent exceeds it, this policy explanation is incomplete.</p>
+<h3 id="the-agent-has-forgotten-a-previous-result">The agent has forgotten a previous result<a class="headerlink" href="#the-agent-has-forgotten-a-previous-result" title="Permanent link">&para;</a></h3>
+<p><a id="differential/state-loss/discriminator"></a>
+If a passed result disappeared during compaction, consider <a href="context-handoff-loss.html">compaction loss</a>. The checking rule may already be reasonable.</p>
+<p><a id="differential/task-misunderstanding"></a></p>
+<h3 id="the-agent-misunderstands-the-goal">The agent misunderstands the goal<a class="headerlink" href="#the-agent-misunderstands-the-goal" title="Permanent link">&para;</a></h3>
+<p><a id="differential/task-misunderstanding/discriminator"></a>
+If the instructions allow a quick prototype but the agent behaves as if it must certify a release, clarify the goal and the user’s review plans.</p>
+<p><a id="differential/app-misunderstanding"></a></p>
+<h3 id="the-agent-misunderstands-what-can-fail">The agent misunderstands what can fail<a class="headerlink" href="#the-agent-misunderstands-what-can-fail" title="Permanent link">&para;</a></h3>
+<p><a id="differential/app-misunderstanding/discriminator"></a>
+Check the failure the agent says it is testing for. If the application cannot reach that state, improve its understanding of the application rather than adding more testing rules.</p>
 <p><a id="investigation"></a></p>
-<h2 id="investigation">Investigation<a class="headerlink" href="#investigation" title="Permanent link">&para;</a></h2>
-<p>Map extra checks to the rule and the question each result could answer. Include a healthy task where the same rule is useful. Inspect ordinary future work after a scoped policy change; a costly replay study is not a prerequisite.</p>
-<p><a id="interventions"></a></p>
-<h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">&para;</a></h2>
-<p><a href="../interventions/scope-verification-policy.html">Give verification a scope and stopping condition</a> changes the offending policy. The maintainer must have authority to change it; an executing agent should not silently bypass a mandatory gate.</p>
-<p><a id="evidence-and-uncertainty"></a></p>
-<h2 id="evidence-and-uncertainty">Evidence and uncertainty<a class="headerlink" href="#evidence-and-uncertainty" title="Permanent link">&para;</a></h2>
-<p>This is an unvalidated working model. An inefficient-looking check does not by itself establish a bad rule, and the entry provides no measured effect of changing one. Agreement about justified verification may vary with task risk.</p></article>
+<h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">&para;</a></h2>
+<p>Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="tool-discovery-delivery-gap.html"><span>← Previous</span>D002 — Tool discovery delivery gap</a>
-    <a rel="next" href="verification-scope-collapse.html"><span>Next →</span>D004 — Verification scope collapse</a>
+    <a rel="prev" href="tool-discovery-delivery-gap.html"><span>← Previous</span>D002 — Tool discovery reports unusable tools</a>
+    <a rel="next" href="verification-scope-collapse.html"><span>Next →</span>D004 — Component checks mistaken for complete verification</a>
   </nav>
   
 </main>
@@ -413,10 +411,10 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=aa91e03f9d6c" data-base-url="../"></script>
+<script src="../assets/adm.js?v=7ad52da50514" data-base-url="../"></script>
 
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="D003" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre" data-note="Post your comments, then use ADM's Export all comments button above the article for one JSON file covering the whole site. This panel's Download exports only this page."></script>
-<script src="../assets/adm-review.js?v=aa91e03f9d6c"></script>
+<script src="../assets/adm-review.js?v=7ad52da50514"></script>
 
 
 

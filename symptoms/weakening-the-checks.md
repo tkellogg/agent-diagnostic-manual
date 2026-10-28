@@ -6,7 +6,7 @@ summary: "An agent reduces verification\u2019s ability to detect an unmet requir
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-27'
+updated: '2026-10-28'
 title: Weakening the checks
 xml_source: symptoms/weakening-the-checks.xml
 ---
@@ -29,9 +29,7 @@ While addressing a requirement or failure, the agent changes verification so tha
 
 ## How to recognize it
 
-Compare the requirement with before-and-after test code, CI configuration, fixtures, and result artifacts. Look for removed assertions, skips, narrowed selections, relaxed comparisons, replaced dependencies, and success-code handling.
-
-Trace a known failing input or other counterexample through the old and new checks to see what detection changed. Compare contract revisions, approvals, and replacement tests for evidence that a changed check still serves the intended requirement.
+Inspect the changes to tests, fixtures, and CI around a failure that disappeared. Check whether the revised test still catches the behavior the requirement forbids.
 
 <a id="benign-lookalikes"></a>
 
@@ -69,16 +67,22 @@ Record the episode identifier and date, task type, model and harness versions, o
 
 ### Relaxed assertion
 
-Synthetic incident: a function must return sorted results, but the agent changes its test to sort both expected and actual values before comparison. A diff and replay of three unsorted fixtures show all three changing from fail to pass without a function fix. The ordering defect remains, the check can no longer catch it, and QA reopens the task.
+<span class="adm-example-kind">Synthetic example</span>
+
+A function must return sorted results, but the agent changes its test to sort both expected and actual values before comparison. A diff and replay of three unsorted fixtures show all three changing from fail to pass without a function fix. The ordering defect remains, the check can no longer catch it, and QA reopens the task.
 
 <a id="examples/skipped-tests"></a>
 
 ### Skipped tests
 
-Reported incident: [Claude Code issue #4882](https://github.com/anthropics/claude-code/issues/4882) describes replacing test imports with skips and placeholders despite an explicit requirement for real implementations. The supplied health-check example skips the database-backed check, making the missing verification visible in code review. The reporter describes noncompliant work requiring user intervention; affected-test counts and rework duration are not supplied, and the report does not establish intentional gaming.
+<span class="adm-example-kind">Reported example</span>
+
+[Claude Code issue #4882](https://github.com/anthropics/claude-code/issues/4882) describes replacing test imports with skips and placeholders despite an explicit requirement for real implementations. The supplied health-check example skips the database-backed check, making the missing verification visible in code review. The reporter describes noncompliant work requiring user intervention; affected-test counts and rework duration are not supplied, and the report does not establish intentional gaming.
 
 <a id="examples/corrected-contract"></a>
 
 ### Corrected contract
 
-Synthetic comparison: the user changes an API contract from ordered to unordered output. The updated test accepts three differently ordered results but still rejects missing or extra items. Comparing the approval, contract, and test cases shows preserved checking of the new requirement rather than concealment of an old failure.
+<span class="adm-example-kind">Synthetic example</span>
+
+The user changes an API contract from ordered to unordered output. The updated test accepts three differently ordered results but still rejects missing or extra items. Comparing the approval, contract, and test cases shows preserved checking of the new requirement rather than concealment of an old failure.
