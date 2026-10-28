@@ -1,3 +1,5 @@
+# MkDocs hook; invoke through: uv run --script tools/build.py
+# The build script declares the dependencies used by this module.
 """Add site presentation to the portable Markdown after MkDocs renders it."""
 import re
 from lxml import etree as ET

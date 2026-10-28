@@ -1,3 +1,5 @@
+# Shared module; validate through: uv run --script tools/build.py --check
+# The invoking script declares the lxml dependency.
 """Reference reader for ADM XML with list-local identities."""
 from pathlib import Path
 import re

@@ -9,9 +9,11 @@ Use ADM to improve the configured agent system: its models, skills, prompts, too
 
 ## Locate the corpus
 
-Use the user's ADM checkout or supplied entry files. When this skill lives in the ADM repository, find the corpus at `../../entries/` relative to this file. When installed separately, locate the checkout in the workspace or use a location supplied by the user. If none is available, ask for the corpus location; do not invent entries or assume access to the private repository.
+Use the user's ADM checkout or supplied entry files when provided. When this skill lives in the ADM repository, find the corpus at `../../entries/` relative to this file. Otherwise, download `https://diag.timkellogg.me/catalog.json` once at the start of an assessment. The catalog contains entry metadata, complete structured content, scoped addresses, and relationships. Use a JSON reader to list entries and extract relevant content instead of loading the whole corpus into the model's context. No repository clone or site build is needed for online use.
 
-Read XML directly; no build or LLM-specific service is required. Read [the format reference](references/format.md) for parsing, addressing, or authoring rules. In a checkout, use `examples/query_manual.py` to enumerate entries with standard-library Python, and `tools/build.py` to generate HTML, Markdown reading copies, and a JSON catalog. Run these commands from the checkout root. Treat generated copies as views, not editing sources.
+Keep that catalog snapshot throughout the assessment; record its retrieval time and SHA-256 hash with the report. Fetch a fresh snapshot for a new assessment. For human reading, resolve an entry's `url` against `https://diag.timkellogg.me/` and use the adjacent `.md` or `.xml` variant as needed. Those live pages may have changed since the saved snapshot. If fetching fails, use a clearly dated supplied or cached copy, or ask for one; do not invent entries or describe an old copy as current.
+
+Read XML directly when working with entry files; no build or LLM-specific service is required. Read [the format reference](references/format.md) for parsing, addressing, or authoring rules, including the supported catalog version. In a checkout, run `uv run --script examples/query_manual.py` to enumerate entries, or `uv run --script tools/build.py` to generate HTML, Markdown reading copies, and a JSON catalog. Run these commands from the checkout root. Treat generated copies as views, not editing sources.
 
 Record the corpus revision used for an assessment. Use entry IDs and scoped addresses to cite definitions; keep trace citations separate.
 

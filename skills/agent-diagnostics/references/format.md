@@ -78,16 +78,16 @@ Validate against `schema/adm-v1.xsd` in the checkout, then check directory/ID ag
 From the checkout root:
 
 ```sh
-python tools/build.py --check
-python -m unittest discover -s tests
-python examples/query_manual.py
+uv run --script tools/build.py --check
+uv run --script tools/test.py
+uv run --script examples/query_manual.py
 ```
 
-The example uses Python's standard library and imports no ADM code. Independent consumers need neither the reference builder nor an LLM.
+Each runnable script declares its dependencies inline for `uv`. The example has no third-party dependencies and imports no ADM code. Independent consumers need neither the reference builder nor an LLM.
 
 ## Generated views
 
-Run `python tools/build.py` to produce a linked HTML site, Markdown and XML alongside each HTML entry in `dist/`, and `dist/catalog.json`. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.
+Run `uv run --script tools/build.py` to produce a linked HTML site, Markdown and XML alongside each HTML entry in `dist/`, and `dist/catalog.json`. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.
 
 The catalog uses `schema_version: 7` and exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address, plain-text `when`, and `predictions` as an XML-derived tree so inline links and formatting remain available to scripts.
 

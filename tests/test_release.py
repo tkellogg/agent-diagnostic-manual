@@ -1,14 +1,23 @@
+#!/usr/bin/env -S uv run --script
+# Run after `npm ci`: uv run --script tests/test_release.py [-v]
+# All tests: uv run --script tools/test.py
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["lxml==6.1.1", "mkdocs==1.6.1"]
+# ///
 """Release packaging guarantees, independent of GitHub."""
 import hashlib
 import json
 from pathlib import Path
 import shutil
+import sys
 import tempfile
 import unittest
 import zipfile
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
 from tools.build import build
 from tools.package_release import package
-ROOT=Path(__file__).resolve().parents[1]
 
 class ReleaseTests(unittest.TestCase):
     def setUp(self):
@@ -62,3 +71,5 @@ class ReleaseTests(unittest.TestCase):
         (self.root/'dist/symptoms/repeated-retrieval.xml').write_text('stale')
         with self.assertRaisesRegex(ValueError,'does not match'):
             package(self.root,'0.1.0','a'*40)
+
+if __name__=='__main__':unittest.main()

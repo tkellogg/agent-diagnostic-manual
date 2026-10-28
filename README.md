@@ -14,7 +14,13 @@ Entries have separate review and evidence statuses: `reviewed` records editorial
 
 ## Use the skill
 
-Distribute `skills/agent-diagnostics/` as a skill folder. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. Copy it into a skill directory supported by your agent, then provide an ADM checkout or entry files. The corpus is a separate dependency; it is not duplicated inside the skill. Reading the skill directly also works without a skill-aware harness.
+Install the portable `skills/agent-diagnostics/` folder with the [Skills CLI](https://github.com/vercel-labs/skills):
+
+```sh
+npx skills add tkellogg/agent-diagnostic-manual --skill agent-diagnostics
+```
+
+Or copy that folder into a skill directory supported by your agent. It contains Markdown instructions and a format reference, with standard skill frontmatter and optional UI metadata. The skill reads the current [online catalog](https://diag.timkellogg.me/catalog.json), or a supplied checkout or entry files. The corpus stays separate from the installed skill. Keep one downloaded catalog snapshot for each assessment so updates do not change definitions halfway through. Reading the skill directly also works without a skill-aware harness.
 
 XML structure gives tools stable identities, relationships, and independently readable fields. The usage instructions are ordinary prose and do not need the same schema.
 
@@ -32,16 +38,15 @@ The site bundles [annotate.js](https://github.com/reviewjs/annotate) 1.5.3 and i
 
 ## Build and read
 
-Python 3.11+ and Node.js 22+:
+[uv](https://docs.astral.sh/uv/) and Node.js 22+:
 
 ```sh
-python -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements.txt
 npm ci
-python tools/build.py
-python -m http.server 8000 --directory dist --bind 127.0.0.1
+uv run --script tools/build.py
+uv run --no-project python -m http.server 8000 --directory dist --bind 127.0.0.1
 ```
+
+Each runnable Python file declares its Python version and dependencies using inline script metadata. `uv` manages the environment; no manual virtualenv setup is needed. The executable files also support direct invocation, such as `./tools/build.py --check`. Shared modules get their dependencies from the calling script.
 
 Open `http://127.0.0.1:8000`. MkDocs builds the site and Pagefind adds local, static search. Each entry has adjacent `.html`, `.md`, and `.xml` files, with format links on the HTML page. For example, replace `symptoms/repeated-retrieval.html` with `symptoms/repeated-retrieval.md` or `symptoms/repeated-retrieval.xml`. The build also writes `dist/catalog.json`. All output is disposable and ignored by Git. Edit XML and rebuild.
 
@@ -66,9 +71,9 @@ Reference that item as `S001#observations/multi-read`. Reference a singleton as 
 ## Validate and consume
 
 ```sh
-python tools/build.py --check
-python -m unittest discover -s tests
-python examples/query_manual.py
+uv run --script tools/build.py --check
+uv run --script tools/test.py
+uv run --script examples/query_manual.py
 ```
 
 The independent example uses only Python's standard library and imports no ADM code. Consumers do not need an LLM, the reference builder, or a hosted service.
@@ -82,7 +87,7 @@ The ZIP contains `html/` (the complete searchable site with adjacent source vari
 To build the same package locally after building the site:
 
 ```sh
-python tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
+uv run --script tools/package_release.py --version 0.1.0 --commit "$(git rev-parse HEAD)"
 ```
 
 ## GitHub Pages
@@ -93,6 +98,6 @@ In **Settings → Pages**, select **GitHub Actions** as the source and save **di
 
 The Pages workflow builds with MkDocs and Pagefind; no separate Jekyll workflow is needed. With Actions-based publishing, GitHub uses the custom domain saved in repository settings, not a CNAME file in the artifact.
 
-`mkdocs.yml` sets `https://diag.timkellogg.me/` as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use `python tools/build.py --no-search`.
+`mkdocs.yml` sets `https://diag.timkellogg.me/` as the canonical site URL and disables directory-style URLs. All normal page assets and format links are relative. The README is the homepage source. To skip search during quick local iterations, use `uv run --script tools/build.py --no-search`.
 
 The CI, release, and Pages workflows all validate against `schema/adm-v1.xsd` and check document IDs, local IDs, and typed references before building.

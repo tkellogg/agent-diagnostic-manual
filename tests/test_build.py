@@ -1,3 +1,10 @@
+#!/usr/bin/env -S uv run --script
+# Run after `npm ci`: uv run --script tests/test_build.py [-v]
+# All tests: uv run --script tools/test.py
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["lxml==6.1.1", "mkdocs==1.6.1"]
+# ///
 """Tests of the public format, scoped identity, and generated reading views."""
 from pathlib import Path
 from copy import deepcopy
@@ -9,9 +16,10 @@ import sys
 import tempfile
 import unittest
 from lxml import etree as ET
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
 from tools.build import build, Renderer
 from tools.xml_entries import load, ast, N
-ROOT=Path(__file__).resolve().parents[1]
 S='entries/symptoms/repeated-retrieval.xml'
 D='entries/diagnoses/context-handoff-loss.xml'
 I='entries/interventions/preserve-task-relevant-evidence.xml'

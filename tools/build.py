@@ -1,4 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# Run from a checkout: uv run --script tools/build.py [--check | --no-search]
+# Run `npm ci` first for HTML builds; --check only needs Python dependencies.
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["lxml==6.1.1", "mkdocs==1.6.1"]
+# ///
 """Validate canonical XML and build disposable HTML, Markdown, and JSON."""
 import argparse
 import hashlib

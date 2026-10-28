@@ -1,4 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# Run: uv run --script examples/query_manual.py [--entries /path/to/entries]
+# /// script
+# requires-python = ">=3.11"
+# dependencies = []
+# ///
 """Read trusted ADM XML using only the standard library.
 
 This reader example is not a full validator. Validate untrusted corpora with

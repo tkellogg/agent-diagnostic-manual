@@ -1,4 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# Build first: uv run --script tools/build.py
+# Package: uv run --script tools/package_release.py --version 0.1.0 --commit <full-sha>
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["lxml==6.1.1"]
+# ///
 """Package a validated site and canonical corpus with version and checksums."""
 import argparse
 import hashlib
