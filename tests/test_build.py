@@ -338,6 +338,8 @@ class FormatTests(unittest.TestCase):
             self.assertIsNone(script.get('data-api'))
             self.assertIsNone(script.get('data-post-url'))
             self.assertTrue(page.xpath('//button[@id="adm-review-export"]'))
+            self.assertTrue(page.xpath('//button[@id="adm-review-clear"]'))
+            self.assertTrue(page.xpath('//button[@id="adm-review-undo"][@hidden]'))
         home=ET.HTML((out/'index.html').read_text())
         self.assertEqual(home.xpath('//script[@data-project]/@data-page'),['index.md'])
         guide=ET.HTML((out/'docs/authoring-diagnosis.html').read_text())

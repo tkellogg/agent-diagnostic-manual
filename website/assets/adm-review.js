@@ -1,6 +1,6 @@
-/* Cross-page export adapter for the pinned @reviewjs/annotate 1.5.3 store.
- * annotate.js owns annotation, persistence, and editing. We only read its
- * project store; native Download and Import remain single-page operations.
+/* Cross-page review controls for the pinned @reviewjs/annotate 1.5.3 store.
+ * annotate.js owns annotation and editing. ADM adds export and reversible
+ * clearing across its project; native Download/Import/Clear are page-scoped.
  */
 (function (root, factory) {
   const api = factory();
@@ -15,14 +15,20 @@
   const PROJECT = 'agent-diagnostic-manual';
   const VERSION = '1.5.3';
   const STORE_KEY = 'annotate:' + PROJECT;
+  const BACKUP_KEY = STORE_KEY + ':last-clear';
+
+  function readStore(storage) {
+    const raw = storage.getItem(STORE_KEY);
+    const saved = raw === null ? { comments: [] } : JSON.parse(raw);
+    if (!saved || !Array.isArray(saved.comments)) throw new Error('Invalid store');
+    return saved;
+  }
 
   function collect(storage, currentComments, version, origin, now = new Date().toISOString()) {
     if (version !== VERSION) throw new Error('The review tool version changed. Use this page’s Download to preserve your comments.');
     let saved;
     try {
-      const raw = storage.getItem(STORE_KEY);
-      saved = raw === null ? { comments: [] } : JSON.parse(raw);
-      if (!saved || !Array.isArray(saved.comments)) throw new Error('Invalid store');
+      saved = readStore(storage);
     } catch (error) {
       throw new Error('Cannot read the saved site review. Nothing was changed. Use this page’s Download to preserve its comments.');
     }
@@ -59,18 +65,122 @@
     }, (key, value) => key.startsWith('__') ? undefined : value));
   }
 
+  function clearAll(storage, currentComments, version, origin, confirm, id) {
+    let payload = collect(storage, currentComments, version, origin);
+    if (!payload.commentCount) return null;
+    if (!confirm(`Clear ${payload.commentCount} comments across ${payload.pageCount} pages in this browser?\n\nYou can undo this clear until the next clear. Unposted drafts in open ADM tabs will be discarded. Exported JSON files are unaffected.`)) return null;
+    // Re-read after the dialog: another tab may have saved while it was open.
+    payload = collect(storage, currentComments, version, origin);
+    const saved = readStore(storage);
+    const backup = { kind: 'adm-cleared-review', id, review: payload };
+    // Never clear unless the recovery copy has been written successfully.
+    storage.setItem(BACKUP_KEY, JSON.stringify(backup));
+    storage.setItem(STORE_KEY, JSON.stringify({
+      ...saved, comments: saved.comments.filter(c => !c.page.startsWith(PROJECT + ':')),
+      admReset: id,
+    }));
+    return payload;
+  }
+
+  function lastClear(storage) {
+    const raw = storage.getItem(BACKUP_KEY);
+    if (raw === null) return null;
+    const backup = JSON.parse(raw);
+    if (backup.kind !== 'adm-cleared-review' || typeof backup.id !== 'string' ||
+        backup.review?.kind !== 'adm-review-export' || backup.review.project !== PROJECT ||
+        !Array.isArray(backup.review.pages)) throw new Error('Cannot read the last cleared review.');
+    const saved = readStore(storage);
+    // A failed clear or an already restored backup must not offer Undo.
+    return saved.admReset === backup.id ? backup : null;
+  }
+
+  function undoClear(storage, currentComments, version, origin, id) {
+    const backup = lastClear(storage);
+    if (!backup) return null;
+    const payload = collect(storage, currentComments, version, origin);
+    const records = new Map(payload.pages.flatMap(p => p.comments).map(c => [c.id, c]));
+    for (const comment of backup.review.pages.flatMap(p => p.comments)) {
+      if (!comment || typeof comment.id !== 'string' || typeof comment.page !== 'string' ||
+          !comment.page.startsWith(PROJECT + ':')) throw new Error('Cannot read the last cleared review.');
+      // Work posted after the clear always wins on a conflicting ID.
+      if (!records.has(comment.id)) records.set(comment.id, comment);
+    }
+    const saved = readStore(storage);
+    storage.setItem(STORE_KEY, JSON.stringify({
+      ...saved, comments: [...saved.comments.filter(c => !c.page.startsWith(PROJECT + ':')), ...records.values()],
+      admReset: id,
+    }));
+    return backup.review;
+  }
+
   function mount(win) {
     const doc = win.document;
     const open = doc.getElementById('adm-review-open');
     const download = doc.getElementById('adm-review-export');
+    const clear = doc.getElementById('adm-review-clear');
+    const undo = doc.getElementById('adm-review-undo');
     const status = doc.getElementById('adm-review-status');
-    if (!open || !download || !status) return;
+    if (!open || !download || !clear || !undo || !status) return;
     if (!win.Annotate) {
       status.textContent = 'Review tools could not load. Reload to try again.';
       return;
     }
     open.disabled = false;
     download.disabled = false;
+    clear.disabled = false;
+    const updateUndo = () => {
+      try { undo.hidden = !lastClear(win.localStorage); }
+      catch (error) { undo.hidden = true; }
+    };
+    const resetLayer = () => {
+      // Destroying also drops unsaved drafts and stale comment-edit forms.
+      win.Annotate.destroy();
+      win.Annotate.init();
+      updateUndo();
+    };
+    const resetId = () => win.crypto.randomUUID();
+    updateUndo();
+    win.addEventListener('storage', event => {
+      if (event.key === STORE_KEY) {
+        try {
+          const before = JSON.parse(event.oldValue || '{}').admReset;
+          const after = JSON.parse(event.newValue || '{}').admReset;
+          if (before !== after) {
+            resetLayer();
+            status.textContent = 'Comments were cleared or restored in another ADM tab.';
+          }
+        } catch (error) {
+          status.textContent = 'Reload this page to refresh the review tools.';
+        }
+      }
+      if (event.key === STORE_KEY || event.key === BACKUP_KEY) updateUndo();
+    });
+    clear.addEventListener('click', () => {
+      try {
+        const payload = clearAll(win.localStorage, win.Annotate.comments(), win.Annotate.version,
+          win.location.origin, message => win.confirm(message), resetId());
+        if (!payload) {
+          status.textContent = 'No comments were cleared.';
+          return;
+        }
+        resetLayer();
+        status.textContent = `Cleared ${payload.commentCount} comments across ${payload.pageCount} pages. Undo clear restores them until the next clear.`;
+      } catch (error) {
+        updateUndo();
+        status.textContent = 'Could not complete the clear. Saved comments or their recovery copy remain in this browser. Export your review before trying again.';
+      }
+    });
+    undo.addEventListener('click', () => {
+      try {
+        const payload = undoClear(win.localStorage, win.Annotate.comments(), win.Annotate.version,
+          win.location.origin, resetId());
+        if (!payload) { updateUndo(); return; }
+        resetLayer();
+        status.textContent = `Restored ${payload.commentCount} comments across ${payload.pageCount} pages. New comments were kept too.`;
+      } catch (error) {
+        status.textContent = 'Could not restore comments. The recovery copy remains in this browser; free some storage and try again.';
+      }
+    });
     open.addEventListener('click', () => win.Annotate.open());
     download.addEventListener('click', () => {
       try {
@@ -94,5 +204,5 @@
       }
     });
   }
-  return { collect, mount, PROJECT, VERSION, STORE_KEY };
+  return { collect, clearAll, undoClear, lastClear, mount, PROJECT, VERSION, STORE_KEY, BACKUP_KEY };
 });
