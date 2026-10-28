@@ -129,6 +129,8 @@ Choose **Export all comments** above any article to download one `adm-review-YYY
 
 Comments are private to this browser profile and site address. They do not sync between devices or go to a server. Use the same browser for a review pass and export a backup before clearing site data; private browsing or storage restrictions can prevent persistence.
 
+After exporting a review round, choose **Clear all comments** to start fresh across every ADM page in this browser. Confirm the count in the dialog. **Undo clear** restores the last cleared round, including replies and resolved notes, while keeping new comments; it remains available after navigation or reload, until the next clear. Clearing also discards unposted drafts in open ADM tabs. Exported files and other browsers are unaffected. A single recovery copy stays in local browser storage, so this is a review reset, not a secure erase.
+
 The site bundles [annotate.js](https://github.com/reviewjs/annotate) 1.5.3 and its MIT license locally. ADM's small export adapter reads that pinned version's project store. The JSON groups native page exports under `pages`, retaining entry IDs or guide paths, original URLs, quoted text, anchors, and threads.
 
 ## Build and read
