@@ -28,6 +28,7 @@ class ReleaseTests(unittest.TestCase):
         for file in ('README.md','mkdocs.yml'):
             shutil.copyfile(ROOT/file,self.root/file)
         shutil.copytree(ROOT/'node_modules/@reviewjs/annotate',self.root/'node_modules/@reviewjs/annotate')
+        (self.root/'node_modules/mermaid').symlink_to(ROOT/'node_modules/mermaid',target_is_directory=True)
         build(self.root)
     def tearDown(self):self.temp.cleanup()
     def search_fixture(self):
@@ -56,6 +57,8 @@ class ReleaseTests(unittest.TestCase):
             self.assertIn(prefix+'skills/agent-diagnostics/SKILL.md',archive.namelist())
             self.assertIn(prefix+'html/assets/vendor/annotate-1.5.3.js',archive.namelist())
             self.assertIn(prefix+'html/assets/vendor/annotate-LICENSE.txt',archive.namelist())
+            self.assertIn(prefix+'html/assets/vendor/mermaid-12.2.0/mermaid.esm.min.mjs',archive.namelist())
+            self.assertIn(prefix+'html/assets/vendor/mermaid-12.2.0/LICENSE',archive.namelist())
             for source in (self.root/'docs').rglob('*.md'):
                 relative=source.relative_to(self.root)
                 self.assertIn(prefix+'html/'+relative.with_suffix('.html').as_posix(),archive.namelist())

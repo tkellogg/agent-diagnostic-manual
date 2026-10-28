@@ -31,6 +31,7 @@ class FormatTests(unittest.TestCase):
             shutil.copytree(ROOT/folder,self.root/folder,ignore=shutil.ignore_patterns('__pycache__'))
         for file in ('README.md','mkdocs.yml'):shutil.copyfile(ROOT/file,self.root/file)
         shutil.copytree(ROOT/'node_modules/@reviewjs/annotate',self.root/'node_modules/@reviewjs/annotate')
+        (self.root/'node_modules/mermaid').symlink_to(ROOT/'node_modules/mermaid',target_is_directory=True)
     def tearDown(self):self.temp.cleanup()
     def change(self,path,old,new):
         p=self.root/path;s=p.read_text();self.assertIn(old,s);p.write_text(s.replace(old,new))
@@ -441,6 +442,25 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(len(s['lookalikes']),5)
     def test_review_export_adapter(self):
         subprocess.run(['node','--test',str(ROOT/'tests/review-export.test.cjs')],check=True,capture_output=True,text=True)
+    def test_mermaid_source_and_self_hosted_runtime_are_preserved(self):
+        diagram='---\nconfig:\n  layout: elk\n---\nflowchart TD\n  A[Observe] --> B[Investigate]\n'
+        guide=self.root/'docs/diagram-example.md'
+        guide.write_text('# Diagram example\n\n```mermaid\n'+diagram+'```\n')
+        build(self.root)
+        out=self.root/'dist'
+        page=ET.HTML((out/'docs/diagram-example.html').read_text())
+        self.assertEqual(page.xpath('//pre/code[@class="language-mermaid"]/text()'),[diagram])
+        self.assertTrue(page.xpath('//script[@type="module"][starts-with(@src,"../assets/adm-mermaid.js")]'))
+        self.assertEqual((out/'docs/diagram-example.md').read_text(),guide.read_text())
+        vendor=out/'assets/vendor/mermaid-12.2.0'
+        self.assertEqual((vendor/'mermaid.esm.min.mjs').read_bytes(),(ROOT/'node_modules/mermaid/dist/mermaid.esm.min.mjs').read_bytes())
+        self.assertTrue((vendor/'LICENSE').is_file())
+        self.assertFalse(list(vendor.rglob('*.map')))
+        # Every static or lazy relative module import must survive packaging.
+        for module in vendor.rglob('*.mjs'):
+            for path in re.findall(r'["\'](\.{1,2}/[^"\']+\.mjs)["\']',module.read_text()):
+                self.assertTrue((module.parent/path).is_file(),str(module)+': '+path)
+
     def test_review_tools_are_local_and_use_stable_page_keys(self):
         docs,_,_=build(self.root)
         out=self.root/'dist'

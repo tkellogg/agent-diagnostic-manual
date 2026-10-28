@@ -218,6 +218,19 @@ def build(root=ROOT,check=False,search=False):
     vendor.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(annotate/'annotate.js',vendor/'annotate-1.5.3.js')
     shutil.copyfile(annotate/'LICENSE',vendor/'annotate-LICENSE.txt')
+    # Keep Mermaid's lazy-loaded diagram/layout chunks, without source maps or
+    # alternative bundles. Local assets also work in the HTML release package.
+    mermaid=root/'node_modules/mermaid'
+    if not (mermaid/'package.json').exists():
+        raise ValueError('Run npm ci before building the site (Mermaid is required)')
+    if json.loads((mermaid/'package.json').read_text())['version']!='12.2.0':
+        raise ValueError('The diagram renderer requires Mermaid 12.2.0; run npm ci')
+    mermaid_vendor=vendor/'mermaid-12.2.0'
+    mermaid_vendor.mkdir()
+    shutil.copyfile(mermaid/'dist/mermaid.esm.min.mjs',mermaid_vendor/'mermaid.esm.min.mjs')
+    shutil.copytree(mermaid/'dist/chunks/mermaid.esm.min',mermaid_vendor/'chunks/mermaid.esm.min',
+                    ignore=shutil.ignore_patterns('*.map'))
+    shutil.copyfile(mermaid/'LICENSE',mermaid_vendor/'LICENSE')
     catalog={'schema_version':7,'xml_namespace':'urn:adm:1',
         'documents':[{**d['meta'],'source':d['source'],'url':d['path'],'document':ast(d['node'])} for d in docs],
         'objects':{key:{'document':o['document']['meta']['id'],'kind':name(o['node']),'source':o['document']['source'],'url':o['document']['path']+('#'+key.split('#',1)[1] if '#' in key else '')} for key,o in objects.items()},'relationships':refs}
@@ -226,6 +239,7 @@ def build(root=ROOT,check=False,search=False):
     asset_version=hashlib.sha256((root/'website/assets/adm.css').read_bytes()+
                                  (root/'website/assets/adm.js').read_bytes()+
                                  (root/'website/assets/adm-harness.js').read_bytes()+
+                                 (root/'website/assets/adm-mermaid.js').read_bytes()+
                                  (root/'website/assets/adm-review.js').read_bytes()).hexdigest()[:12]
     # Loading repository hooks must not create cache files among the sources.
     previous_bytecode=sys.dont_write_bytecode
