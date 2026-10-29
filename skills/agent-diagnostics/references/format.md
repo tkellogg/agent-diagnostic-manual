@@ -89,6 +89,39 @@ Each runnable script declares its dependencies inline for `uv`. The example has 
 
 Run `uv run --script tools/build.py` to produce a linked HTML site, Markdown and XML alongside each HTML entry in `dist/`, and `dist/catalog.json`. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.
 
-The catalog uses `schema_version: 7` and exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address, plain-text `when`, and `predictions` as an XML-derived tree so inline links and formatting remain available to scripts.
+The catalog uses `schema_version: 7` and `xml_namespace: "urn:adm:1"`. Use these exact JSON keys:
+
+| Location | Contents |
+| --- | --- |
+| `documents` | Array of entries with metadata such as `id`, `kind`, `title`, and `summary`, plus `source`, `url`, and `document`. |
+| `documents[].document` | The entry's complete XML-derived tree. Each node has `name`, `attributes`, and ordered `content`. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. |
+| `objects` | Map from scoped address to a record with `document` (the owning entry's ID), `kind`, `source`, and `url`. Here `document` is an ID, not a tree. |
+| `relationships` | Array of links. Each has `from` (nearest addressable owner), `to` (target address), and `relation` (`ref`, `symptom-ref`, or `intervention-ref`). |
+| Intervention relationships | Also have `address`, plain-text `when`, and `predictions` as an XML-derived tree, preserving inline links and formatting. |
+
+`from` can be a scoped address, not just an entry ID. To find diagnoses linked to S001 in a saved catalog snapshot:
+
+```python
+import json
+from pathlib import Path
+
+catalog = json.loads(Path("catalog.json").read_text(encoding="utf-8"))
+assert catalog["schema_version"] == 7
+entries = {entry["id"]: entry for entry in catalog["documents"]}
+owners = {
+    link["from"].split("#", 1)[0]
+    for link in catalog["relationships"]
+    if link["relation"] == "symptom-ref" and link["to"] == "S001"
+}
+for entry_id in sorted(owners):
+    entry = entries[entry_id]
+    if entry["kind"] == "diagnosis":
+        print(entry_id, entry["title"])
+        definition = next(
+            node for node in entry["document"]["content"]
+            if isinstance(node, dict) and node["name"] == "definition"
+        )
+        print(json.dumps(definition, ensure_ascii=False))
+```
 
 Keep a corpus revision with assessment citations. Update schema, this reference, examples, and tests together when changing the draft format. There is no defined compatibility promise, executable diagnosis language, case-record schema, or severity scale yet.

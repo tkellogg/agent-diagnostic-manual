@@ -32,6 +32,20 @@ For a completion or verification claim, inspect the artifact or check at the cla
 
 This comparison separates unfinished work, an unsupported testing claim, and a reporting mistake. It can suggest a diagnosis, but does not by itself establish the mechanism that caused the discrepancy.
 
+## Check whether evidence still applies
+
+An old observation can be accurate and still fail to support a claim about the present. Pair the agent's claim or action with the time, version, and environment its evidence describes, then identify the relevant change between that observation and the state the task concerns. Use event time rather than log-ingestion time when the two differ. Age alone does not make evidence stale, and a newer commit does not invalidate evidence about an unchanged part.
+
+For an alleged failure after a repair, check when the failure occurred and where the repair took effect. A closed task is not proof of a successful fix: read its resolution and any confirming result. Distinguish a failure before the fix, a new failure after it, and a fix that never reached the affected environment. An explicitly historical review can properly use old failures.
+
+Keep two questions separate: does the evidence support the current claim, and why did the agent use it? The input collector may have supplied only old records; a summary may have dropped their dates or versions; or the agent may have had the newer evidence and ignored it. Inspect the actual input before choosing among those explanations. The repairs differ: deliver the relevant updates, preserve what time and version each record describes, or change how the agent selects evidence. None requires rereading every source on every turn.
+
+In [Codex issue #49083](https://github.com/openai/codex/issues/49083), a reporter describes a PR re-review that used an old local commit after remote reads failed. Two reported defects were already fixed in the newer head. The account includes both commit IDs and command results, and notes that the agent disclosed difficulty checking the remote head. It supports investigating a mismatch between the requested version and the reviewed version; it does not establish how often this happens.
+
+For catalog matching, a claim that a check proves the current version works or fails can fit [S011, Unsupported verification claims](https://diag.timkellogg.me/symptoms/unsupported-verification-claims.html). Acting on an outdated plan or reporting an old business condition as current is broader than a verification claim. [S016, Overconfidence in suspected causes](https://diag.timkellogg.me/symptoms/overconfidence-in-suspected-causes.html) concerns how strongly a cause is asserted; stale evidence can mislead an agent without any causal explanation. These overlaps do not establish one shared diagnosis.
+
+Record the exact claim or action, the evidence's event time and version, the intervening change, what the agent received, and the resulting repeated work or missed problem. If a repair changes evidence selection, predict fewer findings about already-resolved problems while checking that genuine recurrences remain visible. Fewer findings alone could mean the agent stopped looking.
+
 ## Review whether a change helped
 
 Before changing the system, record an expected effect, something that should remain intact, and an outcome that would make you reconsider. Agree on a review date or an amount of normal work followed by a dated check-in, and arrange a reminder or job with the user’s agreement.
