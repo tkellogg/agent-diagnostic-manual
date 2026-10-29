@@ -131,6 +131,10 @@
 <li>
     <a href="../../../symptoms/opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
 </li>
+                                    
+<li>
+    <a href="../../../symptoms/overconfidence-in-suspected-causes.html" class="dropdown-item">S016 — Overconfidence in suspected causes</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -450,7 +454,59 @@ uv run --script examples/query_manual.py
 <p>Each runnable script declares its dependencies inline for <code>uv</code>. The example has no third-party dependencies and imports no ADM code. Independent consumers need neither the reference builder nor an LLM.</p>
 <h2 id="generated-views">Generated views<a class="headerlink" href="#generated-views" title="Permanent link">¶</a></h2>
 <p>Run <code>uv run --script tools/build.py</code> to produce a linked HTML site, Markdown and XML alongside each HTML entry in <code>dist/</code>, and <code>dist/catalog.json</code>. MkDocs builds the site, Pagefind indexes it, and the builder derives navigation from entries. The README supplies the homepage. Swap an entry URL’s .html suffix for .md or .xml to read another format. Edit XML and rebuild; do not edit generated copies.</p>
-<p>The catalog uses <code>schema_version: 7</code> and exposes document metadata and an ordered XML-derived tree, an address index, and explicit relationships. Tree nodes have name, attributes, and ordered content. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted. Address-index records give document, kind, source, and rendered URL. Relationships give their nearest addressable owner, target, and type; intervention relationships also give their address, plain-text <code>when</code>, and <code>predictions</code> as an XML-derived tree so inline links and formatting remain available to scripts.</p>
+<p>The catalog uses <code>schema_version: 7</code> and <code>xml_namespace: "urn:adm:1"</code>. Use these exact JSON keys:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>documents</code></td>
+<td>Array of entries with metadata such as <code>id</code>, <code>kind</code>, <code>title</code>, and <code>summary</code>, plus <code>source</code>, <code>url</code>, and <code>document</code>.</td>
+</tr>
+<tr>
+<td><code>documents[].document</code></td>
+<td>The entry's complete XML-derived tree. Each node has <code>name</code>, <code>attributes</code>, and ordered <code>content</code>. Content interleaves strings and child nodes; indentation-only structural whitespace is omitted.</td>
+</tr>
+<tr>
+<td><code>objects</code></td>
+<td>Map from scoped address to a record with <code>document</code> (the owning entry's ID), <code>kind</code>, <code>source</code>, and <code>url</code>. Here <code>document</code> is an ID, not a tree.</td>
+</tr>
+<tr>
+<td><code>relationships</code></td>
+<td>Array of links. Each has <code>from</code> (nearest addressable owner), <code>to</code> (target address), and <code>relation</code> (<code>ref</code>, <code>symptom-ref</code>, or <code>intervention-ref</code>).</td>
+</tr>
+<tr>
+<td>Intervention relationships</td>
+<td>Also have <code>address</code>, plain-text <code>when</code>, and <code>predictions</code> as an XML-derived tree, preserving inline links and formatting.</td>
+</tr>
+</tbody>
+</table>
+<p><code>from</code> can be a scoped address, not just an entry ID. To find diagnoses linked to S001 in a saved catalog snapshot:</p>
+<pre><code class="language-python">import json
+from pathlib import Path
+
+catalog = json.loads(Path("catalog.json").read_text(encoding="utf-8"))
+assert catalog["schema_version"] == 7
+entries = {entry["id"]: entry for entry in catalog["documents"]}
+owners = {
+    link["from"].split("#", 1)[0]
+    for link in catalog["relationships"]
+    if link["relation"] == "symptom-ref" and link["to"] == "S001"
+}
+for entry_id in sorted(owners):
+    entry = entries[entry_id]
+    if entry["kind"] == "diagnosis":
+        print(entry_id, entry["title"])
+        definition = next(
+            node for node in entry["document"]["content"]
+            if isinstance(node, dict) and node["name"] == "definition"
+        )
+        print(json.dumps(definition, ensure_ascii=False))
+</code></pre>
 <p>Keep a corpus revision with assessment citations. Update schema, this reference, examples, and tests together when changing the draft format. There is no defined compatibility promise, executable diagnosis language, case-record schema, or severity scale yet.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>

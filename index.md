@@ -127,6 +127,10 @@ This is probably the best way to help out the project.
 
     The agent’s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.
 
+- [S016 — Overconfidence in suspected causes](symptoms/overconfidence-in-suspected-causes.md)
+
+    An agent treats a possible explanation for something that happened as a known cause, despite missing or contradictory evidence.
+
 
 ## Diagnoses
 
