@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I006" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" title="Save information for future work">
+<intervention xmlns="urn:adm:1" id="I006" version="1" status="draft" evidence="unvalidated" updated="2026-10-31" title="Save information for future work">
   <summary>Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.</summary>
   <purpose>
     <p>Make useful information survive through deliberate recording during ordinary work. <ref target="I001">Fix compaction</ref> changes what a summarizer keeps; this intervention changes what the working agent writes down before the conversation is lost. The two can complement each other.</p>
@@ -22,7 +22,7 @@
       <p>Keep the source or reason, the scope where it applies, and any condition that makes it stale. A permission record must retain its limits and expiry; it does not authorize unrelated future work. Keep temporary task state separate from lasting project guidance.</p>
     </step>
     <step id="change-writing" title="Change when and what the agent saves">
-      <p>Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Do not require a note for every tool call.</p>
+      <p>Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Useful history can remain: <ref target="I007">document what changed and why</ref> connects the former rule to its replacement without presenting both as current instructions. Do not require a note for every tool call.</p>
       <p><strong>Example instruction:</strong> When you settle a decision that later work will depend on, update the project's existing design note with the decision, its reason, and when to revisit it. Keep task-specific constraints and permission limits in the task's ticket. Update the existing record if the decision changes; do not create a second competing copy.</p>
     </step>
     <step id="change-reading" title="Make later work find the record">

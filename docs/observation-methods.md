@@ -34,6 +34,8 @@ This comparison separates unfinished work, an unsupported testing claim, and a r
 
 ## Check whether evidence still applies
 
+Use [S017, Using outdated information](https://diag.timkellogg.me/symptoms/using-outdated-information.html) for the observable pattern. When the old and current versions both reach the agent, consider [D005, Failure to retire outdated memories](https://diag.timkellogg.me/diagnoses/failure-to-retire-outdated-memories.html). [I007, Document what changed and why](https://diag.timkellogg.me/interventions/document-what-changed-and-why.html) proposes preserving the transition and its reason as part of future guidance.
+
 An old observation can be accurate and still fail to support a claim about the present. Pair the agent's claim or action with the time, version, and environment its evidence describes, then identify the relevant change between that observation and the state the task concerns. Use event time rather than log-ingestion time when the two differ. Age alone does not make evidence stale, and a newer commit does not invalidate evidence about an unchanged part.
 
 For an alleged failure after a repair, check when the failure occurred and where the repair took effect. A closed task is not proof of a successful fix: read its resolution and any confirming result. Distinguish a failure before the fix, a new failure after it, and a fix that never reached the affected environment. An explicitly historical review can properly use old failures.
