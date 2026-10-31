@@ -26,6 +26,7 @@ except ImportError:
     from xml_entries import load, name, text, ast, N, METADATA, ITEMS
 ROOT=Path(__file__).resolve().parents[1]
 TITLES={'definition':'How this could happen',
+        'potential-long-term-effects':'Potential long-term effects',
         'criteria':'What would support this explanation',
         'exclusions':'When this explanation may not fit',
         'differential':'Other explanations to consider',

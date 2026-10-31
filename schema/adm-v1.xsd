@@ -185,6 +185,7 @@
       <xs:sequence>
         <xs:group ref="a:metadata"/>
         <xs:element name="definition" type="a:section"/>
+        <xs:element name="potential-long-term-effects" type="a:section" minOccurs="0"/>
         <xs:element name="relations" type="a:relations"/>
         <xs:element name="criteria" type="a:criteria"/>
         <xs:element name="exclusions" type="a:exclusions"/>

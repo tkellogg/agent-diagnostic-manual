@@ -1,10 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:adm:1" id="D003" version="1" status="draft" evidence="unvalidated" updated="2026-10-28" unit="configured-agent-system" title="Overbroad verification instructions">
+<diagnosis xmlns="urn:adm:1" id="D003" version="1" status="draft" evidence="unvalidated" updated="2026-10-31" unit="configured-agent-system" title="Overbroad verification instructions">
   <summary>Instructions make the agent check more than the user’s task needs, often because several files repeat or contradict one another.</summary>
   <definition>
     <p>Verification instructions should reflect what the user wants to learn or deliver, what could go wrong, and how much checking is worthwhile. Rules such as “test after every change” can spread across skills and project files until even a quick prototype triggers a production-scale test process.</p>
-    <p>The agent may be following those instructions correctly. This diagnosis concerns instructions that are too broad, duplicated, or contradictory; it does not explain every case of excessive checking.</p>
+    <p>The agent may be following those instructions correctly. This diagnosis concerns instructions that produce too much checking in the configured system; it does not explain every case of excessive checking. The same wording can work well with one model and trigger excessive checking with another. A model change may require more specific limits even when the instructions have not changed.</p>
   </definition>
+  <potential-long-term-effects>
+    <p>Repeated checking can turn a two-minute task into twenty minutes or more, with most of the time spent verifying rather than delivering. These times illustrate the possible cost, not a diagnostic threshold.</p>
+    <p>In coding work, the same pressure can accumulate unnecessary assertions, defensive branches, and tests around assumptions the application does not need. Later agents may preserve or extend those checks as requirements. Each change then touches more constraints, making future work slower and harder; in the extreme, a project can become impractical to change.</p>
+    <p>These are possible consequences, not inevitable outcomes or additional criteria. To attribute growing code complexity to this diagnosis, trace the additions to the verification instructions rather than assuming all defensive code is unnecessary.</p>
+  </potential-long-term-effects>
   <relations>
     <symptom-ref ref="S001"/>
     <symptom-ref ref="S004"/>
@@ -30,8 +35,8 @@
     <criterion id="operative-rule" title="The agent is using the instruction">
       <p>Find the actual instruction that leads to the extra checks, in the loaded skill, project guidance, or workflow. An unused file is not enough.</p>
     </criterion>
-    <criterion id="scope-mismatch" title="The instruction asks for too much">
-      <p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.</p>
+    <criterion id="scope-mismatch" title="The instruction produces too much checking with this model">
+      <p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which checks the instruction leads this model to perform that do not help that work. The wording need not explicitly demand every check.</p>
     </criterion>
     <criterion id="checking-consequence" title="Following it creates extra work">
       <p>The instruction produces <ref target="S004">excessive verification</ref>. Repeated reads may also match <ref target="S001">repeated retrieval</ref>.</p>
@@ -64,6 +69,6 @@
     </alternative>
   </differential>
   <investigation>
-    <p>Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow.</p>
+    <p>Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow. Record the model and relevant configuration, including whether the behavior began after a model change; instruction quality cannot be judged independently of how that model uses it.</p>
   </investigation>
 </diagnosis>
