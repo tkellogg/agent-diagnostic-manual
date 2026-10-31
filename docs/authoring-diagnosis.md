@@ -10,6 +10,12 @@ The system includes the model, prompts, skills, tools, harness, and working repo
 
 Prefer a short noun phrase that people can use in conversation, such as “Incorrect compaction.” Keep the title specific enough to identify the proposed failure; put the fuller explanation in the summary. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.
 
+## Potential long-term effects
+
+Use optional `potential-long-term-effects` after `definition` to explain what repeated failures could accumulate into: lost time, fragile code, expensive rework, or work becoming infeasible. Trace how the proposed cause could produce those consequences. Distinguish observed outcomes from plausible projections; do not present the worst case as inevitable or require it for diagnosis. This section describes the untreated problem, while intervention predictions describe what a repair should change.
+
+Judge instructions in the configured system. Wording that works well with one model can produce excessive or unwanted behavior with another; record the model and relevant changes before attributing the problem to wording alone.
+
 ## Put predictions near the explanation
 
 In `relations`, link the symptoms the model could explain and the interventions that plausibly address it. Each `intervention-ref` contains `when` and `predictions`. The predictions belong to the diagnosis **and** the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.

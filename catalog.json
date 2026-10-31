@@ -792,7 +792,7 @@
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "updated": "2026-10-31",
       "unit": "configured-agent-system",
       "title": "Overbroad verification instructions",
       "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
@@ -804,7 +804,7 @@
           "version": "1",
           "status": "draft",
           "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "updated": "2026-10-31",
           "unit": "configured-agent-system",
           "title": "Overbroad verification instructions"
         },
@@ -831,7 +831,34 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "The agent may be following those instructions correctly. This diagnosis concerns instructions that are too broad, duplicated, or contradictory; it does not explain every case of excessive checking."
+                  "The agent may be following those instructions correctly. This diagnosis concerns instructions that produce too much checking in the configured system; it does not explain every case of excessive checking. The same wording can work well with one model and trigger excessive checking with another. A model change may require more specific limits even when the instructions have not changed."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "potential-long-term-effects",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Repeated checking can turn a two-minute task into twenty minutes or more, with most of the time spent verifying rather than delivering. These times illustrate the possible cost, not a diagnostic threshold."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "In coding work, the same pressure can accumulate unnecessary assertions, defensive branches, and tests around assumptions the application does not need. Later agents may preserve or extend those checks as requirements. Each change then touches more constraints, making future work slower and harder; in the extreme, a project can become impractical to change."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "These are possible consequences, not inevitable outcomes or additional criteria. To attribute growing code complexity to this diagnosis, trace the additions to the verification instructions rather than assuming all defensive code is unnecessary."
                 ]
               }
             ]
@@ -955,14 +982,14 @@
                 "name": "criterion",
                 "attributes": {
                   "id": "scope-mismatch",
-                  "title": "The instruction asks for too much"
+                  "title": "The instruction produces too much checking with this model"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Compare the rule with the user\u2019s goal, intended review, and the application\u2019s real failure risks. Explain which demanded checks do not help that work."
+                      "Compare the rule with the user\u2019s goal, intended review, and the application\u2019s real failure risks. Explain which checks the instruction leads this model to perform that do not help that work. The wording need not explicitly demand every check."
                     ]
                   }
                 ]
@@ -1140,7 +1167,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user\u2019s goal; review those findings with the person responsible for the workflow."
+                  "Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user\u2019s goal; review those findings with the person responsible for the workflow. Record the model and relevant configuration, including whether the behavior began after a model change; instruction quality cannot be judged independently of how that model uses it."
                 ]
               }
             ]
@@ -1530,7 +1557,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. A record explaining what changed and why may help it use the history correctly; that is the proposed repair, not a requirement to erase the earlier decision."
+                  "For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. Updating inconsistent records and briefly explaining what changed and why may help it use the history correctly. The proposed repair preserves useful history while correcting current state."
                 ]
               },
               {
@@ -1547,7 +1574,7 @@
                       "When Retrieval Is Not Enough"
                     ]
                   },
-                  " isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the provenance intervention below remain unvalidated."
+                  " isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated."
                 ]
               }
             ]
@@ -1573,7 +1600,7 @@
                     "name": "when",
                     "attributes": {},
                     "content": [
-                      "Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work."
+                      "Old and current records compete, and the maintainer can correct the inconsistent state and change standing instructions so later updates stay consistent and explain their reasons."
                     ]
                   },
                   {
@@ -1614,7 +1641,7 @@
                             "name": "p",
                             "attributes": {},
                             "content": [
-                              "If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness."
+                              "If corrected records and a clear explanation of the change reach the working agent but it still follows the old information, this repair may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the corrected information never arrives, investigate delivery before judging its usefulness."
                             ]
                           }
                         ]
@@ -3723,7 +3750,7 @@
       "status": "draft",
       "evidence": "unvalidated",
       "updated": "2026-10-31",
-      "title": "Save information for future work",
+      "title": "Move info outside session",
       "source": "entries/interventions/save-information-for-future-work.xml",
       "url": "interventions/save-information-for-future-work.html",
       "document": {
@@ -3734,7 +3761,7 @@
           "status": "draft",
           "evidence": "unvalidated",
           "updated": "2026-10-31",
-          "title": "Save information for future work"
+          "title": "Move info outside session"
         },
         "content": [
           {
@@ -3883,16 +3910,17 @@
                           "target": "I007"
                         },
                         "content": [
-                          "document what changed and why"
+                          "storybook consistent comments"
                         ]
                       },
-                      " connects the former rule to its replacement without presenting both as current instructions. Do not require a note for every tool call."
+                      " brings affected records into agreement and briefly explains what changed and why. Do not require a note for every tool call."
                     ]
                   },
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
+                      "\n        ",
                       {
                         "name": "strong",
                         "attributes": {},
@@ -4084,12 +4112,12 @@
     {
       "id": "I007",
       "kind": "intervention",
-      "summary": "Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.",
+      "summary": "Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent.",
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
       "updated": "2026-10-31",
-      "title": "Document what changed and why",
+      "title": "Storybook consistent comments",
       "source": "entries/interventions/document-what-changed-and-why.xml",
       "url": "interventions/document-what-changed-and-why.html",
       "document": {
@@ -4100,14 +4128,14 @@
           "status": "draft",
           "evidence": "unvalidated",
           "updated": "2026-10-31",
-          "title": "Document what changed and why"
+          "title": "Storybook consistent comments"
         },
         "content": [
           {
             "name": "summary",
             "attributes": {},
             "content": [
-              "Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record."
+              "Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent."
             ]
           },
           {
@@ -4118,7 +4146,14 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Make requirements tangible through their history: we used to do X; then Y happened; now we do X-prime because of Y. This can explain why a design looks unusual and prevent later work from undoing a deliberate fix. The old rule remains useful history, clearly distinguished from current guidance."
+                  "The primary goal is consistent state: code, comments, docs, procedures, and saved facts should agree about what applies now. Update the places affected by a change, including assumptions built into the architecture. This can repair an existing inconsistency or accompany an ordinary change; no past mistake is required."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "The short story is a backup for what you miss: \u201cDo X-prime. We used to do X, but then we learned Y and Z matter.\u201d When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it."
                 ]
               },
               {
@@ -4132,10 +4167,10 @@
                       "target": "I006"
                     },
                     "content": [
-                      "save information for future work"
+                      "move info outside session"
                     ]
                   },
-                  ". Saving only the latest rule loses its rationale; appending a contradictory note leaves the reader to reconstruct the transition. Keep the transition together where future work will encounter it. Its benefit for ",
+                  " and adds repair of the existing state. History is useful provenance, not a substitute for updating known stale copies. Its benefit for ",
                   {
                     "name": "ref",
                     "attributes": {
@@ -4145,7 +4180,7 @@
                       "competing outdated memories"
                     ]
                   },
-                  " is a working proposal, not a remedy tested by the cited paper."
+                  " remains a working proposal, not a remedy tested by the cited paper."
                 ]
               }
             ]
@@ -4158,14 +4193,14 @@
                 "name": "precondition",
                 "attributes": {
                   "id": "known-change",
-                  "title": "The change and its basis can be established"
+                  "title": "The intended state can be established"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Identify a consequential change in a fact, requirement, or decision. Use source records or the responsible person's account; if the reason is unknown, record that rather than inventing a convincing history."
+                      "Identify what now applies and what changed: architecture, behavior, a procedure, a person's role, or another consequential fact. Establish the reason from available evidence or the responsible person. If the reason is unknown, say so rather than inventing a story."
                     ]
                   }
                 ]
@@ -4174,14 +4209,14 @@
                 "name": "precondition",
                 "attributes": {
                   "id": "editable-route",
-                  "title": "The recording and reading path can be changed"
+                  "title": "Records and standing instructions can be changed"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "The maintainer can edit the relevant prompts, skills, project guidance, or memory handling, and can identify which records later agents actually read."
+                      "The maintainer can update the affected code or records and the project instructions or skills used by future agents. Identify which instructions those agents actually receive."
                     ]
                   }
                 ]
@@ -4195,31 +4230,22 @@
               {
                 "name": "step",
                 "attributes": {
-                  "id": "locate-transition",
-                  "title": "Find the transition that later work misses"
+                  "id": "update-state",
+                  "title": "Update existing state and explain what changed"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Inspect a past mistake and the records used. Find the old rule, the event or evidence that prompted its replacement, the current requirement, and where each applies. Distinguish a requirement from one implementation of it."
+                      "Find where the former fact or approach still shapes current work. Update affected code, tests, comments, docs, procedures, and memories to match the intended state within the agreed scope. Look beyond literal mentions: an old assumption may be built into interfaces, data structures, or workflow ordering. Preserve accurate historical records as history. If part of the repair must wait, make that remaining mismatch explicit."
                     ]
-                  }
-                ]
-              },
-              {
-                "name": "step",
-                "attributes": {
-                  "id": "write-history",
-                  "title": "Connect the old rule to the current one"
-                },
-                "content": [
+                  },
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Update the existing authoritative note, code comment, or task record. State the current requirement prominently, then explain the prior approach, what changed, and why the new approach follows. Include a source or decision link, effective date or version where relevant, scope, and any condition for revisiting the decision. Keep only history that explains the requirement."
+                      "Beside the places future work will encounter, add a short, informal explanation of the current intent, the earlier approach, and why it changed. Include a date, preferably when the change took effect; distinguish that from when the comment was written if they differ. Explain scope when the older approach still applies elsewhere. Keep enough history to resolve a conflicting leftover without making every comment a design document."
                     ]
                   },
                   {
@@ -4231,10 +4257,25 @@
                         "name": "strong",
                         "attributes": {},
                         "content": [
-                          "Example:"
+                          "Coding example:"
                         ]
                       },
-                      " For provider B, an ambiguous payment timeout must go to reconciliation before another charge is attempted. We used to retry every timeout. After provider B stopped guaranteeing that a timeout meant no charge occurred, retries could charge twice. We now check transaction status first. Provider A still supports retries with its idempotency key. See the provider-change ticket for the effective version and supporting evidence."
+                      " \u201c2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.\u201d Update the retry code and its tests too; the comment alone does not fix them."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "\n        ",
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Non-coding example:"
+                        ]
+                      },
+                      " \u201cAs of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.\u201d Update the routing instructions and contact records, not just the note."
                     ]
                   }
                 ]
@@ -4242,47 +4283,30 @@
               {
                 "name": "step",
                 "attributes": {
-                  "id": "change-writer",
-                  "title": "Make future updates preserve the reason"
+                  "id": "change-guidance",
+                  "title": "Make this part of future work"
                 },
                 "content": [
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Edit the relevant reusable writing instruction: when a decision or requirement changes, revise its existing record to explain what used to apply, what changed, and what applies now. Mark the former rule as historical. Link or correct competing copies rather than leaving separate current-looking instructions. Do not require a history note for every edit."
+                      "Edit the existing AGENTS.md, project guidance, or relevant skill so future changes update affected state and leave brief dated explanations where the history helps. Tell agents to use those explanations when they encounter conflicting leftovers, check that the scope and authority match, and correct the stale copy. Verify that this guidance is loaded for the relevant work; merely saving the file is not enough."
                     ]
-                  }
-                ]
-              },
-              {
-                "name": "step",
-                "attributes": {
-                  "id": "deliver-together",
-                  "title": "Keep the transition together when read"
-                },
-                "content": [
+                  },
                   {
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Change the relevant reading instructions or retrieval handling so tasks affected by the requirement receive its current rule and short rationale together. Keep an old excerpt linked to its replacement, and preserve the distinction in summaries. Put a local reason beside surprising code when that is where future edits begin; use a link for the longer history. Check one actual later input to confirm the record is delivered, not merely saved."
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "step",
-                "attributes": {
-                  "id": "schedule-review",
-                  "title": "Arrange a review of ordinary future work"
-                },
-                "content": [
-                  {
-                    "name": "p",
-                    "attributes": {},
-                    "content": [
-                      "Agree with the user on the expected change, who will examine subsequent relevant tasks, and a check-in date; arrange a reminder or use an existing review job. Look for work affected by the updated requirement and for historical questions or unaffected scopes. If none occur, leave the outcome unresolved and choose another date."
+                      "\n        ",
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Example instruction:"
+                        ]
+                      },
+                      " \u201cWhen a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.\u201d"
                     ]
                   }
                 ]
@@ -4297,7 +4321,14 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "Check whether future work follows the current requirement, avoids restoring the superseded behavior, and still explains what applied before. Use ",
+                  "Agree on who will review ordinary subsequent work and a check-in date, using an existing review job or reminder. Check whether agents keep affected state consistent, resolve missed old assumptions correctly, and avoid restoring superseded behavior. Include time spent updating and reading records. If no relevant work occurs, leave the outcome unresolved and choose another date."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Use ",
                   {
                     "name": "ref",
                     "attributes": {
@@ -4307,14 +4338,7 @@
                       "D005's predictions"
                     ]
                   },
-                  " when competing memories are the proposed cause. A better explanation in the final answer is not enough if the agent's edits still violate the requirement."
-                ]
-              },
-              {
-                "name": "p",
-                "attributes": {},
-                "content": [
-                  "Compare mistakes and rework with relevant opportunities, and include the cost of maintaining and reading the note. If it never reaches the agent, fix delivery. If it arrives intact but is ignored, reconsider the repair. If behavior improves, the note may be useful without proving whether history, clearer scope, or improved delivery made the difference."
+                  " when competing memories are the proposed cause. Correctly explaining the history is not enough if code or actions still contradict the intended state. If the guidance never reaches the agent, fix delivery; if it arrives but is ignored, reconsider the repair. Improvement does not isolate whether consistency repairs, history, or clearer instructions helped."
                 ]
               }
             ]
@@ -4331,28 +4355,35 @@
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "A fabricated or oversimplified rationale can make an incorrect rule harder to challenge. Keep unknown reasons unknown and distinguish evidence from the author's interpretation."
+                      "An invented reason can make a bad decision harder to question. Keep unknown reasons unknown."
                     ]
                   },
                   {
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "A long history can crowd out the current requirement or repeat the old instruction so prominently that agents follow it again. Keep the current rule explicit and the explanation brief."
+                      "Excessive history can bury current intent or make the old behavior more salient. Keep comments brief and useful."
                     ]
                   },
                   {
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "A rationale can fossilize an implementation after its original constraint disappears. Preserve the requirement and conditions for reconsidering it, not a permanent ban on improvement."
+                      "A newer date does not automatically win: records may differ in authority or apply to different people, versions, or environments."
                     ]
                   },
                   {
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "Dates alone can hide differences in authority or scope. A new record may apply only to one customer or environment. Source links must respect the intended audience's access."
+                      "A broad consistency sweep can change valid behavior outside the intended scope. Distinguish a lasting requirement from an implementation that can improve."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Historical explanations can themselves become stale. Update them when the underlying facts or constraints change."
                     ]
                   }
                 ]
@@ -4371,21 +4402,14 @@
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "If the note causes incorrect changes or obscures current guidance, shorten or correct it and revise the writing or retrieval instructions. Retain the verified current requirement while removing the misleading explanation."
+                      "If the guidance causes excessive bookkeeping or incorrect changes, narrow or restore it and correct misleading comments while retaining accurate current intent."
                     ]
                   },
                   {
                     "name": "li",
                     "attributes": {},
                     "content": [
-                      "Inspect consequential work already based on a faulty note; reverting the note does not undo that work. Restore accurate history from its sources where needed."
-                    ]
-                  },
-                  {
-                    "name": "li",
-                    "attributes": {},
-                    "content": [
-                      "Remove temporary observation hooks after the agreed review unless their continued use is justified."
+                      "Review consequential code and actions changed on the basis of a faulty explanation. Removing the comment does not undo those changes."
                     ]
                   }
                 ]
@@ -8764,6 +8788,12 @@
       "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
       "url": "diagnoses/verification-policy-overgeneralization.html#definition"
     },
+    "D003#potential-long-term-effects": {
+      "document": "D003",
+      "kind": "potential-long-term-effects",
+      "source": "entries/diagnoses/verification-policy-overgeneralization.xml",
+      "url": "diagnoses/verification-policy-overgeneralization.html#potential-long-term-effects"
+    },
     "D003#relations": {
       "document": "D003",
       "kind": "relations",
@@ -9166,35 +9196,17 @@
       "source": "entries/interventions/document-what-changed-and-why.xml",
       "url": "interventions/document-what-changed-and-why.html#procedure"
     },
-    "I007#procedure/locate-transition": {
+    "I007#procedure/update-state": {
       "document": "I007",
       "kind": "step",
       "source": "entries/interventions/document-what-changed-and-why.xml",
-      "url": "interventions/document-what-changed-and-why.html#procedure/locate-transition"
+      "url": "interventions/document-what-changed-and-why.html#procedure/update-state"
     },
-    "I007#procedure/write-history": {
+    "I007#procedure/change-guidance": {
       "document": "I007",
       "kind": "step",
       "source": "entries/interventions/document-what-changed-and-why.xml",
-      "url": "interventions/document-what-changed-and-why.html#procedure/write-history"
-    },
-    "I007#procedure/change-writer": {
-      "document": "I007",
-      "kind": "step",
-      "source": "entries/interventions/document-what-changed-and-why.xml",
-      "url": "interventions/document-what-changed-and-why.html#procedure/change-writer"
-    },
-    "I007#procedure/deliver-together": {
-      "document": "I007",
-      "kind": "step",
-      "source": "entries/interventions/document-what-changed-and-why.xml",
-      "url": "interventions/document-what-changed-and-why.html#procedure/deliver-together"
-    },
-    "I007#procedure/schedule-review": {
-      "document": "I007",
-      "kind": "step",
-      "source": "entries/interventions/document-what-changed-and-why.xml",
-      "url": "interventions/document-what-changed-and-why.html#procedure/schedule-review"
+      "url": "interventions/document-what-changed-and-why.html#procedure/change-guidance"
     },
     "I007#evaluation": {
       "document": "I007",
@@ -11268,7 +11280,7 @@
       "to": "I007",
       "relation": "intervention-ref",
       "address": "D005#relations/I007",
-      "when": "Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work.",
+      "when": "Old and current records compete, and the maintainer can correct the inconsistent state and change standing instructions so later updates stay consistent and explain their reasons.",
       "predictions": {
         "name": "predictions",
         "attributes": {},
@@ -11307,7 +11319,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness."
+                  "If corrected records and a clear explanation of the change reach the working agent but it still follows the old information, this repair may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the corrected information never arrives, investigate delivery before judging its usefulness."
                 ]
               }
             ]

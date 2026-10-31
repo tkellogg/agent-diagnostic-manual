@@ -54,7 +54,7 @@ For example, it may preserve a long account of completed edits but drop the user
 <a id="relations/I006"></a>
 <a id="relations/I006/when"></a>
 
-### Intervention: [I006 — Save information for future work](../interventions/save-information-for-future-work.md)
+### Intervention: [I006 — Move info outside session](../interventions/save-information-for-future-work.md)
 
 **Use this when:** Important information is available before compaction, and you can change the working agent's instructions for saving it outside the conversation and finding it later.
 

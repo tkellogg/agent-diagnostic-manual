@@ -191,11 +191,11 @@
 </li>
                                     
 <li>
-    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
+    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Move info outside session</a>
 </li>
                                     
 <li>
-    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Document what changed and why</a>
+    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Storybook consistent comments</a>
 </li>
                                 </ul>
                             </li>
@@ -310,6 +310,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#potential-long-term-effects" class="nav-link">Potential long-term effects</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#symptoms-and-predicted-effects" class="nav-link">Symptoms and predicted effects</a>
               <ul class="nav flex-column">
               </ul>
@@ -358,7 +362,12 @@
 <p><a id="definition"></a></p>
 <h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">¶</a></h2>
 <p>Verification instructions should reflect what the user wants to learn or deliver, what could go wrong, and how much checking is worthwhile. Rules such as “test after every change” can spread across skills and project files until even a quick prototype triggers a production-scale test process.</p>
-<p>The agent may be following those instructions correctly. This diagnosis concerns instructions that are too broad, duplicated, or contradictory; it does not explain every case of excessive checking.</p>
+<p>The agent may be following those instructions correctly. This diagnosis concerns instructions that produce too much checking in the configured system; it does not explain every case of excessive checking. The same wording can work well with one model and trigger excessive checking with another. A model change may require more specific limits even when the instructions have not changed.</p>
+<p><a id="potential-long-term-effects"></a></p>
+<h2 id="potential-long-term-effects">Potential long-term effects<a class="headerlink" href="#potential-long-term-effects" title="Permanent link">¶</a></h2>
+<p>Repeated checking can turn a two-minute task into twenty minutes or more, with most of the time spent verifying rather than delivering. These times illustrate the possible cost, not a diagnostic threshold.</p>
+<p>In coding work, the same pressure can accumulate unnecessary assertions, defensive branches, and tests around assumptions the application does not need. Later agents may preserve or extend those checks as requirements. Each change then touches more constraints, making future work slower and harder; in the extreme, a project can become impractical to change.</p>
+<p>These are possible consequences, not inevitable outcomes or additional criteria. To attribute growing code complexity to this diagnosis, trace the additions to the verification instructions rather than assuming all defensive code is unnecessary.</p>
 <p><a id="relations"></a></p>
 <h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">¶</a></h2>
 <ul class="adm-entry-refs">
@@ -391,8 +400,8 @@
 <h3 id="the-agent-is-using-the-instruction">1. The agent is using the instruction<a class="headerlink" href="#the-agent-is-using-the-instruction" title="Permanent link">¶</a></h3>
 <p>Find the actual instruction that leads to the extra checks, in the loaded skill, project guidance, or workflow. An unused file is not enough.</p>
 <p><a id="criteria/scope-mismatch"></a></p>
-<h3 id="the-instruction-asks-for-too-much">2. The instruction asks for too much<a class="headerlink" href="#the-instruction-asks-for-too-much" title="Permanent link">¶</a></h3>
-<p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.</p>
+<h3 id="the-instruction-produces-too-much-checking-with-this-model">2. The instruction produces too much checking with this model<a class="headerlink" href="#the-instruction-produces-too-much-checking-with-this-model" title="Permanent link">¶</a></h3>
+<p>Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which checks the instruction leads this model to perform that do not help that work. The wording need not explicitly demand every check.</p>
 <p><a id="criteria/checking-consequence"></a></p>
 <h3 id="following-it-creates-extra-work">3. Following it creates extra work<a class="headerlink" href="#following-it-creates-extra-work" title="Permanent link">¶</a></h3>
 <p>The instruction produces <a href="../symptoms/excessive-verification.html">excessive verification</a>. Repeated reads may also match <a href="../symptoms/repeated-retrieval.html">repeated retrieval</a>.</p>
@@ -423,7 +432,7 @@ If the instructions allow a quick prototype but the agent behaves as if it must 
 Check the failure the agent says it is testing for. If the application cannot reach that state, improve its understanding of the application rather than adding more testing rules.</p>
 <p><a id="investigation"></a></p>
 <h2 id="where-to-look-next">Where to look next<a class="headerlink" href="#where-to-look-next" title="Permanent link">¶</a></h2>
-<p>Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow.</p></article>
+<p>Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow. Record the model and relevant configuration, including whether the behavior began after a model change; instruction quality cannot be judged independently of how that model uses it.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
     <a rel="prev" href="tool-discovery-delivery-gap.html"><span>← Previous</span>D002 — Tool discovery reports unusable tools</a>

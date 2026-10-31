@@ -6,7 +6,7 @@ summary: "Instructions make the agent check more than the user\u2019s task needs
 version: '1'
 status: draft
 evidence: unvalidated
-updated: '2026-10-28'
+updated: '2026-10-31'
 unit: configured-agent-system
 title: Overbroad verification instructions
 xml_source: diagnoses/verification-policy-overgeneralization.xml
@@ -22,7 +22,17 @@ Instructions make the agent check more than the user’s task needs, often becau
 
 Verification instructions should reflect what the user wants to learn or deliver, what could go wrong, and how much checking is worthwhile. Rules such as “test after every change” can spread across skills and project files until even a quick prototype triggers a production-scale test process.
 
-The agent may be following those instructions correctly. This diagnosis concerns instructions that are too broad, duplicated, or contradictory; it does not explain every case of excessive checking.
+The agent may be following those instructions correctly. This diagnosis concerns instructions that produce too much checking in the configured system; it does not explain every case of excessive checking. The same wording can work well with one model and trigger excessive checking with another. A model change may require more specific limits even when the instructions have not changed.
+
+<a id="potential-long-term-effects"></a>
+
+## Potential long-term effects
+
+Repeated checking can turn a two-minute task into twenty minutes or more, with most of the time spent verifying rather than delivering. These times illustrate the possible cost, not a diagnostic threshold.
+
+In coding work, the same pressure can accumulate unnecessary assertions, defensive branches, and tests around assumptions the application does not need. Later agents may preserve or extend those checks as requirements. Each change then touches more constraints, making future work slower and harder; in the extreme, a project can become impractical to change.
+
+These are possible consequences, not inevitable outcomes or additional criteria. To attribute growing code complexity to this diagnosis, trace the additions to the verification instructions rather than assuming all defensive code is unnecessary.
 
 <a id="relations"></a>
 
@@ -62,9 +72,9 @@ Find the actual instruction that leads to the extra checks, in the loaded skill,
 
 <a id="criteria/scope-mismatch"></a>
 
-### 2. The instruction asks for too much {#the-instruction-asks-for-too-much}
+### 2. The instruction produces too much checking with this model {#the-instruction-produces-too-much-checking-with-this-model}
 
-Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which demanded checks do not help that work.
+Compare the rule with the user’s goal, intended review, and the application’s real failure risks. Explain which checks the instruction leads this model to perform that do not help that work. The wording need not explicitly demand every check.
 
 <a id="criteria/checking-consequence"></a>
 
@@ -119,4 +129,4 @@ Check the failure the agent says it is testing for. If the application cannot re
 
 ## Where to look next
 
-Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow.
+Read the instructions actually loaded for one affected task. Mark duplicate demands, contradictions, and checks that do not help the user’s goal; review those findings with the person responsible for the workflow. Record the model and relevant configuration, including whether the behavior began after a model change; instruction quality cannot be judged independently of how that model uses it.

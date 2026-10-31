@@ -22,10 +22,10 @@ The memory path keeps supplying superseded facts alongside their replacements, a
 
 A memory system should preserve useful history while making clear which facts or requirements apply now. This diagnosis proposes that obsolete memories keep competing with their updates: the system supplies both, and the working agent does not reliably choose the applicable version. Retiring a memory means retiring its authority as current guidance, not necessarily deleting its history.
 
-For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. A record explaining what changed and why may help it use the history correctly; that is the proposed repair, not a requirement to erase the earlier decision.
+For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. Updating inconsistent records and briefly explaining what changed and why may help it use the history correctly. The proposed repair preserves useful history while correcting current state.
 
 
-      [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the provenance intervention below remain unvalidated.
+      [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated.
 
 <a id="relations"></a>
 
@@ -36,9 +36,9 @@ For example, an old instruction to retry failed payments and a later restriction
 <a id="relations/I007"></a>
 <a id="relations/I007/when"></a>
 
-### Intervention: [I007 — Document what changed and why](../interventions/document-what-changed-and-why.md)
+### Intervention: [I007 — Storybook consistent comments](../interventions/document-what-changed-and-why.md)
 
-**Use this when:** Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work.
+**Use this when:** Old and current records compete, and the maintainer can correct the inconsistent state and change standing instructions so later updates stay consistent and explain their reasons.
 
 <a id="relations/I007/predictions"></a>
 
@@ -48,7 +48,7 @@ For example, an old instruction to retry failed payments and a later restriction
 
 - <a id="relations/I007/predictions/still-necessary"></a>**Still necessary:** Agents should still answer historical questions correctly, apply older rules where they remain valid, and revise current decisions when new evidence warrants it.
 
-- <a id="relations/I007/predictions/reason-to-reconsider"></a>**A reason to reconsider:** If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness.
+- <a id="relations/I007/predictions/reason-to-reconsider"></a>**A reason to reconsider:** If corrected records and a clear explanation of the change reach the working agent but it still follows the old information, this repair may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the corrected information never arrives, investigate delivery before judging its usefulness.
 
 - <a id="relations/I007/predictions/possible-harm"></a>**Possible harm:** A compelling but incorrect history can entrench a bad requirement. Longer notes can bury the current rule or make the obsolete one more salient.
 

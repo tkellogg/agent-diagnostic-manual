@@ -181,13 +181,13 @@ This is probably the best way to help out the project.
 
     Fix tool loading so search reports a tool as ready only after the agent has its definition and the runtime can execute it.
 
-- [I006 — Save information for future work](interventions/save-information-for-future-work.md)
+- [I006 — Move info outside session](interventions/save-information-for-future-work.md)
 
     Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.
 
-- [I007 — Document what changed and why](interventions/document-what-changed-and-why.md)
+- [I007 — Storybook consistent comments](interventions/document-what-changed-and-why.md)
 
-    Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.
+    Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent.
 
 
 ## Build and read

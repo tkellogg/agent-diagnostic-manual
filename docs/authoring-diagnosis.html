@@ -191,11 +191,11 @@
 </li>
                                     
 <li>
-    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
+    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Move info outside session</a>
 </li>
                                     
 <li>
-    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Document what changed and why</a>
+    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Storybook consistent comments</a>
 </li>
                                 </ul>
                             </li>
@@ -310,6 +310,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#potential-long-term-effects" class="nav-link">Potential long-term effects</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#put-predictions-near-the-explanation" class="nav-link">Put predictions near the explanation</a>
               <ul class="nav flex-column">
               </ul>
@@ -351,6 +355,9 @@
 <p>In <code>definition</code>, explain how the relevant part should work, what goes wrong, and how that produces the symptoms. Use familiar objects and actions: “the compaction summary drops permission” is clearer than “authority fails to survive the transition.” A reader should understand the proposed failure before being asked to inspect evidence for it.</p>
 <p>The system includes the model, prompts, skills, tools, harness, and working repository. A harness fault can therefore be relevant. A bug in generated code is not automatically an agent diagnosis: explain how the recurring generation, testing, or completion process produces or misses it. Do not give every isolated bug a catalog entry.</p>
 <p>Prefer a short noun phrase that people can use in conversation, such as “Incorrect compaction.” Keep the title specific enough to identify the proposed failure; put the fuller explanation in the summary. “Tool discovery underperformance” could mean poor search results, slow search, unavailable tools, or bad tool choice; an entry about missing tool definitions should say so.</p>
+<h2 id="potential-long-term-effects">Potential long-term effects<a class="headerlink" href="#potential-long-term-effects" title="Permanent link">¶</a></h2>
+<p>Use optional <code>potential-long-term-effects</code> after <code>definition</code> to explain what repeated failures could accumulate into: lost time, fragile code, expensive rework, or work becoming infeasible. Trace how the proposed cause could produce those consequences. Distinguish observed outcomes from plausible projections; do not present the worst case as inevitable or require it for diagnosis. This section describes the untreated problem, while intervention predictions describe what a repair should change.</p>
+<p>Judge instructions in the configured system. Wording that works well with one model can produce excessive or unwanted behavior with another; record the model and relevant changes before attributing the problem to wording alone.</p>
 <h2 id="put-predictions-near-the-explanation">Put predictions near the explanation<a class="headerlink" href="#put-predictions-near-the-explanation" title="Permanent link">¶</a></h2>
 <p>In <code>relations</code>, link the symptoms the model could explain and the interventions that plausibly address it. Each <code>intervention-ref</code> contains <code>when</code> and <code>predictions</code>. The predictions belong to the diagnosis <strong>and</strong> the intervention, applied to a particular configuration; a symptom link alone does not predict improvement.</p>
 <p><code>predictions</code> requires these four singleton sections, in order. Each contains prose blocks and needs no ID:</p>
@@ -396,7 +403,7 @@
 <p>See the <a href="diagnostic-process.html">diagnostic process</a> and <a href="../skills/agent-diagnostics/references/format.html">format reference</a> for the shared flow and XML details. These conventions remain a working draft; a useful example should shape the structure, not be stretched to fill it.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="../interventions/document-what-changed-and-why.html"><span>← Previous</span>I007 — Document what changed and why</a>
+    <a rel="prev" href="../interventions/document-what-changed-and-why.html"><span>← Previous</span>I007 — Storybook consistent comments</a>
     <a rel="next" href="authoring-intervention.html"><span>Next →</span>Authoring intervention XML files</a>
   </nav>
   

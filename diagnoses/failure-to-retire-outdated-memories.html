@@ -191,11 +191,11 @@
 </li>
                                     
 <li>
-    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
+    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Move info outside session</a>
 </li>
                                     
 <li>
-    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Document what changed and why</a>
+    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Storybook consistent comments</a>
 </li>
                                 </ul>
                             </li>
@@ -358,8 +358,8 @@
 <p><a id="definition"></a></p>
 <h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">¶</a></h2>
 <p>A memory system should preserve useful history while making clear which facts or requirements apply now. This diagnosis proposes that obsolete memories keep competing with their updates: the system supplies both, and the working agent does not reliably choose the applicable version. Retiring a memory means retiring its authority as current guidance, not necessarily deleting its history.</p>
-<p>For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. A record explaining what changed and why may help it use the history correctly; that is the proposed repair, not a requirement to erase the earlier decision.</p>
-<pre><code>  [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the provenance intervention below remain unvalidated.
+<p>For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. Updating inconsistent records and briefly explaining what changed and why may help it use the history correctly. The proposed repair preserves useful history while correcting current state.</p>
+<pre><code>  [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated.
 </code></pre>
 <p><a id="relations"></a></p>
 <h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">¶</a></h2>
@@ -368,8 +368,8 @@
 </ul>
 <p><a id="relations/I007"></a>
 <a id="relations/I007/when"></a></p>
-<h3 id="intervention-i007-document-what-changed-and-why">Intervention: <a href="../interventions/document-what-changed-and-why.html" class="adm-entry-ref"><span class="adm-ref-id">I007</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Document what changed and why</span></a><a class="headerlink" href="#intervention-i007-document-what-changed-and-why" title="Permanent link">¶</a></h3>
-<p><strong>Use this when:</strong> Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work.</p>
+<h3 id="intervention-i007-storybook-consistent-comments">Intervention: <a href="../interventions/document-what-changed-and-why.html" class="adm-entry-ref"><span class="adm-ref-id">I007</span><span class="visually-hidden"> — </span><span class="adm-ref-title">Storybook consistent comments</span></a><a class="headerlink" href="#intervention-i007-storybook-consistent-comments" title="Permanent link">¶</a></h3>
+<p><strong>Use this when:</strong> Old and current records compete, and the maintainer can correct the inconsistent state and change standing instructions so later updates stay consistent and explain their reasons.</p>
 <p><a id="relations/I007/predictions"></a></p>
 <h4 id="what-to-expect-if-this-explanation-is-right">What to expect if this explanation is right<a class="headerlink" href="#what-to-expect-if-this-explanation-is-right" title="Permanent link">¶</a></h4>
 <ul>
@@ -380,7 +380,7 @@
 <p><a id="relations/I007/predictions/still-necessary"></a><strong>Still necessary:</strong> Agents should still answer historical questions correctly, apply older rules where they remain valid, and revise current decisions when new evidence warrants it.</p>
 </li>
 <li>
-<p><a id="relations/I007/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness.</p>
+<p><a id="relations/I007/predictions/reason-to-reconsider"></a><strong>A reason to reconsider:</strong> If corrected records and a clear explanation of the change reach the working agent but it still follows the old information, this repair may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the corrected information never arrives, investigate delivery before judging its usefulness.</p>
 </li>
 <li>
 <p><a id="relations/I007/predictions/possible-harm"></a><strong>Possible harm:</strong> A compelling but incorrect history can entrench a bad requirement. Longer notes can bury the current rule or make the obsolete one more salient.</p>

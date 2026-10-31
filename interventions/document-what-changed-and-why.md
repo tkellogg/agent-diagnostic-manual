@@ -1,28 +1,30 @@
 ---
 id: I007
 kind: intervention
-summary: Change the agent's writing and reading instructions so important updates
-  preserve the previous rule, what prompted the change, and the current requirement
-  in one connected record.
+summary: Bring code and records into agreement with the intended state, explain important
+  changes in brief dated comments, and update the agent's standing instructions to
+  keep them consistent.
 version: '1'
 status: draft
 evidence: unvalidated
 updated: '2026-10-31'
-title: Document what changed and why
+title: Storybook consistent comments
 xml_source: interventions/document-what-changed-and-why.xml
 ---
 
-# Document what changed and why
+# Storybook consistent comments
 
-Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.
+Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent.
 
 <a id="purpose"></a>
 
 ## Purpose
 
-Make requirements tangible through their history: we used to do X; then Y happened; now we do X-prime because of Y. This can explain why a design looks unusual and prevent later work from undoing a deliberate fix. The old rule remains useful history, clearly distinguished from current guidance.
+The primary goal is consistent state: code, comments, docs, procedures, and saved facts should agree about what applies now. Update the places affected by a change, including assumptions built into the architecture. This can repair an existing inconsistency or accompany an ordinary change; no past mistake is required.
 
-This specializes [save information for future work](save-information-for-future-work.md). Saving only the latest rule loses its rationale; appending a contradictory note leaves the reader to reconstruct the transition. Keep the transition together where future work will encounter it. Its benefit for [competing outdated memories](../diagnoses/failure-to-retire-outdated-memories.md) is a working proposal, not a remedy tested by the cited paper.
+The short story is a backup for what you miss: “Do X-prime. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.
+
+This specializes [move info outside session](save-information-for-future-work.md) and adds repair of the existing state. History is useful provenance, not a substitute for updating known stale copies. Its benefit for [competing outdated memories](../diagnoses/failure-to-retire-outdated-memories.md) remains a working proposal, not a remedy tested by the cited paper.
 
 <a id="preconditions"></a>
 
@@ -30,74 +32,64 @@ This specializes [save information for future work](save-information-for-future-
 
 <a id="preconditions/known-change"></a>
 
-### The change and its basis can be established
+### The intended state can be established
 
-Identify a consequential change in a fact, requirement, or decision. Use source records or the responsible person's account; if the reason is unknown, record that rather than inventing a convincing history.
+Identify what now applies and what changed: architecture, behavior, a procedure, a person's role, or another consequential fact. Establish the reason from available evidence or the responsible person. If the reason is unknown, say so rather than inventing a story.
 
 <a id="preconditions/editable-route"></a>
 
-### The recording and reading path can be changed
+### Records and standing instructions can be changed
 
-The maintainer can edit the relevant prompts, skills, project guidance, or memory handling, and can identify which records later agents actually read.
+The maintainer can update the affected code or records and the project instructions or skills used by future agents. Identify which instructions those agents actually receive.
 
 <a id="procedure"></a>
 
 ## Procedure
 
-<a id="procedure/locate-transition"></a>
+<a id="procedure/update-state"></a>
 
-### Find the transition that later work misses
+### Update existing state and explain what changed
 
-Inspect a past mistake and the records used. Find the old rule, the event or evidence that prompted its replacement, the current requirement, and where each applies. Distinguish a requirement from one implementation of it.
+Find where the former fact or approach still shapes current work. Update affected code, tests, comments, docs, procedures, and memories to match the intended state within the agreed scope. Look beyond literal mentions: an old assumption may be built into interfaces, data structures, or workflow ordering. Preserve accurate historical records as history. If part of the repair must wait, make that remaining mismatch explicit.
 
-<a id="procedure/write-history"></a>
-
-### Connect the old rule to the current one
-
-Update the existing authoritative note, code comment, or task record. State the current requirement prominently, then explain the prior approach, what changed, and why the new approach follows. Include a source or decision link, effective date or version where relevant, scope, and any condition for revisiting the decision. Keep only history that explains the requirement.
+Beside the places future work will encounter, add a short, informal explanation of the current intent, the earlier approach, and why it changed. Include a date, preferably when the change took effect; distinguish that from when the comment was written if they differ. Explain scope when the older approach still applies elsewhere. Keep enough history to resolve a conflicting leftover without making every comment a design document.
 
 
-        **Example:** For provider B, an ambiguous payment timeout must go to reconciliation before another charge is attempted. We used to retry every timeout. After provider B stopped guaranteeing that a timeout meant no charge occurred, retries could charge twice. We now check transaction status first. Provider A still supports retries with its idempotency key. See the provider-change ticket for the effective version and supporting evidence.
+        **Coding example:** “2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.” Update the retry code and its tests too; the comment alone does not fix them.
 
-<a id="procedure/change-writer"></a>
 
-### Make future updates preserve the reason
+        **Non-coding example:** “As of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.” Update the routing instructions and contact records, not just the note.
 
-Edit the relevant reusable writing instruction: when a decision or requirement changes, revise its existing record to explain what used to apply, what changed, and what applies now. Mark the former rule as historical. Link or correct competing copies rather than leaving separate current-looking instructions. Do not require a history note for every edit.
+<a id="procedure/change-guidance"></a>
 
-<a id="procedure/deliver-together"></a>
+### Make this part of future work
 
-### Keep the transition together when read
+Edit the existing AGENTS.md, project guidance, or relevant skill so future changes update affected state and leave brief dated explanations where the history helps. Tell agents to use those explanations when they encounter conflicting leftovers, check that the scope and authority match, and correct the stale copy. Verify that this guidance is loaded for the relevant work; merely saving the file is not enough.
 
-Change the relevant reading instructions or retrieval handling so tasks affected by the requirement receive its current rule and short rationale together. Keep an old excerpt linked to its replacement, and preserve the distinction in summaries. Put a local reason beside surprising code when that is where future edits begin; use a link for the longer history. Check one actual later input to confirm the record is delivered, not merely saved.
 
-<a id="procedure/schedule-review"></a>
-
-### Arrange a review of ordinary future work
-
-Agree with the user on the expected change, who will examine subsequent relevant tasks, and a check-in date; arrange a reminder or use an existing review job. Look for work affected by the updated requirement and for historical questions or unaffected scopes. If none occur, leave the outcome unresolved and choose another date.
+        **Example instruction:** “When a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.”
 
 <a id="evaluation"></a>
 
 ## Evaluation
 
-Check whether future work follows the current requirement, avoids restoring the superseded behavior, and still explains what applied before. Use [D005's predictions](../diagnoses/failure-to-retire-outdated-memories.md#relations/I007/predictions) when competing memories are the proposed cause. A better explanation in the final answer is not enough if the agent's edits still violate the requirement.
+Agree on who will review ordinary subsequent work and a check-in date, using an existing review job or reminder. Check whether agents keep affected state consistent, resolve missed old assumptions correctly, and avoid restoring superseded behavior. Include time spent updating and reading records. If no relevant work occurs, leave the outcome unresolved and choose another date.
 
-Compare mistakes and rework with relevant opportunities, and include the cost of maintaining and reading the note. If it never reaches the agent, fix delivery. If it arrives intact but is ignored, reconsider the repair. If behavior improves, the note may be useful without proving whether history, clearer scope, or improved delivery made the difference.
+Use [D005's predictions](../diagnoses/failure-to-retire-outdated-memories.md#relations/I007/predictions) when competing memories are the proposed cause. Correctly explaining the history is not enough if code or actions still contradict the intended state. If the guidance never reaches the agent, fix delivery; if it arrives but is ignored, reconsider the repair. Improvement does not isolate whether consistency repairs, history, or clearer instructions helped.
 
 <a id="risks-and-confounders"></a>
 
 ## Risks and confounders
 
-- A fabricated or oversimplified rationale can make an incorrect rule harder to challenge. Keep unknown reasons unknown and distinguish evidence from the author's interpretation.
-- A long history can crowd out the current requirement or repeat the old instruction so prominently that agents follow it again. Keep the current rule explicit and the explanation brief.
-- A rationale can fossilize an implementation after its original constraint disappears. Preserve the requirement and conditions for reconsidering it, not a permanent ban on improvement.
-- Dates alone can hide differences in authority or scope. A new record may apply only to one customer or environment. Source links must respect the intended audience's access.
+- An invented reason can make a bad decision harder to question. Keep unknown reasons unknown.
+- Excessive history can bury current intent or make the old behavior more salient. Keep comments brief and useful.
+- A newer date does not automatically win: records may differ in authority or apply to different people, versions, or environments.
+- A broad consistency sweep can change valid behavior outside the intended scope. Distinguish a lasting requirement from an implementation that can improve.
+- Historical explanations can themselves become stale. Update them when the underlying facts or constraints change.
 
 <a id="stop-and-rollback"></a>
 
 ## Stop and rollback
 
-- If the note causes incorrect changes or obscures current guidance, shorten or correct it and revise the writing or retrieval instructions. Retain the verified current requirement while removing the misleading explanation.
-- Inspect consequential work already based on a faulty note; reverting the note does not undo that work. Restore accurate history from its sources where needed.
-- Remove temporary observation hooks after the agreed review unless their continued use is justified.
+- If the guidance causes excessive bookkeeping or incorrect changes, narrow or restore it and correct misleading comments while retaining accurate current intent.
+- Review consequential code and actions changed on the basis of a faulty explanation. Removing the comment does not undo those changes.

@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://diag.timkellogg.me/interventions/document-what-changed-and-why.html">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>I007 — Document what changed and why - Agent Diagnostic Manual</title>
+        <title>I007 — Storybook consistent comments - Agent Diagnostic Manual</title>
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
@@ -28,13 +28,13 @@
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Agent Diagnostic Manual">
-<meta property="og:title" content="I007 — Document what changed and why — Agent Diagnostic Manual">
+<meta property="og:title" content="I007 — Storybook consistent comments — Agent Diagnostic Manual">
 <meta property="og:description" content="Symptoms, candidate diagnoses, and interventions for configured agents.">
 <meta property="og:url" content="https://diag.timkellogg.me/interventions/document-what-changed-and-why.html">
 <meta property="og:image" content="https://diag.timkellogg.me/assets/social-preview.png">
 <meta property="og:image:alt" content="Agent Diagnostic Manual: three signal traces with one deviation highlighted in copper.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="I007 — Document what changed and why — Agent Diagnostic Manual">
+<meta name="twitter:title" content="I007 — Storybook consistent comments — Agent Diagnostic Manual">
 <meta name="twitter:description" content="Symptoms, candidate diagnoses, and interventions for configured agents.">
 <meta name="twitter:image" content="https://diag.timkellogg.me/assets/social-preview.png">
 <meta name="twitter:image:alt" content="Agent Diagnostic Manual: three signal traces with one deviation highlighted in copper.">
@@ -191,11 +191,11 @@
 </li>
                                     
 <li>
-    <a href="save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
+    <a href="save-information-for-future-work.html" class="dropdown-item">I006 — Move info outside session</a>
 </li>
                                     
 <li>
-    <a href="document-what-changed-and-why.html" class="dropdown-item active" aria-current="page">I007 — Document what changed and why</a>
+    <a href="document-what-changed-and-why.html" class="dropdown-item active" aria-current="page">I007 — Storybook consistent comments</a>
 </li>
                                 </ul>
                             </li>
@@ -304,7 +304,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#document-what-changed-and-why" class="nav-link">Document what changed and why</a>
+            <li class="nav-item" data-bs-level="1"><a href="#storybook-consistent-comments" class="nav-link">Storybook consistent comments</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-bs-level="2"><a href="#purpose" class="nav-link">Purpose</a>
               <ul class="nav flex-column">
@@ -353,61 +353,59 @@
   
   <article data-pagefind-body>
 
-<h1 id="document-what-changed-and-why">Document what changed and why<a class="headerlink" href="#document-what-changed-and-why" title="Permanent link">¶</a></h1>
-<p>Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.</p>
+<h1 id="storybook-consistent-comments">Storybook consistent comments<a class="headerlink" href="#storybook-consistent-comments" title="Permanent link">¶</a></h1>
+<p>Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent.</p>
 <p><a id="purpose"></a></p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
-<p>Make requirements tangible through their history: we used to do X; then Y happened; now we do X-prime because of Y. This can explain why a design looks unusual and prevent later work from undoing a deliberate fix. The old rule remains useful history, clearly distinguished from current guidance.</p>
-<p>This specializes <a href="save-information-for-future-work.html">save information for future work</a>. Saving only the latest rule loses its rationale; appending a contradictory note leaves the reader to reconstruct the transition. Keep the transition together where future work will encounter it. Its benefit for <a href="../diagnoses/failure-to-retire-outdated-memories.html">competing outdated memories</a> is a working proposal, not a remedy tested by the cited paper.</p>
+<p>The primary goal is consistent state: code, comments, docs, procedures, and saved facts should agree about what applies now. Update the places affected by a change, including assumptions built into the architecture. This can repair an existing inconsistency or accompany an ordinary change; no past mistake is required.</p>
+<p>The short story is a backup for what you miss: “Do X-prime. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.</p>
+<p>This specializes <a href="save-information-for-future-work.html">move info outside session</a> and adds repair of the existing state. History is useful provenance, not a substitute for updating known stale copies. Its benefit for <a href="../diagnoses/failure-to-retire-outdated-memories.html">competing outdated memories</a> remains a working proposal, not a remedy tested by the cited paper.</p>
 <p><a id="preconditions"></a></p>
 <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
 <p><a id="preconditions/known-change"></a></p>
-<h3 id="the-change-and-its-basis-can-be-established">The change and its basis can be established<a class="headerlink" href="#the-change-and-its-basis-can-be-established" title="Permanent link">¶</a></h3>
-<p>Identify a consequential change in a fact, requirement, or decision. Use source records or the responsible person's account; if the reason is unknown, record that rather than inventing a convincing history.</p>
+<h3 id="the-intended-state-can-be-established">The intended state can be established<a class="headerlink" href="#the-intended-state-can-be-established" title="Permanent link">¶</a></h3>
+<p>Identify what now applies and what changed: architecture, behavior, a procedure, a person's role, or another consequential fact. Establish the reason from available evidence or the responsible person. If the reason is unknown, say so rather than inventing a story.</p>
 <p><a id="preconditions/editable-route"></a></p>
-<h3 id="the-recording-and-reading-path-can-be-changed">The recording and reading path can be changed<a class="headerlink" href="#the-recording-and-reading-path-can-be-changed" title="Permanent link">¶</a></h3>
-<p>The maintainer can edit the relevant prompts, skills, project guidance, or memory handling, and can identify which records later agents actually read.</p>
+<h3 id="records-and-standing-instructions-can-be-changed">Records and standing instructions can be changed<a class="headerlink" href="#records-and-standing-instructions-can-be-changed" title="Permanent link">¶</a></h3>
+<p>The maintainer can update the affected code or records and the project instructions or skills used by future agents. Identify which instructions those agents actually receive.</p>
 <p><a id="procedure"></a></p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">¶</a></h2>
-<p><a id="procedure/locate-transition"></a></p>
-<h3 id="find-the-transition-that-later-work-misses">Find the transition that later work misses<a class="headerlink" href="#find-the-transition-that-later-work-misses" title="Permanent link">¶</a></h3>
-<p>Inspect a past mistake and the records used. Find the old rule, the event or evidence that prompted its replacement, the current requirement, and where each applies. Distinguish a requirement from one implementation of it.</p>
-<p><a id="procedure/write-history"></a></p>
-<h3 id="connect-the-old-rule-to-the-current-one">Connect the old rule to the current one<a class="headerlink" href="#connect-the-old-rule-to-the-current-one" title="Permanent link">¶</a></h3>
-<p>Update the existing authoritative note, code comment, or task record. State the current requirement prominently, then explain the prior approach, what changed, and why the new approach follows. Include a source or decision link, effective date or version where relevant, scope, and any condition for revisiting the decision. Keep only history that explains the requirement.</p>
-<pre><code>    **Example:** For provider B, an ambiguous payment timeout must go to reconciliation before another charge is attempted. We used to retry every timeout. After provider B stopped guaranteeing that a timeout meant no charge occurred, retries could charge twice. We now check transaction status first. Provider A still supports retries with its idempotency key. See the provider-change ticket for the effective version and supporting evidence.
+<p><a id="procedure/update-state"></a></p>
+<h3 id="update-existing-state-and-explain-what-changed">Update existing state and explain what changed<a class="headerlink" href="#update-existing-state-and-explain-what-changed" title="Permanent link">¶</a></h3>
+<p>Find where the former fact or approach still shapes current work. Update affected code, tests, comments, docs, procedures, and memories to match the intended state within the agreed scope. Look beyond literal mentions: an old assumption may be built into interfaces, data structures, or workflow ordering. Preserve accurate historical records as history. If part of the repair must wait, make that remaining mismatch explicit.</p>
+<p>Beside the places future work will encounter, add a short, informal explanation of the current intent, the earlier approach, and why it changed. Include a date, preferably when the change took effect; distinguish that from when the comment was written if they differ. Explain scope when the older approach still applies elsewhere. Keep enough history to resolve a conflicting leftover without making every comment a design document.</p>
+<pre><code>    **Coding example:** “2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.” Update the retry code and its tests too; the comment alone does not fix them.
+
+
+    **Non-coding example:** “As of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.” Update the routing instructions and contact records, not just the note.
 </code></pre>
-<p><a id="procedure/change-writer"></a></p>
-<h3 id="make-future-updates-preserve-the-reason">Make future updates preserve the reason<a class="headerlink" href="#make-future-updates-preserve-the-reason" title="Permanent link">¶</a></h3>
-<p>Edit the relevant reusable writing instruction: when a decision or requirement changes, revise its existing record to explain what used to apply, what changed, and what applies now. Mark the former rule as historical. Link or correct competing copies rather than leaving separate current-looking instructions. Do not require a history note for every edit.</p>
-<p><a id="procedure/deliver-together"></a></p>
-<h3 id="keep-the-transition-together-when-read">Keep the transition together when read<a class="headerlink" href="#keep-the-transition-together-when-read" title="Permanent link">¶</a></h3>
-<p>Change the relevant reading instructions or retrieval handling so tasks affected by the requirement receive its current rule and short rationale together. Keep an old excerpt linked to its replacement, and preserve the distinction in summaries. Put a local reason beside surprising code when that is where future edits begin; use a link for the longer history. Check one actual later input to confirm the record is delivered, not merely saved.</p>
-<p><a id="procedure/schedule-review"></a></p>
-<h3 id="arrange-a-review-of-ordinary-future-work">Arrange a review of ordinary future work<a class="headerlink" href="#arrange-a-review-of-ordinary-future-work" title="Permanent link">¶</a></h3>
-<p>Agree with the user on the expected change, who will examine subsequent relevant tasks, and a check-in date; arrange a reminder or use an existing review job. Look for work affected by the updated requirement and for historical questions or unaffected scopes. If none occur, leave the outcome unresolved and choose another date.</p>
+<p><a id="procedure/change-guidance"></a></p>
+<h3 id="make-this-part-of-future-work">Make this part of future work<a class="headerlink" href="#make-this-part-of-future-work" title="Permanent link">¶</a></h3>
+<p>Edit the existing AGENTS.md, project guidance, or relevant skill so future changes update affected state and leave brief dated explanations where the history helps. Tell agents to use those explanations when they encounter conflicting leftovers, check that the scope and authority match, and correct the stale copy. Verify that this guidance is loaded for the relevant work; merely saving the file is not enough.</p>
+<pre><code>    **Example instruction:** “When a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.”
+</code></pre>
 <p><a id="evaluation"></a></p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
-<p>Check whether future work follows the current requirement, avoids restoring the superseded behavior, and still explains what applied before. Use <a href="../diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions">D005's predictions</a> when competing memories are the proposed cause. A better explanation in the final answer is not enough if the agent's edits still violate the requirement.</p>
-<p>Compare mistakes and rework with relevant opportunities, and include the cost of maintaining and reading the note. If it never reaches the agent, fix delivery. If it arrives intact but is ignored, reconsider the repair. If behavior improves, the note may be useful without proving whether history, clearer scope, or improved delivery made the difference.</p>
+<p>Agree on who will review ordinary subsequent work and a check-in date, using an existing review job or reminder. Check whether agents keep affected state consistent, resolve missed old assumptions correctly, and avoid restoring superseded behavior. Include time spent updating and reading records. If no relevant work occurs, leave the outcome unresolved and choose another date.</p>
+<p>Use <a href="../diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions">D005's predictions</a> when competing memories are the proposed cause. Correctly explaining the history is not enough if code or actions still contradict the intended state. If the guidance never reaches the agent, fix delivery; if it arrives but is ignored, reconsider the repair. Improvement does not isolate whether consistency repairs, history, or clearer instructions helped.</p>
 <p><a id="risks-and-confounders"></a></p>
 <h2 id="risks-and-confounders">Risks and confounders<a class="headerlink" href="#risks-and-confounders" title="Permanent link">¶</a></h2>
 <ul>
-<li>A fabricated or oversimplified rationale can make an incorrect rule harder to challenge. Keep unknown reasons unknown and distinguish evidence from the author's interpretation.</li>
-<li>A long history can crowd out the current requirement or repeat the old instruction so prominently that agents follow it again. Keep the current rule explicit and the explanation brief.</li>
-<li>A rationale can fossilize an implementation after its original constraint disappears. Preserve the requirement and conditions for reconsidering it, not a permanent ban on improvement.</li>
-<li>Dates alone can hide differences in authority or scope. A new record may apply only to one customer or environment. Source links must respect the intended audience's access.</li>
+<li>An invented reason can make a bad decision harder to question. Keep unknown reasons unknown.</li>
+<li>Excessive history can bury current intent or make the old behavior more salient. Keep comments brief and useful.</li>
+<li>A newer date does not automatically win: records may differ in authority or apply to different people, versions, or environments.</li>
+<li>A broad consistency sweep can change valid behavior outside the intended scope. Distinguish a lasting requirement from an implementation that can improve.</li>
+<li>Historical explanations can themselves become stale. Update them when the underlying facts or constraints change.</li>
 </ul>
 <p><a id="stop-and-rollback"></a></p>
 <h2 id="stop-and-rollback">Stop and rollback<a class="headerlink" href="#stop-and-rollback" title="Permanent link">¶</a></h2>
 <ul>
-<li>If the note causes incorrect changes or obscures current guidance, shorten or correct it and revise the writing or retrieval instructions. Retain the verified current requirement while removing the misleading explanation.</li>
-<li>Inspect consequential work already based on a faulty note; reverting the note does not undo that work. Restore accurate history from its sources where needed.</li>
-<li>Remove temporary observation hooks after the agreed review unless their continued use is justified.</li>
+<li>If the guidance causes excessive bookkeeping or incorrect changes, narrow or restore it and correct misleading comments while retaining accurate current intent.</li>
+<li>Review consequential code and actions changed on the basis of a faulty explanation. Removing the comment does not undo those changes.</li>
 </ul></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
-    <a rel="prev" href="save-information-for-future-work.html"><span>← Previous</span>I006 — Save information for future work</a>
+    <a rel="prev" href="save-information-for-future-work.html"><span>← Previous</span>I006 — Move info outside session</a>
     <a rel="next" href="../docs/authoring-diagnosis.html"><span>Next →</span>Authoring diagnosis XML files</a>
   </nav>
   

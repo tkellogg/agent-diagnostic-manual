@@ -8,11 +8,11 @@ version: '1'
 status: draft
 evidence: unvalidated
 updated: '2026-10-31'
-title: Save information for future work
+title: Move info outside session
 xml_source: interventions/save-information-for-future-work.xml
 ---
 
-# Save information for future work
+# Move info outside session
 
 Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.
 
@@ -62,9 +62,10 @@ Keep the source or reason, the scope where it applies, and any condition that ma
 
 ### Change when and what the agent saves
 
-Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Useful history can remain: [document what changed and why](document-what-changed-and-why.md) connects the former rule to its replacement without presenting both as current instructions. Do not require a note for every tool call.
+Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Useful history can remain: [storybook consistent comments](document-what-changed-and-why.md) brings affected records into agreement and briefly explains what changed and why. Do not require a note for every tool call.
 
-**Example instruction:** When you settle a decision that later work will depend on, update the project's existing design note with the decision, its reason, and when to revisit it. Keep task-specific constraints and permission limits in the task's ticket. Update the existing record if the decision changes; do not create a second competing copy.
+
+        **Example instruction:** When you settle a decision that later work will depend on, update the project's existing design note with the decision, its reason, and when to revisit it. Keep task-specific constraints and permission limits in the task's ticket. Update the existing record if the decision changes; do not create a second competing copy.
 
 <a id="procedure/change-reading"></a>
 
