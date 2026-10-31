@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://diag.timkellogg.me/symptoms/using-outdated-information.html">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>S017 — Using outdated information - Agent Diagnostic Manual</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../assets/adm.css?v=3ce39f3f4a14" rel="stylesheet">
+<link href="../pagefind/pagefind-ui.css" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agent Diagnostic Manual">
+<meta property="og:title" content="S017 — Using outdated information — Agent Diagnostic Manual">
+<meta property="og:description" content="Symptoms, candidate diagnoses, and interventions for configured agents.">
+<meta property="og:url" content="https://diag.timkellogg.me/symptoms/using-outdated-information.html">
+<meta property="og:image" content="https://diag.timkellogg.me/assets/social-preview.png">
+<meta property="og:image:alt" content="Agent Diagnostic Manual: three signal traces with one deviation highlighted in copper.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="S017 — Using outdated information — Agent Diagnostic Manual">
+<meta name="twitter:description" content="Symptoms, candidate diagnoses, and interventions for configured agents.">
+<meta name="twitter:image" content="https://diag.timkellogg.me/assets/social-preview.png">
+<meta name="twitter:image:alt" content="Agent Diagnostic Manual: three signal traces with one deviation highlighted in copper.">
+
+<meta data-pagefind-meta="kind[content]" content="Symptom">
+<meta data-pagefind-meta="entry_id[content]" content="S017">
+
+
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+<a class="navbar-brand" href="../index.html" aria-label="Agent Diagnostic Manual home">
+  <span class="adm-monogram" aria-hidden="true">ADM</span>
+  <span class="adm-wordmark">Agent Diagnostic<br>Manual</span>
+</a>
+<button class="adm-search-trigger order-lg-last" type="button" data-bs-toggle="modal" data-bs-target="#adm-search-dialog" aria-haspopup="dialog">
+  <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span>Search all ADM</span><kbd aria-hidden="true">/</kbd>
+</button>
+
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Symptoms</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="repeated-retrieval.html" class="dropdown-item">S001 — Repeated retrieval</a>
+</li>
+                                    
+<li>
+    <a href="doom-looping.html" class="dropdown-item">S002 — Doom looping</a>
+</li>
+                                    
+<li>
+    <a href="sudden-performance-degradation.html" class="dropdown-item">S003 — Sudden performance degradation</a>
+</li>
+                                    
+<li>
+    <a href="excessive-verification.html" class="dropdown-item">S004 — Excessive verification</a>
+</li>
+                                    
+<li>
+    <a href="correction-without-behavioral-change.html" class="dropdown-item">S005 — Correction without behavioral change</a>
+</li>
+                                    
+<li>
+    <a href="lost-task-constraints.html" class="dropdown-item">S006 — Lost task constraints</a>
+</li>
+                                    
+<li>
+    <a href="premature-stopping.html" class="dropdown-item">S007 — Premature stopping</a>
+</li>
+                                    
+<li>
+    <a href="repeated-reauthorization.html" class="dropdown-item">S008 — Repeated reauthorization</a>
+</li>
+                                    
+<li>
+    <a href="unrequested-changes.html" class="dropdown-item">S009 — Unrequested changes</a>
+</li>
+                                    
+<li>
+    <a href="completion-artifact-mismatch.html" class="dropdown-item">S010 — Claims completion while work is unfinished</a>
+</li>
+                                    
+<li>
+    <a href="unsupported-verification-claims.html" class="dropdown-item">S011 — Unsupported verification claims</a>
+</li>
+                                    
+<li>
+    <a href="weakening-the-checks.html" class="dropdown-item">S012 — Weakening the checks</a>
+</li>
+                                    
+<li>
+    <a href="agreement-driven-reversal.html" class="dropdown-item">S013 — Agreement-driven reversal</a>
+</li>
+                                    
+<li>
+    <a href="inferred-values-as-observations.html" class="dropdown-item">S014 — Inferred values presented as observations</a>
+</li>
+                                    
+<li>
+    <a href="opaque-jargon.html" class="dropdown-item">S015 — Opaque jargon (neuralese)</a>
+</li>
+                                    
+<li>
+    <a href="overconfidence-in-suspected-causes.html" class="dropdown-item">S016 — Overconfidence in suspected causes</a>
+</li>
+                                    
+<li>
+    <a href="using-outdated-information.html" class="dropdown-item active" aria-current="page">S017 — Using outdated information</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Diagnoses</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../diagnoses/context-handoff-loss.html" class="dropdown-item">D001 — Incorrect compaction</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/tool-discovery-delivery-gap.html" class="dropdown-item">D002 — Tool discovery reports unusable tools</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-policy-overgeneralization.html" class="dropdown-item">D003 — Overbroad verification instructions</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
+</li>
+                                    
+<li>
+    <a href="../diagnoses/failure-to-retire-outdated-memories.html" class="dropdown-item">D005 — Failure to retire outdated memories</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Interventions</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../interventions/preserve-task-relevant-evidence.html" class="dropdown-item">I001 — Fix compaction</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/scope-verification-policy.html" class="dropdown-item">I002 — Consolidate verification instructions with the user</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/verify-acceptance-path.html" class="dropdown-item">I003 — Repair gaps between tests and real use</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/separate-observed-derived-values.html" class="dropdown-item">I004 — Keep derived values out of source-only fields</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/complete-tool-discovery-handoff.html" class="dropdown-item">I005 — Make discovered tools callable</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
+</li>
+                                    
+<li>
+    <a href="../interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Document what changed and why</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Using ADM</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../docs/authoring-diagnosis.html" class="dropdown-item">Authoring diagnosis XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/authoring-intervention.html" class="dropdown-item">Authoring intervention XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/authoring-symptom.html" class="dropdown-item">Authoring symptoms XML files</a>
+</li>
+                                    
+<li>
+    <a href="../docs/diagnostic-process.html" class="dropdown-item">Diagnosing and improving an agent system</a>
+</li>
+                                    
+<li>
+    <a href="../docs/observation-methods.html" class="dropdown-item">Observation methods</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/SKILL.html" class="dropdown-item">Diagnostic skill</a>
+</li>
+                                    
+<li>
+    <a href="../skills/agent-diagnostics/references/format.html" class="dropdown-item">File format</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a href="https://github.com/tkellogg/agent-diagnostic-manual" class="nav-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <button id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" class="nav-link dropdown-toggle">
+                                <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                <span class="d-lg-none ms-2">Toggle theme</span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="true">
+                                    <i class="fa-solid fa-sun fa-fw"></i>
+                                    <span class="ms-2">Light</span>
+                                    <i class="fa-solid fa-check ms-auto"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                                    <i class="fa-solid fa-moon fa-fw"></i>
+                                    <span class="ms-2">Dark</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                                <li>
+                                  <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                                    <i class="fa-solid fa-circle-half-stroke fa-fw"></i>
+                                    <span class="ms-2">Auto</span>
+                                    <i class="fa-solid fa-check ms-auto d-none"></i>
+                                  </button>
+                                </li>
+                              </ul>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../js/darkmode.js"></script>
+
+        <div class="container">
+            <div class="row">
+<div class="modal adm-search" id="adm-search-dialog" tabindex="-1" aria-labelledby="adm-search-title" aria-hidden="true" data-pagefind-ignore>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="adm-search-title">Search all ADM</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close search"></button>
+      </div>
+      <div class="modal-body">
+        <p class="adm-search-scope">Symptoms, diagnoses, interventions, and guides</p>
+        <div id="search"></div>
+        <noscript>Search requires JavaScript. Use the navigation to browse entries.</noscript>
+      </div>
+    </div>
+  </div>
+</div>
+<a class="adm-skip" href="#manual-content">Skip to content</a>
+<aside class="col-md-3 adm-sidebar" aria-label="On this page">
+  <p class="adm-eyebrow">On this page</p>
+  <div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#using-outdated-information" class="nav-link">Using outdated information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#observations" class="nav-link">Observations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#how-to-recognize-it" class="nav-link">How to recognize it</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#benign-lookalikes" class="nav-link">Benign lookalikes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#what-to-record" class="nav-link">What to record</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#examples" class="nav-link">Examples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</aside>
+<main class="col-md-9 adm-main" id="manual-content" tabindex="-1">
+  <div class="adm-toolbar" data-pagefind-ignore>
+    <span class="adm-eyebrow">symptom</span>
+  
+  <nav class="formats" aria-label="Available formats" data-pagefind-ignore>
+    <a href="using-outdated-information.md" download title="Download Markdown" aria-label="Download Markdown"><i class="fa-brands fa-markdown" aria-hidden="true"></i></a>
+    
+    <a href="using-outdated-information.xml" title="View XML" aria-label="View XML"><i class="fa-solid fa-code" aria-hidden="true"></i></a>
+    
+  </nav>
+  
+  </div>
+  
+  <p class="entry-status"><span class="entry-id">S017</span><span>draft</span><span>unvalidated</span></p>
+  
+  <article data-pagefind-body>
+
+<h1 id="using-outdated-information">Using outdated information<a class="headerlink" href="#using-outdated-information" title="Permanent link">¶</a></h1>
+<p>An agent answers or acts using information that no longer applies to the time or state the task concerns.</p>
+<p><a id="observations"></a></p>
+<h2 id="observations">Observations<a class="headerlink" href="#observations" title="Permanent link">¶</a></h2>
+<p><a id="observations/outdated-basis"></a></p>
+<h3 id="outdated-basis">Outdated basis<a class="headerlink" href="#outdated-basis" title="Permanent link">¶</a></h3>
+<p>An answer or action relies on an earlier fact, instruction, or result as still applicable, despite an established change that makes it inapplicable to the task. Identify the old information, the relevant change, and the answer or action it affected; the update need not have reached the agent for the symptom to occur.</p>
+<p><a id="how-to-recognize-it"></a></p>
+<h2 id="how-to-recognize-it">How to recognize it<a class="headerlink" href="#how-to-recognize-it" title="Permanent link">¶</a></h2>
+<p>Compare the version or event time of the evidence with the state the task concerns. A recent retrieval or log-ingestion timestamp can conceal an older observation.</p>
+<p><a id="benign-lookalikes"></a></p>
+<h2 id="benign-lookalikes">Benign lookalikes<a class="headerlink" href="#benign-lookalikes" title="Permanent link">¶</a></h2>
+<p><a id="benign-lookalikes/historical-task"></a></p>
+<h3 id="historical-task">Historical task<a class="headerlink" href="#historical-task" title="Permanent link">¶</a></h3>
+<p>The task asks what was true before a change, and the agent uses evidence from that period. Old information is appropriate for that question.</p>
+<p><a id="benign-lookalikes/still-valid"></a></p>
+<h3 id="still-valid">Still valid<a class="headerlink" href="#still-valid" title="Permanent link">¶</a></h3>
+<p>The information is old but still applies. A newer document or commit does not invalidate every earlier fact, and a change in one environment need not apply to another.</p>
+<p><a id="benign-lookalikes/disclosed-limit"></a></p>
+<h3 id="disclosed-limit">Disclosed limit<a class="headerlink" href="#disclosed-limit" title="Permanent link">¶</a></h3>
+<p>The agent accurately limits its answer to the older state and leaves the current state unresolved. Mentioning an access problem does not suffice if the answer still presents an old finding as current.</p>
+<p><a id="benign-lookalikes/real-recurrence"></a></p>
+<h3 id="real-recurrence">Real recurrence<a class="headerlink" href="#real-recurrence" title="Permanent link">¶</a></h3>
+<p>Evidence from after a repair shows the problem recurring, or shows that the repair never reached the affected environment. A closed ticket alone does not make that evidence obsolete.</p>
+<p><a id="what-to-record"></a></p>
+<h2 id="what-to-record">What to record<a class="headerlink" href="#what-to-record" title="Permanent link">¶</a></h2>
+<p>Record the task's intended time and scope, exact claim or action, old source and version, and evidence establishing the change and where it applies. Preserve the model-visible input, retrieval results, dates, and any summary that might have changed their meaning. Distinguish an unavailable update from one delivered but not used. Record repeated work, incorrect changes, missed problems, and time lost; across comparable tasks count uses of outdated information alongside correct historical uses and current answers.</p>
+<p><a id="examples"></a></p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
+<p><a id="examples/old-review"></a></p>
+<h3 id="old-review">Old review<a class="headerlink" href="#old-review" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
+<pre><code>    [Codex issue #49083](https://github.com/openai/codex/issues/49083) reports a PR re-review using an old local checkout after remote reads failed. Two findings were already fixed in the newer head. The report supplies both revisions and command results; the user had to intervene to obtain the current version. The agent disclosed access trouble but still presented the obsolete defects as current findings.
+</code></pre>
+<p><a id="examples/obsolete-answer"></a></p>
+<h3 id="obsolete-answer">Obsolete answer<a class="headerlink" href="#obsolete-answer" title="Permanent link">¶</a><span class="adm-example-kind">Reported example</span></h3>
+<pre><code>    [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) reports benchmark answers choosing an obsolete fact even with its replacement present. Adding the obsolete competitor produced 41 correct-to-stale flips for Qwen2.5 and nine for Qwen3. These are synthetic benchmark tasks, not measured production losses.
+</code></pre>
+<p><a id="examples/restored-retry"></a></p>
+<h3 id="restored-retry">Restored retry<a class="headerlink" href="#restored-retry" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
+<p>A coding agent restores automatic payment retries from an old design note. A later provider change made some failed responses ambiguous: the charge might already have succeeded. Comparing the proposed edit with the current requirement exposes the obsolete assumption; review blocks the change and the agent must redo it.</p>
+<p><a id="examples/past-policy"></a></p>
+<h3 id="past-policy">Past policy<a class="headerlink" href="#past-policy" title="Permanent link">¶</a><span class="adm-example-kind">Synthetic example</span></h3>
+<p>A support agent explains which refund policy applied to a purchase made last year, using the policy in force then. It separately identifies the current policy. The older rule answers the historical question without being presented as current guidance.</p></article>
+  
+  <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
+    <a rel="prev" href="overconfidence-in-suspected-causes.html"><span>← Previous</span>S016 — Overconfidence in suspected causes</a>
+    <a rel="next" href="../diagnoses/context-handoff-loss.html"><span>Next →</span>D001 — Incorrect compaction</a>
+  </nav>
+  
+</main>
+
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+<div class="adm-footer">
+  <span>ADM <span class="footer-separator">/</span> Agent Diagnostic Manual</span>
+  <span>Built with <a href="https://www.mkdocs.org/">MkDocs</a> · <a href="https://github.com/tkellogg/agent-diagnostic-manual">Source on GitHub</a></span>
+</div>
+
+        </footer>
+
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../pagefind/pagefind-ui.js"></script>
+<script src="../assets/adm.js?v=3ce39f3f4a14" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=3ce39f3f4a14" defer></script>
+<script src="../assets/adm-mermaid.js?v=3ce39f3f4a14" type="module"></script>
+
+<template id="adm-review-controls">
+  <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
+    <h3 id="adm-review-title">All ADM pages</h3>
+    <div class="adm-review-actions">
+      <button type="button" id="adm-review-export" aria-label="Export all comments" title="Export comments from every ADM page">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg>
+        Export all
+      </button>
+      <button type="button" id="adm-review-clear" aria-label="Clear all comments" title="Clear comments from every ADM page">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M5 6v14h14V6"/></svg>
+        Clear all
+      </button>
+      <button type="button" id="adm-review-undo" hidden>Undo clear</button>
+    </div>
+    <p id="adm-review-status" role="status">One export includes posted comments from every ADM page in this browser.</p>
+  </section>
+</template>
+<script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="S017" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
+<script src="../assets/adm-review.js?v=3ce39f3f4a14"></script>
+
+
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

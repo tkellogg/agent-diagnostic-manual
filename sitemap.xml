@@ -2,138 +2,150 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://diag.timkellogg.me/index.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/diagnoses/context-handoff-loss.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
+    </url>
+    <url>
+         <loc>https://diag.timkellogg.me/diagnoses/failure-to-retire-outdated-memories.html</loc>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/diagnoses/tool-discovery-delivery-gap.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/diagnoses/verification-policy-overgeneralization.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/diagnoses/verification-scope-collapse.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/docs/authoring-diagnosis.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/docs/authoring-intervention.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/docs/authoring-symptom.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/docs/diagnostic-process.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/docs/observation-methods.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/interventions/complete-tool-discovery-handoff.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
+    </url>
+    <url>
+         <loc>https://diag.timkellogg.me/interventions/document-what-changed-and-why.html</loc>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/interventions/preserve-task-relevant-evidence.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/interventions/save-information-for-future-work.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/interventions/scope-verification-policy.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/interventions/separate-observed-derived-values.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/interventions/verify-acceptance-path.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/skills/agent-diagnostics/SKILL.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/skills/agent-diagnostics/references/format.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/agreement-driven-reversal.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/completion-artifact-mismatch.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/correction-without-behavioral-change.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/doom-looping.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/excessive-verification.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/inferred-values-as-observations.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/lost-task-constraints.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/opaque-jargon.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/overconfidence-in-suspected-causes.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/premature-stopping.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/repeated-reauthorization.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/repeated-retrieval.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/sudden-performance-degradation.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/unrequested-changes.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/unsupported-verification-claims.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
+    </url>
+    <url>
+         <loc>https://diag.timkellogg.me/symptoms/using-outdated-information.html</loc>
+         <lastmod>2026-10-31</lastmod>
     </url>
     <url>
          <loc>https://diag.timkellogg.me/symptoms/weakening-the-checks.html</loc>
-         <lastmod>2026-10-29</lastmod>
+         <lastmod>2026-10-31</lastmod>
     </url>
 </urlset>

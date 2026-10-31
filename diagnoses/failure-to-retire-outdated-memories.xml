@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<diagnosis xmlns="urn:adm:1" id="D005" version="1" status="draft" evidence="unvalidated" updated="2026-10-31" unit="configured-agent-system" title="Failure to retire outdated memories">
+  <summary>The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work.</summary>
+  <definition>
+    <p>A memory system should preserve useful history while making clear which facts or requirements apply now. This diagnosis proposes that obsolete memories keep competing with their updates: the system supplies both, and the working agent does not reliably choose the applicable version. Retiring a memory means retiring its authority as current guidance, not necessarily deleting its history.</p>
+    <p>For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. A record explaining what changed and why may help it use the history correctly; that is the proposed repair, not a requirement to erase the earlier decision.</p>
+    <p>
+      <a href="https://arxiv.org/html/2610.36308v1">When Retrieval Is Not Enough</a> isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the provenance intervention below remain unvalidated.</p>
+  </definition>
+  <relations>
+    <symptom-ref ref="S017"/>
+    <intervention-ref ref="I007">
+      <when>Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work.</when>
+      <predictions>
+        <expected-improvement>
+          <p>Future agents should follow the current requirement and make fewer changes that restore the old behavior. When apparently odd code protects a requirement introduced by a past change, they should preserve that requirement while still being able to improve the implementation.</p>
+        </expected-improvement>
+        <still-necessary>
+          <p>Agents should still answer historical questions correctly, apply older rules where they remain valid, and revise current decisions when new evidence warrants it.</p>
+        </still-necessary>
+        <reason-to-reconsider>
+          <p>If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness.</p>
+        </reason-to-reconsider>
+        <possible-harm>
+          <p>A compelling but incorrect history can entrench a bad requirement. Longer notes can bury the current rule or make the obsolete one more salient.</p>
+        </possible-harm>
+      </predictions>
+    </intervention-ref>
+  </relations>
+  <criteria operator="all">
+    <criterion id="established-update" title="The old information has been superseded">
+      <p>Identify the fact or requirement, its replacement, and evidence that the replacement applies to this task. Recency alone does not establish authority or matching scope.</p>
+    </criterion>
+    <criterion id="both-delivered" title="Both versions reached the agent">
+      <p>The actual input contains the obsolete version and its applicable replacement. A newer fact stored in an unread file does not satisfy this criterion.</p>
+    </criterion>
+    <criterion id="competing-use" title="The old version contributes to the mistake">
+      <p>The answer or action follows the obsolete record, producing <ref target="S017">using outdated information</ref>. Trace the mistaken choice to that record; merely finding contradictory text in context or observing an unrelated wrong answer is insufficient.</p>
+      <symptom-ref ref="S017"/>
+    </criterion>
+  </criteria>
+  <exclusions>
+    <exclusion id="different-scopes" title="Both versions remain valid">
+      <p>Different environments, customers, or historical periods can require different rules. Correctly selecting an older rule for its scope is not a failure to retire it.</p>
+    </exclusion>
+    <exclusion id="disputed-update" title="Replacement is not established">
+      <p>A later guess or an untrusted instruction does not automatically supersede an authoritative record. Keep uncertainty about the current rule explicit.</p>
+    </exclusion>
+  </exclusions>
+  <differential>
+    <alternative id="missing-update" title="The update never arrived">
+      <discriminator>
+        <p>Inspect the working input. If it contains only the older record, repair collection or retrieval rather than attributing the error to competition between delivered versions.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="compaction-loss" title="Compaction removed the update">
+      <discriminator>
+        <p>If the update was present earlier but disappeared from the resumed input, investigate <ref target="D001">incorrect compaction</ref>. Preserve the update and its scope through that boundary.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="other-instruction" title="Another instruction requires the old behavior">
+      <discriminator>
+        <p>If an active rule explicitly directs the disputed action despite the update, resolve that instruction conflict. Rewriting factual memory alone may leave the rule intact.</p>
+      </discriminator>
+    </alternative>
+    <alternative id="other-error" title="The mistake does not depend on the old record">
+      <discriminator>
+        <p>If ordinary traces show the same error with only the current information present, investigate misunderstanding, strong prior beliefs, or another failure to follow the supplied evidence. Do not infer competing memories from the wrong answer alone.</p>
+      </discriminator>
+    </alternative>
+  </differential>
+  <investigation>
+    <p>Start with one consequential use of an obsolete rule. Follow both versions into the actual input and identify how the answer or action used the older one. Check whether the replacement's reason and scope survived delivery. Use ordinary future work to evaluate a repair; a replay or ablation is optional when it would resolve a worthwhile remaining uncertainty.</p>
+  </investigation>
+</diagnosis>

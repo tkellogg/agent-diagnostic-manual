@@ -131,6 +131,10 @@ This is probably the best way to help out the project.
 
     An agent treats a possible explanation for something that happened as a known cause, despite missing or contradictory evidence.
 
+- [S017 — Using outdated information](symptoms/using-outdated-information.md)
+
+    An agent answers or acts using information that no longer applies to the time or state the task concerns.
+
 
 ## Diagnoses
 
@@ -149,6 +153,10 @@ This is probably the best way to help out the project.
 - [D004 — Component checks mistaken for complete verification](diagnoses/verification-scope-collapse.md)
 
     The workflow treats a passing component test as proof that the whole requested behavior works, even though the connections between components were never exercised.
+
+- [D005 — Failure to retire outdated memories](diagnoses/failure-to-retire-outdated-memories.md)
+
+    The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work.
 
 
 ## Interventions
@@ -176,6 +184,10 @@ This is probably the best way to help out the project.
 - [I006 — Save information for future work](interventions/save-information-for-future-work.md)
 
     Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.
+
+- [I007 — Document what changed and why](interventions/document-what-changed-and-why.md)
+
+    Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.
 
 
 ## Build and read

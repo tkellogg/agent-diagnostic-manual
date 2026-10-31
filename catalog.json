@@ -1485,6 +1485,391 @@
       }
     },
     {
+      "id": "D005",
+      "kind": "diagnosis",
+      "summary": "The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-31",
+      "unit": "configured-agent-system",
+      "title": "Failure to retire outdated memories",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html",
+      "document": {
+        "name": "diagnosis",
+        "attributes": {
+          "id": "D005",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-31",
+          "unit": "configured-agent-system",
+          "title": "Failure to retire outdated memories"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work."
+            ]
+          },
+          {
+            "name": "definition",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A memory system should preserve useful history while making clear which facts or requirements apply now. This diagnosis proposes that obsolete memories keep competing with their updates: the system supplies both, and the working agent does not reliably choose the applicable version. Retiring a memory means retiring its authority as current guidance, not necessarily deleting its history."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. A record explaining what changed and why may help it use the history correctly; that is the proposed repair, not a requirement to erase the earlier decision."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "\n      ",
+                  {
+                    "name": "a",
+                    "attributes": {
+                      "href": "https://arxiv.org/html/2610.36308v1"
+                    },
+                    "content": [
+                      "When Retrieval Is Not Enough"
+                    ]
+                  },
+                  " isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the provenance intervention below remain unvalidated."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "relations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "symptom-ref",
+                "attributes": {
+                  "ref": "S017"
+                },
+                "content": []
+              },
+              {
+                "name": "intervention-ref",
+                "attributes": {
+                  "ref": "I007"
+                },
+                "content": [
+                  {
+                    "name": "when",
+                    "attributes": {},
+                    "content": [
+                      "Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work."
+                    ]
+                  },
+                  {
+                    "name": "predictions",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "expected-improvement",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "Future agents should follow the current requirement and make fewer changes that restore the old behavior. When apparently odd code protects a requirement introduced by a past change, they should preserve that requirement while still being able to improve the implementation."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "still-necessary",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "Agents should still answer historical questions correctly, apply older rules where they remain valid, and revise current decisions when new evidence warrants it."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "reason-to-reconsider",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness."
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "possible-harm",
+                        "attributes": {},
+                        "content": [
+                          {
+                            "name": "p",
+                            "attributes": {},
+                            "content": [
+                              "A compelling but incorrect history can entrench a bad requirement. Longer notes can bury the current rule or make the obsolete one more salient."
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "criteria",
+            "attributes": {
+              "operator": "all"
+            },
+            "content": [
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "established-update",
+                  "title": "The old information has been superseded"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Identify the fact or requirement, its replacement, and evidence that the replacement applies to this task. Recency alone does not establish authority or matching scope."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "both-delivered",
+                  "title": "Both versions reached the agent"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The actual input contains the obsolete version and its applicable replacement. A newer fact stored in an unread file does not satisfy this criterion."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "criterion",
+                "attributes": {
+                  "id": "competing-use",
+                  "title": "The old version contributes to the mistake"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The answer or action follows the obsolete record, producing ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "S017"
+                        },
+                        "content": [
+                          "using outdated information"
+                        ]
+                      },
+                      ". Trace the mistaken choice to that record; merely finding contradictory text in context or observing an unrelated wrong answer is insufficient."
+                    ]
+                  },
+                  {
+                    "name": "symptom-ref",
+                    "attributes": {
+                      "ref": "S017"
+                    },
+                    "content": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "exclusions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "different-scopes",
+                  "title": "Both versions remain valid"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Different environments, customers, or historical periods can require different rules. Correctly selecting an older rule for its scope is not a failure to retire it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exclusion",
+                "attributes": {
+                  "id": "disputed-update",
+                  "title": "Replacement is not established"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A later guess or an untrusted instruction does not automatically supersede an authoritative record. Keep uncertainty about the current rule explicit."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "differential",
+            "attributes": {},
+            "content": [
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "missing-update",
+                  "title": "The update never arrived"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "Inspect the working input. If it contains only the older record, repair collection or retrieval rather than attributing the error to competition between delivered versions."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "compaction-loss",
+                  "title": "Compaction removed the update"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "If the update was present earlier but disappeared from the resumed input, investigate ",
+                          {
+                            "name": "ref",
+                            "attributes": {
+                              "target": "D001"
+                            },
+                            "content": [
+                              "incorrect compaction"
+                            ]
+                          },
+                          ". Preserve the update and its scope through that boundary."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "other-instruction",
+                  "title": "Another instruction requires the old behavior"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "If an active rule explicitly directs the disputed action despite the update, resolve that instruction conflict. Rewriting factual memory alone may leave the rule intact."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "alternative",
+                "attributes": {
+                  "id": "other-error",
+                  "title": "The mistake does not depend on the old record"
+                },
+                "content": [
+                  {
+                    "name": "discriminator",
+                    "attributes": {},
+                    "content": [
+                      {
+                        "name": "p",
+                        "attributes": {},
+                        "content": [
+                          "If ordinary traces show the same error with only the current information present, investigate misunderstanding, strong prior beliefs, or another failure to follow the supplied evidence. Do not infer competing memories from the wrong answer alone."
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "investigation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Start with one consequential use of an obsolete rule. Follow both versions into the actual input and identify how the answer or action used the older one. Check whether the replacement's reason and scope survived delivery. Use ordinary future work to evaluate a repair; a replay or ablation is optional when it would resolve a worthwhile remaining uncertainty."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "I001",
       "kind": "intervention",
       "summary": "Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.",
@@ -3337,7 +3722,7 @@
       "version": "1",
       "status": "draft",
       "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "updated": "2026-10-31",
       "title": "Save information for future work",
       "source": "entries/interventions/save-information-for-future-work.xml",
       "url": "interventions/save-information-for-future-work.html",
@@ -3348,7 +3733,7 @@
           "version": "1",
           "status": "draft",
           "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "updated": "2026-10-31",
           "title": "Save information for future work"
         },
         "content": [
@@ -3491,7 +3876,17 @@
                     "name": "p",
                     "attributes": {},
                     "content": [
-                      "Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Do not require a note for every tool call."
+                      "Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Useful history can remain: ",
+                      {
+                        "name": "ref",
+                        "attributes": {
+                          "target": "I007"
+                        },
+                        "content": [
+                          "document what changed and why"
+                        ]
+                      },
+                      " connects the former rule to its replacement without presenting both as current instructions. Do not require a note for every tool call."
                     ]
                   },
                   {
@@ -3677,6 +4072,320 @@
                     "attributes": {},
                     "content": [
                       "Remove temporary observation hooks after the agreed review unless the user chooses to keep them."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "I007",
+      "kind": "intervention",
+      "summary": "Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-31",
+      "title": "Document what changed and why",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html",
+      "document": {
+        "name": "intervention",
+        "attributes": {
+          "id": "I007",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-31",
+          "title": "Document what changed and why"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record."
+            ]
+          },
+          {
+            "name": "purpose",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Make requirements tangible through their history: we used to do X; then Y happened; now we do X-prime because of Y. This can explain why a design looks unusual and prevent later work from undoing a deliberate fix. The old rule remains useful history, clearly distinguished from current guidance."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "This specializes ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "I006"
+                    },
+                    "content": [
+                      "save information for future work"
+                    ]
+                  },
+                  ". Saving only the latest rule loses its rationale; appending a contradictory note leaves the reader to reconstruct the transition. Keep the transition together where future work will encounter it. Its benefit for ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "D005"
+                    },
+                    "content": [
+                      "competing outdated memories"
+                    ]
+                  },
+                  " is a working proposal, not a remedy tested by the cited paper."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "preconditions",
+            "attributes": {},
+            "content": [
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "known-change",
+                  "title": "The change and its basis can be established"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Identify a consequential change in a fact, requirement, or decision. Use source records or the responsible person's account; if the reason is unknown, record that rather than inventing a convincing history."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "precondition",
+                "attributes": {
+                  "id": "editable-route",
+                  "title": "The recording and reading path can be changed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The maintainer can edit the relevant prompts, skills, project guidance, or memory handling, and can identify which records later agents actually read."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "procedure",
+            "attributes": {},
+            "content": [
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "locate-transition",
+                  "title": "Find the transition that later work misses"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Inspect a past mistake and the records used. Find the old rule, the event or evidence that prompted its replacement, the current requirement, and where each applies. Distinguish a requirement from one implementation of it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "write-history",
+                  "title": "Connect the old rule to the current one"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Update the existing authoritative note, code comment, or task record. State the current requirement prominently, then explain the prior approach, what changed, and why the new approach follows. Include a source or decision link, effective date or version where relevant, scope, and any condition for revisiting the decision. Keep only history that explains the requirement."
+                    ]
+                  },
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "\n        ",
+                      {
+                        "name": "strong",
+                        "attributes": {},
+                        "content": [
+                          "Example:"
+                        ]
+                      },
+                      " For provider B, an ambiguous payment timeout must go to reconciliation before another charge is attempted. We used to retry every timeout. After provider B stopped guaranteeing that a timeout meant no charge occurred, retries could charge twice. We now check transaction status first. Provider A still supports retries with its idempotency key. See the provider-change ticket for the effective version and supporting evidence."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "change-writer",
+                  "title": "Make future updates preserve the reason"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Edit the relevant reusable writing instruction: when a decision or requirement changes, revise its existing record to explain what used to apply, what changed, and what applies now. Mark the former rule as historical. Link or correct competing copies rather than leaving separate current-looking instructions. Do not require a history note for every edit."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "deliver-together",
+                  "title": "Keep the transition together when read"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Change the relevant reading instructions or retrieval handling so tasks affected by the requirement receive its current rule and short rationale together. Keep an old excerpt linked to its replacement, and preserve the distinction in summaries. Put a local reason beside surprising code when that is where future edits begin; use a link for the longer history. Check one actual later input to confirm the record is delivered, not merely saved."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "step",
+                "attributes": {
+                  "id": "schedule-review",
+                  "title": "Arrange a review of ordinary future work"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Agree with the user on the expected change, who will examine subsequent relevant tasks, and a check-in date; arrange a reminder or use an existing review job. Look for work affected by the updated requirement and for historical questions or unaffected scopes. If none occur, leave the outcome unresolved and choose another date."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "evaluation",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Check whether future work follows the current requirement, avoids restoring the superseded behavior, and still explains what applied before. Use ",
+                  {
+                    "name": "ref",
+                    "attributes": {
+                      "target": "D005#relations/I007/predictions"
+                    },
+                    "content": [
+                      "D005's predictions"
+                    ]
+                  },
+                  " when competing memories are the proposed cause. A better explanation in the final answer is not enough if the agent's edits still violate the requirement."
+                ]
+              },
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare mistakes and rework with relevant opportunities, and include the cost of maintaining and reading the note. If it never reaches the agent, fix delivery. If it arrives intact but is ignored, reconsider the repair. If behavior improves, the note may be useful without proving whether history, clearer scope, or improved delivery made the difference."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "risks-and-confounders",
+            "attributes": {},
+            "content": [
+              {
+                "name": "ul",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "A fabricated or oversimplified rationale can make an incorrect rule harder to challenge. Keep unknown reasons unknown and distinguish evidence from the author's interpretation."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "A long history can crowd out the current requirement or repeat the old instruction so prominently that agents follow it again. Keep the current rule explicit and the explanation brief."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "A rationale can fossilize an implementation after its original constraint disappears. Preserve the requirement and conditions for reconsidering it, not a permanent ban on improvement."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Dates alone can hide differences in authority or scope. A new record may apply only to one customer or environment. Source links must respect the intended audience's access."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "stop-and-rollback",
+            "attributes": {},
+            "content": [
+              {
+                "name": "ul",
+                "attributes": {},
+                "content": [
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "If the note causes incorrect changes or obscures current guidance, shorten or correct it and revise the writing or retrieval instructions. Retain the verified current requirement while removing the misleading explanation."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Inspect consequential work already based on a faulty note; reverting the note does not undo that work. Restore accurate history from its sources where needed."
+                    ]
+                  },
+                  {
+                    "name": "li",
+                    "attributes": {},
+                    "content": [
+                      "Remove temporary observation hooks after the agreed review unless their continued use is justified."
                     ]
                   }
                 ]
@@ -7301,6 +8010,241 @@
           }
         ]
       }
+    },
+    {
+      "id": "S017",
+      "kind": "symptom",
+      "summary": "An agent answers or acts using information that no longer applies to the time or state the task concerns.",
+      "version": "1",
+      "status": "draft",
+      "evidence": "unvalidated",
+      "updated": "2026-10-31",
+      "title": "Using outdated information",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html",
+      "document": {
+        "name": "symptom",
+        "attributes": {
+          "id": "S017",
+          "version": "1",
+          "status": "draft",
+          "evidence": "unvalidated",
+          "updated": "2026-10-31",
+          "title": "Using outdated information"
+        },
+        "content": [
+          {
+            "name": "summary",
+            "attributes": {},
+            "content": [
+              "An agent answers or acts using information that no longer applies to the time or state the task concerns."
+            ]
+          },
+          {
+            "name": "observations",
+            "attributes": {},
+            "content": [
+              {
+                "name": "observation",
+                "attributes": {
+                  "id": "outdated-basis"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "An answer or action relies on an earlier fact, instruction, or result as still applicable, despite an established change that makes it inapplicable to the task. Identify the old information, the relevant change, and the answer or action it affected; the update need not have reached the agent for the symptom to occur."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "how-to-recognize-it",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Compare the version or event time of the evidence with the state the task concerns. A recent retrieval or log-ingestion timestamp can conceal an older observation."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "benign-lookalikes",
+            "attributes": {},
+            "content": [
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "historical-task"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The task asks what was true before a change, and the agent uses evidence from that period. Old information is appropriate for that question."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "still-valid"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The information is old but still applies. A newer document or commit does not invalidate every earlier fact, and a change in one environment need not apply to another."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "disclosed-limit"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "The agent accurately limits its answer to the older state and leaves the current state unresolved. Mentioning an access problem does not suffice if the answer still presents an old finding as current."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "lookalike",
+                "attributes": {
+                  "id": "real-recurrence"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "Evidence from after a repair shows the problem recurring, or shows that the repair never reached the affected environment. A closed ticket alone does not make that evidence obsolete."
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "what-to-record",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Record the task's intended time and scope, exact claim or action, old source and version, and evidence establishing the change and where it applies. Preserve the model-visible input, retrieval results, dates, and any summary that might have changed their meaning. Distinguish an unavailable update from one delivered but not used. Record repeated work, incorrect changes, missed problems, and time lost; across comparable tasks count uses of outdated information alongside correct historical uses and current answers."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "examples",
+            "attributes": {},
+            "content": [
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "old-review",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "\n        ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://github.com/openai/codex/issues/49083"
+                        },
+                        "content": [
+                          "Codex issue #49083"
+                        ]
+                      },
+                      " reports a PR re-review using an old local checkout after remote reads failed. Two findings were already fixed in the newer head. The report supplies both revisions and command results; the user had to intervene to obtain the current version. The agent disclosed access trouble but still presented the obsolete defects as current findings."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "obsolete-answer",
+                  "kind": "observed"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "\n        ",
+                      {
+                        "name": "a",
+                        "attributes": {
+                          "href": "https://arxiv.org/html/2610.36308v1"
+                        },
+                        "content": [
+                          "When Retrieval Is Not Enough"
+                        ]
+                      },
+                      " reports benchmark answers choosing an obsolete fact even with its replacement present. Adding the obsolete competitor produced 41 correct-to-stale flips for Qwen2.5 and nine for Qwen3. These are synthetic benchmark tasks, not measured production losses."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "restored-retry",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A coding agent restores automatic payment retries from an old design note. A later provider change made some failed responses ambiguous: the charge might already have succeeded. Comparing the proposed edit with the current requirement exposes the obsolete assumption; review blocks the change and the agent must redo it."
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "example",
+                "attributes": {
+                  "id": "past-policy",
+                  "kind": "synthetic"
+                },
+                "content": [
+                  {
+                    "name": "p",
+                    "attributes": {},
+                    "content": [
+                      "A support agent explains which refund policy applied to a purchase made last year, using the policy in force then. It separately identifies the current policy. The older rule answers the historical question without being presented as current guidance."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "objects": {
@@ -7495,6 +8439,168 @@
       "kind": "investigation",
       "source": "entries/diagnoses/context-handoff-loss.xml",
       "url": "diagnoses/context-handoff-loss.html#investigation"
+    },
+    "D005": {
+      "document": "D005",
+      "kind": "diagnosis",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html"
+    },
+    "D005#definition": {
+      "document": "D005",
+      "kind": "definition",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#definition"
+    },
+    "D005#relations": {
+      "document": "D005",
+      "kind": "relations",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations"
+    },
+    "D005#relations/I007": {
+      "document": "D005",
+      "kind": "intervention-ref",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007"
+    },
+    "D005#relations/I007/when": {
+      "document": "D005",
+      "kind": "when",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007/when"
+    },
+    "D005#relations/I007/predictions": {
+      "document": "D005",
+      "kind": "predictions",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions"
+    },
+    "D005#relations/I007/predictions/expected-improvement": {
+      "document": "D005",
+      "kind": "expected-improvement",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions/expected-improvement"
+    },
+    "D005#relations/I007/predictions/still-necessary": {
+      "document": "D005",
+      "kind": "still-necessary",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions/still-necessary"
+    },
+    "D005#relations/I007/predictions/reason-to-reconsider": {
+      "document": "D005",
+      "kind": "reason-to-reconsider",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions/reason-to-reconsider"
+    },
+    "D005#relations/I007/predictions/possible-harm": {
+      "document": "D005",
+      "kind": "possible-harm",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#relations/I007/predictions/possible-harm"
+    },
+    "D005#criteria": {
+      "document": "D005",
+      "kind": "criteria",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#criteria"
+    },
+    "D005#criteria/established-update": {
+      "document": "D005",
+      "kind": "criterion",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#criteria/established-update"
+    },
+    "D005#criteria/both-delivered": {
+      "document": "D005",
+      "kind": "criterion",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#criteria/both-delivered"
+    },
+    "D005#criteria/competing-use": {
+      "document": "D005",
+      "kind": "criterion",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#criteria/competing-use"
+    },
+    "D005#exclusions": {
+      "document": "D005",
+      "kind": "exclusions",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#exclusions"
+    },
+    "D005#exclusions/different-scopes": {
+      "document": "D005",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#exclusions/different-scopes"
+    },
+    "D005#exclusions/disputed-update": {
+      "document": "D005",
+      "kind": "exclusion",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#exclusions/disputed-update"
+    },
+    "D005#differential": {
+      "document": "D005",
+      "kind": "differential",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential"
+    },
+    "D005#differential/missing-update": {
+      "document": "D005",
+      "kind": "alternative",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/missing-update"
+    },
+    "D005#differential/missing-update/discriminator": {
+      "document": "D005",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/missing-update/discriminator"
+    },
+    "D005#differential/compaction-loss": {
+      "document": "D005",
+      "kind": "alternative",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/compaction-loss"
+    },
+    "D005#differential/compaction-loss/discriminator": {
+      "document": "D005",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/compaction-loss/discriminator"
+    },
+    "D005#differential/other-instruction": {
+      "document": "D005",
+      "kind": "alternative",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/other-instruction"
+    },
+    "D005#differential/other-instruction/discriminator": {
+      "document": "D005",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/other-instruction/discriminator"
+    },
+    "D005#differential/other-error": {
+      "document": "D005",
+      "kind": "alternative",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/other-error"
+    },
+    "D005#differential/other-error/discriminator": {
+      "document": "D005",
+      "kind": "discriminator",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#differential/other-error/discriminator"
+    },
+    "D005#investigation": {
+      "document": "D005",
+      "kind": "investigation",
+      "source": "entries/diagnoses/failure-to-retire-outdated-memories.xml",
+      "url": "diagnoses/failure-to-retire-outdated-memories.html#investigation"
     },
     "D002": {
       "document": "D002",
@@ -8023,6 +9129,90 @@
       "kind": "stop-and-rollback",
       "source": "entries/interventions/complete-tool-discovery-handoff.xml",
       "url": "interventions/complete-tool-discovery-handoff.html#stop-and-rollback"
+    },
+    "I007": {
+      "document": "I007",
+      "kind": "intervention",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html"
+    },
+    "I007#purpose": {
+      "document": "I007",
+      "kind": "purpose",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#purpose"
+    },
+    "I007#preconditions": {
+      "document": "I007",
+      "kind": "preconditions",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#preconditions"
+    },
+    "I007#preconditions/known-change": {
+      "document": "I007",
+      "kind": "precondition",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#preconditions/known-change"
+    },
+    "I007#preconditions/editable-route": {
+      "document": "I007",
+      "kind": "precondition",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#preconditions/editable-route"
+    },
+    "I007#procedure": {
+      "document": "I007",
+      "kind": "procedure",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#procedure"
+    },
+    "I007#procedure/locate-transition": {
+      "document": "I007",
+      "kind": "step",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#procedure/locate-transition"
+    },
+    "I007#procedure/write-history": {
+      "document": "I007",
+      "kind": "step",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#procedure/write-history"
+    },
+    "I007#procedure/change-writer": {
+      "document": "I007",
+      "kind": "step",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#procedure/change-writer"
+    },
+    "I007#procedure/deliver-together": {
+      "document": "I007",
+      "kind": "step",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#procedure/deliver-together"
+    },
+    "I007#procedure/schedule-review": {
+      "document": "I007",
+      "kind": "step",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#procedure/schedule-review"
+    },
+    "I007#evaluation": {
+      "document": "I007",
+      "kind": "evaluation",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#evaluation"
+    },
+    "I007#risks-and-confounders": {
+      "document": "I007",
+      "kind": "risks-and-confounders",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#risks-and-confounders"
+    },
+    "I007#stop-and-rollback": {
+      "document": "I007",
+      "kind": "stop-and-rollback",
+      "source": "entries/interventions/document-what-changed-and-why.xml",
+      "url": "interventions/document-what-changed-and-why.html#stop-and-rollback"
     },
     "I001": {
       "document": "I001",
@@ -9728,6 +10918,96 @@
       "source": "entries/symptoms/unsupported-verification-claims.xml",
       "url": "symptoms/unsupported-verification-claims.html#examples/limited-report"
     },
+    "S017": {
+      "document": "S017",
+      "kind": "symptom",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html"
+    },
+    "S017#observations": {
+      "document": "S017",
+      "kind": "observations",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#observations"
+    },
+    "S017#observations/outdated-basis": {
+      "document": "S017",
+      "kind": "observation",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#observations/outdated-basis"
+    },
+    "S017#how-to-recognize-it": {
+      "document": "S017",
+      "kind": "how-to-recognize-it",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#how-to-recognize-it"
+    },
+    "S017#benign-lookalikes": {
+      "document": "S017",
+      "kind": "benign-lookalikes",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#benign-lookalikes"
+    },
+    "S017#benign-lookalikes/historical-task": {
+      "document": "S017",
+      "kind": "lookalike",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#benign-lookalikes/historical-task"
+    },
+    "S017#benign-lookalikes/still-valid": {
+      "document": "S017",
+      "kind": "lookalike",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#benign-lookalikes/still-valid"
+    },
+    "S017#benign-lookalikes/disclosed-limit": {
+      "document": "S017",
+      "kind": "lookalike",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#benign-lookalikes/disclosed-limit"
+    },
+    "S017#benign-lookalikes/real-recurrence": {
+      "document": "S017",
+      "kind": "lookalike",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#benign-lookalikes/real-recurrence"
+    },
+    "S017#what-to-record": {
+      "document": "S017",
+      "kind": "what-to-record",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#what-to-record"
+    },
+    "S017#examples": {
+      "document": "S017",
+      "kind": "examples",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#examples"
+    },
+    "S017#examples/old-review": {
+      "document": "S017",
+      "kind": "example",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#examples/old-review"
+    },
+    "S017#examples/obsolete-answer": {
+      "document": "S017",
+      "kind": "example",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#examples/obsolete-answer"
+    },
+    "S017#examples/restored-retry": {
+      "document": "S017",
+      "kind": "example",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#examples/restored-retry"
+    },
+    "S017#examples/past-policy": {
+      "document": "S017",
+      "kind": "example",
+      "source": "entries/symptoms/using-outdated-information.xml",
+      "url": "symptoms/using-outdated-information.html#examples/past-policy"
+    },
     "S012": {
       "document": "S012",
       "kind": "symptom",
@@ -9976,6 +11256,91 @@
     {
       "from": "D001#differential/policy-conflict/discriminator",
       "to": "D003",
+      "relation": "ref"
+    },
+    {
+      "from": "D005#relations",
+      "to": "S017",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D005#relations",
+      "to": "I007",
+      "relation": "intervention-ref",
+      "address": "D005#relations/I007",
+      "when": "Old and current records compete, and the maintainer can change how the transition and its reason are recorded and delivered to future work.",
+      "predictions": {
+        "name": "predictions",
+        "attributes": {},
+        "content": [
+          {
+            "name": "expected-improvement",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Future agents should follow the current requirement and make fewer changes that restore the old behavior. When apparently odd code protects a requirement introduced by a past change, they should preserve that requirement while still being able to improve the implementation."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "still-necessary",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "Agents should still answer historical questions correctly, apply older rules where they remain valid, and revise current decisions when new evidence warrants it."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "reason-to-reconsider",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "If a clear, sourced transition reaches the working agent but it still follows the old rule, documenting provenance may be insufficient. If mistakes persist when only the applicable rule is present, competing memories are a weaker explanation. If the transition never arrives, investigate delivery before judging its usefulness."
+                ]
+              }
+            ]
+          },
+          {
+            "name": "possible-harm",
+            "attributes": {},
+            "content": [
+              {
+                "name": "p",
+                "attributes": {},
+                "content": [
+                  "A compelling but incorrect history can entrench a bad requirement. Longer notes can bury the current rule or make the obsolete one more salient."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "from": "D005#criteria/competing-use",
+      "to": "S017",
+      "relation": "ref"
+    },
+    {
+      "from": "D005#criteria/competing-use",
+      "to": "S017",
+      "relation": "symptom-ref"
+    },
+    {
+      "from": "D005#differential/compaction-loss/discriminator",
+      "to": "D001",
       "relation": "ref"
     },
     {
@@ -10239,6 +11604,21 @@
       "relation": "ref"
     },
     {
+      "from": "I007#purpose",
+      "to": "I006",
+      "relation": "ref"
+    },
+    {
+      "from": "I007#purpose",
+      "to": "D005",
+      "relation": "ref"
+    },
+    {
+      "from": "I007#evaluation",
+      "to": "D005#relations/I007/predictions",
+      "relation": "ref"
+    },
+    {
       "from": "I001#preconditions/identified-omission",
       "to": "D001",
       "relation": "ref"
@@ -10271,6 +11651,11 @@
     {
       "from": "I006#preconditions/reuse-needed",
       "to": "D001",
+      "relation": "ref"
+    },
+    {
+      "from": "I006#procedure/change-writing",
+      "to": "I007",
       "relation": "ref"
     },
     {

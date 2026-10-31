@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<symptom xmlns="urn:adm:1" id="S017" version="1" status="draft" evidence="unvalidated" updated="2026-10-31" title="Using outdated information">
+  <summary>An agent answers or acts using information that no longer applies to the time or state the task concerns.</summary>
+  <observations>
+    <observation id="outdated-basis">
+      <p>An answer or action relies on an earlier fact, instruction, or result as still applicable, despite an established change that makes it inapplicable to the task. Identify the old information, the relevant change, and the answer or action it affected; the update need not have reached the agent for the symptom to occur.</p>
+    </observation>
+  </observations>
+  <how-to-recognize-it>
+    <p>Compare the version or event time of the evidence with the state the task concerns. A recent retrieval or log-ingestion timestamp can conceal an older observation.</p>
+  </how-to-recognize-it>
+  <benign-lookalikes>
+    <lookalike id="historical-task">
+      <p>The task asks what was true before a change, and the agent uses evidence from that period. Old information is appropriate for that question.</p>
+    </lookalike>
+    <lookalike id="still-valid">
+      <p>The information is old but still applies. A newer document or commit does not invalidate every earlier fact, and a change in one environment need not apply to another.</p>
+    </lookalike>
+    <lookalike id="disclosed-limit">
+      <p>The agent accurately limits its answer to the older state and leaves the current state unresolved. Mentioning an access problem does not suffice if the answer still presents an old finding as current.</p>
+    </lookalike>
+    <lookalike id="real-recurrence">
+      <p>Evidence from after a repair shows the problem recurring, or shows that the repair never reached the affected environment. A closed ticket alone does not make that evidence obsolete.</p>
+    </lookalike>
+  </benign-lookalikes>
+  <what-to-record>
+    <p>Record the task's intended time and scope, exact claim or action, old source and version, and evidence establishing the change and where it applies. Preserve the model-visible input, retrieval results, dates, and any summary that might have changed their meaning. Distinguish an unavailable update from one delivered but not used. Record repeated work, incorrect changes, missed problems, and time lost; across comparable tasks count uses of outdated information alongside correct historical uses and current answers.</p>
+  </what-to-record>
+  <examples>
+    <example id="old-review" kind="observed">
+      <p>
+        <a href="https://github.com/openai/codex/issues/49083">Codex issue #49083</a> reports a PR re-review using an old local checkout after remote reads failed. Two findings were already fixed in the newer head. The report supplies both revisions and command results; the user had to intervene to obtain the current version. The agent disclosed access trouble but still presented the obsolete defects as current findings.</p>
+    </example>
+    <example id="obsolete-answer" kind="observed">
+      <p>
+        <a href="https://arxiv.org/html/2610.36308v1">When Retrieval Is Not Enough</a> reports benchmark answers choosing an obsolete fact even with its replacement present. Adding the obsolete competitor produced 41 correct-to-stale flips for Qwen2.5 and nine for Qwen3. These are synthetic benchmark tasks, not measured production losses.</p>
+    </example>
+    <example id="restored-retry" kind="synthetic">
+      <p>A coding agent restores automatic payment retries from an old design note. A later provider change made some failed responses ambiguous: the charge might already have succeeded. Comparing the proposed edit with the current requirement exposes the obsolete assumption; review blocks the change and the agent must redo it.</p>
+    </example>
+    <example id="past-policy" kind="synthetic">
+      <p>A support agent explains which refund policy applied to a purchase made last year, using the policy in force then. It separately identifies the current policy. The older rule answers the historical question without being presented as current guidance.</p>
+    </example>
+  </examples>
+</symptom>

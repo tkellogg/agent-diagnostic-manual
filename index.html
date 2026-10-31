@@ -135,6 +135,10 @@
 <li>
     <a href="symptoms/overconfidence-in-suspected-causes.html" class="dropdown-item">S016 — Overconfidence in suspected causes</a>
 </li>
+                                    
+<li>
+    <a href="symptoms/using-outdated-information.html" class="dropdown-item">S017 — Using outdated information</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -155,6 +159,10 @@
                                     
 <li>
     <a href="diagnoses/verification-scope-collapse.html" class="dropdown-item">D004 — Component checks mistaken for complete verification</a>
+</li>
+                                    
+<li>
+    <a href="diagnoses/failure-to-retire-outdated-memories.html" class="dropdown-item">D005 — Failure to retire outdated memories</a>
 </li>
                                 </ul>
                             </li>
@@ -184,6 +192,10 @@
                                     
 <li>
     <a href="interventions/save-information-for-future-work.html" class="dropdown-item">I006 — Save information for future work</a>
+</li>
+                                    
+<li>
+    <a href="interventions/document-what-changed-and-why.html" class="dropdown-item">I007 — Document what changed and why</a>
 </li>
                                 </ul>
                             </li>
@@ -468,6 +480,10 @@ flowchart TD
 <p><a href="symptoms/overconfidence-in-suspected-causes.html">S016 — Overconfidence in suspected causes</a></p>
 <p>An agent treats a possible explanation for something that happened as a known cause, despite missing or contradictory evidence.</p>
 </li>
+<li>
+<p><a href="symptoms/using-outdated-information.html">S017 — Using outdated information</a></p>
+<p>An agent answers or acts using information that no longer applies to the time or state the task concerns.</p>
+</li>
 </ul>
 <h2 id="diagnoses">Diagnoses<a class="headerlink" href="#diagnoses" title="Permanent link">¶</a></h2>
 <ul>
@@ -486,6 +502,10 @@ flowchart TD
 <li>
 <p><a href="diagnoses/verification-scope-collapse.html">D004 — Component checks mistaken for complete verification</a></p>
 <p>The workflow treats a passing component test as proof that the whole requested behavior works, even though the connections between components were never exercised.</p>
+</li>
+<li>
+<p><a href="diagnoses/failure-to-retire-outdated-memories.html">D005 — Failure to retire outdated memories</a></p>
+<p>The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work.</p>
 </li>
 </ul>
 <h2 id="interventions">Interventions<a class="headerlink" href="#interventions" title="Permanent link">¶</a></h2>
@@ -513,6 +533,10 @@ flowchart TD
 <li>
 <p><a href="interventions/save-information-for-future-work.html">I006 — Save information for future work</a></p>
 <p>Change the agent's prompts or skills so it saves useful decisions, constraints, and findings outside the conversation, updates them when they change, and reads them when later work needs them.</p>
+</li>
+<li>
+<p><a href="interventions/document-what-changed-and-why.html">I007 — Document what changed and why</a></p>
+<p>Change the agent's writing and reading instructions so important updates preserve the previous rule, what prompted the change, and the current requirement in one connected record.</p>
 </li>
 </ul>
 <h2 id="build-and-read">Build and read<a class="headerlink" href="#build-and-read" title="Permanent link">¶</a></h2>
@@ -640,5 +664,5 @@ uv run --script examples/query_manual.py
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-10-29 00:58:34.692811+00:00
+Build Date UTC : 2026-10-31 14:35:19.724122+00:00
 -->
