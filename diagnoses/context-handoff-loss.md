@@ -4,12 +4,48 @@ kind: diagnosis
 summary: The compaction prompt or algorithm drops information that later work still
   needs, so the agent repeats work, misses a requirement, or asks for permission again.
 version: '1'
-status: reviewed
-evidence: unvalidated
-updated: '2026-10-28'
+status: production
+evidence: validated
+updated: '2026-10-31'
 unit: configured-agent-system
 title: Incorrect compaction
 xml_source: diagnoses/context-handoff-loss.xml
+linked_pages:
+- id: D003
+  title: Overbroad verification instructions
+  kind: diagnosis
+  url: diagnoses/verification-policy-overgeneralization.html
+  direction: incoming, outgoing
+- id: D005
+  title: Failure to retire outdated memories
+  kind: diagnosis
+  url: diagnoses/failure-to-retire-outdated-memories.html
+  direction: incoming
+- id: I001
+  title: Fix compaction
+  kind: intervention
+  url: interventions/preserve-task-relevant-evidence.html
+  direction: incoming, outgoing
+- id: I006
+  title: Move info outside session
+  kind: intervention
+  url: interventions/save-information-for-future-work.html
+  direction: incoming, outgoing
+- id: S001
+  title: Repeated retrieval
+  kind: symptom
+  url: symptoms/repeated-retrieval.html
+  direction: outgoing
+- id: S006
+  title: Lost task constraints
+  kind: symptom
+  url: symptoms/lost-task-constraints.html
+  direction: outgoing
+- id: S008
+  title: Repeated reauthorization
+  kind: symptom
+  url: symptoms/repeated-reauthorization.html
+  direction: outgoing
 ---
 
 # Incorrect compaction

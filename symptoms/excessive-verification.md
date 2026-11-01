@@ -9,6 +9,17 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Excessive verification
 xml_source: symptoms/excessive-verification.xml
+linked_pages:
+- id: D003
+  title: Overbroad verification instructions
+  kind: diagnosis
+  url: diagnoses/verification-policy-overgeneralization.html
+  direction: incoming
+- id: I002
+  title: Consolidate verification instructions with the user
+  kind: intervention
+  url: interventions/scope-verification-policy.html
+  direction: incoming
 ---
 
 # Excessive verification

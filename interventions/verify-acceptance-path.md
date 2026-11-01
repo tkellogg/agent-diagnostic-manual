@@ -10,6 +10,17 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Repair gaps between tests and real use
 xml_source: interventions/verify-acceptance-path.xml
+linked_pages:
+- id: D004
+  title: Component checks mistaken for complete verification
+  kind: diagnosis
+  url: diagnoses/verification-scope-collapse.html
+  direction: incoming, outgoing
+- id: S011
+  title: Unsupported verification claims
+  kind: symptom
+  url: symptoms/unsupported-verification-claims.html
+  direction: outgoing
 ---
 
 # Repair gaps between tests and real use

@@ -10,6 +10,22 @@ evidence: unvalidated
 updated: '2026-10-31'
 title: Move info outside session
 xml_source: interventions/save-information-for-future-work.xml
+linked_pages:
+- id: D001
+  title: Incorrect compaction
+  kind: diagnosis
+  url: diagnoses/context-handoff-loss.html
+  direction: incoming, outgoing
+- id: I001
+  title: Fix compaction
+  kind: intervention
+  url: interventions/preserve-task-relevant-evidence.html
+  direction: outgoing
+- id: I007
+  title: Storybook consistent comments
+  kind: intervention
+  url: interventions/document-what-changed-and-why.html
+  direction: incoming, outgoing
 ---
 
 # Move info outside session
@@ -64,8 +80,7 @@ Keep the source or reason, the scope where it applies, and any condition that ma
 
 Edit the relevant prompt or skill to update those records when a useful decision or finding becomes established, or when an existing constraint changes. Save before the information depends on surviving compaction or session closure. Replace stale guidance instead of appending contradictory instructions. Useful history can remain: [storybook consistent comments](document-what-changed-and-why.md) brings affected records into agreement and briefly explains what changed and why. Do not require a note for every tool call.
 
-
-        **Example instruction:** When you settle a decision that later work will depend on, update the project's existing design note with the decision, its reason, and when to revisit it. Keep task-specific constraints and permission limits in the task's ticket. Update the existing record if the decision changes; do not create a second competing copy.
+**Example instruction:** When you settle a decision that later work will depend on, update the project's existing design note with the decision, its reason, and when to revisit it. Keep task-specific constraints and permission limits in the task's ticket. Update the existing record if the decision changes; do not create a second competing copy.
 
 <a id="procedure/change-reading"></a>
 

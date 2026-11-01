@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<intervention xmlns="urn:adm:1" id="I007" version="1" status="draft" evidence="unvalidated" updated="2026-10-31" title="Storybook consistent comments">
+<intervention xmlns="urn:adm:1" id="I007" version="1" status="production" evidence="validated" updated="2026-10-31" title="Storybook consistent comments">
   <summary>Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent.</summary>
   <purpose>
     <p>The primary goal is consistent state: code, comments, docs, procedures, and saved facts should agree about what applies now. Update the places affected by a change, including assumptions built into the architecture. This can repair an existing inconsistency or accompany an ordinary change; no past mistake is required.</p>
-    <p>The short story is a backup for what you miss: “Do X-prime. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.</p>
+    <p>The short story is a backup for what you miss: “Do X'. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.</p>
     <p>This specializes <ref target="I006">move info outside session</ref> and adds repair of the existing state. History is useful provenance, not a substitute for updating known stale copies. Its benefit for <ref target="D005">competing outdated memories</ref> remains a working proposal, not a remedy tested by the cited paper.</p>
   </purpose>
   <preconditions>

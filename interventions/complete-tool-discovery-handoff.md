@@ -9,6 +9,12 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Make discovered tools callable
 xml_source: interventions/complete-tool-discovery-handoff.xml
+linked_pages:
+- id: D002
+  title: Tool discovery reports unusable tools
+  kind: diagnosis
+  url: diagnoses/tool-discovery-delivery-gap.html
+  direction: incoming, outgoing
 ---
 
 # Make discovered tools callable

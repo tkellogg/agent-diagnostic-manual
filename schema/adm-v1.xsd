@@ -9,12 +9,14 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="draft"/>
       <xs:enumeration value="reviewed"/>
+      <xs:enumeration value="production"/>
       <xs:enumeration value="retired"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="evidence">
     <xs:restriction base="xs:string">
       <xs:enumeration value="unvalidated"/>
+      <xs:enumeration value="validated"/>
       <xs:enumeration value="case-supported"/>
       <xs:enumeration value="replicated"/>
     </xs:restriction>

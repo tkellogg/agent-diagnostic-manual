@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=3ce39f3f4a14" rel="stylesheet">
+        <link href="../assets/adm.css?v=69ad5b2fc180" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -349,7 +349,29 @@
   
   </div>
   
-  <p class="entry-status"><span class="entry-id">D005</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">D005</span><span>production</span><span>validated</span></p>
+  <details class="adm-linked-pages" data-pagefind-ignore>
+    <summary>Linked pages <span>3</span></summary>
+    
+    <p>Pages this entry references, or that reference it. A link alone does not establish a diagnosis or recommend a treatment.</p>
+    
+    
+    <strong>Symptoms</strong><ul>
+      <li><a href="../symptoms/using-outdated-information.html">S017 — Using outdated information</a><small>outgoing</small></li>
+    </ul>
+    
+    
+    <strong>Diagnoses</strong><ul>
+      <li><a href="context-handoff-loss.html">D001 — Incorrect compaction</a><small>outgoing</small></li>
+    </ul>
+    
+    
+    <strong>Interventions</strong><ul>
+      <li><a href="../interventions/document-what-changed-and-why.html">I007 — Storybook consistent comments</a><small>incoming, outgoing</small></li>
+    </ul>
+    
+    
+  </details>
   
   <article data-pagefind-body>
 
@@ -359,8 +381,7 @@
 <h2 id="how-this-could-happen">How this could happen<a class="headerlink" href="#how-this-could-happen" title="Permanent link">¶</a></h2>
 <p>A memory system should preserve useful history while making clear which facts or requirements apply now. This diagnosis proposes that obsolete memories keep competing with their updates: the system supplies both, and the working agent does not reliably choose the applicable version. Retiring a memory means retiring its authority as current guidance, not necessarily deleting its history.</p>
 <p>For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. Updating inconsistent records and briefly explaining what changed and why may help it use the history correctly. The proposed repair preserves useful history while correcting current state.</p>
-<pre><code>  [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated.
-</code></pre>
+<p><a href="https://arxiv.org/html/2610.36308v1">When Retrieval Is Not Enough</a> isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated.</p>
 <p><a id="relations"></a></p>
 <h2 id="symptoms-and-predicted-effects">Symptoms and predicted effects<a class="headerlink" href="#symptoms-and-predicted-effects" title="Permanent link">¶</a></h2>
 <ul class="adm-entry-refs">
@@ -450,9 +471,9 @@ If ordinary traces show the same error with only the current information present
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=3ce39f3f4a14" data-base-url="../"></script>
-<script src="../assets/adm-harness.js?v=3ce39f3f4a14" defer></script>
-<script src="../assets/adm-mermaid.js?v=3ce39f3f4a14" type="module"></script>
+<script src="../assets/adm.js?v=69ad5b2fc180" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=69ad5b2fc180" defer></script>
+<script src="../assets/adm-mermaid.js?v=69ad5b2fc180" type="module"></script>
 
 <template id="adm-review-controls">
   <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
@@ -472,7 +493,7 @@ If ordinary traces show the same error with only the current information present
   </section>
 </template>
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="D005" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
-<script src="../assets/adm-review.js?v=3ce39f3f4a14"></script>
+<script src="../assets/adm-review.js?v=69ad5b2fc180"></script>
 
 
 

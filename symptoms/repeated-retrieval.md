@@ -4,11 +4,32 @@ kind: symptom
 summary: An agent retrieves already-delivered information again without a new content,
   freshness, or verification need.
 version: '1'
-status: reviewed
-evidence: unvalidated
-updated: '2026-10-28'
+status: production
+evidence: validated
+updated: '2026-10-31'
 title: Repeated retrieval
 xml_source: symptoms/repeated-retrieval.xml
+linked_pages:
+- id: D001
+  title: Incorrect compaction
+  kind: diagnosis
+  url: diagnoses/context-handoff-loss.html
+  direction: incoming
+- id: D003
+  title: Overbroad verification instructions
+  kind: diagnosis
+  url: diagnoses/verification-policy-overgeneralization.html
+  direction: incoming
+- id: I001
+  title: Fix compaction
+  kind: intervention
+  url: interventions/preserve-task-relevant-evidence.html
+  direction: incoming
+- id: S002
+  title: Doom looping
+  kind: symptom
+  url: symptoms/doom-looping.html
+  direction: outgoing
 ---
 
 # Repeated retrieval

@@ -9,6 +9,17 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Unsupported verification claims
 xml_source: symptoms/unsupported-verification-claims.xml
+linked_pages:
+- id: D004
+  title: Component checks mistaken for complete verification
+  kind: diagnosis
+  url: diagnoses/verification-scope-collapse.html
+  direction: incoming
+- id: I003
+  title: Repair gaps between tests and real use
+  kind: intervention
+  url: interventions/verify-acceptance-path.html
+  direction: incoming
 ---
 
 # Unsupported verification claims

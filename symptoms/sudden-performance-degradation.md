@@ -9,6 +9,7 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Sudden performance degradation
 xml_source: symptoms/sudden-performance-degradation.xml
+linked_pages: []
 ---
 
 # Sudden performance degradation

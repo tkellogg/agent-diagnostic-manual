@@ -9,6 +9,12 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Inferred values presented as observations
 xml_source: symptoms/inferred-values-as-observations.xml
+linked_pages:
+- id: I004
+  title: Keep derived values out of source-only fields
+  kind: intervention
+  url: interventions/separate-observed-derived-values.html
+  direction: incoming
 ---
 
 # Inferred values presented as observations

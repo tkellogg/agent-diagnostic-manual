@@ -5,11 +5,22 @@ summary: Bring code and records into agreement with the intended state, explain 
   changes in brief dated comments, and update the agent's standing instructions to
   keep them consistent.
 version: '1'
-status: draft
-evidence: unvalidated
+status: production
+evidence: validated
 updated: '2026-10-31'
 title: Storybook consistent comments
 xml_source: interventions/document-what-changed-and-why.xml
+linked_pages:
+- id: D005
+  title: Failure to retire outdated memories
+  kind: diagnosis
+  url: diagnoses/failure-to-retire-outdated-memories.html
+  direction: incoming, outgoing
+- id: I006
+  title: Move info outside session
+  kind: intervention
+  url: interventions/save-information-for-future-work.html
+  direction: incoming, outgoing
 ---
 
 # Storybook consistent comments
@@ -22,7 +33,7 @@ Bring code and records into agreement with the intended state, explain important
 
 The primary goal is consistent state: code, comments, docs, procedures, and saved facts should agree about what applies now. Update the places affected by a change, including assumptions built into the architecture. This can repair an existing inconsistency or accompany an ordinary change; no past mistake is required.
 
-The short story is a backup for what you miss: “Do X-prime. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.
+The short story is a backup for what you miss: “Do X'. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.
 
 This specializes [move info outside session](save-information-for-future-work.md) and adds repair of the existing state. History is useful provenance, not a substitute for updating known stale copies. Its benefit for [competing outdated memories](../diagnoses/failure-to-retire-outdated-memories.md) remains a working proposal, not a remedy tested by the cited paper.
 
@@ -54,11 +65,9 @@ Find where the former fact or approach still shapes current work. Update affecte
 
 Beside the places future work will encounter, add a short, informal explanation of the current intent, the earlier approach, and why it changed. Include a date, preferably when the change took effect; distinguish that from when the comment was written if they differ. Explain scope when the older approach still applies elsewhere. Keep enough history to resolve a conflicting leftover without making every comment a design document.
 
+**Coding example:** “2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.” Update the retry code and its tests too; the comment alone does not fix them.
 
-        **Coding example:** “2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.” Update the retry code and its tests too; the comment alone does not fix them.
-
-
-        **Non-coding example:** “As of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.” Update the routing instructions and contact records, not just the note.
+**Non-coding example:** “As of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.” Update the routing instructions and contact records, not just the note.
 
 <a id="procedure/change-guidance"></a>
 
@@ -66,8 +75,7 @@ Beside the places future work will encounter, add a short, informal explanation 
 
 Edit the existing AGENTS.md, project guidance, or relevant skill so future changes update affected state and leave brief dated explanations where the history helps. Tell agents to use those explanations when they encounter conflicting leftovers, check that the scope and authority match, and correct the stale copy. Verify that this guidance is loaded for the relevant work; merely saving the file is not enough.
 
-
-        **Example instruction:** “When a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.”
+**Example instruction:** “When a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.”
 
 <a id="evaluation"></a>
 

@@ -4,11 +4,22 @@ kind: symptom
 summary: An agent repeats an unsuccessful action cycle without relevant changes that
   would reasonably support expecting a different outcome.
 version: '1'
-status: reviewed
-evidence: unvalidated
-updated: '2026-10-28'
+status: production
+evidence: validated
+updated: '2026-10-31'
 title: Doom looping
 xml_source: symptoms/doom-looping.xml
+linked_pages:
+- id: D002
+  title: Tool discovery reports unusable tools
+  kind: diagnosis
+  url: diagnoses/tool-discovery-delivery-gap.html
+  direction: incoming
+- id: S001
+  title: Repeated retrieval
+  kind: symptom
+  url: symptoms/repeated-retrieval.html
+  direction: incoming
 ---
 
 # Doom looping

@@ -7,9 +7,9 @@
       "kind": "diagnosis",
       "summary": "The compaction prompt or algorithm drops information that later work still needs, so the agent repeats work, misses a requirement, or asks for permission again.",
       "version": "1",
-      "status": "reviewed",
-      "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "status": "production",
+      "evidence": "validated",
+      "updated": "2026-10-31",
       "unit": "configured-agent-system",
       "title": "Incorrect compaction",
       "source": "entries/diagnoses/context-handoff-loss.xml",
@@ -19,9 +19,9 @@
         "attributes": {
           "id": "D001",
           "version": "1",
-          "status": "reviewed",
-          "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "status": "production",
+          "evidence": "validated",
+          "updated": "2026-10-31",
           "unit": "configured-agent-system",
           "title": "Incorrect compaction"
         },
@@ -1516,8 +1516,8 @@
       "kind": "diagnosis",
       "summary": "The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work.",
       "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
+      "status": "production",
+      "evidence": "validated",
       "updated": "2026-10-31",
       "unit": "configured-agent-system",
       "title": "Failure to retire outdated memories",
@@ -1528,8 +1528,8 @@
         "attributes": {
           "id": "D005",
           "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
+          "status": "production",
+          "evidence": "validated",
           "updated": "2026-10-31",
           "unit": "configured-agent-system",
           "title": "Failure to retire outdated memories"
@@ -1901,9 +1901,9 @@
       "kind": "intervention",
       "summary": "Change the compaction instructions or implementation to preserve information that later work needs. Where the harness allows it, compare changes on a saved conversation before evaluating ordinary future work.",
       "version": "1",
-      "status": "reviewed",
-      "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "status": "production",
+      "evidence": "validated",
+      "updated": "2026-10-31",
       "title": "Fix compaction",
       "source": "entries/interventions/preserve-task-relevant-evidence.xml",
       "url": "interventions/preserve-task-relevant-evidence.html",
@@ -1912,9 +1912,9 @@
         "attributes": {
           "id": "I001",
           "version": "1",
-          "status": "reviewed",
-          "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "status": "production",
+          "evidence": "validated",
+          "updated": "2026-10-31",
           "title": "Fix compaction"
         },
         "content": [
@@ -4114,8 +4114,8 @@
       "kind": "intervention",
       "summary": "Bring code and records into agreement with the intended state, explain important changes in brief dated comments, and update the agent's standing instructions to keep them consistent.",
       "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
+      "status": "production",
+      "evidence": "validated",
       "updated": "2026-10-31",
       "title": "Storybook consistent comments",
       "source": "entries/interventions/document-what-changed-and-why.xml",
@@ -4125,8 +4125,8 @@
         "attributes": {
           "id": "I007",
           "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
+          "status": "production",
+          "evidence": "validated",
           "updated": "2026-10-31",
           "title": "Storybook consistent comments"
         },
@@ -4153,7 +4153,7 @@
                 "name": "p",
                 "attributes": {},
                 "content": [
-                  "The short story is a backup for what you miss: \u201cDo X-prime. We used to do X, but then we learned Y and Z matter.\u201d When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it."
+                  "The short story is a backup for what you miss: \u201cDo X'. We used to do X, but then we learned Y and Z matter.\u201d When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it."
                 ]
               },
               {
@@ -4424,9 +4424,9 @@
       "kind": "symptom",
       "summary": "An agent retrieves already-delivered information again without a new content, freshness, or verification need.",
       "version": "1",
-      "status": "reviewed",
-      "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "status": "production",
+      "evidence": "validated",
+      "updated": "2026-10-31",
       "title": "Repeated retrieval",
       "source": "entries/symptoms/repeated-retrieval.xml",
       "url": "symptoms/repeated-retrieval.html",
@@ -4435,9 +4435,9 @@
         "attributes": {
           "id": "S001",
           "version": "1",
-          "status": "reviewed",
-          "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "status": "production",
+          "evidence": "validated",
+          "updated": "2026-10-31",
           "title": "Repeated retrieval"
         },
         "content": [
@@ -4657,9 +4657,9 @@
       "kind": "symptom",
       "summary": "An agent repeats an unsuccessful action cycle without relevant changes that would reasonably support expecting a different outcome.",
       "version": "1",
-      "status": "reviewed",
-      "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "status": "production",
+      "evidence": "validated",
+      "updated": "2026-10-31",
       "title": "Doom looping",
       "source": "entries/symptoms/doom-looping.xml",
       "url": "symptoms/doom-looping.html",
@@ -4668,9 +4668,9 @@
         "attributes": {
           "id": "S002",
           "version": "1",
-          "status": "reviewed",
-          "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "status": "production",
+          "evidence": "validated",
+          "updated": "2026-10-31",
           "title": "Doom looping"
         },
         "content": [
@@ -7546,9 +7546,9 @@
       "kind": "symptom",
       "summary": "The agent\u2019s human-facing writing uses dense, unexplained labels or compressed phrasing that makes the reader reconstruct what it means.",
       "version": "1",
-      "status": "reviewed",
-      "evidence": "unvalidated",
-      "updated": "2026-10-28",
+      "status": "production",
+      "evidence": "validated",
+      "updated": "2026-10-31",
       "title": "Opaque jargon (neuralese)",
       "source": "entries/symptoms/opaque-jargon.xml",
       "url": "symptoms/opaque-jargon.html",
@@ -7557,9 +7557,9 @@
         "attributes": {
           "id": "S015",
           "version": "1",
-          "status": "reviewed",
-          "evidence": "unvalidated",
-          "updated": "2026-10-28",
+          "status": "production",
+          "evidence": "validated",
+          "updated": "2026-10-31",
           "title": "Opaque jargon (neuralese)"
         },
         "content": [
@@ -8040,8 +8040,8 @@
       "kind": "symptom",
       "summary": "An agent answers or acts using information that no longer applies to the time or state the task concerns.",
       "version": "1",
-      "status": "draft",
-      "evidence": "unvalidated",
+      "status": "production",
+      "evidence": "validated",
       "updated": "2026-10-31",
       "title": "Using outdated information",
       "source": "entries/symptoms/using-outdated-information.xml",
@@ -8051,8 +8051,8 @@
         "attributes": {
           "id": "S017",
           "version": "1",
-          "status": "draft",
-          "evidence": "unvalidated",
+          "status": "production",
+          "evidence": "validated",
           "updated": "2026-10-31",
           "title": "Using outdated information"
         },

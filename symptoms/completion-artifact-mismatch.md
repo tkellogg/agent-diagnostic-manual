@@ -9,6 +9,12 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Claims completion while work is unfinished
 xml_source: symptoms/completion-artifact-mismatch.xml
+linked_pages:
+- id: S007
+  title: Premature stopping
+  kind: symptom
+  url: symptoms/premature-stopping.html
+  direction: outgoing
 ---
 
 # Claims completion while work is unfinished

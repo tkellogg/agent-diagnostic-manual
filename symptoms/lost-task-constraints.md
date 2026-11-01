@@ -9,6 +9,17 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Lost task constraints
 xml_source: symptoms/lost-task-constraints.xml
+linked_pages:
+- id: D001
+  title: Incorrect compaction
+  kind: diagnosis
+  url: diagnoses/context-handoff-loss.html
+  direction: incoming
+- id: I001
+  title: Fix compaction
+  kind: intervention
+  url: interventions/preserve-task-relevant-evidence.html
+  direction: incoming
 ---
 
 # Lost task constraints

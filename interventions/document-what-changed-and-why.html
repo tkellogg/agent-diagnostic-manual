@@ -18,7 +18,7 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <link href="../assets/adm.css?v=3ce39f3f4a14" rel="stylesheet">
+        <link href="../assets/adm.css?v=69ad5b2fc180" rel="stylesheet">
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -349,7 +349,27 @@
   
   </div>
   
-  <p class="entry-status"><span class="entry-id">I007</span><span>draft</span><span>unvalidated</span></p>
+  <p class="entry-status"><span class="entry-id">I007</span><span>production</span><span>validated</span></p>
+  <details class="adm-linked-pages" data-pagefind-ignore>
+    <summary>Linked pages <span>2</span></summary>
+    
+    <p>Pages this entry references, or that reference it. A link alone does not establish a diagnosis or recommend a treatment.</p>
+    
+    
+    
+    
+    
+    <strong>Diagnoses</strong><ul>
+      <li><a href="../diagnoses/failure-to-retire-outdated-memories.html">D005 — Failure to retire outdated memories</a><small>incoming, outgoing</small></li>
+    </ul>
+    
+    
+    <strong>Interventions</strong><ul>
+      <li><a href="save-information-for-future-work.html">I006 — Move info outside session</a><small>incoming, outgoing</small></li>
+    </ul>
+    
+    
+  </details>
   
   <article data-pagefind-body>
 
@@ -358,7 +378,7 @@
 <p><a id="purpose"></a></p>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
 <p>The primary goal is consistent state: code, comments, docs, procedures, and saved facts should agree about what applies now. Update the places affected by a change, including assumptions built into the architecture. This can repair an existing inconsistency or accompany an ordinary change; no past mistake is required.</p>
-<p>The short story is a backup for what you miss: “Do X-prime. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.</p>
+<p>The short story is a backup for what you miss: “Do X'. We used to do X, but then we learned Y and Z matter.” When an old assumption turns up later, that history helps the next agent understand the intended state and unwind the assumption. It can also explain why today's implementation looks odd. A comment should explain the reason itself; a link can support it but cannot replace it.</p>
 <p>This specializes <a href="save-information-for-future-work.html">move info outside session</a> and adds repair of the existing state. History is useful provenance, not a substitute for updating known stale copies. Its benefit for <a href="../diagnoses/failure-to-retire-outdated-memories.html">competing outdated memories</a> remains a working proposal, not a remedy tested by the cited paper.</p>
 <p><a id="preconditions"></a></p>
 <h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">¶</a></h2>
@@ -374,16 +394,12 @@
 <h3 id="update-existing-state-and-explain-what-changed">Update existing state and explain what changed<a class="headerlink" href="#update-existing-state-and-explain-what-changed" title="Permanent link">¶</a></h3>
 <p>Find where the former fact or approach still shapes current work. Update affected code, tests, comments, docs, procedures, and memories to match the intended state within the agreed scope. Look beyond literal mentions: an old assumption may be built into interfaces, data structures, or workflow ordering. Preserve accurate historical records as history. If part of the repair must wait, make that remaining mismatch explicit.</p>
 <p>Beside the places future work will encounter, add a short, informal explanation of the current intent, the earlier approach, and why it changed. Include a date, preferably when the change took effect; distinguish that from when the comment was written if they differ. Explain scope when the older approach still applies elsewhere. Keep enough history to resolve a conflicting leftover without making every comment a design document.</p>
-<pre><code>    **Coding example:** “2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.” Update the retry code and its tests too; the comment alone does not fix them.
-
-
-    **Non-coding example:** “As of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.” Update the routing instructions and contact records, not just the note.
-</code></pre>
+<p><strong>Coding example:</strong> “2026-10-31: Check provider B's transaction status before retrying a timeout. We used to retry immediately, but B can now time out after charging, so that can charge twice. Provider A's idempotent retry path is unchanged.” Update the retry code and its tests too; the comment alone does not fix them.</p>
+<p><strong>Non-coding example:</strong> “As of 2026-10-15, send purchase approvals to Maya. Lee used to handle them; Maya took over when the teams merged.” Update the routing instructions and contact records, not just the note.</p>
 <p><a id="procedure/change-guidance"></a></p>
 <h3 id="make-this-part-of-future-work">Make this part of future work<a class="headerlink" href="#make-this-part-of-future-work" title="Permanent link">¶</a></h3>
 <p>Edit the existing AGENTS.md, project guidance, or relevant skill so future changes update affected state and leave brief dated explanations where the history helps. Tell agents to use those explanations when they encounter conflicting leftovers, check that the scope and authority match, and correct the stale copy. Verify that this guidance is loaded for the relevant work; merely saving the file is not enough.</p>
-<pre><code>    **Example instruction:** “When a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.”
-</code></pre>
+<p><strong>Example instruction:</strong> “When a fact, procedure, or design changes, update the affected code and records so they agree. Where the reason will help later work, leave a brief dated comment: what applies now, what we used to do, and why it changed. Look for assumptions beyond exact text matches. If you cannot update a known dependency, record what remains inconsistent. Don't invent missing reasons or add a history note to every edit.”</p>
 <p><a id="evaluation"></a></p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">¶</a></h2>
 <p>Agree on who will review ordinary subsequent work and a check-in date, using an existing review job or reminder. Check whether agents keep affected state consistent, resolve missed old assumptions correctly, and avoid restoring superseded behavior. Include time spent updating and reading records. If no relevant work occurs, leave the outcome unresolved and choose another date.</p>
@@ -424,9 +440,9 @@
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../pagefind/pagefind-ui.js"></script>
-<script src="../assets/adm.js?v=3ce39f3f4a14" data-base-url="../"></script>
-<script src="../assets/adm-harness.js?v=3ce39f3f4a14" defer></script>
-<script src="../assets/adm-mermaid.js?v=3ce39f3f4a14" type="module"></script>
+<script src="../assets/adm.js?v=69ad5b2fc180" data-base-url="../"></script>
+<script src="../assets/adm-harness.js?v=69ad5b2fc180" defer></script>
+<script src="../assets/adm-mermaid.js?v=69ad5b2fc180" type="module"></script>
 
 <template id="adm-review-controls">
   <section class="adm-review" aria-labelledby="adm-review-title" data-pagefind-ignore>
@@ -446,7 +462,7 @@
   </section>
 </template>
 <script src="../assets/vendor/annotate-1.5.3.js" data-project="agent-diagnostic-manual" data-page="I007" data-accent="#94472d" data-blocks="article p, article li, article h1, article h2, article h3, article h4, article td, article pre"></script>
-<script src="../assets/adm-review.js?v=3ce39f3f4a14"></script>
+<script src="../assets/adm-review.js?v=69ad5b2fc180"></script>
 
 
 

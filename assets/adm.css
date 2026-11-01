@@ -184,3 +184,13 @@ footer { margin: 5rem 0 0; font-weight: 400; text-align: left; }
 
 @media (max-width: 991px) { .adm-search-trigger { margin-left: auto; margin-right: 1rem; } }
 @media (max-width: 575px) { .adm-wordmark { display: none; } .navbar-brand { margin-right: .5rem; } .adm-search-trigger { gap: .4rem; margin-right: .5rem; } .adm-search-trigger kbd { display: none; } .adm-search .modal-body { padding: .5rem 1rem 1rem; } }
+
+/* Native disclosure keeps incoming and outgoing references available without JS. */
+.adm-linked-pages { margin: -.5rem 0 1.5rem; color: var(--adm-muted); font-size: .85rem; }
+.adm-linked-pages summary { cursor: pointer; width: fit-content; padding: .3rem 0; }
+.adm-linked-pages summary span { margin-left: .4rem; font-variant-numeric: tabular-nums; }
+.adm-linked-pages[open] { border-bottom: 1px solid var(--adm-line); padding-bottom: .7rem; }
+.adm-linked-pages p { margin: .5rem 0; }
+.adm-linked-pages ul { padding-left: 1.2rem; }
+.adm-linked-pages li { margin: .35rem 0; }
+.adm-linked-pages small { display: block; font-size: .7rem; }

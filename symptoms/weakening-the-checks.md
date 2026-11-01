@@ -9,6 +9,7 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Weakening the checks
 xml_source: symptoms/weakening-the-checks.xml
+linked_pages: []
 ---
 
 # Weakening the checks

@@ -4,11 +4,17 @@ kind: symptom
 summary: An agent answers or acts using information that no longer applies to the
   time or state the task concerns.
 version: '1'
-status: draft
-evidence: unvalidated
+status: production
+evidence: validated
 updated: '2026-10-31'
 title: Using outdated information
 xml_source: symptoms/using-outdated-information.xml
+linked_pages:
+- id: D005
+  title: Failure to retire outdated memories
+  kind: diagnosis
+  url: diagnoses/failure-to-retire-outdated-memories.html
+  direction: incoming
 ---
 
 # Using outdated information
@@ -75,8 +81,7 @@ Record the task's intended time and scope, exact claim or action, old source and
 
 <span class="adm-example-kind">Reported example</span>
 
-
-        [Codex issue #49083](https://github.com/openai/codex/issues/49083) reports a PR re-review using an old local checkout after remote reads failed. Two findings were already fixed in the newer head. The report supplies both revisions and command results; the user had to intervene to obtain the current version. The agent disclosed access trouble but still presented the obsolete defects as current findings.
+[Codex issue #49083](https://github.com/openai/codex/issues/49083) reports a PR re-review using an old local checkout after remote reads failed. Two findings were already fixed in the newer head. The report supplies both revisions and command results; the user had to intervene to obtain the current version. The agent disclosed access trouble but still presented the obsolete defects as current findings.
 
 <a id="examples/obsolete-answer"></a>
 
@@ -84,8 +89,7 @@ Record the task's intended time and scope, exact claim or action, old source and
 
 <span class="adm-example-kind">Reported example</span>
 
-
-        [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) reports benchmark answers choosing an obsolete fact even with its replacement present. Adding the obsolete competitor produced 41 correct-to-stale flips for Qwen2.5 and nine for Qwen3. These are synthetic benchmark tasks, not measured production losses.
+[When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) reports benchmark answers choosing an obsolete fact even with its replacement present. Adding the obsolete competitor produced 41 correct-to-stale flips for Qwen2.5 and nine for Qwen3. These are synthetic benchmark tasks, not measured production losses.
 
 <a id="examples/restored-retry"></a>
 

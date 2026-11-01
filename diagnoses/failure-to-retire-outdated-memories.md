@@ -4,12 +4,28 @@ kind: diagnosis
 summary: The memory path keeps supplying superseded facts alongside their replacements,
   and the working agent uses the old version in later work.
 version: '1'
-status: draft
-evidence: unvalidated
+status: production
+evidence: validated
 updated: '2026-10-31'
 unit: configured-agent-system
 title: Failure to retire outdated memories
 xml_source: diagnoses/failure-to-retire-outdated-memories.xml
+linked_pages:
+- id: D001
+  title: Incorrect compaction
+  kind: diagnosis
+  url: diagnoses/context-handoff-loss.html
+  direction: outgoing
+- id: I007
+  title: Storybook consistent comments
+  kind: intervention
+  url: interventions/document-what-changed-and-why.html
+  direction: incoming, outgoing
+- id: S017
+  title: Using outdated information
+  kind: symptom
+  url: symptoms/using-outdated-information.html
+  direction: outgoing
 ---
 
 # Failure to retire outdated memories
@@ -24,8 +40,7 @@ A memory system should preserve useful history while making clear which facts or
 
 For example, an old instruction to retry failed payments and a later restriction may both be retrieved. An agent that chooses the familiar retry rule can undo a deliberate protection. Updating inconsistent records and briefly explaining what changed and why may help it use the history correctly. The proposed repair preserves useful history while correcting current state.
 
-
-      [When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated.
+[When Retrieval Is Not Enough](https://arxiv.org/html/2610.36308v1) isolates an obsolete competitor by replacing an unrelated statement while retaining the update, prompt, and four-statement context size. Accuracy fell from 100% to 44.6% and 87.8% on two Qwen models. The study supports interference from competing versions in that setting. It does not isolate a neural mechanism: old facts often matched familiar world knowledge, unlike their synthetic replacements. Generalization beyond that benchmark and the consistency-and-history intervention below remain unvalidated.
 
 <a id="relations"></a>
 

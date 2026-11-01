@@ -9,6 +9,7 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Correction without behavioral change
 xml_source: symptoms/correction-without-behavioral-change.xml
+linked_pages: []
 ---
 
 # Correction without behavioral change

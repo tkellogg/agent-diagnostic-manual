@@ -10,6 +10,17 @@ updated: '2026-10-28'
 unit: configured-agent-system
 title: Tool discovery reports unusable tools
 xml_source: diagnoses/tool-discovery-delivery-gap.xml
+linked_pages:
+- id: I005
+  title: Make discovered tools callable
+  kind: intervention
+  url: interventions/complete-tool-discovery-handoff.html
+  direction: incoming, outgoing
+- id: S002
+  title: Doom looping
+  kind: symptom
+  url: symptoms/doom-looping.html
+  direction: outgoing
 ---
 
 # Tool discovery reports unusable tools

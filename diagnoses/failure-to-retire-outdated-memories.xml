@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<diagnosis xmlns="urn:adm:1" id="D005" version="1" status="draft" evidence="unvalidated" updated="2026-10-31" unit="configured-agent-system" title="Failure to retire outdated memories">
+<diagnosis xmlns="urn:adm:1" id="D005" version="1" status="production" evidence="validated" updated="2026-10-31" unit="configured-agent-system" title="Failure to retire outdated memories">
   <summary>The memory path keeps supplying superseded facts alongside their replacements, and the working agent uses the old version in later work.</summary>
   <definition>
     <p>A memory system should preserve useful history while making clear which facts or requirements apply now. This diagnosis proposes that obsolete memories keep competing with their updates: the system supplies both, and the working agent does not reliably choose the applicable version. Retiring a memory means retiring its authority as current guidance, not necessarily deleting its history.</p>

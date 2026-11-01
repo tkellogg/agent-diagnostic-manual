@@ -5,11 +5,37 @@ summary: Change the compaction instructions or implementation to preserve inform
   that later work needs. Where the harness allows it, compare changes on a saved conversation
   before evaluating ordinary future work.
 version: '1'
-status: reviewed
-evidence: unvalidated
-updated: '2026-10-28'
+status: production
+evidence: validated
+updated: '2026-10-31'
 title: Fix compaction
 xml_source: interventions/preserve-task-relevant-evidence.xml
+linked_pages:
+- id: D001
+  title: Incorrect compaction
+  kind: diagnosis
+  url: diagnoses/context-handoff-loss.html
+  direction: incoming, outgoing
+- id: I006
+  title: Move info outside session
+  kind: intervention
+  url: interventions/save-information-for-future-work.html
+  direction: incoming
+- id: S001
+  title: Repeated retrieval
+  kind: symptom
+  url: symptoms/repeated-retrieval.html
+  direction: outgoing
+- id: S006
+  title: Lost task constraints
+  kind: symptom
+  url: symptoms/lost-task-constraints.html
+  direction: outgoing
+- id: S008
+  title: Repeated reauthorization
+  kind: symptom
+  url: symptoms/repeated-reauthorization.html
+  direction: outgoing
 ---
 
 # Fix compaction

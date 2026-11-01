@@ -9,6 +9,7 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Overconfidence in suspected causes
 xml_source: symptoms/overconfidence-in-suspected-causes.xml
+linked_pages: []
 ---
 
 # Overconfidence in suspected causes

@@ -10,6 +10,17 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Consolidate verification instructions with the user
 xml_source: interventions/scope-verification-policy.xml
+linked_pages:
+- id: D003
+  title: Overbroad verification instructions
+  kind: diagnosis
+  url: diagnoses/verification-policy-overgeneralization.html
+  direction: incoming, outgoing
+- id: S004
+  title: Excessive verification
+  kind: symptom
+  url: symptoms/excessive-verification.html
+  direction: outgoing
 ---
 
 # Consolidate verification instructions with the user

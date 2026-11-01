@@ -9,6 +9,12 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Keep derived values out of source-only fields
 xml_source: interventions/separate-observed-derived-values.xml
+linked_pages:
+- id: S014
+  title: Inferred values presented as observations
+  kind: symptom
+  url: symptoms/inferred-values-as-observations.html
+  direction: outgoing
 ---
 
 # Keep derived values out of source-only fields

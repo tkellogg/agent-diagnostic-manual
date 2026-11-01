@@ -9,6 +9,7 @@ evidence: unvalidated
 updated: '2026-10-28'
 title: Agreement-driven reversal
 xml_source: symptoms/agreement-driven-reversal.xml
+linked_pages: []
 ---
 
 # Agreement-driven reversal

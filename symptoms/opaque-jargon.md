@@ -4,11 +4,12 @@ kind: symptom
 summary: "The agent\u2019s human-facing writing uses dense, unexplained labels or\
   \ compressed phrasing that makes the reader reconstruct what it means."
 version: '1'
-status: reviewed
-evidence: unvalidated
-updated: '2026-10-28'
+status: production
+evidence: validated
+updated: '2026-10-31'
 title: Opaque jargon (neuralese)
 xml_source: symptoms/opaque-jargon.xml
+linked_pages: []
 ---
 
 # Opaque jargon (neuralese)

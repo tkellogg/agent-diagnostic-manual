@@ -10,6 +10,17 @@ updated: '2026-10-28'
 unit: configured-agent-system
 title: Component checks mistaken for complete verification
 xml_source: diagnoses/verification-scope-collapse.xml
+linked_pages:
+- id: I003
+  title: Repair gaps between tests and real use
+  kind: intervention
+  url: interventions/verify-acceptance-path.html
+  direction: incoming, outgoing
+- id: S011
+  title: Unsupported verification claims
+  kind: symptom
+  url: symptoms/unsupported-verification-claims.html
+  direction: outgoing
 ---
 
 # Component checks mistaken for complete verification

@@ -10,6 +10,27 @@ updated: '2026-10-31'
 unit: configured-agent-system
 title: Overbroad verification instructions
 xml_source: diagnoses/verification-policy-overgeneralization.xml
+linked_pages:
+- id: D001
+  title: Incorrect compaction
+  kind: diagnosis
+  url: diagnoses/context-handoff-loss.html
+  direction: incoming, outgoing
+- id: I002
+  title: Consolidate verification instructions with the user
+  kind: intervention
+  url: interventions/scope-verification-policy.html
+  direction: incoming, outgoing
+- id: S001
+  title: Repeated retrieval
+  kind: symptom
+  url: symptoms/repeated-retrieval.html
+  direction: outgoing
+- id: S004
+  title: Excessive verification
+  kind: symptom
+  url: symptoms/excessive-verification.html
+  direction: outgoing
 ---
 
 # Overbroad verification instructions
