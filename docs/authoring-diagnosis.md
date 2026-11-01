@@ -51,7 +51,7 @@ Several causes can coexist. A faulty instruction can explain a symptom without m
 
 Keep `investigation` to the next useful evidence to inspect. Shared recipes belong in [observation methods](observation-methods.md), not repeated paragraphs on every entry.
 
-The root `status` and `evidence` attributes identify provisional entries. Put a specific source or limitation next to the claim it qualifies; do not add an “evidence and uncertainty” section that repeats the draft badge. Reports of a behavior do not establish its cause or the effectiveness of a remedy. Keep private cases private.
+The root `status` and `evidence` attributes record readiness. Explicit maintainer promotion sets `status="production"` and `evidence="validated"`. Preserve source-specific limitations; production acceptance does not turn an untested prediction into a replicated result. Put a specific source or limitation next to the claim it qualifies; do not add an “evidence and uncertainty” section that repeats the draft badge. Reports of a behavior do not establish its cause or the effectiveness of a remedy. Keep private cases private.
 
 Use ordinary verbs, name the thing being changed, and avoid invented labels for familiar actions. Read the draft as someone who has not followed its author’s reasoning. If the reader must translate the prose before assessing the model, revise it.
 

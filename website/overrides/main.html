@@ -65,6 +65,18 @@
   </div>
   {% if page and page.meta.id %}
   <p class="entry-status"><span class="entry-id">{{ page.meta.id }}</span><span>{{ page.meta.status }}</span><span>{{ page.meta.evidence }}</span></p>
+  <details class="adm-linked-pages" data-pagefind-ignore>
+    <summary>Linked pages <span>{{ page.meta.linked_pages | length }}</span></summary>
+    {% if page.meta.linked_pages %}
+    <p>Pages this entry references, or that reference it. A link alone does not establish a diagnosis or recommend a treatment.</p>
+    {% for kind, label in [('symptom', 'Symptoms'), ('diagnosis', 'Diagnoses'), ('intervention', 'Interventions')] %}
+    {% set links = page.meta.linked_pages | selectattr('kind', 'equalto', kind) | list %}
+    {% if links %}<strong>{{ label }}</strong><ul>
+      {% for linked in links %}<li><a href="{{ linked.url | url }}">{{ linked.id }} — {{ linked.title }}</a><small>{{ linked.direction }}</small></li>{% endfor %}
+    </ul>{% endif %}
+    {% endfor %}
+    {% else %}<p>No linked entries yet.</p>{% endif %}
+  </details>
   {% elif page and page.is_homepage %}
   <p class="adm-eyebrow adm-intro">Observe · Investigate · Understand</p>
   {% endif %}

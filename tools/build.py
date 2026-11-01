@@ -71,7 +71,9 @@ class Renderer:
         if links:result+=symptom_list()
         return result
     def mixed(self,n):
-        return self.esc(n.text)+''.join(self.inline(c)+self.esc(c.tail) for c in n)
+        # XML layout whitespace must not become Markdown indentation/code blocks.
+        prose=lambda value: self.esc(re.sub(r'\s+', ' ', value or ''))
+        return prose(n.text)+''.join(self.inline(c)+prose(c.tail) for c in n)
     def inline(self,n):
         tag=name(n)
         if tag=='ref':return self.link(n.get('target'),self.mixed(n) or self.esc(n.get('target')))
@@ -123,7 +125,7 @@ class Renderer:
                     items.append('- '+anchor+content.replace('\n','\n    '))
             listing='<ul>'+''.join(items)+'</ul>\n' if self.mode=='html' else '\n\n'.join(items)+'\n\n'
             return self.anchor(n)+self.heading(TITLES[tag],depth)+listing
-        if tag=='p':return '<p>'+self.mixed(n)+'</p>\n' if self.mode=='html' else self.mixed(n)+'\n\n'
+        if tag=='p':return '<p>'+self.mixed(n)+'</p>\n' if self.mode=='html' else self.mixed(n).strip()+'\n\n'
         if tag in ('ul','ol'):
             if self.mode=='html':return f'<{tag}>'+''.join('<li>'+self.mixed(c)+'</li>' for c in n)+f'</{tag}>\n'
             return '\n'.join((f'{i}. ' if tag=='ol' else '- ')+self.mixed(c) for i,c in enumerate(n,1))+'\n\n'
@@ -180,7 +182,20 @@ def build(root=ROOT,check=False,search=False):
         path=Path(doc['path'])
         md=staging/path.with_suffix('.md')
         md.parent.mkdir(parents=True,exist_ok=True)
-        metadata={**doc['meta'],'xml_source':path.with_suffix('.xml').as_posix()}
+        linked={}
+        did=doc['meta']['id']
+        for ref in refs:
+            source=ref['from'].split('#',1)[0]; target=ref['to'].split('#',1)[0]
+            other=target if source==did else source if target==did else None
+            if other and other!=did:
+                linked.setdefault(other,set()).add('outgoing' if source==did else 'incoming')
+        related=[]
+        for other in docs:
+            oid=other['meta']['id']
+            if oid in linked:
+                related.append({'id':oid,'title':other['meta']['title'],'kind':other['meta']['kind'],
+                                'url':other['path'],'direction':', '.join(sorted(linked[oid]))})
+        metadata={**doc['meta'],'xml_source':path.with_suffix('.xml').as_posix(),'linked_pages':related}
         md.write_text('---\n'+yaml.safe_dump(metadata,sort_keys=False)+'---\n\n'+
                       Renderer(doc,objects,addresses,'md').body().strip()+'\n',encoding='utf-8')
         shutil.copyfile(root/doc['source'],staging/path.with_suffix('.xml'))
