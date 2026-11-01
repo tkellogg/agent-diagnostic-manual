@@ -45,6 +45,19 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(catalog['objects']['S001#observations/multi-read']['kind'],'observation')
         self.assertTrue(any(r['from']=='D001#criteria/linked-disruption' and r['to']=='S001' for r in refs))
         self.assertTrue(any(r.get('address')=='D001#relations/I001' for r in refs))
+    def test_linked_pages_and_formatted_prose(self):
+        build(self.root)
+        out=self.root/'dist'
+        diagnosis=ET.HTML((out/'diagnoses/failure-to-retire-outdated-memories.html').read_text())
+        self.assertFalse(diagnosis.xpath('//article//pre'))
+        self.assertTrue(diagnosis.xpath('//article//p/a[contains(@href,"2610.36308")]'))
+        symptom=ET.HTML((out/'symptoms/using-outdated-information.html').read_text())
+        links=symptom.xpath('//details[@class="adm-linked-pages"]//a/@href')
+        self.assertIn('../diagnoses/failure-to-retire-outdated-memories.html',links)
+        self.assertEqual(len(links),len(set(links)))
+        self.assertIn('production',''.join(symptom.xpath('//p[@class="entry-status"]')[0].itertext()))
+        self.assertIn('validated',''.join(symptom.xpath('//p[@class="entry-status"]')[0].itertext()))
+
     def test_site_navigation_resolves_without_handwritten_indexes(self):
         from urllib.parse import urlsplit, unquote
         build(self.root)
