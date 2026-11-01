@@ -46,10 +46,11 @@ Preserve task/configuration details, trace references and access limits, criteri
 
 Keep synthetic examples separate from observed cases. Interpret evidence labels as follows:
 
+- `validated`: accepted by the maintainer for production use. Explicit promotion sets this together with `status="production"`; retain the stated limits of supporting evidence.
 - `unvalidated`: no inspected empirical support is recorded for the claim.
 - `case-supported`: linked, inspectable empirical evidence supports the specific claim.
 - `replicated`: linked repetitions support the claim under stated conditions and limits.
 
-Do not promote evidence labels based on plausible examples, successful parsing, or reviewer agreement alone. Distinguish reliability (reviewers agree), validity (the distinction is supported), and utility (it helps decisions).
+Honor explicit maintainer promotion as production validation. Do not independently promote entries based on plausible examples or successful parsing, or upgrade empirical labels such as `replicated` based on reviewer agreement alone. Distinguish reliability (reviewers agree), validity (the distinction is supported), and utility (it helps decisions).
 
 When asked to contribute, distinguish a provisional scaffold from an evidence-supported entry. Edit canonical XML, preserve stable IDs, and validate the schema and cross-references. Keep private incidents out of public entries unless their publication is authorized. Use the checkout's `docs/` authoring guides, diagnostic process, and observation methods when available; do not introduce a case schema or severity scale without a concrete need.

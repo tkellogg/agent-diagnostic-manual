@@ -368,11 +368,12 @@
 <p>Preserve task/configuration details, trace references and access limits, criterion assessments, competing explanations, and any intervention's baseline, prediction, actual outcome, and confounders. Include a healthy comparison and reviewer disagreements when available. Keep sensitive raw traces in an appropriate access-controlled location.</p>
 <p>Keep synthetic examples separate from observed cases. Interpret evidence labels as follows:</p>
 <ul>
+<li><code>validated</code>: accepted by the maintainer for production use. Explicit promotion sets this together with <code>status="production"</code>; retain the stated limits of supporting evidence.</li>
 <li><code>unvalidated</code>: no inspected empirical support is recorded for the claim.</li>
 <li><code>case-supported</code>: linked, inspectable empirical evidence supports the specific claim.</li>
 <li><code>replicated</code>: linked repetitions support the claim under stated conditions and limits.</li>
 </ul>
-<p>Do not promote evidence labels based on plausible examples, successful parsing, or reviewer agreement alone. Distinguish reliability (reviewers agree), validity (the distinction is supported), and utility (it helps decisions).</p>
+<p>Honor explicit maintainer promotion as production validation. Do not independently promote entries based on plausible examples or successful parsing, or upgrade empirical labels such as <code>replicated</code> based on reviewer agreement alone. Distinguish reliability (reviewers agree), validity (the distinction is supported), and utility (it helps decisions).</p>
 <p>When asked to contribute, distinguish a provisional scaffold from an evidence-supported entry. Edit canonical XML, preserve stable IDs, and validate the schema and cross-references. Keep private incidents out of public entries unless their publication is authorized. Use the checkout's <code>docs/</code> authoring guides, diagnostic process, and observation methods when available; do not introduce a case schema or severity scale without a concrete need.</p></article>
   
   <nav class="adm-pagination" aria-label="Adjacent pages" data-pagefind-ignore>
