@@ -176,323 +176,75 @@
         <xs:element name="observations" type="a:observations"/>
         <xs:element name="how-to-recognize-it" type="a:section" minOccurs="0"/>
         <xs:element name="benign-lookalikes" type="a:lookalikes"/>
-        <xs:…8241 tokens truncated…tion',N)
-        item.set('title','The same information is read again')
-        tree.write(str(self.root/S),encoding='UTF-8')
-        _,objects,_,_=load(self.root)
-        self.assertIn('S001#observations/multi-read',objects)
-        self.assertNotIn('S001#how-to-recognize-it',objects)
-        item.attrib.pop('title')
-        tree.write(str(self.root/S),encoding='UTF-8')
-        load(self.root)
-    def test_relationships_and_examples_are_readable_in_generated_views(self):
-        build(self.root)
-        page=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())
-        article=page.xpath('//article')[0]
-        symptom_links=article.xpath('.//ul/li/a[@href="../symptoms/repeated-retrieval.html"]')
-        self.assertTrue(any('S001 — Repeated retrieval'==''.join(a.itertext()) for a in symptom_links))
-        intervention=article.xpath('.//h3/a[@href="../interventions/preserve-task-relevant-evidence.html"]')
-        self.assertTrue(any('I001 — Fix compaction' in ''.join(a.itertext()) for a in intervention))
-        prediction_headings=article.xpath('.//h4[starts-with(@id,"what-to-expect")]')
-        source=ET.parse(str(self.root/D))
-        self.assertEqual(len(prediction_headings),len(source.findall('a:relations/a:intervention-ref',N)))
-        for heading in prediction_headings:
-            predictions=heading.xpath('following-sibling::ul[1]/li')
-            self.assertEqual(len(predictions),4)
-            self.assertTrue(all(li.xpath('./p/strong') for li in predictions))
-            self.assertFalse(any(li.xpath('.//pre') for li in predictions))
-        symptom=ET.HTML((self.root/'dist/symptoms/opaque-jargon.html').read_text())
-        badges=symptom.xpath('//h3/span[@class="adm-example-kind"]/text()')
-        self.assertIn('Synthetic example',badges)
-        self.assertIn('Reported example',badges)
-        md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
-        self.assertIn('**Expected improvement:**',md)
-        self.assertNotIn('Related symptom:',md)
-        for doc in (self.root/'entries/diagnoses').glob('*.xml'):
-            source=ET.parse(str(doc))
-            h=ET.HTML((self.root/'dist/diagnoses'/doc.with_suffix('.html').name).read_text())
-            for number,criterion in enumerate(source.findall('a:criteria/a:criterion',N),1):
-                heading=h.xpath('//*[@id="criteria/'+criterion.get('id')+'"]/following::h3[1]')[0]
-                self.assertTrue(''.join(heading.itertext()).startswith(f'{number}. '+criterion.get('title')))
-        self.assertTrue(article.xpath('.//h3[@id="the-information-mattered"]'))
-        pills=article.xpath('.//a[@class="adm-entry-ref"]')
-        self.assertTrue(any(a.xpath('./span[@class="adm-ref-id"][text()="I001"]') for a in pills))
-        self.assertTrue(article.xpath('.//ul[@class="adm-entry-refs"]/li/a/span[@class="adm-ref-id"]'))
-        for pill in pills:
-            self.assertTrue(pill.xpath('./span[@class="adm-ref-title"]'))
-            self.assertEqual(len(pill.xpath('.//a')),0)
-    def test_harness_notes_remain_available_in_every_format(self):
-        build(self.root)
-        source=ET.parse(str(self.root/I))
-        keys=[h.get('id') for h in source.findall('a:harness-notes/a:harness',N)]
-        out=self.root/'dist/interventions/preserve-task-relevant-evidence'
-        page=ET.HTML(out.with_suffix('.html').read_text())
-        controls=page.xpath('//fieldset[@class="adm-harness-controls"][@hidden]')[0]
-        self.assertEqual(controls.xpath('./legend/text()'),['Harness'])
-        self.assertEqual(controls.xpath('.//input[@type="radio"][@name="adm-harness"]/@value'),['all']+keys)
-        self.assertEqual(controls.xpath('.//input[@checked]/@value'),['all'])
-        self.assertEqual(len(controls.xpath('.//label/input')),len(keys)+1)
-        self.assertEqual(page.xpath('//section[@class="adm-harness-note"]/@data-harness'),keys)
-        self.assertFalse(page.xpath('//section[@class="adm-harness-note"]/@hidden'))
-        self.assertFalse(page.xpath('//section[@class="adm-harness-note"]//h2'))
-        self.assertTrue(page.xpath('//h2[@id="evaluation"]'))
-        for key in keys:
-            note=page.xpath('//section[@data-harness="'+key+'"]')[0]
-            self.assertTrue(note.xpath('.//*[@id="harness-notes/'+key+'"]'))
-            self.assertTrue(note.xpath('./h3'))
-            self.assertIn('id="harness-notes/'+key+'"',out.with_suffix('.md').read_text())
-        self.assertEqual(out.with_suffix('.xml').read_bytes(),(self.root/I).read_bytes())
-        catalog=json.loads((self.root/'dist/catalog.json').read_text())
-        self.assertIn('I001#harness-notes/codex',catalog['objects'])
-    def test_harness_identity_is_extensible_and_list_local(self):
-        original=(self.root/I).read_bytes()
-        for mutation in ('duplicate','title','id'):
-            with self.subTest(mutation=mutation):
-                tree=ET.fromstring(original)
-                notes=tree.find('a:harness-notes',N)
-                if mutation=='duplicate':notes.append(deepcopy(notes[0]))
-                else:notes[0].attrib.pop(mutation)
-                (self.root/I).write_bytes(ET.tostring(tree))
-                with self.assertRaises(ValueError):load(self.root)
-        tree=ET.fromstring(original)
-        notes=tree.find('a:harness-notes',N);notes[0].set('id','another-harness')
-        (self.root/I).write_bytes(ET.tostring(tree))
-        _,objects,_,_=load(self.root)
-        self.assertIn('I001#harness-notes/another-harness',objects)
-        tree.remove(notes)
-        (self.root/I).write_bytes(ET.tostring(tree))
-        load(self.root)
-    def test_criteria_renumber_without_changing_identity(self):
-        tree=ET.parse(str(self.root/D))
-        criteria=tree.find('a:criteria',N)
-        criteria.insert(0,criteria[-1])
-        tree.write(str(self.root/D),encoding='UTF-8')
-        docs,objects,addresses,_=load(self.root)
-        doc=next(d for d in docs if d['meta']['id']=='D001')
-        h=ET.HTML(Renderer(doc,objects,addresses,'html').body())
-        self.assertEqual(h.xpath('//h3[@id="the-omission-explains-the-mistake"]/text()'),['1. The omission explains the mistake'])
-        self.assertTrue(h.xpath('//*[@id="criteria/linked-disruption"]'))
-    def test_intervention_reference_has_condition_and_predictions(self):
-        _,_,_,refs=load(self.root)
-        relation=next(r for r in refs if r['relation']=='intervention-ref')
-        self.assertEqual(set(relation),{'from','to','relation','address','when','predictions'})
-        node=ET.parse(str(self.root/D)).find('a:relations/a:intervention-ref',N)
-        self.assertEqual(dict(node.attrib),{'ref':'I001'})
-        self.assertTrue(node.findtext('a:when',namespaces=N))
-        self.assertEqual(relation['predictions'],ast(node.find('a:predictions',N)))
-    def test_predictions_required_and_addressed_without_id(self):
-        original=(self.root/D).read_bytes()
-        for mutation in ('missing','empty','id'):
-            with self.subTest(mutation=mutation):
-                node=ET.fromstring(original)
-                predictions=node.find('a:relations/a:intervention-ref/a:predictions',N)
-                if mutation=='missing':predictions.getparent().remove(predictions)
-                elif mutation=='empty':predictions.clear()
-                else:predictions.set('id','outcome')
-                (self.root/D).write_bytes(ET.tostring(node))
-                with self.assertRaises(ValueError):load(self.root)
-        (self.root/D).write_bytes(original)
-        _,objects,_,_=load(self.root)
-        self.assertIn('D001#relations/I001/predictions',objects)
-    def test_prediction_fields_are_required_singletons(self):
-        original=(self.root/D).read_bytes()
-        fields=('expected-improvement','still-necessary','reason-to-reconsider','possible-harm')
-        for field in fields:
-            for mutation in ('missing','empty','duplicate','id','unknown'):
-                with self.subTest(field=field,mutation=mutation):
-                    node=ET.fromstring(original)
-                    predictions=node.find('a:relations/a:intervention-ref/a:predictions',N)
-                    child=predictions.find('a:'+field,N)
-                    if mutation=='missing':predictions.remove(child)
-                    elif mutation=='empty':child.clear()
-                    elif mutation=='duplicate':predictions.insert(predictions.index(child),deepcopy(child))
-                    elif mutation=='id':child.set('id','outcome')
-                    else:child.tag='{urn:adm:1}unknown'
-                    (self.root/D).write_bytes(ET.tostring(node))
-                    with self.assertRaises(ValueError):load(self.root)
-        node=ET.fromstring(original)
-        predictions=node.find('a:relations/a:intervention-ref/a:predictions',N)
-        predictions.clear()
-        predictions.append(ET.fromstring(b'<p xmlns="urn:adm:1">Unstructured predictions.</p>'))
-        (self.root/D).write_bytes(ET.tostring(node))
-        with self.assertRaises(ValueError):load(self.root)
-        (self.root/D).write_bytes(original)
-        _,objects,_,_=load(self.root)
-        for field in fields:self.assertIn('D001#relations/I001/predictions/'+field,objects)
-    def test_predictions_preserve_prose_links_in_every_view(self):
-        tree=ET.parse(str(self.root/D))
-        predictions=tree.find('a:relations/a:intervention-ref/a:predictions',N)
-        improvement=predictions.find('a:expected-improvement',N)
-        improvement.clear()
-        improvement.append(ET.fromstring(b'<p xmlns="urn:adm:1"><strong>Less</strong> <ref target="S001">retrieval</ref>, with correct results.</p>'))
-        improvement.append(ET.fromstring(b'<ul xmlns="urn:adm:1"><li>Preserve <em>inline</em> formatting.</li></ul>'))
-        tree.write(str(self.root/D),encoding='UTF-8')
-        build(self.root)
-        catalog=json.loads((self.root/'dist/catalog.json').read_text())
-        self.assertEqual(catalog['schema_version'],7)
-        relation=next(r for r in catalog['relationships'] if r.get('address')=='D001#relations/I001')
-        self.assertEqual(relation['predictions'],ast(predictions))
-        h=ET.HTML((self.root/'dist/diagnoses/context-handoff-loss.html').read_text())
-        self.assertTrue(h.xpath('//*[@id="relations/I001/predictions"]'))
-        self.assertTrue(h.xpath('//li/p[strong="Less"]/a[@href="../symptoms/repeated-retrieval.html"]'))
-        self.assertTrue(h.xpath('//li/ul/li/em[text()="inline"]'))
-        for field in predictions:
-            self.assertTrue(h.xpath('//*[@id="relations/I001/predictions/'+ET.QName(field).localname+'"]'))
-        md=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
-        self.assertIn('**Less** [retrieval](../symptoms/repeated-retrieval.md), with correct results.',md)
-        result=subprocess.run([sys.executable,'-I',str(ROOT/'examples/query_manual.py'),'--entries',str(self.root/'entries')],check=True,capture_output=True,text=True)
-        diagnosis=next(r for r in json.loads(result.stdout) if r.get('diagnosis')=='D001')
-        self.assertEqual(diagnosis['interventions'][0]['predictions']['expected-improvement'],'Less retrieval, with correct results. Preserve inline formatting.')
-    def test_diagnosis_assesses_configured_system(self):
-        original=(self.root/D).read_bytes()
-        for unit in ('configured-agent-episode','model',None):
-            with self.subTest(unit=unit):
-                node=ET.fromstring(original)
-                if unit is None:node.attrib.pop('unit')
-                else:node.set('unit',unit)
-                (self.root/D).write_bytes(ET.tostring(node))
-                with self.assertRaises(ValueError):load(self.root)
-        (self.root/D).write_bytes(original)
-    def test_intervention_reference_rejects_extra_attributes(self):
-        original=(self.root/D).read_text()
-        for attribute in ['role="both"','evidence="unvalidated"','id="preserve-evidence"']:
-            with self.subTest(attribute=attribute):
-                (self.root/D).write_text(original.replace('<intervention-ref ref="I001">','<intervention-ref ref="I001" '+attribute+'>'))
-                with self.assertRaises(ValueError):load(self.root)
-        (self.root/D).write_text(original)
-    def test_multiple_intervention_targets_have_distinct_addresses(self):
-        original=(self.root/I).read_text()
-        (self.root/'entries/interventions/comparison.xml').write_text(original.replace('id="I001"','id="I999"',1))
-        tree=ET.parse(str(self.root/D))
-        relations=tree.find('a:relations',N)
-        other=deepcopy(relations.find('a:intervention-ref',N));other.set('ref','I999')
-        relations.append(other)
-        tree.write(str(self.root/D),encoding='UTF-8')
-        _,objects,_,_=load(self.root)
-        self.assertIn('D001#relations/I001',objects)
-        self.assertIn('D001#relations/I999',objects)
-    def test_same_id_in_different_lists_allowed(self):
-        self.change(S,'id="stalled-edit"','id="multi-read"')
-        _,objects,_,_=load(self.root)
-        self.assertIn('S001#observations/multi-read',objects)
-        self.assertIn('S001#examples/multi-read',objects)
-    def test_same_id_in_different_documents_allowed(self):
-        self.change(D,'id="linked-disruption"','id="multi-read"')
-        _,objects,_,_=load(self.root)
-        self.assertIn('D001#criteria/multi-read',objects)
-        self.assertIn('S001#observations/multi-read',objects)
-    def test_duplicate_in_one_list_rejected(self):
-        self.change(S,'id="different-content"','id="changed-source"')
-        with self.assertRaisesRegex(ValueError,'duplicate local ID'):load(self.root)
-    def test_singleton_id_rejected(self):
-        self.change(S,'<what-to-record>','<what-to-record id="record">')
-        with self.assertRaises(ValueError):load(self.root)
-    def test_short_local_names_required(self):
-        for invalid in ['S001-multi-read','too-many-words-here','multi_read']:
-            with self.subTest(invalid=invalid):
-                original=(self.root/S).read_text();(self.root/S).write_text(original.replace('id="multi-read"',f'id="{invalid}"'))
-                with self.assertRaises(ValueError):load(self.root)
-                (self.root/S).write_text(original)
-    def test_lookalikes_and_examples_are_individual_objects(self):
-        node=ET.parse(str(self.root/S)).getroot()
-        self.assertEqual(len(node.findall('a:benign-lookalikes/a:lookalike',N)),5)
-        self.assertTrue({'stalled-edit','verified-edit'} <= {e.get('id') for e in node.findall('a:examples/a:example',N)})
-        self.assertIsNone(node.find('a:what-to-record',N).get('id'))
-        self.assertIsNone(node.find('a:benign-lookalikes/a:ul',N))
-    def test_scoped_link_renders_in_both_outputs(self):
-        self.change(D,'target="S001"','target="S001#observations/multi-read"')
-        build(self.root)
-        h=(self.root/'dist/diagnoses/context-handoff-loss.html').read_text()
-        m=(self.root/'dist/diagnoses/context-handoff-loss.md').read_text()
-        self.assertIn('../symptoms/repeated-retrieval.html#observations/multi-read',h)
-        self.assertIn('../symptoms/repeated-retrieval.md#observations/multi-read',m)
-        self.assertIn('id="observations/multi-read"',(self.root/'dist/symptoms/repeated-retrieval.html').read_text())
-    def test_unscoped_item_reference_rejected(self):
-        self.change(D,'target="S001"','target="multi-read"')
-        with self.assertRaisesRegex(ValueError,'unresolved reference'):load(self.root)
-    def test_wrong_scope_rejected(self):
-        self.change(D,'target="S001"','target="S001#examples/multi-read"')
-        with self.assertRaisesRegex(ValueError,'unresolved reference'):load(self.root)
-    def test_wrong_typed_target_rejected(self):
-        self.change(D,'ref="S001"','ref="I001"')
-        with self.assertRaisesRegex(ValueError,'wrong target kind'):load(self.root)
-    def test_missing_section_rejected(self):
-        self.change(I,'stop-and-rollback','unrecognized-section')
-        with self.assertRaises(ValueError):load(self.root)
-    def test_duplicate_document_rejected(self):
-        shutil.copy(self.root/S,self.root/'entries/symptoms/copy.xml')
-        with self.assertRaisesRegex(ValueError,'duplicate document ID'):load(self.root)
-    def test_dtd_and_unsafe_links_rejected(self):
-        self.change(S,'<symptom ','<!DOCTYPE symptom>\n<symptom ')
-        with self.assertRaisesRegex(ValueError,'DTDs'):load(self.root)
-    def test_unsupported_version_rejected(self):
-        self.change(S,'version="1"','version="2"')
-        with self.assertRaises(ValueError):load(self.root)
-    def test_mixed_content_preserved(self):
-        node=ET.fromstring(b'<p xmlns="urn:adm:1"><strong>one</strong> <em>two</em> tail</p>')
-        self.assertEqual(ast(node)['content'][1],' ')
-        self.assertEqual(ast(node)['content'][3],' tail')
-    def test_build_does_not_write_sources_and_cleans_output(self):
-        before={str(p.relative_to(self.root)):p.read_bytes() for p in self.root.rglob('*') if p.is_file()}
-        build(self.root);(self.root/'dist/stale.html').write_text('stale');build(self.root)
-        self.assertFalse((self.root/'dist/stale.html').exists())
-        after={str(p.relative_to(self.root)):p.read_bytes() for p in self.root.rglob('*') if p.is_file() and 'dist' not in p.relative_to(self.root).parts and '.build' not in p.relative_to(self.root).parts}
-        self.assertEqual(before,after)
-        self.assertFalse((self.root/'content').exists())
-    def test_every_catalog_address_has_a_rendered_anchor(self):
-        build(self.root)
-        catalog=json.loads((self.root/'dist/catalog.json').read_text())
-        for address,obj in catalog['objects'].items():
-            if '#' not in obj['url']:continue
-            page,fragment=obj['url'].split('#',1)
-            self.assertIn('id="'+fragment+'"',(self.root/'dist'/page).read_text(),address)
-    def test_independent_consumer(self):
-        result=subprocess.run([sys.executable,'-I',str(ROOT/'examples/query_manual.py'),'--entries',str(self.root/'entries')],check=True,capture_output=True,text=True)
-        rows=json.loads(result.stdout);s=next(x for x in rows if x.get('symptom')=='S001')
-        self.assertEqual(s['observations'],['S001#observations/multi-read'])
-        self.assertEqual(len(s['lookalikes']),5)
-    def test_review_export_adapter(self):
-        subprocess.run(['node','--test',str(ROOT/'tests/review-export.test.cjs')],check=True,capture_output=True,text=True)
-    def test_mermaid_source_and_self_hosted_runtime_are_preserved(self):
-        diagram='---\nconfig:\n  layout: elk\n---\nflowchart TD\n  A[Observe] --> B[Investigate]\n'
-        guide=self.root/'docs/diagram-example.md'
-        guide.write_text('# Diagram example\n\n```mermaid\n'+diagram+'```\n')
-        build(self.root)
-        out=self.root/'dist'
-        page=ET.HTML((out/'docs/diagram-example.html').read_text())
-        self.assertEqual(page.xpath('//pre/code[@class="language-mermaid"]/text()'),[diagram])
-        self.assertTrue(page.xpath('//script[@type="module"][starts-with(@src,"../assets/adm-mermaid.js")]'))
-        self.assertEqual((out/'docs/diagram-example.md').read_text(),guide.read_text())
-        vendor=out/'assets/vendor/mermaid-12.2.0'
-        self.assertEqual((vendor/'mermaid.esm.min.mjs').read_bytes(),(ROOT/'node_modules/mermaid/dist/mermaid.esm.min.mjs').read_bytes())
-        self.assertTrue((vendor/'LICENSE').is_file())
-        self.assertFalse(list(vendor.rglob('*.map')))
-        # Every static or lazy relative module import must survive packaging.
-        for module in vendor.rglob('*.mjs'):
-            for path in re.findall(r'["\'](\.{1,2}/[^"\']+\.mjs)["\']',module.read_text()):
-                self.assertTrue((module.parent/path).is_file(),str(module)+': '+path)
-
-    def test_review_tools_are_local_and_use_stable_page_keys(self):
-        docs,_,_=build(self.root)
-        out=self.root/'dist'
-        for doc in docs:
-            page=ET.HTML((out/doc['path']).read_text())
-            script=page.xpath('//script[@data-project="agent-diagnostic-manual"]')[0]
-            self.assertEqual(script.get('data-page'),doc['meta']['id'])
-            self.assertIn('annotate-1.5.3.js',script.get('src'))
-            self.assertFalse(script.get('src').startswith('https:'))
-            self.assertIsNone(script.get('data-api'))
-            self.assertIsNone(script.get('data-post-url'))
-            controls=page.xpath('//template[@id="adm-review-controls"]')[0]
-            self.assertTrue(controls.xpath('.//button[@id="adm-review-export"][@aria-label="Export all comments"]'))
-            self.assertTrue(controls.xpath('.//button[@id="adm-review-clear"][@aria-label="Clear all comments"]'))
-            self.assertTrue(controls.xpath('.//button[@id="adm-review-undo"][@hidden]'))
-            self.assertFalse(page.xpath('//main//button[starts-with(@id,"adm-review-")]'))
-        home=ET.HTML((out/'index.html').read_text())
-        self.assertEqual(home.xpath('//script[@data-project]/@data-page'),['index.md'])
-        guide=ET.HTML((out/'docs/authoring-diagnosis.html').read_text())
-        self.assertEqual(guide.xpath('//script[@data-project]/@data-page'),['docs/authoring-diagnosis.md'])
-        self.assertEqual((out/'assets/vendor/annotate-1.5.3.js').read_bytes(),(ROOT/'node_modules/@reviewjs/annotate/annotate.js').read_bytes())
-        self.assertTrue((out/'assets/vendor/annotate-LICENSE.txt').is_file())
-
-if __name__=='__main__':unittest.main()
+        <xs:element name="what-to-record" type="a:section"/>
+        <xs:element name="examples" type="a:examples"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="a:entry"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="diagnosis">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="a:metadata"/>
+        <xs:element name="definition" type="a:section"/>
+        <xs:element name="potential-long-term-effects" type="a:section" minOccurs="0"/>
+        <xs:element name="relations" type="a:relations"/>
+        <xs:element name="criteria" type="a:criteria"/>
+        <xs:element name="exclusions" type="a:exclusions"/>
+        <xs:element name="differential" type="a:differential"/>
+        <xs:element name="investigation" type="a:section"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="a:entry"/>
+      <xs:attribute name="unit" use="required" fixed="configured-agent-system"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="intervention">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="a:metadata"/>
+        <xs:element name="purpose" type="a:section"/>
+        <xs:element name="preconditions" type="a:preconditions"/>
+        <xs:element name="procedure" type="a:procedure"/>
+        <xs:element name="harness-notes" type="a:harness-notes" minOccurs="0"/>
+        <xs:element name="evaluation" type="a:section"/>
+        <xs:element name="risks-and-confounders" type="a:section"/>
+        <xs:element name="stop-and-rollback" type="a:section"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="a:entry"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="local-id">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z][a-z0-9]*(-[a-z][a-z0-9]*){0,2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="observations">
+    <xs:sequence>
+      <xs:element name="observation" type="a:item" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="lookalikes">
+    <xs:sequence>
+      <xs:element name="lookalike" type="a:item" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="examples">
+    <xs:sequence>
+      <xs:element name="example" type="a:example" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="example">
+    <xs:complexContent>
+      <xs:extension base="a:item">
+        <xs:attribute name="kind" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="synthetic"/>
+              <xs:enumeration value="observed"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
